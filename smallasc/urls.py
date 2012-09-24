@@ -6,13 +6,11 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'smallasc.views.home', name='home'),
-    # url(r'^smallasc/', include('smallasc.foo.urls')),
+    url (r'^reports/', include ('reports.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
-    url(r'^admin/', include(admin.site.urls)),
+    url (r'^admin/', include(admin.site.urls)),
 )
