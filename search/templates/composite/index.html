@@ -1,9 +1,15 @@
-{% if sites %}
-    <ul>
-    {% for site in sites %}
-        <li>{{ site }}</li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No sites are available.</p>
+{% if error_message %}
+	<p>
+		<strong>
+			{{ error_message }}
+		</strong>
+	</p>
 {% endif %}
+
+<form action="/search/results" method="GET">
+    {% for site in sites %}
+        <input type="checkbox" name="site" id="site{{ forloop.counter }}" value="{{ site.id }}" />
+        <label for="site{{ forloop.counter }}">{{ site }}</label><br />
+    {% endfor %}
+    <input type="submit" value="Search" />
+</form>
