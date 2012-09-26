@@ -122,6 +122,7 @@ INSTALLED_APPS = (
 
     # Smallasc applications listed
     'reports',
+    'search',
 )
 
 # A sample logging configuration. The only tangible logging
