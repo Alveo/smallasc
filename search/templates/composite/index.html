@@ -6,10 +6,7 @@
 
 {% block content %}
 	<form action="/search/results" method="GET">
-	    {% for site in sites %}
-	        <input type="checkbox" name="site" id="site{{ forloop.counter }}" value="{{ site.id }}" />
-	        <label for="site{{ forloop.counter }}">{{ site }}</label><br />
-	    {% endfor %}
+	    {{ form.as_p }}
 	    <input type="submit" value="Search" />
 	</form>
 {% endblock %}

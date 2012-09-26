@@ -1,5 +1,13 @@
-<ul>
-{% for site in sites %}
-    <li>{{ site }}</li>
-{% endfor %}
-</ul>
+{% extends "layout/2columnlayout.html" %}
+
+{% block title %}
+	Austalk Meta Search | Home
+{% endblock %}
+
+{% block content %}
+	<ul>
+		{% for site in results %}
+	    	<li>{{ site }}</li>
+		{% endfor %}
+	</ul>
+{% endblock %}
