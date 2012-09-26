@@ -1,15 +1,15 @@
-{% if error_message %}
-	<p>
-		<strong>
-			{{ error_message }}
-		</strong>
-	</p>
-{% endif %}
+{% extends "layout/2columnlayout.html" %}
 
-<form action="/search/results" method="GET">
-    {% for site in sites %}
-        <input type="checkbox" name="site" id="site{{ forloop.counter }}" value="{{ site.id }}" />
-        <label for="site{{ forloop.counter }}">{{ site }}</label><br />
-    {% endfor %}
-    <input type="submit" value="Search" />
-</form>
+{% block title %}
+	Austalk Meta Search | Home
+{% endblock %}
+
+{% block content %}
+	<form action="/search/results" method="GET">
+	    {% for site in sites %}
+	        <input type="checkbox" name="site" id="site{{ forloop.counter }}" value="{{ site.id }}" />
+	        <label for="site{{ forloop.counter }}">{{ site }}</label><br />
+	    {% endfor %}
+	    <input type="submit" value="Search" />
+	</form>
+{% endblock %}

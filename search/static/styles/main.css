@@ -1,0 +1,414 @@
+*-------------------------------------------------
+PAGE BODY
+-------------------------------------------------*/
+body {
+  font-size: 62.5%;
+}
+
+body {
+  margin: 0 auto;
+  padding: 0;
+  font-family: "Lucida Grande", verdana, "Lucida Sans Unicode", Lucida, Arial, helvetica, sans-serif;
+  color: #222;
+  background-color: #e5e5e5;
+  text-align: center;
+}
+
+body {
+  background: #E5E5E5;
+}
+
+/* Make sure the table cells show the right font */
+td { font-family: "Lucida Grande", verdana, "Lucida Sans Unicode", Lucida, Arial, helvetica, sans-serif; }
+
+/*-------------------------------------------------
+TABS
+-------------------------------------------------*/
+
+#Tabs {
+  background: #C5E2E9;
+  margin: 0;
+  height: 25px;
+  padding: 0 30px;
+}
+
+#Tabs ul {
+  margin: 0; padding: 0;
+}
+
+#Tabs li {
+  margin: 0; padding: 0;
+  display: inline;
+  list-style: none;
+  border: none;
+}
+
+#Tabs ul#MainTabs {
+}
+
+div#Tabs a:link,
+div#Tabs a:visited {
+  text-decoration: none;
+}
+
+#Tabs a:hover {
+  color: #fff;
+  background: #333;
+}
+
+#Tabs ul#MainTabs a:link, #Tabs ul#MainTabs a:visited {
+    float: left; /* for IE6 */
+  font-size: 12px;
+  font-weight: normal;
+  padding: 4px 8px 6px 8px;
+  margin: 0;
+}
+
+#Tabs ul#MainTabs a:link.current, #Tabs ul#MainTabs a:visited.current {
+  background: #e5e5e5 url(/site_media/images/tab-bg.gif) top repeat-x;
+  border: 1px solid #e5e5e5;
+  color: #222;
+  font-weight: bold;
+  text-decoration: none;
+    margin: 0;
+}
+
+
+div#print_button {
+  float: right;
+  width: 50px;
+  padding-top: 3px;
+  height: 1%;
+}
+
+div#print_button img {
+  width: 25px;
+  height: 17px;
+}
+
+body.unprintable div#print_button {
+  display: none;
+}
+
+body.unprintable #Tabs {
+  margin-right: 25px;
+}
+
+
+/*-------------------------------------------------
+HEADER
+-------------------------------------------------*/
+
+#Header {
+  background: #C5E2E9;
+  padding: 1px 0 0 0;
+  margin: 0;
+  text-align: left;
+    position: relative;
+} 
+
+#Header h1 /* client name */ {
+  padding: 0 0 10px 0;
+  margin: 0 0 0 30px;
+  font-size: 24px;
+  font-weight: normal;
+  color: #000;
+  text-align: left;
+}
+
+#Header.global h1 {
+  margin-top: 7px;
+}
+
+#Header h1 span /* project name */ {
+  font-size: 16px;
+  font-weight: normal;
+  color: #fff;
+  border: none;
+  font-family: "Lucida Grande", "Lucida Sans Unicode", Lucida, Arial, helvetica, sans-serif;
+  } 
+
+#Header h3 {
+  padding: 7px 20px 7px 25px;
+  margin: 0;
+  font-size: 12px;
+  font-weight: normal;
+  text-align: left;
+}
+
+#Header h3 a {
+  padding: 7px;
+}
+
+#Header.global h3 {
+  position: relative;
+  float: right;
+  text-align: right;
+  width: 300px;
+}
+
+#Header h3 span#floatright {
+  text-align: right;
+  width: 300px;
+  position: relative;
+  float: right;
+}
+
+#Header h3 span#floatright,
+#Header.global h3 {
+  font-family: verdana;
+  font-size: 10px;
+}
+
+#Header h3 span#floatright a,
+#Header.global h3 a {
+  padding: 7px 4px;
+}
+
+#Header h3 span.pipe {
+  opacity: 0.6;
+  filter: alpha(opacity=60);
+}
+
+#Header h3 a.current {
+  font-weight: bold;
+  text-decoration: none;
+}
+
+#Header h3 a.free_pitch {
+  font-size: 10px;
+  text-decoration: none !important;
+}
+
+#Header h3 a.free_pitch span {
+  font-size: 12px;
+  text-decoration: underline;
+}
+
+#Header h3 a.free_pitch:hover span {
+  text-decoration: none;
+}
+
+#fresh_all h2 {
+  padding: 0 0 2px 0;
+  margin: 0;
+  border-bottom: 1px dotted #ccc;
+}
+
+#Header a:hover.image {
+  background-color: none;
+  background-color: transparent;
+}
+
+/*-------------------------------------------------
+FOOTER
+-------------------------------------------------*/
+
+.footer {
+  clear: left;
+  font-size: 9px;
+  color: #999;
+  margin: 3px 0 20px 10px;
+  text-align: left;
+  padding-bottom: 15px;
+}
+
+.footer a.image:hover {
+  background: none;
+}
+
+.footer div {
+  margin-left: 120px;
+}
+
+.footer div p {
+  font-size: 9px;
+  line-height: 15px;
+  margin: 0;
+}
+
+.footer div span {
+  color: #bbb;
+}
+
+.footer a:link, .footer a:visited {
+  color: #999;
+}
+
+.footer a:hover {
+  color: #fff;
+  background: #666;
+}
+
+/*-------------------------------------------------
+STRUCTURE
+-------------------------------------------------*/
+
+div#Wrapper {
+  padding: 12px 23px 0 30px;
+  margin: 0 auto;
+}
+
+.container {
+  margin: 0 auto 0 auto;
+  text-align: center;
+  min-width: 750px;
+  }
+
+.ClearAll {
+  padding: 0px;
+  clear: both;
+  font-size: 0px;
+  }
+
+#ContentFrame, #DashContentFrame, .ContentFrame {
+  margin: 0;
+  padding: 0px 0;
+  width: 100%;
+  text-align: left;
+  /*position: relative;*/
+  float: left;
+}
+
+table.layout {
+  clear: left;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+table.layout td.left,
+table.layout td.right {
+  vertical-align: top;
+  padding: 0;
+}
+
+table.layout td.left {
+  width: 70%;
+}
+
+table.layout td.right {
+  width: 30%;
+}
+
+div.Left {
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  width: 80%;
+  float: left;
+  }
+
+div.Right {
+  margin: 0px 0 0 0;
+  padding: 0;
+  text-align: left;
+  /*position: absolute;*/
+  float: left;
+  width: 20%;
+  }
+
+table.layout td.left div.Left,
+table.layout td.right div.Right {
+  width: auto;
+  float: none;
+}
+
+/*-------------------------------------------------
+NEW FOR PROPORTIONAL WIDTH VERSION 
+-------------------------------------------------*/
+
+.col {
+  padding: 0 20px;
+  text-align: left;
+}
+
+.Left .col,
+.Full .col {
+  padding: 0 0 0 0;
+  background: #fff url(/site_media/images/right-bg.gif) right repeat-y;
+  position: relative;
+}
+
+.Left .innercol,
+.Full .innercol {
+  padding: 15px 60px 20px 23px;
+}
+
+div.Left div.bottom,
+div.Full div.bottom {
+  background: url(/site_media/images/bottom-bg.gif) top right no-repeat;
+  font-size: 8px;
+}
+
+div.Right .col {
+  min-width: 200px;
+  padding: 0 0 0 9px;
+}
+
+/*-------------------------------------------------
+PAGE HEADER
+-------------------------------------------------*/
+
+div.page_header {
+  background: #edf3fe;
+  margin: 0 0 5px 0;
+  padding: 13px 30px 13px 24px;
+}
+
+div.page_header h1 {
+  padding: 0;
+  margin: 0;
+  font-size: 14px;
+  color: #000;
+}
+
+div.page_header h1 span {
+  font-size: 12px;
+  color: #666;
+  font-weight: normal;
+}
+
+div.sheet div.page_header h1 {
+  font-size: 20px;
+}
+
+div.page_header p {
+  margin: 5px 0 0 0;
+}
+
+/*-------------------------------------------------
+PAGE HEADER LINKS
+-------------------------------------------------*/
+
+div.page_header_links {
+  float: right;
+  width: 200px;
+  font-size: 11px;
+  margin-top: 0;
+  text-align: right;
+  color: #ccc;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+div.page_header_links strong {
+  color: #000;
+}
+
+div.page_header_links a.active:link,
+div.page_header_links a.active:visited,
+div.page_header_links a.active:hover {
+  background: #999;
+  color: #000;
+  text-decoration: none;
+  font-weight: normal;
+}
+
+div.page_header_links a.edit {
+  text-decoration: none;
+  color: #777;
+}
+
+div.page_header_links a.edit:hover {
+  color: #fff;
+}
