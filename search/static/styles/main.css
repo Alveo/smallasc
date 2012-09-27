@@ -424,3 +424,32 @@ BASIC FORMS
 .basic_form ul {
   list-style: none;
 }
+
+/*-------------------------------------------------
+FIELDSET
+-------------------------------------------------*/
+
+fieldset {
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #999;
+}
+
+fieldset p {
+  font-size: 11px;
+  margin: 0 0 5px 0;
+  padding: 0;
+  color: #666;
+}
+
+fieldset legend {
+  font-size: 12px;
+  font-weight: bold;
+  color: #874c00;
+}
+
+fieldset legend span {
+  color: #666;
+  font-weight: normal;
+  font-size: 80%;
+}

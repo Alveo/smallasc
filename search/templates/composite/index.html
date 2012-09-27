@@ -9,8 +9,11 @@
 {% endblock %}
 
 {% block content %}
-	<form action="/search/results" method="GET" class="basic_form">
-	    {{ form.as_p }}
-	    <input type="submit" value="Search" />
-	</form>
+    <fieldset>
+        <legend>Recording Session Selection</legend>
+	   <form action="/search/results" method="GET" class="basic_form">
+	        {{ form.as_p }}
+	       <input type="submit" value="Search" />
+	   </form>
+    </fieldset>
 {% endblock %}
