@@ -4,8 +4,12 @@
 	Austalk Meta Search | Home
 {% endblock %}
 
+{% block subtitle %}
+	Composite Search
+{% endblock %}
+
 {% block content %}
-	<form action="/search/results" method="GET">
+	<form action="/search/results" method="GET" class="basic_form">
 	    {{ form.as_p }}
 	    <input type="submit" value="Search" />
 	</form>

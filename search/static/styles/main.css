@@ -57,7 +57,7 @@ div#Tabs a:visited {
 }
 
 #Tabs ul#MainTabs a:link, #Tabs ul#MainTabs a:visited {
-    float: left; /* for IE6 */
+  float: left;
   font-size: 12px;
   font-weight: normal;
   padding: 4px 8px 6px 8px;
@@ -411,4 +411,16 @@ div.page_header_links a.edit {
 
 div.page_header_links a.edit:hover {
   color: #fff;
+}
+
+/*-------------------------------------------------
+BASIC FORMS
+-------------------------------------------------*/
+
+.basic_form {
+  font-size: 11px;
+}
+
+.basic_form ul {
+  list-style: none;
 }
