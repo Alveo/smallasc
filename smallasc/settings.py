@@ -107,7 +107,7 @@ WSGI_APPLICATION = 'smallasc.wsgi.application'
 
 TEMPLATE_DIRS = (
     # TODO: This needs to change to an absolute path prior to deployment
-    "./templates"
+    # "./templates"
 )
 
 INSTALLED_APPS = (

@@ -7,10 +7,12 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
 
-	# Wire up each of the web applications
+	# The following urls are not handled as actual applications
+	# Instead each url maps to a function which handles the request
 	url (r'^$', 'baseapp.views.dashboard.index'),
     url (r'^login/$', 'django.contrib.auth.views.login'),
     url (r'^logout/$', 'baseapp.views.security.logout_page'),
+    url (r'^register/$', 'baseapp.views.registration.register_page'),
 
     # Routing handled by available apps
 	url (r'^search/', include ('search.urls')),

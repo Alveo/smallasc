@@ -3,4 +3,4 @@ from django.template import RequestContext
 
 def index (request):
 	""" Render the dashboard """
-	return render (request, 'index.html', { 'user': request.user})
+	return render_to_response ('index.html', RequestContext (request))

@@ -1,10 +1,10 @@
 <div class="bottom">&nbsp;</div>
 	<div class="footer">
-		 Ver: 0.1
-		 {% if user.username %}
-		 	<p>Logged in as {{ user.name }}</p>
+		 Ver: 0.1:&nbsp;
+		 {% if user.is_authenticated %}
+		 	Logged in as {{ user.username }}
 		 {% else %}
-		 	<p>Logged in as an anonymous user</p>
+		 	Logged in as an anonymous user
 		 {% endif %}		
 	</div>
 </div>

@@ -1,5 +1,7 @@
 {% extends "login_base.html" %}
+
 {% block title %}User Login{% endblock %} 
+
 {% block content %}
 
 		<h1>Bigasc Meta Search</h1>
@@ -31,6 +33,15 @@
 			<input type="hidden" name="next" value="/"/>
 			<input class="button" type="submit" value="Sign in"/>
 			
+			<div class="extras">
+		        <ul>
+        			<li>
+        				<strong>Help: </strong>
+        				<a href="/register/" alt="register"/>Click here to register</a>.
+        			</li>
+        		</ul>
+      		</div>
+
 		</form>
 	
 {% endblock %}
