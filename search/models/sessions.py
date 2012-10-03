@@ -37,4 +37,4 @@ class Sessions (models.Model):
 
 
     class Meta:
-        app_label= 'sessions'
+        app_label = 'sessions'

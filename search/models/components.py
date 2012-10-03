@@ -32,7 +32,7 @@ class Components (models.Model):
         for result in sparql_results["results"]["bindings"]:
             results.append (Components (
                                 id = result["id"]["value"], 
-                                name = result["name"]["value"]
+                                name = result["name"]["value"],
                                 sessionId = result["sessId"]["value"]))
 
         return results

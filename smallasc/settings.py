@@ -156,3 +156,6 @@ LOGGING = {
         },
     }
 }
+
+# Custom setting for the login url
+LOGIN_URL = "/login/"
