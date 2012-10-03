@@ -1,6 +1,7 @@
 from django.utils import unittest
 from search.models.sites import Sites
 from search.models.sessions import Sessions
+from search.models.components import Components
 from search.models.sparql_local_wrapper import SparqlLocalWrapper
 
 # Import SPARQL modules and related information
@@ -38,4 +39,9 @@ class SiteTests (unittest.TestCase):
 		results = Sessions.all (SparqlLocalWrapper.create_sparql ())
 		self.assertEqual (4, len (results))
 		self.assertEqual ('Session 1', str (results[0]))
+
+	def test_retrievecomponentsinsessions1and2 (self):
+		results = Components.all (SparqlLocalWrapper.create_sparql ())
+		self.assertEqual (13, len (results))
+		self.assertEqual ('Calibration', str (results[0]))
 
