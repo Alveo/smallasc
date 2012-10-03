@@ -11,8 +11,13 @@
 
 {% block content %}
 	<ul>
-		{% for site in results %}
+		{% for site in sites %}
 	    	<li>{{ site }}</li>
 		{% endfor %}
 	</ul>
+    <ul>
+        {% for session in sessions %}
+            <li>{{ session }}</li>
+        {% endfor %}
+    </ul>
 {% endblock %}

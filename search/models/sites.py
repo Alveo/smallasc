@@ -40,4 +40,4 @@ class Sites (models.Model):
 
 
     class Meta:
-        app_label= 'search'
+        app_label= 'sites'
