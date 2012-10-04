@@ -14,7 +14,9 @@ urlpatterns = patterns('',
     url (r'^logout/$', 'baseapp.views.security.logout_page'),
     url (r'^register/$', 'baseapp.views.registration.register_page'),
 
-    # Routing handled by available apps
+    # The search module at present handles both browse and
+    # search, perhaps the module should be renamed?
+    url (r'^browse/', include ('search.urls')),
 	url (r'^search/', include ('search.urls')),
 
     # Uncomment the next line to enable the admin:
