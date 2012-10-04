@@ -498,7 +498,7 @@ table.overview td.what span {
   display: block;
   float: right;
   white-space: nowrap;
-  width: 60px;
+  width: 100px;
 }
 
 table.overview td.item {
