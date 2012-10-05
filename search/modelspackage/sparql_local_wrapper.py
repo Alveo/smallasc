@@ -2,7 +2,7 @@
 from search.settings import *
 from SPARQLWrapper import SPARQLWrapper, JSON
 
-class SparqlLocalWrapper():
+class SparqlLocalWrapper ():
 
     @staticmethod
     def canonicalise_query (query):

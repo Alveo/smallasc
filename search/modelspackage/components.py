@@ -1,8 +1,8 @@
 from django.db import models
-from search.models.sparql_local_wrapper import SparqlLocalWrapper
+from search.modelspackage.sparql_local_wrapper import SparqlLocalWrapper
 
 
-class Components (models.Model):
+class Component (models.Model):
     """ A component is a logical representation of a component which belongs
     to a session."""
 
@@ -30,7 +30,7 @@ class Components (models.Model):
         results = []
 
         for result in sparql_results["results"]["bindings"]:
-            results.append (Components (
+            results.append (Component (
                                 id = result["id"]["value"], 
                                 name = result["name"]["value"],
                                 sessionId = result["sessId"]["value"]))
@@ -44,4 +44,4 @@ class Components (models.Model):
 
 
     class Meta:
-        app_label= 'components'
+        app_label= 'search'

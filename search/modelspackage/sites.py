@@ -1,12 +1,13 @@
 from django.db import models
-from search.models.sparql_local_wrapper import SparqlLocalWrapper
+from search.modelspackage.sparql_local_wrapper import SparqlLocalWrapper
 
-class Sites (models.Model):
+
+class Site (models.Model):
     """ A site is a logical representation of the physical location at which
     recording take place."""
 
     # Field definitions
-    identifier          = models.TextField ()
+    identifier          = models.URLField ()
     label               = models.CharField (max_length = 50)
     name                = models.CharField (max_length = 200)
     location            = models.CharField (max_length = 50)
@@ -34,7 +35,7 @@ class Sites (models.Model):
         results = []
 
         for result in sparql_results["results"]["bindings"]:
-            results.append (Sites (
+            results.append (Site (
                                 identifier        = result["site"]["value"],
                                 label             = result["label"]["value"],
                                 name              = result["inst"]["value"],
@@ -61,7 +62,7 @@ class Sites (models.Model):
         results = []
 
         for result in sparql_results["results"]["bindings"]:
-            return Sites (
+            return Site (
                         identifier        = result["site"]["value"], 
                         name              = result["inst"]["value"],
                         location          = result["city"]["value"])
@@ -75,4 +76,4 @@ class Sites (models.Model):
 
 
     class Meta:
-        app_label= 'sites'
+        app_label= 'search'

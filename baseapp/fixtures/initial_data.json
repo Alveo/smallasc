@@ -1,0 +1,30 @@
+[
+  {
+    "model": "models.colours.Colours",
+    "pk": 1,
+    "fields": {
+      "name": "Gold"
+    }
+  },
+  {
+    "model": "baseapp.colours.Colours",
+    "pk": 2,
+    "fields": {
+      "name": "Green"
+    }
+  },
+  {
+    "model": "baseapp.colours.Colours",
+    "pk": 3,
+    "fields": {
+      "name": "Red"
+    }
+  },
+  {
+    "model": "baseapp.colours.Colours",
+    "pk": 4,
+    "fields": {
+      "name": "Blue"
+    }
+  }
+]

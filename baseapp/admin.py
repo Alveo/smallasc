@@ -1,5 +1,6 @@
 from django.contrib import admin
-#from reports.models import Poll, Choice
+from baseapp.models import Animal, Colour
 
-#admin.site.register(Poll)
-#admin.site.register(Choice)
+# Register the sites we would like to appear in the administration application
+admin.site.register (Animal)
+admin.site.register (Colour)

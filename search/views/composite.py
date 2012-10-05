@@ -5,12 +5,14 @@ from django.template import RequestContext
 # Models in use
 from search.forms.composite_search import CompositeSearchForm
 
+
 @login_required
 def index (request):
 	""" The composite search view returns pretty much all the standard fieldsets in a simplified
 	view. This view is meant for normal users, not power users. """
 	form = CompositeSearchForm ()
 	return render (request, 'composite/index.html', {'form': form})
+
 
 @login_required
 def search (request):

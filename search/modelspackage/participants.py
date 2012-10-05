@@ -1,12 +1,12 @@
 from django.db import models
-from search.models.sparql_local_wrapper import SparqlLocalWrapper
+from search.modelspackage.sparql_local_wrapper import SparqlLocalWrapper
 
 
-class Participants (models.Model):
+class Participant (models.Model):
     """ A participant for a recording session."""
 
     # Field definitions
-    identifier        = models.TextField ()
+    identifier        = models.URLField ()
     gender            = models.CharField (max_length = 50)
     birth_year        = models.IntegerField ()
 
@@ -29,7 +29,7 @@ class Participants (models.Model):
         results = []
 
         for result in sparql_results["results"]["bindings"]:
-            results.append (Participants (
+            results.append (Participant (
                                 identifier          = result["part"]["value"], 
                                 gender              = result["gender"]["value"],
                                 birth_year          = result["dob"]["value"]))
@@ -44,4 +44,4 @@ class Participants (models.Model):
 
 
     class Meta:
-        app_label= 'participants'
+        app_label= 'search'
