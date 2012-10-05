@@ -2,7 +2,9 @@ from django import forms
 from django.forms.widgets import CheckboxSelectMultiple
 
 # Models in use
-from search.models import Site, Session, SparqlLocalWrapper
+from search.modelspackage.sites import Site
+from search.modelspackage.sessions import Session
+from search.modelspackage.sparql_local_wrapper import SparqlLocalWrapper
 
 
 class CompositeSearchForm (forms.Form):
@@ -16,7 +18,7 @@ class CompositeSearchForm (forms.Form):
                                             choices = site_choices)
 
     # Construct the sessions choice list in the form
-    sessions = Sessions.all (SparqlLocalWrapper.create_sparql ())
+    sessions = Session.all (SparqlLocalWrapper.create_sparql ())
     session_choices = [(session.id, session.name) for session in sessions]
     sessions_field = forms.MultipleChoiceField(widget=CheckboxSelectMultiple (),
                                                 label = 'Sessions',

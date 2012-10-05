@@ -1,27 +1,27 @@
 [
   {
-    "model": "models.colours.Colours",
+    "model": "models.Colour",
     "pk": 1,
     "fields": {
       "name": "Gold"
     }
   },
   {
-    "model": "baseapp.colours.Colours",
+    "model": "baseapp.colours.Colour",
     "pk": 2,
     "fields": {
       "name": "Green"
     }
   },
   {
-    "model": "baseapp.colours.Colours",
+    "model": "baseapp.colours.Colour",
     "pk": 3,
     "fields": {
       "name": "Red"
     }
   },
   {
-    "model": "baseapp.colours.Colours",
+    "model": "baseapp.colours.Colour",
     "pk": 4,
     "fields": {
       "name": "Blue"
