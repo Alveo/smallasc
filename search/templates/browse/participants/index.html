@@ -1,0 +1,43 @@
+{% extends "layout/2columnlayout.html" %}
+
+<!-- Note the convention of the title, Austalk | View > Object -->
+{% block title %}
+    Austalk | Browse > Participants
+{% endblock %}
+
+{% block subtitle %}
+    {{ site.name }} Participants
+    <div class="page_header_links">
+        <a href="/browse/sites/">&lt;&lt;&nbsp;sites</a>    
+    </div>
+{% endblock %}
+
+{% block menubar %}
+    <li><a href="/" title="Your dashboard">Dashboard</a></li>
+    <li><a href="/browse/sites" class="current" title="Browse">Browse</a></li> 
+    <li><a href="/search" title="Search">Search</a></li>  
+{% endblock %}
+
+{% block content %}
+    <table class="overview">
+        {% for part in participants %}
+            <tr class="date">
+                <td colspan="4">
+                    <h2 class="date">
+                        <span>
+                            <a href="/browse/sites/{{ part.identifier }}/participants/{{ part.identifier }}">
+                                {{ part.identifier }}
+                            </a>
+                        </span>
+                    </h2>
+                </td>
+            </tr>
+            <tr class="event">
+                <td class="what"><span class="post">Details</span></td>
+                <td class="item">Gender: {{ part.gender }}; Birth Year: {{ part.birth_year }}</td>
+                <td class="action">Url: {{ part.identifier }}</td>
+                <td class="name"></td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

@@ -5,5 +5,6 @@ from django.views.generic import DetailView, ListView
 urlpatterns = patterns('search.views',
     url (r'^$', 'composite.index'),
     url (r'^sites/$', 'sites.index'),
+    url (r'^sites/(\w+)/participants/$', 'participants.index'),
     url (r'^results/$', 'composite.search')
 )

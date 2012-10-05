@@ -1,8 +1,11 @@
 from django.db import models
+from search.models.sparql_local_wrapper import SparqlLocalWrapper
+
 
 class Components (models.Model):
     """ A component is a logical representation of a component which belongs
     to a session."""
+
     # Note that id is not specified as this is a Django model
     name = models.CharField (max_length = 50)
     sessionId = models.IntegerField ()
@@ -10,10 +13,7 @@ class Components (models.Model):
     @staticmethod
     def all (sparql):
         """ Returns all the session names """
-        sparql.setQuery ("""
-            PREFIX dc: <http://purl.org/dc/terms/>
-            PREFIX austalk:<http://ns.austalk.edu.au/>
-            PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+        sparql.setQuery (SparqlLocalWrapper.canonicalise_query ("""
             select distinct ?id ?name ?sessId
             where {
                 ?comp rdf:type austalk:Component .
@@ -24,7 +24,7 @@ class Components (models.Model):
                 ?session austalk:id ?sessId .
                 FILTER (?sessId in (1, 2)) .
             }
-            ORDER BY ?name""")
+            ORDER BY ?name"""))
 
         sparql_results = sparql.query ().convert ()
         results = []
