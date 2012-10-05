@@ -2,7 +2,9 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, render_to_response
 
 # Local types
-from search.models import Site, Participant, SparqlLocalWrapper
+from search.modelspackage.sites import Site
+from search.modelspackage.participants import Participant
+from search.modelspackage.sparql_local_wrapper import SparqlLocalWrapper
 
 
 @login_required
