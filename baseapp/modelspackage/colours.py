@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Colour (models.Model):
     """ Each participant is de-identified using a colour and animal, this class represents
     the colour. """

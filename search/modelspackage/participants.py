@@ -1,4 +1,10 @@
+import re
 from django.db import models
+from urlparse import urlparse
+
+# Models in use
+from baseapp.modelspackage.colours import Colour
+from baseapp.modelspackage.animals import Animal
 from search.modelspackage.sparql_local_wrapper import SparqlLocalWrapper
 
 
@@ -39,8 +45,12 @@ class Participant (models.Model):
 
     def __unicode__ (self):
         """ Simple name representation for sites """
-        # TODO: Need to convert this to animal/colour
-        return identifier
+        
+        url_scheme = urlparse (self.identifier)
+        (colour_id, animal_id) = re.findall ('\d+', url_scheme.path)
+        colour = Colour.objects.get (id = colour_id)
+        animal = Animal.objects.get (id = animal_id)
+        return '%s - %s (%s_%s)' % (colour.name, animal.name, colour_id, animal_id)
 
 
     class Meta:
