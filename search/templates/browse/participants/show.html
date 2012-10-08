@@ -1,0 +1,100 @@
+{% extends "layout/2columnlayout.html" %}
+
+<!-- Note the convention of the title, Austalk | View > Object -->
+{% block title %}
+    Austalk | Browse > Participants
+{% endblock %}
+
+{% block subtitle %}
+    Participant {{ participant }}
+    <div class="page_header_links">
+        <a href="/browse/sites/">&lt;&lt;&nbsp;sites</a> | 
+        <a href="/browse/sites/{{ site_id }}/participants/">&lt;&lt;&nbsp;participants</a> | ...
+    </div>
+{% endblock %}
+
+{% block menubar %}
+    <li><a href="/" title="Your dashboard">Dashboard</a></li>
+    <li><a href="/browse/sites" class="current" title="Browse">Browse</a></li> 
+    <li><a href="/search" title="Search">Search</a></li>  
+{% endblock %}
+
+{% block content %}
+    <h3>Data</h3>
+    <ul>
+         {% for session in sessions %}
+            <li>{{ session.name }}</li>
+         {% endfor %}
+    </ul>
+
+    <h3>Recording information</h3>
+    <p>Recording site: <a href="/browse/sites/{{ site_id }}/participants/">{{ site }}</a></p>
+
+    <h3>About</h3>
+    <p>Gender: {{ participant.gender }}</p>
+    <p>Year of birth: {{ participant.birth_year }}</p>
+    <p>Location of birth: <a href="{{ participant.birth_place }}">{{ participant.birth_place }}</a></p>
+
+    <h3>Education history</h3>
+    <ul>
+        {% for eh in education_history %}
+        <li>from age {{ eh.age_from }} to {{ eh.age_to }} studied at {{ eh.name }}</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Professional history</h3>
+    <ul>
+        {% for ph in professional_history %}
+        <li>
+            from age {{ ph.age_from }} to {{ ph.age_to }}  worked as a {{ ph.name }}
+            {% if ph.less_than_a_year == true %}
+                for less than a year 
+            {% else %}
+                for more than year
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+
+    <h3>Cultural heritage</h3>
+    <p>Cultural heritage: {{ participant.cultural_heritage }}</p>
+    <p>Religion: {{ participant.religion }}</p>
+    <p>Hobbies: {{ participant.hobbies_details }}</p>
+
+    <h3>Language</h3>
+    <p>First language: {{ participant.first_language }}</p>
+    <p>Other languages spoken/understood: {{ participant.other_languages }}</p>
+
+    <h3>About parents</h3>
+
+    <!-- Mothers demographic details -->
+    <h4>About mother, or primary female caregiver</h4>
+    <p>Mother's cultural heritage: {{ participant.mother_cultural_heritage }}</p>
+    <p>Mother's place of birth: {{ participant.mother_pob_location }}</p>
+    <p>Mother's first language: {{ participant.mother_first_language }}</p>
+    <p>Mother's accent: {{ participant.mother_accent }}</p>
+    <p>Mother's occupation: {{ participant.mother_occupation }}</p>
+    <p>Mother's highest education level: {{ participant.mother_education_level }}</p>
+
+    <!-- Fathers demographic details -->
+    <h4>About father, or primary male caregiver</h4>
+    <p>Father's cultural heritage: {{ participant.father_cultural_heritage }}</p>
+    <p>Father's place of birth: {{ participant.father_pob_location }}</p>
+    <p>Father's first language: {{ participant.father_first_language }}</p>
+    <p>Father's accent: {{ participant.father_accent }}</p>
+    <p>Father's occupation: {{ participant.father_occupation }}</p>
+    <p>Father's highest education level: {{ participant.father_education_level }}</p>
+
+    <!-- Other tidbits about the participant -->
+    <h3>Other information</h3>
+    <p>Has had some reading problems: {{ participant.has_reading_problems }}</p>
+    <p>Has had vocal training: {{ participant.has_vocal_training }}</p>
+    <p>Has speech problems: {{ participant.has_speech_problems }}</p>
+    <p>Has hearing problems: {{ participant.has_hearing_problems }}</p>
+    <p>Is Right-handed: {{ participant.is_left_handed }}</p>
+    <p>Is a smoker: {{ participant.is_smoker }}</p>
+    <p>Wears dentures: {{ participant.has_dentures }}</p>
+    <p>Has facial piercings: {{ participant.has_piercings }}</p>
+    <p>Has health problems which might affect his/her voice: {{ participant.has_health_problems }}</p>
+
+{% endblock %}

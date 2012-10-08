@@ -66,3 +66,36 @@ class SiteTests (unittest.TestCase):
 		parts = Participant.all ((SparqlLocalWrapper.create_sparql ()), sites[0])
 		self.assertEqual (47, len (parts))
 
+
+	def test_retrievespecificparticipant (self):
+		part = Participant.get (SparqlLocalWrapper.create_sparql (), "1_978")
+		self.assertIsNotNone(part)
+		self.assertEqual ("female", part.gender)
+
+
+	def test_retrievesessionbyparticipant (self):
+		part = Participant.get (SparqlLocalWrapper.create_sparql (), "1_978")
+		sess = Session.filter_by_participant (SparqlLocalWrapper.create_sparql (), part)
+		self.assertIsNotNone (sess)
+		self.assertEqual (4, len (sess))
+
+
+	def test_retrieveeducationbyparticipant (self):
+		part = Participant.get (SparqlLocalWrapper.create_sparql (), "1_978")
+		eh = EducationHistory.filter_by_participant (SparqlLocalWrapper.create_sparql (), part)
+		self.assertIsNotNone (eh)
+		self.assertEqual (3, len (eh))
+
+
+	def test_retrieveeducationbyparticipant (self):
+		part = Participant.get (SparqlLocalWrapper.create_sparql (), "1_978")
+		ph = ProfessionalHistory.filter_by_participant (SparqlLocalWrapper.create_sparql (), part)
+		self.assertIsNotNone (ph)
+		self.assertEqual (1, len (ph))
+		self.assertEqual ("Teaching K-12", ph[0].name)
+
+
+	def test_checkmothersdetailspresent (self):
+		part = Participant.get (SparqlLocalWrapper.create_sparql (), "1_978")
+		self.assertIsNotNone (part)
+		self.assertEqual ("English", part.mother_first_language)

@@ -6,5 +6,6 @@ urlpatterns = patterns('search.views',
     url (r'^$', 'composite.index'),
     url (r'^sites/$', 'sites.index'),
     url (r'^sites/(\w+)/participants/$', 'participants.index'),
+    url (r'^sites/(\w+)/participants/(\w+)/$', 'participants.show'),
     url (r'^results/$', 'composite.search')
 )

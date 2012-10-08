@@ -31,6 +31,31 @@ class Session (models.Model):
         return results
 
 
+    @staticmethod
+    def filter_by_participant (sparql, participant):
+        """ Returns all the session names for a participant """
+        sparql.setQuery (SparqlLocalWrapper.canonicalise_query ("""
+            select ?id ?name
+            where {
+                ?part rdf:type foaf:Person .
+                ?session rdf:type austalk:Session .
+                ?session austalk:id ?id .
+                ?session austalk:name ?name
+                FILTER (?part = <%s>)
+            }
+            ORDER BY ?name""" % participant.identifier))
+
+        sparql_results = sparql.query ().convert ()
+        results = []
+
+        for result in sparql_results["results"]["bindings"]:
+            results.append (Session (
+                                id = result["id"]["value"], 
+                                name = result["name"]["value"]))
+
+        return results
+
+
     def __unicode__ (self):
         """ Simple name representation for a session """
         return self.name
