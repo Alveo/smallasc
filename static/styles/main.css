@@ -1,4 +1,4 @@
-*-------------------------------------------------
+/*-------------------------------------------------
 PAGE BODY
 -------------------------------------------------*/
 body {
@@ -65,12 +65,12 @@ div#Tabs a:visited {
 }
 
 #Tabs ul#MainTabs a:link.current, #Tabs ul#MainTabs a:visited.current {
-  background: #e5e5e5 url(/site_media/images/tab-bg.gif) top repeat-x;
+  background: #e5e5e5 url(/static/images/tab-bg.gif) top repeat-x;
   border: 1px solid #e5e5e5;
   color: #222;
   font-weight: bold;
   text-decoration: none;
-    margin: 0;
+  margin: 0;
 }
 
 
@@ -325,7 +325,7 @@ NEW FOR PROPORTIONAL WIDTH VERSION
 .Left .col,
 .Full .col {
   padding: 0 0 0 0;
-  background: #fff url(/site_media/images/right-bg.gif) right repeat-y;
+  background: #fff url(/static/images/right-bg.gif) right repeat-y;
   position: relative;
 }
 
@@ -336,7 +336,7 @@ NEW FOR PROPORTIONAL WIDTH VERSION
 
 div.Left div.bottom,
 div.Full div.bottom {
-  background: url(/site_media/images/bottom-bg.gif) top right no-repeat;
+  background: url(/static/images/bottom-bg.gif) top right no-repeat;
   font-size: 8px;
 }
 

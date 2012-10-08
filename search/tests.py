@@ -99,3 +99,9 @@ class SiteTests (unittest.TestCase):
 		part = Participant.get (SparqlLocalWrapper.create_sparql (), "1_978")
 		self.assertIsNotNone (part)
 		self.assertEqual ("English", part.mother_first_language)
+
+
+	def test_retrievesessioncomponents (self):
+		sessions = Session.all (SparqlLocalWrapper.create_sparql ())
+		components = Component.filter_by_session (SparqlLocalWrapper.create_sparql (), sessions[0])
+		self.assertEqual (7, len (components))

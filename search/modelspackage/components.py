@@ -7,8 +7,10 @@ class Component (models.Model):
     to a session."""
 
     # Note that id is not specified as this is a Django model
-    name = models.CharField (max_length = 50)
-    sessionId = models.IntegerField ()
+    identifier      = models.URLField ()
+    name            = models.TextField ()
+    short_name      = models.TextField ()
+    sessionId       = models.IntegerField ()
 
     @staticmethod
     def all (sparql):
@@ -34,6 +36,32 @@ class Component (models.Model):
                                 id = result["id"]["value"], 
                                 name = result["name"]["value"],
                                 sessionId = result["sessId"]["value"]))
+
+        return results
+
+
+    @staticmethod
+    def filter_by_session (sparql, session):
+        """ Method returns all the components filtered by the session. """
+        sparql.setQuery (SparqlLocalWrapper.canonicalise_query ("""
+            select ?component ?id ?name ?shortname
+            where {
+                ?component rdf:type austalk:Component .
+                ?component austalk:name ?name .
+                ?component austalk:shortname ?shortname .
+                ?component austalk:id ?id .
+                ?component dc:isPartOf <%s> .
+        }""" % session.identifier))
+
+        sparql_results = sparql.query ().convert ()
+        results = []
+
+        for result in sparql_results["results"]["bindings"]:
+            results.append (Component (
+                                identifier      = result["component"]["value"], 
+                                id              = result["id"]["value"], 
+                                name            = result["name"]["value"],
+                                short_name      = result["shortname"]["value"]))
 
         return results
 

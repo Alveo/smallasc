@@ -5,14 +5,17 @@ from search.modelspackage.sparql_local_wrapper import SparqlLocalWrapper
 class Session (models.Model):
     """ A session is a logical representation of the actual recording session
     which takes place at a particular location."""
+    
     # Note that id is not specified as this is a Django model
-    name = models.CharField (max_length = 50)
+    identifier      = models.URLField ()
+    name            = models.TextField ()
+
 
     @staticmethod
     def all (sparql):
         """ Returns all the session names """
         sparql.setQuery (SparqlLocalWrapper.canonicalise_query ("""
-            select distinct ?id ?name 
+            select distinct ?session ?id ?name 
             where {
                 ?session rdf:type austalk:Session .
                 ?session austalk:id ?id .
@@ -25,8 +28,9 @@ class Session (models.Model):
 
         for result in sparql_results["results"]["bindings"]:
             results.append (Session (
-                                id = result["id"]["value"], 
-                                name = result["name"]["value"]))
+                                identifier  = result["session"]["value"],
+                                id          = result["id"]["value"], 
+                                name        = result["name"]["value"]))
 
         return results
 
@@ -35,7 +39,7 @@ class Session (models.Model):
     def filter_by_participant (sparql, participant):
         """ Returns all the session names for a participant """
         sparql.setQuery (SparqlLocalWrapper.canonicalise_query ("""
-            select ?id ?name
+            select ?session ?id ?name
             where {
                 ?part rdf:type foaf:Person .
                 ?session rdf:type austalk:Session .
@@ -50,8 +54,9 @@ class Session (models.Model):
 
         for result in sparql_results["results"]["bindings"]:
             results.append (Session (
-                                id = result["id"]["value"], 
-                                name = result["name"]["value"]))
+                                identifier      = result["session"]["value"],
+                                id              = result["id"]["value"], 
+                                name            = result["name"]["value"]))
 
         return results
 

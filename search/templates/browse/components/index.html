@@ -1,0 +1,27 @@
+{% extends "layout/2columnlayout.html" %}
+
+<!-- Note the convention of the title, Austalk | View > Object -->
+{% block title %}
+    Austalk | Browse > Components
+{% endblock %}
+
+{% block subtitle %}
+    {{ session.name }} Components
+    <div class="page_header_links">
+        <a href="/browse/sites/">&lt;&lt;&nbsp;sites</a> | 
+        <a href="/browse/sites/{{ site_id }}/participants/">&lt;&lt;&nbsp;participants</a> |
+        <a href="/browse/sites/{{ site_id }}/participants/{{ participant_id }}">&lt;&lt;&nbsp;{{ participant }}</a> | ...  
+    </div>
+{% endblock %}
+
+{% block menubar %}
+    <li><a href="/" title="Your dashboard">Dashboard</a></li>
+    <li><a href="/browse/sites" class="current" title="Browse">Browse</a></li> 
+    <li><a href="/search" title="Search">Search</a></li>  
+{% endblock %}
+
+{% block content %}
+    <table class="overview">
+        
+    </table>
+{% endblock %}
