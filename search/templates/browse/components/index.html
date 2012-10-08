@@ -10,7 +10,7 @@
     <div class="page_header_links">
         <a href="/browse/sites/">&lt;&lt;&nbsp;sites</a> | 
         <a href="/browse/sites/{{ site_id }}/participants/">&lt;&lt;&nbsp;participants</a> |
-        <a href="/browse/sites/{{ site_id }}/participants/{{ participant_id }}">&lt;&lt;&nbsp;{{ participant }}</a> | ...  
+        <a href="/browse/sites/{{ site_id }}/participants/{{ participant_id }}">&lt;&lt;&nbsp;{{ participant_id }}</a> | ...  
     </div>
 {% endblock %}
 
@@ -22,6 +22,24 @@
 
 {% block content %}
     <table class="overview">
-        
+        {% for comp in components %}
+            <tr class="date">
+                <td colspan="4">
+                    <h2 class="date">
+                        <span>
+                            <a href="/browse/sites/{{ site_id }}/participants/{{ participant_id }}/sessions/{{ session_id }}/components/{{ comp.id }}/items/">
+                                {{ comp.short_name }}
+                            </a>
+                        </span>
+                    </h2>
+                </td>
+            </tr>
+            <tr class="event">
+                <td class="what"><span class="post">Details</span></td>
+                <td class="item">{{ comp.name }}</td>
+                <td class="action">ID: {{ comp.id }}</td>
+                <td class="name"></td>
+            </tr>
+        {% endfor %}
     </table>
 {% endblock %}

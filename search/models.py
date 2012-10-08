@@ -5,4 +5,6 @@ from search.modelspackage.sites import Site
 from search.modelspackage.education_history import EducationHistory
 from search.modelspackage.professional_history import ProfessionalHistory
 from search.modelspackage.locations import Location
+from search.modelspackage.items import Item
+from search.modelspackage.media import Media
 from search.modelspackage.sparql_local_wrapper import SparqlLocalWrapper
