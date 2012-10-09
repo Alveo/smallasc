@@ -8,17 +8,19 @@ class Session (models.Model):
     
     # Note that id is not specified as this is a Django model
     identifier      = models.URLField ()
+    prototype       = models.URLField ()
     name            = models.TextField ()
+    number          = models.TextField ()
 
 
     @staticmethod
     def all (sparql):
         """ Returns all the session names """
         sparql.setQuery (SparqlLocalWrapper.canonicalise_query ("""
-            select distinct ?session ?id ?name 
+            select distinct ?rs ?session  ?name 
             where {
-                ?session rdf:type austalk:Session .
-                ?session austalk:id ?id .
+                ?rs rdf:type austalk:RecordedSession .
+                ?rs austalk:prototype ?session . 
                 ?session austalk:name ?name .
             }
             ORDER BY ?name"""))
@@ -28,31 +30,37 @@ class Session (models.Model):
 
         for result in sparql_results["results"]["bindings"]:
             results.append (Session (
-                                identifier  = result["session"]["value"],
-                                id          = result["id"]["value"], 
+                                prototype   = result["session"]["value"],
+                                identifier  = result["rs"]["value"], 
                                 name        = result["name"]["value"]))
 
         return results
 
 
     @staticmethod
-    def get (sparql, session_id):
-        """ Returns all the session names """
-        sparql.setQuery (SparqlLocalWrapper.canonicalise_query ("""
-            select distinct ?session ?id ?name 
+    def get (sparql, participant_id, session_id):
+        """ Returns all sessions for this participant with this session id """
+        
+        qq = """
+            select distinct ?rs ?session ?name 
             where {
-                ?session rdf:type austalk:Session .
-                ?session austalk:id ?id .
+                ?rs rdf:type austalk:RecordedSession .
+                ?rs olac:speaker <http://id.austalk.edu.au/participant/%s> .
+                ?rs austalk:prototype ?session .
+                ?session austalk:id  %s .
                 ?session austalk:name ?name .
-                FILTER (?id = %s)
-            }""" % session_id))
+            }""" % (participant_id, session_id)
+            
+        print qq
+        
+        sparql.setQuery (SparqlLocalWrapper.canonicalise_query (qq))
 
         sparql_results = sparql.query ().convert ()
 
         for result in sparql_results["results"]["bindings"]:
             return Session (
-                        identifier  = result["session"]["value"],
-                        id          = result["id"]["value"], 
+                        identifier  = result["rs"]["value"],
+                        prototype   = result["session"]["value"], 
                         name        = result["name"]["value"])
 
         return None
@@ -61,28 +69,33 @@ class Session (models.Model):
     @staticmethod
     def filter_by_participant (sparql, participant):
         """ Returns all the session names for a participant """
-        sparql.setQuery (SparqlLocalWrapper.canonicalise_query ("""
-            select ?session ?id ?name
+        
+        qq = """
+            select ?rs ?session ?id ?name ?number
             where {
-                ?part rdf:type foaf:Person .
-                ?session rdf:type austalk:Session .
-                ?session austalk:id ?id .
-                ?session austalk:name ?name
-                FILTER (?part = <%s>)
+                ?rs rdf:type austalk:RecordedSession .
+                ?rs olac:speaker <%s> .
+                ?rs austalk:prototype ?session .
+                ?session austalk:name ?name .
+                ?session austalk:id ?number .
             }
-            ORDER BY ?name""" % participant.identifier))
+            ORDER BY ?name""" % participant.identifier
+        
+        sparql.setQuery (SparqlLocalWrapper.canonicalise_query (qq))
 
         sparql_results = sparql.query ().convert ()
         results = []
 
         for result in sparql_results["results"]["bindings"]:
             results.append (Session (
-                                identifier      = result["session"]["value"],
-                                id              = result["id"]["value"], 
-                                name            = result["name"]["value"]))
+                                identifier      = result["rs"]["value"],
+                                prototype       = result["session"]["value"],
+                                name            = result["name"]["value"],
+                                number          = result["number"]["value"]))
 
         return results
 
+		
 
     def __unicode__ (self):
         """ Simple name representation for a session """

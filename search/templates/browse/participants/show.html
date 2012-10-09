@@ -23,7 +23,7 @@
     <h3>Data</h3>
     <ul>
          {% for session in sessions %}
-            <li><a href="/browse/sites/{{ site_id }}/participants/{{ participant.friendly_id }}/sessions/{{ session.id }}/components/">{{ session.name }}</a></li>
+            <li><a href="/browse/sites/{{ site_id }}/participants/{{ participant.friendly_id }}/sessions/{{ session.number }}/components/">{{ session.name }}</a></li>
          {% endfor %}
     </ul>
 

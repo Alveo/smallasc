@@ -8,23 +8,20 @@ class Component (models.Model):
 
     # Note that id is not specified as this is a Django model
     identifier      = models.URLField ()
+    prototype       = models.URLField ()
     name            = models.TextField ()
     short_name      = models.TextField ()
-    sessionId       = models.IntegerField ()
 
     @staticmethod
     def all (sparql):
         """ Returns all the session names """
         sparql.setQuery (SparqlLocalWrapper.canonicalise_query ("""
-            select distinct ?id ?name ?sessId
+            select distinct ?comp ?proto ?name ?shortname 
             where {
-                ?comp rdf:type austalk:Component .
-                ?comp austalk:id ?id .
-                ?comp austalk:name ?name .
-                ?comp dc:isPartOf ?session .
-                ?session rdf:type austalk:Session .
-                ?session austalk:id ?sessId .
-                FILTER (?sessId in (1, 2)) .
+                ?comp rdf:type austalk:RecordedComponent .
+                ?comp austalk:prototype ?proto .
+                ?proto austalk:name ?name .
+                ?proto austalk:shortname ?shortname .
             }
             ORDER BY ?name"""))
 
@@ -33,24 +30,58 @@ class Component (models.Model):
 
         for result in sparql_results["results"]["bindings"]:
             results.append (Component (
-                                id = result["id"]["value"], 
+                                identifier = result["comp"]["value"], 
+                                prototype = result["comp"]["value"],
                                 name = result["name"]["value"],
-                                sessionId = result["sessId"]["value"]))
+                                short_name = result["shortname"]["value"]))
 
         return results
+    
+    @staticmethod 
+    def get(sparql, participant_id, session_id, component_id):
+        """Return the component for this participant/session/component id
+        
+        participant_id is like 1_123
+        session_id is 1, 2, 3
+        component_id is shortname words-1, conversation
+        """
+        
+        sparql.setQuery (SparqlLocalWrapper.canonicalise_query ("""
+            select ?rc ?component ?name
+            where {
+                ?rc rdf:type austalk:RecordedComponent .
+                ?rc olac:speaker <http://id.austalk.edu.au/participant/%s> .
+                ?rc austalk:prototype ?component .
+                ?component dc:isPartOf ?session .
+                ?session austalk:id %s .
+                ?component austalk:name ?name .
+                ?component austalk:shortname "%s" . 
+        }""" % (participant_id, session_id, component_id)))
 
+        sparql_results = sparql.query ().convert ()
+        results = []
+
+        for result in sparql_results["results"]["bindings"]:
+            results.append (Component (
+                                identifier      = result["rc"]["value"], 
+                                prototype       = result["component"]["value"], 
+                                name            = result["name"]["value"],
+                                short_name      = component_id))
+
+        return results   
+        
 
     @staticmethod
     def filter_by_session (sparql, session):
         """ Method returns all the components filtered by the session. """
         sparql.setQuery (SparqlLocalWrapper.canonicalise_query ("""
-            select ?component ?id ?name ?shortname
+            select ?rc ?component ?name ?shortname
             where {
-                ?component rdf:type austalk:Component .
+                ?rc rdf:type austalk:RecordedComponent .
+                ?rc dc:isPartOf <%s> .
+                ?rc austalk:prototype ?component .
                 ?component austalk:name ?name .
-                ?component austalk:shortname ?shortname .
-                ?component austalk:id ?id .
-                ?component dc:isPartOf <%s> .
+                ?component austalk:shortname ?shortname . 
         }""" % session.identifier))
 
         sparql_results = sparql.query ().convert ()
@@ -58,8 +89,8 @@ class Component (models.Model):
 
         for result in sparql_results["results"]["bindings"]:
             results.append (Component (
-                                identifier      = result["component"]["value"], 
-                                id              = result["id"]["value"], 
+                                identifier      = result["rc"]["value"], 
+                                prototype       = result["component"]["value"], 
                                 name            = result["name"]["value"],
                                 short_name      = result["shortname"]["value"]))
 

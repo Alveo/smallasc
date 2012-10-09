@@ -86,7 +86,7 @@ class Participant (models.Model):
     @staticmethod
     def get (sparql, participant_id):
         """ This function returns the particulars of a participant. """
-        sparql.setQuery (SparqlLocalWrapper.canonicalise_query ("""
+        qq = """
             select  ?part ?gender ?dob ?birthPlace ?cultural_heritage ?hobbies_details ?religion 
                     ?first_language ?other_languages 
                     ?mother_cultural_heritage ?mother_first_language ?mother_accent ?mother_professional_category ?mother_education_level ?mother_pob_town ?mother_pob_state ?mother_pob_country
@@ -134,11 +134,25 @@ class Participant (models.Model):
                 ?part austalk:has_health_problems ?has_health_problems .
 
                 FILTER (?part = <http://id.austalk.edu.au/participant/%s>)
-            }""" % participant_id))
+            }""" % participant_id
+            
+        qq = """
+            select  ?part ?prop ?value
+            where {
+                ?part rdf:type foaf:Person .
+                ?part ?prop ?value .
+
+                FILTER (?part = <http://id.austalk.edu.au/participant/%s>)
+            }""" % participant_id
+        
+        sparql.setQuery (SparqlLocalWrapper.canonicalise_query (qq))
 
         sparql_results = sparql.query ().convert ()
 
         for result in sparql_results["results"]["bindings"]:
+            return Participant(identifier = result["part"]["value"])
+            
+            
             mother_pob = Location (
                             town    = result["mother_pob_town"]["value"],
                             state   = result["mother_pob_state"]["value"],
@@ -184,6 +198,7 @@ class Participant (models.Model):
                         has_piercings           = result["has_piercings"]["value"],
                         has_health_problems     = result["has_health_problems"]["value"])
 
+        print "Participant not found", participant_id
         return None
 
 

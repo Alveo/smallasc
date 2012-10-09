@@ -12,7 +12,7 @@ from search.modelspackage.sparql_local_wrapper import SparqlLocalWrapper
 def index (request, site_id, participant_id, session_id):
     """ Lists all the components for a particular session. We still keep the other ids as they
     will become useful later. """
-    session = Session.get (SparqlLocalWrapper.create_sparql (), session_id)
+    session = Session.get (SparqlLocalWrapper.create_sparql (), participant_id, session_id)
     if session is None:
     	raise Http404 ("Requested session not found")
 

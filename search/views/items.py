@@ -11,16 +11,16 @@ from search.modelspackage.sparql_local_wrapper import SparqlLocalWrapper
 @login_required
 def index (request, site_id, participant_id, session_id, component_id):
     """ Lists all the items for a particular participants session and component type. """
-    session = Session.get (SparqlLocalWrapper.create_sparql (), session_id)
-    if session is None:
-        raise Http404 ("Requested session not found")
 
-    components = Component.filter_by_session (SparqlLocalWrapper.create_sparql (), session)
+    component = Component.get (SparqlLocalWrapper.create_sparql (), participant_id, session_id, component_id)
 
-    return render (request, 'browse/components/index.html', 
+    if component == None:
+        return Http404("Requested component not found")
+
+    return render (request, 'browse/items/index.html', 
         {'site_id' : site_id,
          'participant_id' : participant_id,
          'session_id' : session_id,
-         'components': components})
+         'component': component})
 
 

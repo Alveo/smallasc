@@ -42,6 +42,8 @@ def show (request, site_id, participant_id):
         raise Http404 ("Requested site not found")
 
     sessions = Session.filter_by_participant (SparqlLocalWrapper.create_sparql (), participant)
+    print "Sessions", sessions
+    
     education_history = EducationHistory.filter_by_participant (SparqlLocalWrapper.create_sparql (), participant)
     professional_history = ProfessionalHistory.filter_by_participant (SparqlLocalWrapper.create_sparql (), participant)
 
