@@ -96,7 +96,6 @@ class Component (models.Model):
 
         return results
 
-
     def __unicode__ (self):
         """ Simple name representation for a components """
         return self.name

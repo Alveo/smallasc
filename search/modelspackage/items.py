@@ -8,22 +8,30 @@ class Item (models.Model):
 
     # Note that id is not specified as this is a Django model
     identifier      = models.URLField ()
-    prompt            = models.TextField ()
+    prompt          = models.TextField ()
 
 
     @staticmethod
-    def filter_by_component (sparql, component):
-        """ Method returns all the items filtered by the component. """
-        sparql.setQuery (SparqlLocalWrapper.canonicalise_query ("""
+    def filter_by_component (sparql, participant_id, session_id, component_id):
+        """ Method returns all the items filtered by the participant/session/component. """
+        
+        qq = """
             select ?item ?id ?prompt
             where {
-                ?component rdf:type austalk:Component .
-                ?item rdf:type austalk:Item .
-                ?item austalk:id ?id .
-                ?item austalk:prompt ?prompt .
-                ?item dc:isPartOf ?component .
-                FILTER (?component = <%s>)
-            }""" % component.identifier))
+                ?rc rdf:type austalk:RecordedComponent .
+                ?rc olac:speaker <http://id.austalk.edu.au/participant/%s> .
+                ?rc austalk:prototype ?component .
+                ?component dc:isPartOf ?session .
+                ?session austalk:id %s .
+                ?component austalk:shortname "%s" .
+                ?item dc:isPartOf ?rc .
+                ?item austalk:prototype ?ip .
+                ?ip austalk:id ?id .
+                ?ip austalk:prompt ?prompt .
+        } order by ?id""" % (participant_id, session_id, component_id)
+        
+        
+        sparql.setQuery (SparqlLocalWrapper.canonicalise_query (qq))
 
         sparql_results = sparql.query ().convert ()
         results = []
