@@ -19,6 +19,7 @@ def index (request, site_id, participant_id, session_id, component_id):
         {'site_id' : site_id,
          'participant_id' : participant_id,
          'session_id' : session_id,
+         'component_id': component_id,
          'items': items})
  
 @login_required

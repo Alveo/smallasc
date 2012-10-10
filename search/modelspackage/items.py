@@ -8,7 +8,7 @@ class ItemManager (SparqlManager):
         """ Method returns all the items filtered by the participant/session/component. """
         
         qq = """
-            select ?item ?id ?prompt ?basename ?sitelabel
+            select ?item ?id ?prompt ?basename ?sitelabel ?media
             where {
                 ?rc rdf:type austalk:RecordedComponent .
                 ?rc olac:speaker <http://id.austalk.edu.au/participant/%(part)s> .
@@ -23,6 +23,9 @@ class ItemManager (SparqlManager):
                 ?item austalk:basename ?basename .
                 ?ip austalk:id ?id .
                 ?ip austalk:prompt ?prompt .
+                ?item austalk:media ?media .
+                ?media austalk:version 1 .
+                ?media austalk:channel "ch6-speaker" .
         } order by ?id""" % {'part': participant_id, 'sess': session_id, 'comp': component_id}
      
         print qq
@@ -40,6 +43,7 @@ class ItemManager (SparqlManager):
                                 participantId   = participant_id,
                                 componentId     = component_id,
                                 sessionId       = session_id,
+                                ch6media        = result["media"]["value"]
                                 ))
 
         return results
@@ -48,7 +52,7 @@ class ItemManager (SparqlManager):
         """ Return the item with this basename. """
         
         qq = """
-            select ?item ?id ?prompt ?basename ?sitelabel ?spkrid ?sessid ?compid
+            select ?item ?id ?prompt ?basename ?sitelabel ?spkrid ?sessid ?compid ?media
             where {
                 ?item austalk:basename "%s" .
                 ?item dc:isPartOf ?rc .
@@ -64,6 +68,9 @@ class ItemManager (SparqlManager):
                 ?component dc:isPartOf ?session .
                 ?session austalk:id ?sessid .
                 ?component austalk:shortname ?compid  .
+                ?item austalk:media ?media .
+                ?media austalk:version 1 .
+                ?media austalk:channel "ch6-speaker" .
         } order by ?id""" % (basename, )
      
         print qq
@@ -81,6 +88,7 @@ class ItemManager (SparqlManager):
                                 participantId   = result["spkrid"]["value"],
                                 componentId     = result["compid"]["value"],
                                 sessionId       = result["sessid"]["value"],
+                                ch6media        = result["media"]["value"]
                                 )
         # Item not found
         return None
@@ -98,6 +106,7 @@ class Item (SparqlModel):
     componentId = models.TextField ()
     sessionId = models.TextField ()
     site = models.TextField ()
+    ch6media = models.URLField ()  
     
     # a custom manager
     objects = ItemManager ()     
