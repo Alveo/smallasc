@@ -107,16 +107,25 @@ class SiteTests (unittest.TestCase):
         self.assertEqual (7, len (components))
 
 
-    def test_retrievemedia (self): 
-        s = Session.all (SparqlLocalWrapper.create_sparql ()) 
-        print "SESSION", s[1].identifier
-        c = Component.filter_by_session (SparqlLocalWrapper.create_sparql (), s[1])
-        print "COMPONENTS: ", c
-        items = Item.filter_by_component (SparqlLocalWrapper.create_sparql (), c[0])
+    def test_retrieveitemproperties (self):
         
+        items = Item.filter_by_component(SparqlLocalWrapper.create_sparql (), "1_1093", "1", "words-1")
+        self.assertEqual(323, len(items))
+        item = items[0]
+        print "IDENT: ", item.identifier
+        props = item.properties(SparqlLocalWrapper.create_sparql ())
+        print "PROPS: ", props
+        self.assertEqual(props['bar'], 'foo')
+
+
+
+    def test_retrievemedia (self): 
+        
+        items = Item.filter_by_component(SparqlLocalWrapper.create_sparql (), "1_1093", "2", "sentences")
+
         # There should be 59 items for sentences
         self.assertEqual (59, len (items))
-
+        print items
         # Now get the media
         media = Media.filter_by_componentitems (SparqlLocalWrapper.create_sparql (), components[0], items[0])
 

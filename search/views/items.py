@@ -13,12 +13,25 @@ from search.modelspackage.sparql_local_wrapper import SparqlLocalWrapper
 def index (request, site_id, participant_id, session_id, component_id):
     """ Lists all the items for a particular participants session and component type. """
 
-    items = Item.filter_by_component (SparqlLocalWrapper.create_sparql (), participant_id, session_id, component_id)
+    items = Item.objects.filter_by_component (participant_id, session_id, component_id)
 
     return render (request, 'browse/items/index.html', 
         {'site_id' : site_id,
          'participant_id' : participant_id,
          'session_id' : session_id,
          'items': items})
+ 
+@login_required
+def show (request, site_id, participant_id, session_id, component_id, basename):
+    """ View of an individual item. """
 
+    item = Item.objects.get (basename)
 
+    if item == None:
+        return Http404("Item not found")
+    
+    return render (request, 'browse/items/show.html', 
+        {'site_id' : site_id,
+         'participant_id' : participant_id,
+         'session_id' : session_id,
+         'item': item})

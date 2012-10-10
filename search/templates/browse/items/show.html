@@ -2,7 +2,7 @@
 
 <!-- Note the convention of the title, Austalk | View > Object -->
 {% block title %}
-    Austalk | Browse > Items
+    Austalk | Browse > Item {{item.basename}}
 {% endblock %}
 
 {% block subtitle %}
@@ -21,13 +21,12 @@
 {% endblock %}
 
 {% block content %}
-    <table class="overview">
-        {% for item in items %}
+    <table class="overview"> 
             <tr class="date">
                 <td colspan="4">
                     <h2 class="date">
                         <span>
-                            <a href="{{item.get_absolute_url}}"> Item {{ item.id }}
+                            <a href="{{item.get_absolute_url}}"> {{ item.id }}
                         </span>
                     </h2>
                 </td>
@@ -37,6 +36,16 @@
                 <td class="item">{{ item.prompt }}</td>
                 <td class="action">ID: {{ item.identifier }}</td>
             </tr>
-        {% endfor %}
+            <tr>
+              <td colspan=3>
+                <dl>
+                {% for prop, value in item.properties.iteritems %}
+                 <dt>{{prop}}</dt>
+                 {% for v in value %}
+                   <dd>{{ v }}</dd>
+                 {% endfor %}
+                {% endfor %}
+                </dl>
+            </tr> 
     </table>
 {% endblock %}
