@@ -70,7 +70,7 @@ class Site (SparqlModel):
 
     def get_absolute_url(self):
         """Return a canonical URL for this item"""    
-        return "/browse/%s/" % (self.name)   
+        return "/browse/sites/%s/" % (self.label)   
 
 
     def __unicode__ (self):

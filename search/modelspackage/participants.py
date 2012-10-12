@@ -6,82 +6,37 @@ from urlparse import urlparse
 from baseapp.modelspackage.colours import Colour
 from baseapp.modelspackage.animals import Animal
 from search.modelspackage.locations import Location
-from search.modelspackage.sparql_local_wrapper import SparqlLocalWrapper
+from search.modelspackage.sparql_local_wrapper import SparqlModel, SparqlManager
 
 
-class Participant (models.Model):
-    """ A participant for a recording session."""
-
-    # Field definitions, note the use of lots of test fields. This is
-    # because at present the data is persisted in a RDF store so we
-    # don't care about the specifics of the types so much, we only care
-    # about basic type correctness
-    identifier                  = models.URLField ()
-    gender                      = models.TextField ()
-    birth_year                  = models.IntegerField ()
-    birth_place                 = models.TextField ()
-    cultural_heritage           = models.TextField ()
-    hobbies_details             = models.TextField ()
-    religion                    = models.TextField ()
-    first_language              = models.TextField ()
-    other_languages             = models.TextField ()
-
-    # Mother details
-    mother_cultural_heritage    = models.TextField ()
-
-    # We do not want a backwards relation from location
-    mother_pob_location         = models.ForeignKey (Location, related_name = '+')
-    mother_first_language       = models.TextField ()
-    mother_accent               = models.TextField ()
-    mother_occupation           = models.TextField ()
-    mother_education_level      = models.TextField ()
-
-    # Father details
-    father_cultural_heritage    = models.TextField ()
-
-    # We do not want a backwards relation from location
-    father_pob_location         = models.ForeignKey (Location, related_name = '+')
-    father_first_language       = models.TextField ()
-    father_accent               = models.TextField ()
-    father_occupation           = models.TextField ()
-    father_education_level      = models.TextField ()
-
-    # Some other properties
-    has_reading_problems        = models.BooleanField ()
-    has_vocal_training          = models.BooleanField ()
-    has_speech_problems         = models.BooleanField ()
-    has_hearing_problems        = models.BooleanField ()
-    is_left_handed              = models.BooleanField ()
-    is_smoker                   = models.BooleanField ()
-    has_dentures                = models.BooleanField ()
-    has_piercings               = models.BooleanField ()
-    has_health_problems         = models.BooleanField ()
+class ParticipantManager (SparqlManager):
 
 
-    @staticmethod
-    def all (sparql, site):
+    def all (self, site):
         """ Returns all the recording locations stored in the rdf store. The endpoint
         and the return format are set by the sparql parameter. The function Returns
         objects of type site. """
-        sparql.setQuery (SparqlLocalWrapper.canonicalise_query ("""
+        sparql_results = self.query ("""
             select ?part ?gender ?dob
             where {
                 ?part rdf:type foaf:Person .
                 ?part austalk:recording_site <%s> .
                 ?part foaf:gender ?gender .
                 ?part dbpedia:birthYear ?dob .
-            }""" % site.identifier))
+            }""" % site.identifier)
 
-        sparql_results = sparql.query ().convert ()
         results = []
 
         for result in sparql_results["results"]["bindings"]:
-            results.append (Participant (
+            part = Participant (
                                 identifier          = result["part"]["value"], 
                                 gender              = result["gender"]["value"],
-                                birth_year          = result["dob"]["value"]))
+                                birth_year          = result["dob"]["value"])
+            part.set_site (site)
+            results.append (part)
 
         return results
+
 
     @staticmethod
     def get (sparql, participant_id):
@@ -200,6 +155,65 @@ class Participant (models.Model):
 
         print "Participant not found", participant_id
         return None
+
+class Participant (SparqlModel):
+    """ A participant for a recording session."""
+
+    # Field definitions, note the use of lots of test fields. This is
+    # because at present the data is persisted in a RDF store so we
+    # don't care about the specifics of the types so much, we only care
+    # about basic type correctness
+    gender                      = models.TextField ()
+    birth_year                  = models.IntegerField ()
+    birth_place                 = models.TextField ()
+    cultural_heritage           = models.TextField ()
+    hobbies_details             = models.TextField ()
+    religion                    = models.TextField ()
+    first_language              = models.TextField ()
+    other_languages             = models.TextField ()
+
+    # Mother details
+    mother_cultural_heritage    = models.TextField ()
+
+    # We do not want a backwards relation from location
+    mother_pob_location         = models.ForeignKey (Location, related_name = '+')
+    mother_first_language       = models.TextField ()
+    mother_accent               = models.TextField ()
+    mother_occupation           = models.TextField ()
+    mother_education_level      = models.TextField ()
+
+    # Father details
+    father_cultural_heritage    = models.TextField ()
+
+    # We do not want a backwards relation from location
+    father_pob_location         = models.ForeignKey (Location, related_name = '+')
+    father_first_language       = models.TextField ()
+    father_accent               = models.TextField ()
+    father_occupation           = models.TextField ()
+    father_education_level      = models.TextField ()
+
+    # Some other properties
+    has_reading_problems        = models.BooleanField ()
+    has_vocal_training          = models.BooleanField ()
+    has_speech_problems         = models.BooleanField ()
+    has_hearing_problems        = models.BooleanField ()
+    is_left_handed              = models.BooleanField ()
+    is_smoker                   = models.BooleanField ()
+    has_dentures                = models.BooleanField ()
+    has_piercings               = models.BooleanField ()
+    has_health_problems         = models.BooleanField ()
+
+    # Associations
+    site = None
+
+    # Setter
+    def set_site (self, site):
+        self.site = site
+
+  
+    def get_absolute_url(self):
+        """Return a canonical URL for this item"""    
+        return "/browse/sites/%s/participants/%s" % (self.site.label, self.friendly_id ())
 
 
     def friendly_id (self):

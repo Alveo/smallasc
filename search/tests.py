@@ -9,6 +9,8 @@ class SiteTests (unittest.TestCase):
 
     def setUp (self):
         self.site_man = SiteManager ()
+        self.part_man = ParticipantManager ()
+
         self.site1 = Site.objects.create (name = "Australian National University", 
                                            location = "Canberra",
                                            participant_count = 10)
@@ -63,8 +65,8 @@ class SiteTests (unittest.TestCase):
 
 
     def test_retrieveparticipantsforexistingsite (self):
-        sites = Site.all (SparqlLocalWrapper.create_sparql ())
-        parts = Participant.all ((SparqlLocalWrapper.create_sparql ()), sites[0])
+        sites = self.site_man.all ()
+        parts = self.part_man.all (sites[0])
         self.assertEqual (47, len (parts))
 
 
