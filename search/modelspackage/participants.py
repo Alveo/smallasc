@@ -38,8 +38,7 @@ class ParticipantManager (SparqlManager):
         return results
 
 
-    @staticmethod
-    def get (sparql, participant_id):
+    def get (self, participant_id):
         """ This function returns the particulars of a participant. """
         qq = """
             select  ?part ?gender ?dob ?birthPlace ?cultural_heritage ?hobbies_details ?religion 
@@ -100,9 +99,8 @@ class ParticipantManager (SparqlManager):
                 FILTER (?part = <http://id.austalk.edu.au/participant/%s>)
             }""" % participant_id
         
-        sparql.setQuery (SparqlLocalWrapper.canonicalise_query (qq))
 
-        sparql_results = sparql.query ().convert ()
+        sparql_results = self.query(qq)
 
         for result in sparql_results["results"]["bindings"]:
             return Participant(identifier = result["part"]["value"])
@@ -159,6 +157,10 @@ class ParticipantManager (SparqlManager):
 class Participant (SparqlModel):
     """ A participant for a recording session."""
 
+
+    # custom manager
+    objects = ParticipantManager()
+    
     # Field definitions, note the use of lots of test fields. This is
     # because at present the data is persisted in a RDF store so we
     # don't care about the specifics of the types so much, we only care
@@ -213,7 +215,7 @@ class Participant (SparqlModel):
   
     def get_absolute_url(self):
         """Return a canonical URL for this item"""    
-        return "/browse/sites/%s/participants/%s" % (self.site.label, self.friendly_id ())
+        return "/browse/%s/%s" % (self.site.label, self.friendly_id ())
 
 
     def friendly_id (self):

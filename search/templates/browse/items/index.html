@@ -32,9 +32,11 @@
             <ul>
                 <li>Prompt: {{ item.prompt }}</li>
                 <li>ID: {{ item.identifier }}</li>
-                <li><a href="{{item.ch6media}}">Play</a></li>
+                <li><a href="{{item.ch6media}}">{{item.prompt}}</a></li>
             </ul>
          </li>
         {% endfor %}
     </ul>
+   
 {% endblock %}
+

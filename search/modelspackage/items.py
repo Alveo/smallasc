@@ -15,7 +15,8 @@ class ItemManager (SparqlManager):
                 <http://id.austalk.edu.au/participant/%(part)s> austalk:recording_site ?site .
                 ?site rdfs:label ?sitelabel .
                 ?rc austalk:prototype ?component .
-                ?component dc:isPartOf ?session .
+                ?rc dc:isPartOf ?rs .
+                 ?rs austalk:prototype ?session .
                 ?session austalk:id %(sess)s .
                 ?component austalk:shortname "%(comp)s" .
                 ?item dc:isPartOf ?rc .

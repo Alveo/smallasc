@@ -3,13 +3,14 @@ from django.views.generic import DetailView, ListView
 
 # Generic patterns for search
 urlpatterns = patterns('search.views',
-    url (r'^$', 'composite.index'),
-    url (r'^sites/$', 'sites.index'),
-    url (r'^sites/(\w+)/participants/$', 'participants.index'),
-    url (r'^sites/(\w+)/participants/(\w+)/$', 'participants.show'),
-    url (r'^sites/(\w+)/participants/(\w+)/sessions/(\w+)/components$', 'components.index'),
-    url (r'^sites/(\w+)/participants/(\w+)/sessions/(\w+)/components/(.+)/items/$', 'items.index'),
-    url (r'^(\w+)/(\w+)/(\w+)/(.+)/$', 'items.index'),
+    
+    url (r'^$', 'sites.index'),
+    url (r'^(\w+)/$', 'participants.index'),
+    url (r'^(\w+)/(\w+)/$', 'participants.show'),
+    url (r'^(\w+)/(\w+)/(\w+)/$', 'components.index'),
+    url (r'^(\w+)/(\w+)/(\w+)/([a-z0-9-]+)/$', 'items.index'),
     url (r'^(\w+)/(\w+)/(\w+)/(.+)/([0-9_]+)$', 'items.show'),
+    
+    
     url (r'^results/$', 'composite.search')
 )

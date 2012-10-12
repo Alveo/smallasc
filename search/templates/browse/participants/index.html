@@ -14,7 +14,7 @@
 
 {% block menubar %}
     <li><a href="/" title="Your dashboard">Dashboard</a></li>
-    <li><a href="/browse/sites" class="current" title="Browse">Browse</a></li> 
+    <li><a href="/browse/" class="current" title="Browse">Browse</a></li> 
     <li><a href="/search" title="Search">Search</a></li>  
 {% endblock %}
 
@@ -25,7 +25,7 @@
                 <td colspan="4">
                     <h2 class="date">
                         <span>
-                            <a href="/browse/sites/{{ site_id }}/participants/{{ part.friendly_id }}">
+                            <a href="/browse/{{ site_id }}/{{ part.friendly_id }}">
                                 {{ part }}
                             </a>
                         </span>

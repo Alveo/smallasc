@@ -61,6 +61,9 @@ class Site (SparqlModel):
     """ A site is a logical representation of the physical location at which
     recording take place."""
 
+    # custom manager
+    objects = SiteManager()
+
     # Field definitions
     label               = models.TextField ()
     name                = models.TextField ()
@@ -70,7 +73,7 @@ class Site (SparqlModel):
 
     def get_absolute_url(self):
         """Return a canonical URL for this item"""    
-        return "/browse/sites/%s/" % (self.label)   
+        return "/browse/%s/" % (self.label)   
 
 
     def __unicode__ (self):

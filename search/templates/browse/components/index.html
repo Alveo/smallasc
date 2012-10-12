@@ -8,15 +8,15 @@
 {% block subtitle %}
     {{ session.name }} Components
     <div class="page_header_links">
-        <a href="/browse/sites/">&lt;&lt;&nbsp;sites</a> | 
-        <a href="/browse/sites/{{ site_id }}/participants/">&lt;&lt;&nbsp;participants</a> |
-        <a href="/browse/sites/{{ site_id }}/participants/{{ participant_id }}">&lt;&lt;&nbsp;{{ participant_id }}</a> | ...  
+        <a href="/browse/">&lt;&lt;&nbsp;sites</a> | 
+        <a href="/browse/{{ site_id }}/">&lt;&lt;&nbsp;participants</a> |
+        <a href="/browse/{{ site_id }}/{{ participant_id }}">&lt;&lt;&nbsp;{{ participant_id }}</a> | ...  
     </div>
 {% endblock %}
 
 {% block menubar %}
     <li><a href="/" title="Your dashboard">Dashboard</a></li>
-    <li><a href="/browse/sites" class="current" title="Browse">Browse</a></li> 
+    <li><a href="/browse/" class="current" title="Browse">Browse</a></li> 
     <li><a href="/search" title="Search">Search</a></li>  
 {% endblock %}
 
@@ -27,7 +27,7 @@
                 <td colspan="4">
                     <h2 class="date">
                         <span>
-                            <a href="/browse/sites/{{ site_id }}/participants/{{ participant_id }}/sessions/{{ session_id }}/components/{{ comp.short_name }}/items/">
+                            <a href="/browse/{{ site_id }}/{{ participant_id }}/{{ session_id }}/{{ comp.short_name }}/">
                                 {{ comp.short_name }}
                             </a>
                         </span>

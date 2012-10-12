@@ -15,7 +15,7 @@
 
 {% block menubar %}
     <li><a href="/" title="Your dashboard">Dashboard</a></li>
-    <li><a href="/browse/sites" class="current" title="Browse">Browse</a></li> 
+    <li><a href="/browse/" class="current" title="Browse">Browse</a></li> 
     <li><a href="/search" title="Search">Search</a></li>  
 {% endblock %}
 
@@ -23,12 +23,12 @@
     <h3>Data</h3>
     <ul>
          {% for session in sessions %}
-            <li><a href="/browse/sites/{{ site_id }}/participants/{{ participant.friendly_id }}/sessions/{{ session.number }}/components/">{{ session.name }}</a></li>
+            <li><a href="/browse/{{ site_id }}/{{ participant.friendly_id }}/{{ session.number }}/">{{ session.name }}</a></li>
          {% endfor %}
     </ul>
 
     <h3>Recording information</h3>
-    <p>Recording site: <a href="/browse/sites/{{ site_id }}/participants/">{{ site }}</a></p>
+    <p>Recording site: <a href="/browse/{{ site_id }}/">{{ site }}</a></p>
 
     <h3>About</h3>
     <p>Gender: {{ participant.gender }}</p>
