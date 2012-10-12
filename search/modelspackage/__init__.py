@@ -1,6 +1,6 @@
 from components import Component
 from sessions import Session
-from sites import Site
+from sites import Site, SiteManager
 from items import Item
 from locations import Location
 from participants import Participant
@@ -9,4 +9,4 @@ from professional_history import ProfessionalHistory
 from media import Media
 from sparql_local_wrapper import SparqlLocalWrapper
 
-__all__ = ['Component', 'Site', 'Session', 'Item', 'Location', 'Participant', 'EducationHistory', 'ProfessionalHistory', 'Media', 'SparqlLocalWrapper']
+__all__ = ['Component', 'Site', 'SiteManager', 'Session', 'Item', 'Location', 'Participant', 'EducationHistory', 'ProfessionalHistory', 'Media', 'SparqlLocalWrapper']

@@ -1,17 +1,9 @@
 from django.db import models
-from search.modelspackage.sparql_local_wrapper import SparqlLocalWrapper, SparqlModel
+from search.modelspackage.sparql_local_wrapper import SparqlModel, SparqlManager
 
 
-class Site (SparqlModel):
-    """ A site is a logical representation of the physical location at which
-    recording take place."""
-
-    # Field definitions
-    label               = models.TextField ()
-    name                = models.TextField ()
-    location            = models.TextField ()
-    participant_count   = models.IntegerField ()
-
+class SiteManager (SparqlManager):
+    """ Class responsible for returning instances of type Site. """
 
     def all (self):
         """ Returns all the recording locations stored in the rdf store. The endpoint
@@ -63,6 +55,22 @@ class Site (SparqlModel):
                         location          = result["city"]["value"])
 
         return None
+
+
+class Site (SparqlModel):
+    """ A site is a logical representation of the physical location at which
+    recording take place."""
+
+    # Field definitions
+    label               = models.TextField ()
+    name                = models.TextField ()
+    location            = models.TextField ()
+    participant_count   = models.IntegerField ()
+
+
+    def get_absolute_url(self):
+        """Return a canonical URL for this item"""    
+        return "/browse/%s/" % (self.site)   
 
 
     def __unicode__ (self):
