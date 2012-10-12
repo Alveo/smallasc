@@ -8,6 +8,7 @@ from SPARQLWrapper import SPARQLWrapper, JSON
 class SiteTests (unittest.TestCase):
 
     def setUp (self):
+        self.site = Site ()
         self.site1 = Site.objects.create (name = "Australian National University", 
                                            location = "Canberra",
                                            participant_count = 10)
@@ -32,20 +33,20 @@ class SiteTests (unittest.TestCase):
 
 
     def test_retrieveallsites (self):
-        results = Site.all (SparqlLocalWrapper.create_sparql ())
+        results = self.site.all ()
         self.assertEqual (10, len (results))
         self.assertEqual ('Charles Sturt University, Bathurst', str (results[0]))
         self.assertEqual (47, results[0].participant_count)
 
 
     def test_retrievenonexistingsite (self):
-        self.assertIsNone (Site.get (SparqlLocalWrapper.create_sparql (), "BLAH"))
+        self.assertIsNone (self.site.get ("BLAH"))
 
 
-    def test_retrievenonexistingsite (self):
-        site = Site.get (SparqlLocalWrapper.create_sparql (), "CSUB")
-        self.assertIsNotNone (site)
-        self.assertEqual ("Bathurst", site.location)
+    def test_retrieveexistingsite (self):
+        result = self.site.get ("CSUB")
+        self.assertIsNotNone (result)
+        self.assertEqual ("Bathurst", result.location)
 
 
     def test_retrieveallsessions (self):

@@ -8,7 +8,8 @@ from search.modelspackage.sparql_local_wrapper import SparqlLocalWrapper
 @login_required
 def index (request):
     """ The sites index view displays all the available sites current in the RDF store. """
-    sites = Site.all (SparqlLocalWrapper.create_sparql ())
+    site_model = Site ()
+    sites = site_model.all ()
     return render (request, 'browse/sites/index.html', {'sites': sites})
 
 
