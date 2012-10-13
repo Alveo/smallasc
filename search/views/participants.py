@@ -35,7 +35,6 @@ def show (request, site_id, participant_id):
     """ This view shows the details of a particular participant. 
         HTTP Verb /GET: Url /browse/sites/:id/participants/:id """
         
-        
     participant = Participant.objects.get (participant_id)
     if participant is None:
         raise Http404 ("Requested participant not found")
@@ -44,10 +43,10 @@ def show (request, site_id, participant_id):
     if site is None:
         raise Http404 ("Requested site not found")
 
-    sessions = Session.filter_by_participant (SparqlLocalWrapper.create_sparql (), participant)
+    sessions = Session.objects.filter_by_participant (participant)
     
-    education_history = EducationHistory.filter_by_participant (SparqlLocalWrapper.create_sparql (), participant)
-    professional_history = ProfessionalHistory.filter_by_participant (SparqlLocalWrapper.create_sparql (), participant)
+    education_history = EducationHistory.objects.filter_by_participant (participant)
+    professional_history = ProfessionalHistory.objects.filter_by_participant (participant)
 
     return render (request, 'browse/participants/show.html', 
         {
