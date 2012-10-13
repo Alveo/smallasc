@@ -1,31 +1,23 @@
 from django.db import models
-from search.modelspackage.sparql_local_wrapper import SparqlLocalWrapper
+from search.modelspackage.sparql_local_wrapper import SparqlModel, SparqlManager
 
 
-class Session (models.Model):
+class SessionManager (SparqlManager):
     """ A session is a logical representation of the actual recording session
     which takes place at a particular location."""
-    
-    # Note that id is not specified as this is a Django model
-    identifier      = models.URLField ()
-    prototype       = models.URLField ()
-    name            = models.TextField ()
-    number          = models.TextField ()
 
 
-    @staticmethod
-    def all (sparql):
+    def all (self):
         """ Returns all the session names """
-        sparql.setQuery (SparqlLocalWrapper.canonicalise_query ("""
+        sparql_results = self.query ("""
             select distinct ?rs ?session  ?name 
             where {
                 ?rs rdf:type austalk:RecordedSession .
                 ?rs austalk:prototype ?session . 
                 ?session austalk:name ?name .
             }
-            ORDER BY ?name"""))
+            ORDER BY ?name""")
 
-        sparql_results = sparql.query ().convert ()
         results = []
 
         for result in sparql_results["results"]["bindings"]:
@@ -37,25 +29,17 @@ class Session (models.Model):
         return results
 
 
-    @staticmethod
-    def get (sparql, participant_id, session_id):
-        """ Returns all sessions for this participant with this session id """
+    def get (self, session_id):
+        """ Returns all sessions with this session id """
         
-        qq = """
-            select distinct ?rs ?session ?name 
+        sparql_results = self.query ("""
+            select ?rs ?session ?name 
             where {
                 ?rs rdf:type austalk:RecordedSession .
-                ?rs olac:speaker <http://id.austalk.edu.au/participant/%s> .
                 ?rs austalk:prototype ?session .
-                ?session austalk:id  %s .
+                ?session austalk:id  <%s> .
                 ?session austalk:name ?name .
-            }""" % (participant_id, session_id)
-            
-        print qq
-        
-        sparql.setQuery (SparqlLocalWrapper.canonicalise_query (qq))
-
-        sparql_results = sparql.query ().convert ()
+            }""" % (session_id))
 
         for result in sparql_results["results"]["bindings"]:
             return Session (
@@ -66,11 +50,10 @@ class Session (models.Model):
         return None
 
 
-    @staticmethod
-    def filter_by_participant (sparql, participant):
+    def filter_by_participant (self, participant):
         """ Returns all the session names for a participant """
         
-        qq = """
+        sparql_results = self.query ("""
             select ?rs ?session ?id ?name ?number
             where {
                 ?rs rdf:type austalk:RecordedSession .
@@ -79,11 +62,8 @@ class Session (models.Model):
                 ?session austalk:name ?name .
                 ?session austalk:id ?number .
             }
-            ORDER BY ?name""" % participant.identifier
+            ORDER BY ?name""" % participant.identifier)
         
-        sparql.setQuery (SparqlLocalWrapper.canonicalise_query (qq))
-
-        sparql_results = sparql.query ().convert ()
         results = []
 
         for result in sparql_results["results"]["bindings"]:
@@ -96,6 +76,13 @@ class Session (models.Model):
         return results
 
 		
+class Session (SparqlModel):
+
+    # Note that id is not specified as this is a Django model
+    prototype       = models.URLField ()
+    name            = models.TextField ()
+    number          = models.TextField ()
+
 
     def __unicode__ (self):
         """ Simple name representation for a session """

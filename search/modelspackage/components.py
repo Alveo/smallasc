@@ -1,21 +1,12 @@
 from django.db import models
-from search.modelspackage.sparql_local_wrapper import SparqlLocalWrapper
+from search.modelspackage.sparql_local_wrapper import SparqlModel, SparqlManager
 
 
-class Component (models.Model):
-    """ A component is a logical representation of a component which belongs
-    to a session."""
+class ComponentManager (SparqlManager):
 
-    # Note that id is not specified as this is a Django model
-    identifier      = models.URLField ()
-    prototype       = models.URLField ()
-    name            = models.TextField ()
-    short_name      = models.TextField ()
-
-    @staticmethod
-    def all (sparql):
+    def all (self):
         """ Returns all the session names """
-        sparql.setQuery (SparqlLocalWrapper.canonicalise_query ("""
+        sparql_results = self.query ("""
             select distinct ?comp ?proto ?name ?shortname 
             where {
                 ?comp rdf:type austalk:RecordedComponent .
@@ -23,9 +14,8 @@ class Component (models.Model):
                 ?proto austalk:name ?name .
                 ?proto austalk:shortname ?shortname .
             }
-            ORDER BY ?name"""))
+            ORDER BY ?name""")
 
-        sparql_results = sparql.query ().convert ()
         results = []
 
         for result in sparql_results["results"]["bindings"]:
@@ -37,8 +27,8 @@ class Component (models.Model):
 
         return results
     
-    @staticmethod 
-    def get(sparql, participant_id, session_id, component_id):
+
+    def get(sparql, component):
         """Return the component for this participant/session/component id
         
         participant_id is like 1_123
@@ -46,19 +36,16 @@ class Component (models.Model):
         component_id is shortname words-1, conversation
         """
         
-        sparql.setQuery (SparqlLocalWrapper.canonicalise_query ("""
+        sparql_results = self.query ("""
             select ?rc ?component ?name
             where {
                 ?rc rdf:type austalk:RecordedComponent .
-                ?rc olac:speaker <http://id.austalk.edu.au/participant/%s> .
                 ?rc austalk:prototype ?component .
                 ?component dc:isPartOf ?session .
-                ?session austalk:id %s .
                 ?component austalk:name ?name .
-                ?component austalk:shortname "%s" . 
-        }""" % (participant_id, session_id, component_id)))
+                ?component austalk:id <%s> . 
+        }""" % (component.identifier))
 
-        sparql_results = sparql.query ().convert ()
         results = []
 
         for result in sparql_results["results"]["bindings"]:
@@ -71,10 +58,9 @@ class Component (models.Model):
         return results   
         
 
-    @staticmethod
-    def filter_by_session (sparql, session):
+    def filter_by_session (self, session):
         """ Method returns all the components filtered by the session. """
-        sparql.setQuery (SparqlLocalWrapper.canonicalise_query ("""
+        sparql_results = self.query ("""
             select ?rc ?component ?name ?shortname
             where {
                 ?rc rdf:type austalk:RecordedComponent .
@@ -82,9 +68,8 @@ class Component (models.Model):
                 ?rc austalk:prototype ?component .
                 ?component austalk:name ?name .
                 ?component austalk:shortname ?shortname . 
-        }""" % session.identifier))
+        }""" % session.identifier)
 
-        sparql_results = sparql.query ().convert ()
         results = []
 
         for result in sparql_results["results"]["bindings"]:
@@ -95,6 +80,17 @@ class Component (models.Model):
                                 short_name      = result["shortname"]["value"]))
 
         return results
+
+
+class Component (SparqlModel):
+    """ A component is a logical representation of a component which belongs
+    to a session."""
+
+    # Note that id is not specified as this is a Django model
+    prototype       = models.URLField ()
+    name            = models.TextField ()
+    short_name      = models.TextField ()
+
 
     def __unicode__ (self):
         """ Simple name representation for a components """

@@ -1,23 +1,14 @@
 from django.db import models
 
 # Models in use
-from search.modelspackage.sparql_local_wrapper import SparqlLocalWrapper
+from search.modelspackage.sparql_local_wrapper import SparqlModel, SparqlManager
+
+class ProfessionalHistoryManager (SparqlManager):
 
 
-class ProfessionalHistory (models.Model):
-    """ A participant for a recording session."""
-
-    # Field definitions
-    age_from          = models.IntegerField ()
-    age_to            = models.IntegerField ()
-    less_than_a_year  = models.BooleanField ()
-    name              = models.TextField ()
-
-
-    @staticmethod
-    def filter_by_participant (sparql, participant):
+    def filter_by_participant (self, participant):
         """ Returns the EducationHistory of a participant. """
-        sparql.setQuery (SparqlLocalWrapper.canonicalise_query ("""
+        sparql_results = self.query ("""
             select ?age_from ?age_to ?less_than_a_year ?name
             where {
                 ?part rdf:type foaf:Person .
@@ -27,9 +18,8 @@ class ProfessionalHistory (models.Model):
                 ?ph austalk:less_than_a_year ?less_than_a_year .
                 ?ph austalk:name ?name .
             FILTER (?part = <%s>) 
-            }""" % participant.identifier))
+            }""" % participant.identifier)
 
-        sparql_results = sparql.query ().convert ()
         results = []
 
         for result in sparql_results["results"]["bindings"]:
@@ -40,6 +30,16 @@ class ProfessionalHistory (models.Model):
                                 name                = result["name"]["value"]))
 
         return results
+
+
+class ProfessionalHistory (SparqlModel):
+    """ A participant for a recording session."""
+
+    # Field definitions
+    age_from          = models.IntegerField ()
+    age_to            = models.IntegerField ()
+    less_than_a_year  = models.BooleanField ()
+    name              = models.TextField ()
 
 
     class Meta:

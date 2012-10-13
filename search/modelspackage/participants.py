@@ -154,6 +154,7 @@ class ParticipantManager (SparqlManager):
         print "Participant not found", participant_id
         return None
 
+
 class Participant (SparqlModel):
     """ A participant for a recording session."""
 
