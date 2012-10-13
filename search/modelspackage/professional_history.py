@@ -35,6 +35,9 @@ class ProfessionalHistoryManager (SparqlManager):
 class ProfessionalHistory (SparqlModel):
     """ A participant for a recording session."""
 
+    # custom manager
+    objects = ProfessionalHistoryManager ()
+
     # Field definitions
     age_from          = models.IntegerField ()
     age_to            = models.IntegerField ()

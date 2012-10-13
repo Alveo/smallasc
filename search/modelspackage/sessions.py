@@ -10,7 +10,7 @@ class SessionManager (SparqlManager):
     def all (self):
         """ Returns all the session names """
         sparql_results = self.query ("""
-            select distinct ?rs ?session  ?name 
+            select ?rs ?session ?name 
             where {
                 ?rs rdf:type austalk:RecordedSession .
                 ?rs austalk:prototype ?session . 
@@ -37,7 +37,7 @@ class SessionManager (SparqlManager):
             where {
                 ?rs rdf:type austalk:RecordedSession .
                 ?rs austalk:prototype ?session .
-                ?session austalk:id  <%s> .
+                ?rs rdfs:label  <%s> .
                 ?session austalk:name ?name .
             }""" % (session_id))
 
@@ -54,7 +54,7 @@ class SessionManager (SparqlManager):
         """ Returns all the session names for a participant """
         
         sparql_results = self.query ("""
-            select ?rs ?session ?id ?name ?number
+            select ?rs ?session ?name ?number
             where {
                 ?rs rdf:type austalk:RecordedSession .
                 ?rs olac:speaker <%s> .
@@ -77,6 +77,9 @@ class SessionManager (SparqlManager):
 
 		
 class Session (SparqlModel):
+
+    # custom manager
+    objects = SessionManager ()
 
     # Note that id is not specified as this is a Django model
     prototype       = models.URLField ()

@@ -62,7 +62,7 @@ class Site (SparqlModel):
     recording take place."""
 
     # custom manager
-    objects = SiteManager()
+    objects = SiteManager ()
 
     # Field definitions
     label               = models.TextField ()

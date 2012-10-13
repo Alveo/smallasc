@@ -33,6 +33,9 @@ class EducationHistoryManager (SparqlManager):
 class EducationHistory (SparqlModel):
     """ A participant for a recording session."""
 
+    # custom manager
+    objects = EducationHistoryManager ()
+
     # Field definitions
     age_from          = models.IntegerField ()
     age_to            = models.IntegerField ()

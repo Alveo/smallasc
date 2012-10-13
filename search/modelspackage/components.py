@@ -86,6 +86,9 @@ class Component (SparqlModel):
     """ A component is a logical representation of a component which belongs
     to a session."""
 
+    # custom manager
+    objects = ComponentManager ()
+
     # Note that id is not specified as this is a Django model
     prototype       = models.URLField ()
     name            = models.TextField ()

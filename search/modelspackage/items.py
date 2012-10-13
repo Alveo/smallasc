@@ -99,6 +99,9 @@ class Item (SparqlModel):
     """ A item is a logical representation of an item which belongs
     to a component."""
 
+    # custom manager
+    objects = ItemManager ()
+
     # Note that id is not specified as this is a Django model
     # identifier field is inherited from SparqlModel
     prompt = models.TextField ()
