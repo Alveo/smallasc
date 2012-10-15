@@ -670,3 +670,45 @@ h2.date span.today {
   font-weight: bold;
   border-bottom: none;
 }
+
+/*-------------------------------------------------
+LISTS
+-------------------------------------------------*/
+
+div.horizontal_list,
+div.vertical_list {
+  margin-bottom: 25px;
+}
+
+.horizontal_list ul,
+.vertical_list ul {
+  padding-left: 0;
+  border: none;
+}
+
+.vertical_list ul {
+  margin-left: 25px; 
+  border-left: 1px solid #ccc;
+}
+
+.horizontal_list ul li {
+  margin-left: 0; 
+  padding: 3px 15px;
+  border-left: 1px solid #ccc;
+  list-style: none;
+  display: inline;
+}
+
+.vertical_list ul li {
+  margin-left: 0; 
+  padding: 3px 15px;
+  list-style: none;
+}
+
+.horizontal_list ul li.first {
+  margin: 0; 
+  padding: 3px 15px 3px 25px;
+  border-left: none;
+  list-style: none;
+  display: : inline;
+}

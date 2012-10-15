@@ -1,4 +1,4 @@
-{% extends "layout/2columnlayout.html" %}
+    {% extends "layout/2columnlayout.html" %}
 
 <!-- Note the convention of the title, Austalk | View > Object -->
 {% block title %}
@@ -21,81 +21,118 @@
 {% endblock %}
 
 {% block content %}
-    <h3>Data</h3>
-    <ul>
-         {% for session in sessions %}
-            <li><a href="/browse/{{ site_id }}/{{ participant.friendly_id }}/{{ session.number }}/">{{ session.name }}</a></li>
-         {% endfor %}
-    </ul>
 
-    <h3>Recording information</h3>
-    <p>Recording site: <a href="/browse/{{ site_id }}/">{{ site }}</a></p>
+    <div class="horizontal_list">
+        <h2>Data</h2>
+        <ul>
+             {% for session in sessions %}
+                {% if forloop.first %}
+                    <li class="first">
+                {% else %}
+                    <li>
+                {% endif %}
+                    <a href="/browse/{{ site_id }}/{{ participant.friendly_id }}/{{ session.number }}/">{{ session.name }}</a>
+                    </li>
+             {% endfor %}
+        </ul>
+    </div>
 
-    <h3>About</h3>
-    <p>Gender: {{ participant.gender }}</p>
-    <p>Year of birth: {{ participant.birth_year }}</p>
-    <p>Location of birth: <a href="{{ participant.birth_place }}">{{ participant.birth_place }}</a></p>
+    <div class="vertical_list">
+        <h2>Recording information</h2>
+        <ul>
+            <li>Recording site: <a href="/browse/{{ site_id }}/">{{ site }}</a></li>
+        </ul>
+    </div>
 
-    <h3>Education history</h3>
-    <ul>
-        {% for eh in education_history %}
-        <li>from age {{ eh.age_from }} to {{ eh.age_to }} studied at {{ eh.name }}</li>
-        {% endfor %}
-    </ul>
+    <div class="horizontal_list">
+        <h2>About</h2>
+        <ul>
+            <li class="first">Gender: {{ participant.gender }}</li>
+            <li>Year of birth: {{ participant.birth_year }}</li>
+            <li>Location of birth: <a href="{{ participant.birth_place }}">{{ participant.birth_place }}</a></li>
+        </ul>
+    </div>
 
-    <h3>Professional history</h3>
-    <ul>
-        {% for ph in professional_history %}
-        <li>
-            from age {{ ph.age_from }} to {{ ph.age_to }}  worked as a {{ ph.name }}
-            {% if ph.less_than_a_year == true %}
-                for less than a year 
-            {% else %}
-                for more than year
-            {% endif %}
-        </li>
-        {% endfor %}
-    </ul>
+    <div class="vertical_list">
+        <h2>Education history</h2>
+        <ul>
+            {% for eh in education_history %}
+                <li>from age {{ eh.age_from }} to {{ eh.age_to }} studied at {{ eh.name }}</li>
+            {% endfor %}
+        </ul>
+    </div>
 
-    <h3>Cultural heritage</h3>
-    <p>Cultural heritage: {{ participant.cultural_heritage }}</p>
-    <p>Religion: {{ participant.religion }}</p>
-    <p>Hobbies: {{ participant.hobbies_details }}</p>
+    <div class="vertical_list">
+        <h2>Professional history</h2>
+        <ul>
+            {% for ph in professional_history %}
+            <li>
+                from age {{ ph.age_from }} to {{ ph.age_to }}  worked as a {{ ph.name }}
+                {% if ph.less_than_a_year == true %}
+                    for less than a year 
+                {% else %}
+                    for more than year
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
 
-    <h3>Language</h3>
-    <p>First language: {{ participant.first_language }}</p>
-    <p>Other languages spoken/understood: {{ participant.other_languages }}</p>
+    <div class="horizontal_list">
+        <h2>Cultural heritage</h2>
+        <ul>
+            <li class="first">Cultural heritage: {{ participant.cultural_heritage }}</li>
+            <li>Religion: {{ participant.religion }}</li>
+            <li>Hobbies: {{ participant.hobbies_details }}</li>
+        </ul>
+    </div>
 
-    <h3>About parents</h3>
+    <div class="vertical_list">
+        <h2>Language</h2>
+        <ul>
+            <li>First language: {{ participant.first_language }}</li>
+            <li>Other languages spoken/understood: {{ participant.other_languages }}</li>
+        </ul>
+    </div>
 
-    <!-- Mothers demographic details -->
-    <h4>About mother, or primary female caregiver</h4>
-    <p>Mother's cultural heritage: {{ participant.mother_cultural_heritage }}</p>
-    <p>Mother's place of birth: {{ participant.mother_pob_location }}</p>
-    <p>Mother's first language: {{ participant.mother_first_language }}</p>
-    <p>Mother's accent: {{ participant.mother_accent }}</p>
-    <p>Mother's occupation: {{ participant.mother_occupation }}</p>
-    <p>Mother's highest education level: {{ participant.mother_education_level }}</p>
+    <div class="vertical_list">
+        <h2>About parents</h2>
 
-    <!-- Fathers demographic details -->
-    <h4>About father, or primary male caregiver</h4>
-    <p>Father's cultural heritage: {{ participant.father_cultural_heritage }}</p>
-    <p>Father's place of birth: {{ participant.father_pob_location }}</p>
-    <p>Father's first language: {{ participant.father_first_language }}</p>
-    <p>Father's accent: {{ participant.father_accent }}</p>
-    <p>Father's occupation: {{ participant.father_occupation }}</p>
-    <p>Father's highest education level: {{ participant.father_education_level }}</p>
+        <!-- Mothers demographic details -->
+        <h3>About mother, or primary female caregiver</h3>
+        <ul>
+    <li>Mother's cultural heritage: {{ participant.mother_cultural_heritage }}</li>
+    <li>Mother's place of birth: {{ participant.mother_pob_location }}</li>
+    <li>Mother's first language: {{ participant.mother_first_language }}</li>
+    <li>Mother's accent: {{ participant.mother_accent }}</li>
+    <li>Mother's occupation: {{ participant.mother_occupation }}</li>
+    <li>Mother's highest education level: {{ participant.mother_education_level }}</li>
+        </ul>
 
-    <!-- Other tidbits about the participant -->
-    <h3>Other information</h3>
-    <p>Has had some reading problems: {{ participant.has_reading_problems }}</p>
-    <p>Has had vocal training: {{ participant.has_vocal_training }}</p>
-    <p>Has speech problems: {{ participant.has_speech_problems }}</p>
-    <p>Has hearing problems: {{ participant.has_hearing_problems }}</p>
-    <p>Is Right-handed: {{ participant.is_left_handed }}</p>
-    <p>Is a smoker: {{ participant.is_smoker }}</p>
-    <p>Wears dentures: {{ participant.has_dentures }}</p>
-    <p>Has facial piercings: {{ participant.has_piercings }}</p>
-    <p>Has health problems which might affect his/her voice: {{ participant.has_health_problems }}</p>
+        <!-- Fathers demographic details -->
+        <h3>About father, or primary male caregiver</h3>
+        <ul>
+    <li>Father's cultural heritage: {{ participant.father_cultural_heritage }}</li>
+    <li>Father's place of birth: {{ participant.father_pob_location }}</li>
+    <li>Father's first language: {{ participant.father_first_language }}</li>
+    <li>Father's accent: {{ participant.father_accent }}</li>
+    <li>Father's occupation: {{ participant.father_occupation }}</li>
+    <li>Father's highest education level: {{ participant.father_education_level }}</li>
+        </ul>
+    </div>
 
+    <div class="vertical_list">
+        <h2>Other information</h2>
+        <ul>
+    <li>Has had some reading problems: {{ participant.has_reading_problems }}</li>
+    <li>Has had vocal training: {{ participant.has_vocal_training }}</li>
+    <li>Has speech problems: {{ participant.has_speech_problems }}</li>
+    <li>Has hearing problems: {{ participant.has_hearing_problems }}</li>
+    <li>Is Right-handed: {{ participant.is_left_handed }}</li>
+    <li>Is a smoker: {{ participant.is_smoker }}</li>
+    <li>Wears dentures: {{ participant.has_dentures }}</li>
+    <li>Has facial piercings: {{ participant.has_piercings }}</li>
+    <li>Has health problems which might affect his/her voice: {{ participant.has_health_problems }}</li>
+        </ul>
+    </div>
 {% endblock %}
