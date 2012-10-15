@@ -7,17 +7,18 @@
 
 {% block subtitle %}
     {{ session.name }} Components
-    <div class="page_header_links">
-        <a href="/browse/sites/">&lt;&lt;&nbsp;sites</a> | 
-        <a href="/browse/sites/{{ site_id }}/">&lt;&lt;&nbsp;participants</a> |
-        <a href="/browse/sites/{{ site_id }}/{{ participant_id }}">&lt;&lt;&nbsp;{{ participant_id }}</a> | ...  
-    </div>
 {% endblock %}
 
 {% block menubar %}
     <li><a href="/" title="Your dashboard">Dashboard</a></li>
-    <li><a href="/browse/sites" class="current" title="Browse">Browse</a></li> 
+    <li><a href="/browse/" class="current" title="Browse">Browse</a></li> 
     <li><a href="/search" title="Search">Search</a></li>  
+{% endblock %}
+
+{% block page_links %}
+    <a href="/browse/">sites</a> | 
+    <a href="/browse/{{ site_id }}/">participants</a> |
+    <a href="/browse/{{ site_id }}/{{ participant_id }}">{{ participant_id }}</a>
 {% endblock %}
 
 {% block content %}
@@ -33,19 +34,21 @@
             </tr>
             <tr class="event">
                 <td class="what"><span class="post">Details</span></td>
-                <td class="item">{{ item.prompt }}</td>
+                <td class="item">
+                    {{ item.prompt }}
+                     <div class="vertical_list">
+                        {% for prop, value in item.properties.iteritems %}
+                        <h3>{{prop}}</h3>
+                            <ul>
+                                {% for v in value %}
+                                    <li>{{ v }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endfor %}
+                    </ul>
+                </div>
+                </td>
                 <td class="action">ID: {{ item.identifier }}</td>
             </tr>
-            <tr>
-              <td colspan=3>
-                <dl>
-                {% for prop, value in item.properties.iteritems %}
-                 <dt>{{prop}}</dt>
-                 {% for v in value %}
-                   <dd>{{ v }}</dd>
-                 {% endfor %}
-                {% endfor %}
-                </dl>
-            </tr> 
-    </table>
+    </table>   
 {% endblock %}
