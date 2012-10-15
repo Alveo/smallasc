@@ -58,17 +58,22 @@ class ComponentManager (SparqlManager):
         return results   
         
 
-    def filter_by_session (self, session):
-        """ Method returns all the components filtered by the session. """
+    def filter_by_session (self, site_id, participant_id, session_id):
+        """ Method returns all the components filtered by the given ids. """
         sparql_results = self.query ("""
             select ?rc ?component ?name ?shortname
             where {
                 ?rc rdf:type austalk:RecordedComponent .
-                ?rc dc:isPartOf <%s> .
+                ?rc dc:isPartOf ?rs .
+                ?rs austalk:prototype ?session .
+                ?session austalk:id %s .
+                
+                ?rc olac:speaker <http://id.austalk.edu.au/participant/%s> .
+                
                 ?rc austalk:prototype ?component .
                 ?component austalk:name ?name .
                 ?component austalk:shortname ?shortname . 
-        }""" % session.identifier)
+        }""" % (session_id, participant_id))
 
         results = []
 
