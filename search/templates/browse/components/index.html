@@ -1,0 +1,46 @@
+{% extends "layout/2columnlayout.html" %}
+
+<!-- Note the convention of the title, Austalk | View > Object -->
+{% block title %}
+    Austalk | Browse > Components
+{% endblock %}
+
+{% block subtitle %}
+    {{ session.name }} Components
+{% endblock %}
+
+{% block page_links %}
+   <a href="/browse/">&lt;&lt;&nbsp;sites</a> | 
+        <a href="/browse/{{ site_id }}/">&lt;&lt;&nbsp;participants</a> |
+        <a href="/browse/{{ site_id }}/{{ participant_id }}">&lt;&lt;&nbsp;{{ participant_id }}</a> | ...     
+{% endblock %}
+
+{% block menubar %}
+    <li><a href="/" title="Your dashboard">Dashboard</a></li>
+    <li><a href="/browse/" class="current" title="Browse">Browse</a></li> 
+    <li><a href="/search" title="Search">Search</a></li>  
+{% endblock %}
+
+{% block content %}
+    <table class="overview">
+        {% for comp in components %}
+            <tr class="date">
+                <td colspan="4">
+                    <h2 class="date">
+                        <span>
+                            <a href="/browse/{{ site_id }}/{{ participant_id }}/{{ session_id }}/{{ comp.short_name }}/">
+                                {{ comp.short_name }}
+                            </a>
+                        </span>
+                    </h2>
+                </td>
+            </tr>
+            <tr class="event">
+                <td class="what"><span class="post">Details</span></td>
+                <td class="item">{{ comp.name }}</td>
+                <td class="action">ID: {{ comp.id }}</td>
+                <td class="name"></td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

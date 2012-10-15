@@ -1,0 +1,43 @@
+{% extends "layout/2columnlayout.html" %}
+
+<!-- Note the convention of the title, Austalk | View > Object -->
+{% block title %}
+    Austalk | Browse > Items
+{% endblock %}
+
+{% block subtitle %}
+    Speaker {{participant_id}}|Session {{ session_id }}|Component {{ component_id }}|Item list
+{% endblock %}
+
+{% block page_links %}
+    <a href="/browse/">&lt;&lt;&nbsp;sites</a> | 
+    <a href="/browse/{{ site_id }}/">&lt;&lt;&nbsp;participants</a> |
+    <a href="/browse/{{ site_id }}/{{ participant_id }}">&lt;&lt;&nbsp;{{ participant_id }}</a> | ...    
+{% endblock %}
+
+{% block menubar %}
+    <li><a href="/" title="Your dashboard">Dashboard</a></li>
+    <li><a href="/browse/sites" class="current" title="Browse">Browse</a></li> 
+    <li><a href="/search" title="Search">Search</a></li>  
+{% endblock %}
+
+{% block content %}
+   <ul>
+        {% for item in items %}
+        <li>
+           <h2>
+              <span>
+                  <a href="{{item.get_absolute_url}}"> {{ item.basename }}</a>
+              </span>
+          </h2>
+            <ul>
+                <li>Prompt: {{ item.prompt }}</li>
+                <li>ID: {{ item.identifier }}</li>
+                <li><a href="{{item.ch6media}}">{{item.prompt}}</a></li>
+            </ul>
+         </li>
+        {% endfor %}
+    </ul>
+   
+{% endblock %}
+
