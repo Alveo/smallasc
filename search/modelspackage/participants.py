@@ -103,8 +103,8 @@ class ParticipantManager (SparqlManager):
         sparql_results = self.query(qq)
 
         for result in sparql_results["results"]["bindings"]:
+            print result
             return Participant(identifier = result["part"]["value"])
-            
             
             mother_pob = Location (
                             town    = result["mother_pob_town"]["value"],

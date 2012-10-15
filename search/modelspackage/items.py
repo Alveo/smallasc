@@ -29,7 +29,7 @@ class ItemManager (SparqlManager):
                 ?media austalk:channel "ch6-speaker" .
         } order by ?id""" % {'part': participant_id, 'sess': session_id, 'comp': component_id}
      
-        print qq
+        # print qq
      
         sparql_results = self.query (qq)
         results = []

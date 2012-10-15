@@ -112,6 +112,8 @@ class ParticipantTests (unittest.TestCase):
         sites = Site.objects.all ()
         parts = Participant.objects.all (sites[0])
 
+        print parts[0]
+
         self.assertTrue (len (parts) > 0)
         self.assertTrue (isinstance (parts[0], Participant)) 
 
@@ -174,9 +176,9 @@ class ParticipantTests (unittest.TestCase):
         
         self.assertTrue (len(items) > 0)
         item = items[0]
-        print "IDENT: ", item.identifier
+        # print "IDENT: ", item.identifier
         props = item.properties()
-        print "PROPS: ", props
+        # print "PROPS: ", props
         self.assertEqual(props['bar'], 'foo')
 
 
@@ -187,9 +189,9 @@ class ParticipantTests (unittest.TestCase):
 
         # There should be 59 items for sentences
         self.assertEqual (59, len (items))
-        print items
+        # print items
         # Now get the media
         media = Media.filter_by_componentitems (components[0], items[0])
 
-        print components[0].identifier
-        print items[0].identifier
+        # print components[0].identifier
+        # print items[0].identifier
