@@ -350,8 +350,8 @@ PAGE HEADER
 -------------------------------------------------*/
 
 div.page_header {
-  background: #edf3fe;
-  margin: 0 0 5px 0;
+  background: #edf3fe url(/static/images/right-bg.gif) right repeat-y;
+  margin: 0 0 0 0;
   padding: 13px 30px 13px 24px;
 }
 
@@ -386,19 +386,23 @@ div.page_header_links {
   font-size: 11px;
   margin-top: 0;
   text-align: right;
-  color: #999;
+  color: #ccc;
   line-height: 20px;
   white-space: nowrap;
 }
 
-div.page_header_links strong {
-  color: #000;
+div.page_header_links a {
+  color: #ff0000;
+}
+
+div.page_header_links a:hover {
+  background-color: #ff0000;
+  color: #fff;
 }
 
 div.page_header_links a.active:link,
 div.page_header_links a.active:visited,
 div.page_header_links a.active:hover {
-  background: #999;
   color: #000;
   text-decoration: none;
   font-weight: normal;

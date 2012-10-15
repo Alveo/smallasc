@@ -7,9 +7,10 @@
 
 {% block subtitle %}
     {{ site.name }} Participants
-    <div class="page_header_links">
-        <a href="/browse/">&lt;&lt;&nbsp;sites</a>    
-    </div>
+{% endblock %}
+
+{% block page_links %}
+    <a href="/browse/" class="admin">sites</a>    
 {% endblock %}
 
 {% block menubar %}

@@ -25,8 +25,9 @@
 		 	<div class="Left">
 		 		<!-- Start of page content -->
 		        <div class="col">
-		            <div class="page_header">
-		            	<div class="page_header_links">		
+		            <div class="page_header">		       
+		            	<div class="page_header_links">
+		            		{% block page_links %}{% endblock %}	
 						</div>
 						<h1>{% block subtitle %}{% endblock %}</h1>
 					</div>

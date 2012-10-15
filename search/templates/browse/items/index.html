@@ -7,11 +7,12 @@
 
 {% block subtitle %}
     Speaker {{participant_id}}|Session {{ session_id }}|Component {{ component_id }}|Item list
-    <div class="page_header_links">
-        <a href="/browse/">&lt;&lt;&nbsp;sites</a> | 
-        <a href="/browse/{{ site_id }}/">&lt;&lt;&nbsp;participants</a> |
-        <a href="/browse/{{ site_id }}/{{ participant_id }}">&lt;&lt;&nbsp;{{ participant_id }}</a> | ...  
-    </div>
+{% endblock %}
+
+{% block page_links %}
+    <a href="/browse/">&lt;&lt;&nbsp;sites</a> | 
+    <a href="/browse/{{ site_id }}/">&lt;&lt;&nbsp;participants</a> |
+    <a href="/browse/{{ site_id }}/{{ participant_id }}">&lt;&lt;&nbsp;{{ participant_id }}</a> | ...    
 {% endblock %}
 
 {% block menubar %}
