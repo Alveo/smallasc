@@ -5,30 +5,27 @@ from search.modelspackage.sparql_local_wrapper import SparqlModel, SparqlManager
 class ComponentManager (SparqlManager):
 
     def all (self):
-        """ Returns all the session names """
+        """ Returns all the component names """
         sparql_results = self.query ("""
-            select distinct ?comp ?proto ?name ?shortname 
+            select distinct ?rc ?proto ?name ?shortname ?arating ?vrating ?comment
             where {
-                ?comp rdf:type austalk:RecordedComponent .
-                ?comp austalk:prototype ?proto .
+                ?rc rdf:type austalk:RecordedComponent .
+                ?rc austalk:prototype ?proto .
                 ?proto austalk:name ?name .
                 ?proto austalk:shortname ?shortname .
+                OPTIONAL { 
+                ?rc austalk:audiorating ?arating .
+                ?rc austalk:videorating ?vrating .
+                ?rc austalk:comment ?comment .
+                }
             }
             ORDER BY ?name""")
 
-        results = []
 
-        for result in sparql_results["results"]["bindings"]:
-            results.append (Component (
-                                identifier = result["comp"]["value"], 
-                                prototype = result["comp"]["value"],
-                                name = result["name"]["value"],
-                                short_name = result["shortname"]["value"]))
-
-        return results
+        return self.generate_component_list(sparql_results)
     
 
-    def get(sparql, component):
+    def get(self, participant_id, session_id, component_id):
         """Return the component for this participant/session/component id
         
         participant_id is like 1_123
@@ -36,54 +33,80 @@ class ComponentManager (SparqlManager):
         component_id is shortname words-1, conversation
         """
         
-        sparql_results = self.query ("""
-            select ?rc ?component ?name
-            where {
-                ?rc rdf:type austalk:RecordedComponent .
-                ?rc austalk:prototype ?component .
-                ?component dc:isPartOf ?session .
-                ?component austalk:name ?name .
-                ?component austalk:id <%s> . 
-        }""" % (component.identifier))
+        qpart = """
+                BIND ("%s" AS ?pid)
+                BIND (%s as ?sessionid)
+                BIND ("%s" as ?shortname)
+            """ % (participant_id, session_id, component_id)
 
-        results = []
-
-        for result in sparql_results["results"]["bindings"]:
-            results.append (Component (
-                                identifier      = result["rc"]["value"], 
-                                prototype       = result["component"]["value"], 
-                                name            = result["name"]["value"],
-                                short_name      = component_id))
-
-        return results   
+        return self.generate_component_list(sparql_results)
         
 
     def filter_by_session (self, site_id, participant_id, session_id):
         """ Method returns all the components filtered by the given ids. """
+        qpart = """
+                BIND ("%s" AS ?pid)
+                BIND (%s as ?sessionid)
+                """ % (participant_id, session_id)
+
+        return self.generate_component_list(qpart)
+
+
+    def generate_component_list(self, qpart):
+        
+        
         sparql_results = self.query ("""
-            select ?rc ?component ?name ?shortname
-            where {
-                ?rc rdf:type austalk:RecordedComponent .
-                ?rc dc:isPartOf ?rs .
-                ?rs austalk:prototype ?session .
-                ?session austalk:id %s .
+            select * where {
+
+                %s
                 
-                ?rc olac:speaker <http://id.austalk.edu.au/participant/%s> .
+                ?rc rdf:type austalk:RecordedComponent .
+                ?rc olac:speaker ?participant .
+                ?participant austalk:id ?pid .
+                ?participant austalk:recording_site ?site .
+                ?site rdfs:label ?sitelabel .
                 
                 ?rc austalk:prototype ?component .
-                ?component austalk:name ?name .
-                ?component austalk:shortname ?shortname . 
-        }""" % (session_id, participant_id))
-
+                ?component austalk:shortname ?shortname .
+                ?rc dc:isPartOf ?rs .
+                ?rs austalk:prototype ?session .
+                ?session austalk:id ?sessionid .
+                
+                ?component austalk:name ?name . 
+                OPTIONAL { 
+                ?rc austalk:audiorating ?arating .
+                ?rc austalk:videorating ?vrating .
+                ?rc austalk:comment ?comment .
+                }
+        }""" % (qpart,))
+        
         results = []
 
         for result in sparql_results["results"]["bindings"]:
-            results.append (Component (
+            if result.has_key("arating"):
+                results.append (Component (
                                 identifier      = result["rc"]["value"], 
                                 prototype       = result["component"]["value"], 
                                 name            = result["name"]["value"],
-                                short_name      = result["shortname"]["value"]))
-
+                                componentId      = result["shortname"]["value"],
+                                sessionId      = result["sessionid"]["value"],
+                                site            = result["sitelabel"]["value"],
+                                participantId   = result["pid"]["value"],
+                                audiorating     = result["arating"]["value"],
+                                videorating     = result["vrating"]["value"],
+                                comment         = result["comment"]["value"]
+                                )
+                                )
+            else:
+                results.append (Component (
+                                identifier      = result["rc"]["value"], 
+                                prototype       = result["component"]["value"], 
+                                name            = result["name"]["value"],
+                                componentId     = result["shortname"]["value"],
+                                site            = result["sitelabel"]["value"],
+                                participantId   = result["pid"]["value"],
+                                sessionId      = result["sessionid"]["value"],
+                                ))
         return results
 
 
@@ -97,13 +120,25 @@ class Component (SparqlModel):
     # Note that id is not specified as this is a Django model
     prototype       = models.URLField ()
     name            = models.TextField ()
-    short_name      = models.TextField ()
+    site            = models.TextField ()
+    componentId     = models.TextField ()
+    sessionId       = models.TextField ()
+    participantId   = models.TextField ()
+    audiorating     = models.TextField ()
+    videorating     = models.TextField ()
+    comment         = models.TextField ()
 
 
     def __unicode__ (self):
         """ Simple name representation for a components """
         return self.name
 
+    def get_absolute_url(self):
+        """Return a canonical URL for this item"""
+                
+        return "/browse/%s/%s/%s/%s/" % (self.site, self.participantId, self.sessionId, self.componentId)    
+
+    
 
     class Meta:
         app_label= 'search'
