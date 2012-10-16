@@ -87,7 +87,7 @@ def download(request, h):
 
             return render_to_response("download-in-progress.html", variables)
 
-        elif False and res.successful() and os.path.exists(os.path.join(settings.TEMP_ROOT, h+".zip")):
+        elif res.successful() and os.path.exists(os.path.join(settings.TEMP_ROOT, h+".zip")):
             wrapper = FileWrapper(file(os.path.join(settings.TEMP_ROOT, h+".zip")))
             response = HttpResponse(wrapper, content_type='application/zip')
             response['Content-Disposition'] = 'attachment; filename=%s' % name
