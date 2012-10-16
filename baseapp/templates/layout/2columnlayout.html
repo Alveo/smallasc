@@ -5,6 +5,7 @@
     <!-- Stylesheet includes -->
 	<link rel="stylesheet" href="/static/styles/main.css" type="text/css" />
 	<link rel="stylesheet" href="/static/styles/theme.css" type="text/css" />
+    {% block head %}<!-- extra header elements -->{% endblock %}
 
     <title>{% block title %}{% endblock %}</title>
 </head>
