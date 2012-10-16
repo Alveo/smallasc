@@ -28,7 +28,7 @@ Visualisation
        //// Query settings. The defaults settings are listed.
        sgvizler.option.query = {
            // Default query. 
-           'query':                "SELECT  ?inst (count(?part) as ?partcount)\nWHERE {\n ?site rdf:type austalk:RecordingSite .\n ?site austalk:institution ?inst .\n ?part rdf:type foaf:Person .\n ?part austalk:recording_site ?site .\n}\ngroup by ?inst",
+           'query':                "SELECT  ?inst (count(?part) as ?partcount)\nWHERE {\n ?site rdf:type austalk:RecordingSite .\n ?site rdfs:label ?inst .\n ?part rdf:type foaf:Person .\n ?part austalk:recording_site ?site .\n}\ngroup by ?inst",
            'endpoint':             "http://sesame.stevecassidy.net/openrdf-sesame/repositories/bigasc",
            'endpoint_output':      'json',  
            // Default chart type. 
