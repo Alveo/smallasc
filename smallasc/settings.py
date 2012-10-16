@@ -123,9 +123,12 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 
+    'djcelery',
+
     # Smallasc applications listed
     'baseapp',
     'search',
+    'data',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -157,5 +160,16 @@ LOGGING = {
     }
 }
 
+# careful, trailing slash everywhere
+# data/download module
+DATA_HOST_PREFIX = "http://data.austalk.edu.au/"
+DATA_ROOT = "/var/fileserver/"
+TEMP_ROOT = "/var/run/smallasc/tmp/"
+
 # Custom setting for the login url
 LOGIN_URL = "/login/"
+
+# django-celery
+import djcelery
+djcelery.setup_loader()
+
