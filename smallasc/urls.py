@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
+from django.views.generic.base import TemplateView
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
@@ -18,6 +19,10 @@ urlpatterns = patterns('',
     # search, perhaps the module should be renamed?
     url (r'^browse/', include ('search.urls')),
 	url (r'^search/', include ('search.urls')),
+
+
+	url(r'^report/$', TemplateView.as_view(template_name='sgvizler.html')),
+	url(r'^report/participants$', TemplateView.as_view(template_name='p_report.html')),
 
     # Uncomment the next line to enable the admin:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

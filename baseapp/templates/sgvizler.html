@@ -1,0 +1,128 @@
+{% extends "layout/2columnlayout.html" %}
+
+{% block title %}
+ Austalk Meta Search | Reports
+{% endblock %}
+
+{% block subtitle %}
+Visualisation
+{% endblock %}
+
+{% block menubar %}
+ <li><a href="/" class="current" title="Your dashboard">Dashboard</a></li>
+    <li><a href="/browse" title="Browse">Browse</a></li>  
+ <li><a href="/search" title="Search">Search</a></li>  
+{% endblock %}
+
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="http://sgvizler.googlecode.com/svn/www/sgvizler.css" />
+    
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" id="sgvzlr_script" src="http://sgvizler.googlecode.com/svn/release/0.5/sgvizler.js"></script>
+    <script type="text/javascript">
+      // CONFIGURATION Sgvizler 0.5: Set variables to fit your setup.
+      // NB! Do not let the last item in a list end with a comma.
+
+       //// Query settings. The defaults settings are listed.
+       sgvizler.option.query = {
+           // Default query. 
+           'query':                "SELECT  ?inst (count(?part) as ?partcount)\nWHERE {\n ?site rdf:type austalk:RecordingSite .\n ?site austalk:institution ?inst .\n ?part rdf:type foaf:Person .\n ?part austalk:recording_site ?site .\n}\ngroup by ?inst",
+           'endpoint':             "http://sesame.stevecassidy.net/openrdf-sesame/repositories/bigasc",
+           'endpoint_output':      'json',  
+           // Default chart type. 
+           'chart':                'gPieChart',
+           // Default log level. Must be either 0, 1, or 2. 
+           'loglevel':             2
+       };
+
+       //// Prefixes
+       // Add convenient prefixes for your dataset. rdf, rdfs, xsd, owl
+       // are already set.  Examples: 
+       sgvizler.option.namespace['dc'] = 'http://purl.org/dc/terms/';
+       sgvizler.option.namespace['ausnc'] = 'http://ns.ausnc.org.au/schemas/ausnc_md_model/';
+       sgvizler.option.namespace['olac'] = 'http://www.language-archives.org/OLAC/1.1/';
+       sgvizler.option.namespace['ice'] = 'http://ns.ausnc.org.au/schemas/ice/';
+       sgvizler.option.namespace['foaf'] = 'http://xmlns.com/foaf/0.1/';
+       sgvizler.option.namespace['graf'] = 'http://www.xces.org/ns/GrAF/1.0/';
+       sgvizler.option.namespace['austalk'] = 'http://ns.austalk.edu.au/';
+       sgvizler.option.namespace['protocol'] = "http://id.austalk.edu.au/protocol/";
+       sgvizler.option.namespace['austalkd'] = "http://data.austalk.edu.au/";
+       
+       //// Your chart drawing preferences. The defaults are listed.
+       // See the Google visualization API for available options for
+       // Google charts, and the Sgvizler homepage for other
+       // options. Options applicable to all charts are put in the
+       // "root" of sgvizler.chartOptions. Chart specific options are
+       // put in a "child" with the chart's id as name,
+       // e.g. 'gGeoMap'. 
+       sgvizler.option.chart = { 
+           //'width':           '800',
+           //'height':          '400',
+           //'chartArea':       { left: '5%', top: '5%', width: '75%', height: '80%' },
+           //     'gGeoMap': {
+           //	 'dataMode':           'markers'
+           //     },
+           //     'gMap': {
+           //	 'dataMode':           'markers',
+           //     },
+           //     'sMap': {
+           //	 'dataMode':           'markers',
+           //	 'showTip':            true,
+           //	 'useMapTypeControl':  true
+           //     } 
+       };
+
+       //// Leave this as is. Ready, steady, GO!
+       $(document).ready(sgvizler.go());
+    </script>
+    
+    {% endblock %}
+    
+    
+{% block content %}
+
+
+   {% block query %}
+
+    This section contains a input form where users can write and
+    execute their own SPARQL queries. The query is sent to Sgvizler
+    via the URL in GET parameters.
+
+    <div id="queryarea">
+      <pre id="sgvzlr_cPrefix"></pre>
+      <textarea id="sgvzlr_cQuery" rows="10" cols="80"></textarea>
+      <form method="get" id="sgvzlr_formQuery">
+	<p>
+	  
+   <input type="hidden" value="" name="query" id="sgvzlr_strQuery"/>
+	  Width:  <input name="width" id="sgvzlr_strWidth" type="text" size="3"/>
+	  Height: <input name="height" id="sgvzlr_strHeight" type="text" size="3"/>
+	  Chart Type: <select name="chart" id="sgvzlr_optChart"></select>
+	  <input type="button" value="Reset" onclick="sgvizler.ui.resetPage()"/>
+	  <input type="button" value="GO!" onclick="sgvizler.ui.submitQuery()"/>
+	</p>
+      </form>
+      <div id="sgvzlr_cMessage"></div>
+    </div>
+    
+  {% endblock %}
+    
+    <div id="sgvzlr_gchart" style="width:800px; height:400px;"></div>
+    
+    
+    
+    
+    <div id="footer">
+      <!-- Please leave a link to the Sgvizler homepage --> 
+      <p>
+	Graphs generated by Sgvizler which visualizes the result of SPARQL SELECT queries using
+	javascript and the Google Visualization API. For more
+	information, see
+	the <a href="http://code.google.com/p/sgvizler/">Sgvizler</a>
+	homepage. (c) 2011 Martin G. Skj&#230;veland.
+      </p>
+    </div>
+
+{% endblock %}
