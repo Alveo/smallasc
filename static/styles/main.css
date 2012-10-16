@@ -649,6 +649,29 @@ body.dashboard table.overview td.what {
 }
 
 /*-------------------------------------------------
+ descriptions of components, items etc
+-------------------------------------------------*/
+
+table.description {
+	margin-bottom: 1em;
+	width: 100%;
+	border: 1px solid black;
+}
+
+table.description th  {
+  background: #E9E9E9;
+  border-bottom: 2px solid #fff;
+  color: #000000;
+  font-size: 13px;
+  font-weight: bold;
+  width: 20ex;
+}
+
+table.description td  {
+  border-bottom: 1px solid #ccc; 
+}
+
+/*-------------------------------------------------
 DATES
 -------------------------------------------------*/
 
