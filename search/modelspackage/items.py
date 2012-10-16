@@ -66,7 +66,8 @@ class ItemManager (SparqlManager):
                 ?spkr austalk:recording_site ?site .
                 ?site rdfs:label ?sitelabel .
                 ?rc austalk:prototype ?component .
-                ?component dc:isPartOf ?session .
+                ?rc dc:isPartOf ?rs .
+                ?rs austalk:prototype ?session .
                 ?session austalk:id ?sessid .
                 ?component austalk:shortname ?compid  .
                 ?item austalk:media ?media .

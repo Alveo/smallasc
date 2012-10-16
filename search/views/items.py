@@ -29,7 +29,7 @@ def show (request, site_id, participant_id, session_id, component_id, basename):
     item = Item.objects.get (basename)
 
     if item == None:
-        return Http404("Item not found")
+        return Http404("Item not found %s" % basename)
     
     return render (request, 'browse/items/show.html', 
         {'site_id' : site_id,

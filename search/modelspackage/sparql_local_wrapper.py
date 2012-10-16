@@ -1,6 +1,7 @@
 # Import SPARQL modules and related information
 from search.settings import *
 from SPARQLWrapper import SPARQLWrapper, JSON
+import os
 
 class SparqlLocalWrapper ():
 
@@ -151,6 +152,15 @@ class SparqlModel(models.Model):
         self.sparql.setQuery(self.canonicalise_query(query))
         return self.sparql.query().convert()
 
+    def clean_property_name(self, prop):
+        """Generate a 'nice' version of the property name 
+        which is an RDF URI"""
+        
+        if prop.startswith('http'):
+            return os.path.basename(prop)
+        else:
+            return prop
+        
     
     def properties(self):
         """Return a dictionary of properties for this object
@@ -167,7 +177,7 @@ class SparqlModel(models.Model):
         props = dict()
 
         for result in sparql_results["results"]["bindings"]:
-            prop = result["prop"]["value"]
+            prop = self.clean_property_name(result["prop"]["value"])
             value = result["value"]["value"]
             
             if props.has_key(prop):

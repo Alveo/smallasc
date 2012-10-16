@@ -22,33 +22,28 @@
 {% endblock %}
 
 {% block content %}
-    <table class="overview"> 
-            <tr class="date">
-                <td colspan="4">
-                    <h2 class="date">
-                        <span>
-                            <a href="{{item.get_absolute_url}}"> {{ item.id }}
-                        </span>
-                    </h2>
-                </td>
-            </tr>
-            <tr class="event">
-                <td class="what"><span class="post">Details</span></td>
-                <td class="item">
-                    {{ item.prompt }}
-                     <div class="vertical_list">
-                        {% for prop, value in item.properties.iteritems %}
-                        <h3>{{prop}}</h3>
-                            <ul>
-                                {% for v in value %}
-                                    <li>{{ v }}</li>
-                                {% endfor %}
-                            </ul>
-                        {% endfor %}
-                    </ul>
-                </div>
-                </td>
-                <td class="action">ID: {{ item.identifier }}</td>
+ 
+            <table class="description">
+              <tr><th>Name</th><td><a href="{{item.get_absolute_url}}">{{ item.basename }}</a></td></tr>
+              <tr><th>Prompt</th><td>{{ item.prompt }}</td></tr>
+              <tr><th>ID</th><td>{{ item.identifier }}</td></tr>
+              <tr><th>Audio</th><td><a href="{{item.ch6media}}">Play {{item.basename}}</a></td>
+
+     
+              {% for prop, value in item.properties.iteritems %}
+              <tr><th>{{prop}}</th><td>
+                {% if value|length == 1 %}
+                  {{value.0}}
+                {% else %}
+              
+                  <ul>
+                      {% for v in value %}
+                          <li>{{ v }}</li>
+                      {% endfor %}
+                  </ul>
+                 {% endif %}
+                  </td>
+              {% endfor %}
             </tr>
     </table>   
 {% endblock %}
