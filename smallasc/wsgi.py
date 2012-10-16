@@ -21,6 +21,11 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "smallasc.settings")
 # file. This includes Django's development server, if the WSGI_APPLICATION
 # setting points here.
 from django.core.wsgi import get_wsgi_application
+
+# for django celery
+import djcelery
+djcelery.setup_loader()
+
 application = get_wsgi_application()
 
 # Apply WSGI middleware here.

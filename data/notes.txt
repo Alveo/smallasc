@@ -1,0 +1,13 @@
+Celery Notes:
+
+Installation/dependencies (Debian):
+
+# easy_install django-celery
+# apt-get install rabbitmq-server    # for rabbitmq as a message queue
+
+- Development/testing
+$ python manage.py runserver
+$ python manage.py celery worker --loglevel=info
+
+- Production
+
