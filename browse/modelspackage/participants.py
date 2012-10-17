@@ -5,8 +5,8 @@ from urlparse import urlparse
 # Models in use
 from baseapp.modelspackage.colours import Colour
 from baseapp.modelspackage.animals import Animal
-from search.modelspackage.locations import Location
-from search.modelspackage.sparql_local_wrapper import SparqlModel, SparqlManager
+from browse.modelspackage.locations import Location
+from browse.modelspackage.sparql_local_wrapper import SparqlModel, SparqlManager
 
 
 class ParticipantManager (SparqlManager):

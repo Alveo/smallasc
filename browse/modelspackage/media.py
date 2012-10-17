@@ -1,5 +1,5 @@
 from django.db import models
-from search.modelspackage.sparql_local_wrapper import SparqlLocalWrapper
+from browse.modelspackage.sparql_local_wrapper import SparqlLocalWrapper
 
 
 class Media (models.Model):

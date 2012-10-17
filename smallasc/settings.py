@@ -127,6 +127,7 @@ INSTALLED_APPS = (
 
     # Smallasc applications listed
     'baseapp',
+    'browse',
     'search',
     'data',
 

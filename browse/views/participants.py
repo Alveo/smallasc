@@ -3,12 +3,12 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, render_to_response
 
 # Local types
-from search.modelspackage.sites import Site, SiteManager
-from search.modelspackage.participants import Participant, ParticipantManager
-from search.modelspackage.sessions import Session
-from search.modelspackage.education_history import EducationHistory
-from search.modelspackage.professional_history import ProfessionalHistory
-from search.modelspackage.sparql_local_wrapper import SparqlLocalWrapper
+from browse.modelspackage.sites import Site, SiteManager
+from browse.modelspackage.participants import Participant, ParticipantManager
+from browse.modelspackage.sessions import Session
+from browse.modelspackage.education_history import EducationHistory
+from browse.modelspackage.professional_history import ProfessionalHistory
+from browse.modelspackage.sparql_local_wrapper import SparqlLocalWrapper
 
 
 @login_required

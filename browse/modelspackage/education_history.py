@@ -1,7 +1,7 @@
 from django.db import models
 
 # Models in use
-from search.modelspackage.sparql_local_wrapper import SparqlModel, SparqlManager
+from browse.modelspackage.sparql_local_wrapper import SparqlModel, SparqlManager
 
 class EducationHistoryManager (SparqlManager):
  
