@@ -1,4 +1,6 @@
 #!/bin/bash
 
-curl --data-binary '@tests/items.json' http://localhost:8000/data/
+HOST="localhost:8000"
+
+curl -v --data-binary '@tests/items.json' http://$HOST/data/
 
