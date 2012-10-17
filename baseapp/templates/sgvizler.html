@@ -16,9 +16,7 @@ Visualisation
 
 
 {% block head %}
-    <link rel="stylesheet" type="text/css" href="http://sgvizler.googlecode.com/svn/www/sgvizler.css" />
-    
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript" id="sgvzlr_script" src="http://sgvizler.googlecode.com/svn/release/0.5/sgvizler.js"></script>
     <script type="text/javascript">
@@ -34,7 +32,7 @@ Visualisation
            // Default chart type. 
            'chart':                'gPieChart',
            // Default log level. Must be either 0, 1, or 2. 
-           'loglevel':             2
+           'loglevel':             1
        };
 
        //// Prefixes
@@ -49,30 +47,7 @@ Visualisation
        sgvizler.option.namespace['austalk'] = 'http://ns.austalk.edu.au/';
        sgvizler.option.namespace['protocol'] = "http://id.austalk.edu.au/protocol/";
        sgvizler.option.namespace['austalkd'] = "http://data.austalk.edu.au/";
-       
-       //// Your chart drawing preferences. The defaults are listed.
-       // See the Google visualization API for available options for
-       // Google charts, and the Sgvizler homepage for other
-       // options. Options applicable to all charts are put in the
-       // "root" of sgvizler.chartOptions. Chart specific options are
-       // put in a "child" with the chart's id as name,
-       // e.g. 'gGeoMap'. 
-       sgvizler.option.chart = { 
-           //'width':           '800',
-           //'height':          '400',
-           //'chartArea':       { left: '5%', top: '5%', width: '75%', height: '80%' },
-           //     'gGeoMap': {
-           //	 'dataMode':           'markers'
-           //     },
-           //     'gMap': {
-           //	 'dataMode':           'markers',
-           //     },
-           //     'sMap': {
-           //	 'dataMode':           'markers',
-           //	 'showTip':            true,
-           //	 'useMapTypeControl':  true
-           //     } 
-       };
+       sgvizler.option.namespace['dbpedia'] = "http://dbpedia.org/ontology/";
 
        //// Leave this as is. Ready, steady, GO!
        $(document).ready(sgvizler.go());
@@ -107,11 +82,8 @@ Visualisation
       <div id="sgvzlr_cMessage"></div>
     </div>
     
-  {% endblock %}
-    
     <div id="sgvzlr_gchart" style="width:800px; height:400px;"></div>
-    
-    
+  {% endblock %}
     
     
     <div id="footer">

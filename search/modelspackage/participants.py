@@ -13,9 +13,7 @@ class ParticipantManager (SparqlManager):
 
 
     def all (self, site):
-        """ Returns all the recording locations stored in the rdf store. The endpoint
-        and the return format are set by the sparql parameter. The function Returns
-        objects of type site. """
+        """ Returns all the participants stored in the rdf store as instances of Participant. """
         sparql_results = self.query ("""
             select ?part ?gender ?dob
             where {
@@ -36,6 +34,37 @@ class ParticipantManager (SparqlManager):
             results.append (part)
 
         return results
+
+
+    def with_data (self, site):
+        """ Returns all the participants who have at least one session as a list of instances
+        of Participant """
+        
+        
+        sparql_results = self.query ("""
+            select ?part ?gender ?dob
+            where {
+                ?part rdf:type foaf:Person .
+                ?part austalk:recording_site <%s> .
+                ?part foaf:gender ?gender .
+                ?part dbpedia:birthYear ?dob .
+                ?rs olac:speaker ?part .
+                ?rs rdf:type austalk:RecordedSession .
+            }""" % site.identifier)
+
+        results = []
+
+        for result in sparql_results["results"]["bindings"]:
+            part = Participant (
+                                identifier          = result["part"]["value"], 
+                                gender              = result["gender"]["value"],
+                                birth_year          = result["dob"]["value"])
+            part.set_site (site)
+            results.append (part)
+
+        return results
+
+
 
 
     def get (self, participant_id):

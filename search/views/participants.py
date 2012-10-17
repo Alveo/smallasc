@@ -20,8 +20,8 @@ def index (request, site_id):
     if site is None:
         raise Http404 ("Requested site not found")
 
-    # If we have a site, then let's get it's participants
-    participants = Participant.objects.all (site)
+    # If we have a site, then let's get it's participants, just those with some data uploaded
+    participants = Participant.objects.with_data (site)
     return render (request, 'browse/participants/index.html', 
         {
             'participants': participants,
