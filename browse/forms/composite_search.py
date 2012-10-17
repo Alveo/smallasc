@@ -2,9 +2,9 @@ from django import forms
 from django.forms.widgets import CheckboxSelectMultiple
 
 # Models in use
-from search.modelspackage.sites import Site
-from search.modelspackage.sessions import Session
-from search.modelspackage.sparql_local_wrapper import SparqlLocalWrapper
+from browse.modelspackage.sites import Site
+from browse.modelspackage.sessions import Session
+from browse.modelspackage.sparql_local_wrapper import SparqlLocalWrapper
 
 
 class CompositeSearchForm (forms.Form):

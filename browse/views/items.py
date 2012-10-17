@@ -3,10 +3,10 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, render_to_response
 
 # Models used for querying
-from search.modelspackage.sessions import Session
-from search.modelspackage.components import Component
-from search.modelspackage.items import Item
-from search.modelspackage.sparql_local_wrapper import SparqlLocalWrapper
+from browse.modelspackage.sessions import Session
+from browse.modelspackage.components import Component
+from browse.modelspackage.items import Item
+from browse.modelspackage.sparql_local_wrapper import SparqlLocalWrapper
 
 
 @login_required

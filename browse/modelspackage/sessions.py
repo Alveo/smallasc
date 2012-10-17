@@ -1,5 +1,5 @@
 from django.db import models
-from search.modelspackage.sparql_local_wrapper import SparqlModel, SparqlManager
+from browse.modelspackage.sparql_local_wrapper import SparqlModel, SparqlManager
 
 
 class SessionManager (SparqlManager):

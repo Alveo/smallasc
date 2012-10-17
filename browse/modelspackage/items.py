@@ -1,5 +1,5 @@
 from django.db import models
-from search.modelspackage.sparql_local_wrapper import SparqlLocalWrapper, SparqlModel, SparqlManager
+from browse.modelspackage.sparql_local_wrapper import SparqlLocalWrapper, SparqlModel, SparqlManager
 
 class ItemManager (SparqlManager):
     """Manager for items implements operations returning lists of Item instances"""

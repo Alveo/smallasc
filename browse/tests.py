@@ -1,8 +1,8 @@
 from django.utils import unittest
-from search.modelspackage import *
+from browse.modelspackage import *
 
 # Import SPARQL modules and related information
-from search.settings import *
+from browse.settings import *
 from SPARQLWrapper import SPARQLWrapper, JSON
 
 
