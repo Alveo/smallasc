@@ -1,0 +1,36 @@
+{% extends "layout/2columnlayout.html" %}
+
+<!-- Note the convention of the title, Austalk | View > Object -->
+{% block title %}
+    Austalk | Browse > Sites
+{% endblock %}
+
+{% block subtitle %}
+    All Sites
+{% endblock %}
+
+{% block menubar %}
+    <li><a href="/" title="Your dashboard">Dashboard</a></li>
+    <li><a href="/browse/" class="current" title="Browse">Browse</a></li> 
+    <li><a href="/search" title="Search">Search</a></li>  
+{% endblock %}
+
+{% block content %}
+        <table class="overview">
+            {% for site in sites %}
+                <tr class="date">
+                    <td colspan="4">
+                        <h2 class="date">
+                            <span><a href="{{ site.get_absolute_url }}">{{ site.name }}</a></span>
+                        </h2>
+                    </td>
+                </tr>
+                <tr class="event">
+                    <td class="what"><span class="post">Participant Statistics</span></td>
+                    <td class="item">Male: 50; Female: 35; (Dummy Data To Illustrate Look And Feel)</td>
+                    <td class="action">Participant Total: {{ site.participant_count }}</td>
+                    <td class="name"></td>
+                </tr>
+            {% endfor %}
+        </table>
+{% endblock %}
