@@ -70,6 +70,29 @@ class Site (SparqlModel):
     location            = models.TextField ()
     participant_count   = models.IntegerField ()
 
+    def stats(self):
+        """Return some statistics for this site"""
+        
+        q = """select ?gender (count(?part) as ?count) where {
+        BIND (<%s> AS ?site)
+        
+        ?part austalk:recording_site ?site .
+        ?part foaf:gender ?gender .
+        
+ } group by ?gender
+        """ % (self.identifier,)
+        
+        print q
+        
+        results = self.query(q)
+        
+        s = dict()
+        
+        for result in results["results"]["bindings"]:
+            s[result["gender"]["value"]] =  result["count"]["value"]
+
+        return s
+    
 
     def get_absolute_url(self):
         """Return a canonical URL for this item"""    
