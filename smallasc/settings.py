@@ -129,6 +129,7 @@ INSTALLED_APPS = (
     'baseapp',
     'search',
     'data',
+
 )
 
 # A sample logging configuration. The only tangible logging
@@ -172,4 +173,12 @@ LOGIN_URL = "/login/"
 # django-celery
 import djcelery
 djcelery.setup_loader()
+
+
+# load local settings
+# put customized stuff here
+try:
+    from local_settings import *
+except ImportError:
+    pass
 
