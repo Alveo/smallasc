@@ -735,3 +735,25 @@ div.vertical_list {
   list-style: none;
   display: : inline;
 }
+
+/*-------------------------------------------------
+Definition LISTS - http://www.maxdesign.com.au/articles/definition/
+-------------------------------------------------*/
+dl
+{
+	margin-left: 2em;
+	padding: 0;
+}
+	
+dl dt
+{
+	margin: 0;
+	padding: 0;
+	font-weight: bold;
+}
+	
+dl dd
+{
+	margin: 0 0 1em 0;
+	padding: 0;
+}

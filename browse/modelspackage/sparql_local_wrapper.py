@@ -119,7 +119,8 @@ class SparqlModel(models.Model):
     def __init__(self, *args, **kwargs):
             
         super(SparqlModel, self).__init__(*args, **kwargs)
-         
+        
+        self.props = None
         self.create_sparql()
 
 
@@ -167,6 +168,10 @@ class SparqlModel(models.Model):
         each property value is a list to allow for multiple
         values"""
         
+        if self.props != None:
+            return self.props
+        
+        
         qq = """
             select ?prop ?value
             where {
@@ -174,18 +179,18 @@ class SparqlModel(models.Model):
         }""" % self.identifier
         
         sparql_results = self.query (qq)
-        props = dict()
+        self.props = dict()
 
         for result in sparql_results["results"]["bindings"]:
             prop = self.clean_property_name(result["prop"]["value"])
             value = result["value"]["value"]
             
-            if props.has_key(prop):
-                props[prop].append(value)
+            if self.props.has_key(prop):
+                self.props[prop].append(value)
             else:
-                props[prop] = [value]
+                self.props[prop] = [value]
         
-        return props
+        return self.props
     
     
     class Meta:

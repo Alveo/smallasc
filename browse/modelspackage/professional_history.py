@@ -18,7 +18,7 @@ class ProfessionalHistoryManager (SparqlManager):
                 ?ph austalk:less_than_a_year ?less_than_a_year .
                 ?ph austalk:name ?name .
             FILTER (?part = <%s>) 
-            }""" % participant.identifier)
+            } order by ?age_from""" % participant.identifier)
 
         results = []
 
