@@ -82,8 +82,6 @@ class Site (SparqlModel):
  } group by ?gender
         """ % (self.identifier,)
         
-        print q
-        
         results = self.query(q)
         
         s = dict()
