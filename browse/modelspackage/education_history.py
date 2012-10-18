@@ -17,7 +17,7 @@ class EducationHistoryManager (SparqlManager):
                 ?eh austalk:age_to ?age_to .
                 ?eh austalk:name ?name .
             FILTER (?part = <%s>) 
-            }""" % participant.identifier)
+            } order by ?age_from""" % participant.identifier)
 
         results = []
 
@@ -43,4 +43,4 @@ class EducationHistory (SparqlModel):
 
 
     class Meta:
-        app_label= 'search'
+        app_label= 'search' 

@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block subtitle %}
-    {{ session.name }} Components
+    Speaker {{participant_id}}|Session {{ session_id }}|Component {{ item.componentId }}|Item {{item.basename}}
 {% endblock %}
 
 {% block menubar %}
@@ -28,22 +28,15 @@
               <tr><th>Prompt</th><td>{{ item.prompt }}</td></tr>
               <tr><th>ID</th><td>{{ item.identifier }}</td></tr>
               <tr><th>Audio</th><td><a href="{{item.ch6media}}">Play {{item.basename}}</a></td>
-
-     
-              {% for prop, value in item.properties.iteritems %}
-              <tr><th>{{prop}}</th><td>
-                {% if value|length == 1 %}
-                  {{value.0}}
-                {% else %}
-              
-                  <ul>
-                      {% for v in value %}
-                          <li>{{ v }}</li>
-                      {% endfor %}
-                  </ul>
-                 {% endif %}
-                  </td>
-              {% endfor %}
-            </tr>
+              <tr><th>Media</th><td>
+                 <ul>
+                 {% for m in item.properties.media %}
+                   <li><a href="{{m}}">{{m}}</a></li>
+                 {% endfor %}
+                 </ul>
+             </td></tr>
+             <tr><th>Camera Serial Numbers</th><td>{{item.properties.cameraSN0.0}}, {{item.properties.cameraSN1.0}}</td></tr>
+             <tr><th>Timestamp</th><td>{{item.properties.timestamp.0}}</td></tr>
+             <tr><th>Speaker</th><td>{{item.properties.speaker.0}}</td></tr>
     </table>   
 {% endblock %}

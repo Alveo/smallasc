@@ -10,54 +10,52 @@ class SessionManager (SparqlManager):
     def all (self):
         """ Returns all the session names """
         sparql_results = self.query ("""
-            select ?rs ?session ?name 
+            select ?rs ?session ?name ?number ?pid ?sitename
             where {
+            
                 ?rs rdf:type austalk:RecordedSession .
-                ?rs austalk:prototype ?session . 
+                ?rs olac:speaker ?participant .
+                
+                ?participant austalk:id ?pid .
+                ?participant austalk:recording_site ?site .
+                ?site rdfs:label ?sitename .
+                
+                ?rs austalk:prototype ?session .
                 ?session austalk:name ?name .
+                ?session austalk:id ?number .
             }
             ORDER BY ?name""")
 
         results = []
 
         for result in sparql_results["results"]["bindings"]:
+
             results.append (Session (
-                                prototype   = result["session"]["value"],
-                                identifier  = result["rs"]["value"], 
-                                name        = result["name"]["value"]))
+                                identifier      = result["rs"]["value"],
+                                prototype       = result["session"]["value"],
+                                name            = result["name"]["value"],
+                                number          = result["number"]["value"],
+                                site            = result["sitename"]["value"],
+                                participantId   = result["pid"]["value"]))
 
         return results
-
-
-    def get (self, session_id):
-        """ Returns all sessions with this session id """
-        
-        sparql_results = self.query ("""
-            select ?rs ?session ?name 
-            where {
-                ?rs rdf:type austalk:RecordedSession .
-                ?rs austalk:prototype ?session .
-                ?rs rdfs:label  <%s> .
-                ?session austalk:name ?name .
-            }""" % (session_id))
-
-        for result in sparql_results["results"]["bindings"]:
-            return Session (
-                        identifier  = result["rs"]["value"],
-                        prototype   = result["session"]["value"], 
-                        name        = result["name"]["value"])
-
-        return None
 
 
     def filter_by_participant (self, participant):
         """ Returns all the session names for a participant """
         
         sparql_results = self.query ("""
-            select ?rs ?session ?name ?number
+            select ?rs ?session ?name ?number ?pid ?sitename
             where {
+                BIND (<%s> AS ?participant)
+            
                 ?rs rdf:type austalk:RecordedSession .
-                ?rs olac:speaker <%s> .
+                ?rs olac:speaker ?participant .
+                
+                ?participant austalk:id ?pid .
+                ?participant austalk:recording_site ?site .
+                ?site rdfs:label ?sitename .
+                
                 ?rs austalk:prototype ?session .
                 ?session austalk:name ?name .
                 ?session austalk:id ?number .
@@ -71,7 +69,9 @@ class SessionManager (SparqlManager):
                                 identifier      = result["rs"]["value"],
                                 prototype       = result["session"]["value"],
                                 name            = result["name"]["value"],
-                                number          = result["number"]["value"]))
+                                number          = result["number"]["value"],
+                                site            = result["sitename"]["value"],
+                                participantId   = result["pid"]["value"]))
 
         return results
 
@@ -85,12 +85,18 @@ class Session (SparqlModel):
     prototype       = models.URLField ()
     name            = models.TextField ()
     number          = models.TextField ()
+    site            = models.TextField ()
+    participantId   = models.TextField ()
 
 
     def __unicode__ (self):
         """ Simple name representation for a session """
         return self.name
 
+
+    def get_absolute_url(self):
+        
+        return "/browse/%s/%s/%s/" % (self.site, self.participantId, self.number)
 
     class Meta:
         app_label = 'search'
