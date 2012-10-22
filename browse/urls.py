@@ -12,5 +12,4 @@ urlpatterns = patterns('browse.views',
     url (r'^(\w+)/(\w+)/(\w+)/(.+)/([0-9_]+)$', 'items.show'),
     
     
-    url (r'^results/$', 'composite.search')
 )

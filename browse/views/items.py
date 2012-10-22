@@ -26,7 +26,7 @@ def index (request, site_id, participant_id, session_id, component_id):
 def show (request, site_id, participant_id, session_id, component_id, basename):
     """ View of an individual item. """
 
-    item = Item.objects.get (basename)
+    item = Item.objects.get (participant_id, basename)
 
     if item == None:
         return Http404("Item not found %s" % basename)

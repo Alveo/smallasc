@@ -4,21 +4,25 @@ from browse.modelspackage.sparql_local_wrapper import SparqlLocalWrapper, Sparql
 class ItemManager (SparqlManager):
     """Manager for items implements operations returning lists of Item instances"""
     
-    def filter_by_component (self, participant_id, session_id, component_id):
-        """ Method returns all the items filtered by the participant/session/component. """
+    def generate_list(self, qpart):
+        
         
         qq = """
-            select ?item ?id ?prompt ?basename ?sitelabel ?media
+            select ?item ?id ?prompt ?basename ?sitelabel ?media ?spkrname ?sessid ?compid
             where {
+                
+                %s
+            
                 ?rc rdf:type austalk:RecordedComponent .
-                ?rc olac:speaker <http://id.austalk.edu.au/participant/%(part)s> .
-                <http://id.austalk.edu.au/participant/%(part)s> austalk:recording_site ?site .
+                ?rc olac:speaker ?spkrid .
+                ?spkrid austalk:recording_site ?site .
+                ?spkrid austalk:id ?spkrname .
                 ?site rdfs:label ?sitelabel .
                 ?rc austalk:prototype ?component .
                 ?rc dc:isPartOf ?rs .
-                 ?rs austalk:prototype ?session .
-                ?session austalk:id %(sess)s .
-                ?component austalk:shortname "%(comp)s" .
+                ?rs austalk:prototype ?session .
+                ?session austalk:id ?sessid .
+                ?component austalk:shortname ?compid .
                 ?item dc:isPartOf ?rc .
                 ?item austalk:prototype ?ip .
                 ?item austalk:basename ?basename .
@@ -27,9 +31,10 @@ class ItemManager (SparqlManager):
                 ?item austalk:media ?media .
                 ?media austalk:version 1 .
                 ?media austalk:channel "ch6-speaker" .
-        } order by ?id""" % {'part': participant_id, 'sess': session_id, 'comp': component_id}
-     
-        # print qq
+        
+        } order by ?id""" % (qpart,)
+        
+        print qq
      
         sparql_results = self.query (qq)
         results = []
@@ -41,59 +46,62 @@ class ItemManager (SparqlManager):
                                 prompt          = result["prompt"]["value"],
                                 basename        = result["basename"]["value"],
                                 site            = result["sitelabel"]["value"],
-                                participantId   = participant_id,
-                                componentId     = component_id,
-                                sessionId       = session_id,
+                                participantId   = result["spkrname"]["value"],
+                                componentId     = result["compid"]["value"],
+                                sessionId       = result["sessid"]["value"],
                                 ch6media        = result["media"]["value"]
                                 ))
 
         return results
-   
-    def get (self, basename):
-        """ Return the item with this basename. """
+    
+    
+    
+    def filter_by_component (self, participant_id, session_id, component_id):
+        """ Method returns all the items filtered by the participant/session/component. """
         
         qq = """
-            select ?item ?id ?prompt ?basename ?sitelabel ?spkrid ?sessid ?compid ?media
-            where {
-                ?item austalk:basename "%s" .
-                ?item dc:isPartOf ?rc .
-                ?item austalk:prototype ?ip .
-                ?ip austalk:id ?id .
-                ?ip austalk:prompt ?prompt .
-                ?rc rdf:type austalk:RecordedComponent .
-                ?rc olac:speaker ?spkr .
-                ?spkr austalk:id ?spkrid .
-                ?spkr austalk:recording_site ?site .
-                ?site rdfs:label ?sitelabel .
-                ?rc austalk:prototype ?component .
-                ?rc dc:isPartOf ?rs .
-                ?rs austalk:prototype ?session .
-                ?session austalk:id ?sessid .
-                ?component austalk:shortname ?compid  .
-                ?item austalk:media ?media .
-                ?media austalk:version 1 .
-                ?media austalk:channel "ch6-speaker" .
-        } order by ?id""" % (basename, )
+                BIND (<http://id.austalk.edu.au/participant/%(part)s> as ?spkrid)
+                BIND (%(sess)s as ?sessid)
+                BIND ("%(comp)s" as ?compid)
+            """ % {'part': participant_id, 'sess': session_id, 'comp': component_id}
       
-     
-        sparql_results = self.query (qq)
-        results = []
+        return self.generate_list(qq)
+   
+    def get (self, participant_id, basename):
+        """ Return the item for this participant with this basename. """
+        
+        qq = """BIND ("%s" as ?basename)
+        BIND (<http://id.austalk.edu.au/participant/%s> as ?spkrid)""" % (basename, participant_id)
+      
+        result = self.generate_list(qq)
+        
+        if result != None:
+            return result[0]
+        else:
+            return None
 
-        for result in sparql_results["results"]["bindings"]:
-            return Item (
-                                identifier      = result["item"]["value"], 
-                                id              = result["id"]["value"], 
-                                prompt          = result["prompt"]["value"],
-                                basename        = basename,
-                                site            = result["sitelabel"]["value"],
-                                participantId   = result["spkrid"]["value"],
-                                componentId     = result["compid"]["value"],
-                                sessionId       = result["sessid"]["value"],
-                                ch6media        = result["media"]["value"]
-                                )
-        # Item not found
-        return None
- 
+    def filter_by_prompt(self, prompt, components, wholeword=False):
+        """Search through items in components, returning all
+        those that contain the text in prompt"""
+        
+        if wholeword:
+            pattern = r"\\b%s\\b" % prompt
+        else:
+            pattern = prompt
+        
+        qpart = """
+          FILTER (regex(?prompt, "%s"))
+        """ % (pattern, )
+        
+        items = self.generate_list(qpart)
+        
+        # filter by components
+        items = [i for i in items if i.componentId in components]
+        
+        return items
+        
+        
+        
  
 class Item (SparqlModel):
     """ A item is a logical representation of an item which belongs

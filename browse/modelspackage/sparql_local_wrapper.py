@@ -30,7 +30,7 @@ class SparqlLocalWrapper ():
     
 from django.db import models
 
-def SparqlMixin(object):
+class SparqlMixin(object):
     """Mixin class to implement a query method. 
     Intended for use in both SparqlManager and SparqlModel but I can't
     work out how to make that work with metaclasses and all

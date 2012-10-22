@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block subtitle %}
-	Composite Search
+	Corpus Search
 {% endblock %}
 
 {% block menubar %}
@@ -16,7 +16,7 @@
 
 {% block content %}
     <fieldset>
-        <legend>Recording Session Selection</legend>
+        <legend>Query by Prompt Text</legend>
 	   <form action="/search/results" method="GET" class="basic_form">
 	        {{ form.as_p }}
 	       <input type="submit" value="Search" />

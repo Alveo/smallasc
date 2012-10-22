@@ -18,7 +18,7 @@ urlpatterns = patterns('',
     # The search module at present handles both browse and
     # search, perhaps the module should be renamed?
     url (r'^browse/', include ('browse.urls')),
-	url (r'^search/', TemplateView.as_view(template_name='not_implemented.html')),
+	url (r'^search/', include('search.urls')),
 
     # download/data app
     url (r'^data/', include ('data.urls', namespace="data", app_name="data")),
