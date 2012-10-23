@@ -26,7 +26,8 @@
         {% for comp in components %}            
             <tr>
             <table class="description">
-              <tr><th>Name</th><td><a href="{{comp.get_absolute_url}}">{{ comp.name }}</a></td></tr>
+              <tr><th colspan=2>Component</th></tr>
+              <tr><th>Component Name</th><td><a href="{{comp.get_absolute_url}}">{{ comp.name }}</a></td></tr>
               <tr><th>Short Name</th><td>{{ comp.componentId }}</td></tr>
               <tr><th>ID</th><td>{{ comp.identifier }}</td></tr>
               <tr><th>Ratings</th><td>Audio {{comp.audiorating}}, Video: {{comp.videorating}}</td></tr>

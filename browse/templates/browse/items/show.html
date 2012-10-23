@@ -24,7 +24,8 @@
 {% block content %}
  
             <table class="description">
-              <tr><th>Name</th><td><a href="{{item.get_absolute_url}}">{{ item.basename }}</a></td></tr>
+              <tr><th colspan=2>Item</th></tr>
+              <tr><th>Item Basename</th><td><a href="{{item.get_absolute_url}}">{{ item.basename }}</a></td></tr>
               <tr><th>Prompt</th><td>{{ item.prompt }}</td></tr>
               <tr><th>ID</th><td>{{ item.identifier }}</td></tr>
               <tr><th>Audio</th><td><a href="{{item.ch6media}}">Play {{item.basename}}</a></td>
