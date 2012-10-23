@@ -1,0 +1,25 @@
+{% extends "layout/2columnlayout.html" %}
+
+{% block title %}
+	Austalk Meta Search | Home
+{% endblock %}
+
+{% block subtitle %}
+	Corpus Search
+{% endblock %}
+
+{% block menubar %}
+	<li><a href="/" title="Your dashboard">Dashboard</a></li>
+    <li><a href="/browse/" title="Browse">Browse</a></li>  
+	<li><a href="/search" class="current" title="Search">Search</a></li>  
+{% endblock %}
+
+{% block content %}
+    <fieldset>
+        <legend>Query by Prompt Text</legend>
+	   <form action="/search/results" method="GET" class="basic_form">
+	        {{ form.as_p }}
+	       <input type="submit" value="Search" />
+	   </form>
+    </fieldset>
+{% endblock %}
