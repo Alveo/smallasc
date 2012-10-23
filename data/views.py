@@ -55,10 +55,7 @@ def download_redirect(request):
 
                 time.sleep(1.234)   # just to give the zip generation some time
 
-                # TODO:
-                #return HttpResponseRedirect(reverse("data:download", args=[h]) + "?name="+data['name'])
-                #return HttpResponseRedirect(reverse("data.views.download", args=[h]) + "?name="+data['name'])
-                return HttpResponseRedirect("/data/download/"+h+"/?name="+data['name'])
+                return HttpResponseRedirect(reverse("data:download", args=[h]) + "?name="+data['name'])
         else:
                 return HttpResponseNotAllowed(['POST'])
 
