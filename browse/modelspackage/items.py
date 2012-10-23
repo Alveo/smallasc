@@ -95,8 +95,10 @@ class ItemManager (SparqlManager):
         
         items = self.generate_list(qpart)
         
-        # filter by components
-        items = [i for i in items if i.componentId in components]
+        # filter by components if we have any, passing none implies 
+        # that we take all components
+        if components != []:
+            items = [i for i in items if i.componentId in components]
         
         return items
         
