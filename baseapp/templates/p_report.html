@@ -64,6 +64,27 @@ group by ?el"
       data-sgvizler-chart-options="title=Qualification Distribution"
       style="width:800px; height:400px;"></div> 
       
+<h2>Birthplaces of Participants</h2>
+
+<div id="birthplaces"
+      data-sgvizler-query="SELECT  ?lat ?long ?id
+WHERE {
+ ?part rdf:type foaf:Person .
+ ?part austalk:name ?id .
+ ?part dbpedia:birthYear ?year .
+ ?part austalk:birthPlace ?place .
+ ?place geo:lat ?lat .
+ ?place geo:long ?long .
+}"
+      data-sgvizler-chart="sMap"
+      data-sgvizler-loglevel="0"
+      data-sgvizler-chart-options="title=Birthplace of Participants"
+      style="width:800px; height:400px;"></div> 
+      
+            
+      
+      
+      
       
   {% endblock %}
     
