@@ -10,6 +10,7 @@ Installation/dependencies:
 - Development/testing
 $ python manage.py runserver
 $ python manage.py celery worker --loglevel=info
+$ python manage.py celery beat --loglevel=info
 
 ----------------------------------------------------------------------------------------------------------
 - Production (http://docs.celeryproject.org/en/latest/tutorials/daemonizing.html)
