@@ -7,9 +7,13 @@ TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
     ('Shirren Premaratne', 'shirren.premaratne@gmail.com'),
+    ('Tomas Krajca', 't.l.krajca@gmail.com'),
 )
 
 MANAGERS = ADMINS
+
+EMAIL_SUBJECT_PREFIX = "[austalk] "
+SERVER_EMAIL = "django@austalk.edu.au"
 
 DATABASES = {
     'default': {
@@ -164,11 +168,14 @@ LOGGING = {
     }
 }
 
-# careful, trailing slash everywhere
 # data/download module
+# careful, trailing slash everywhere
 DATA_HOST_PREFIX = "http://data.austalk.edu.au/"
-DATA_ROOT = "/var/fileserver/"
-TEMP_ROOT = "/var/run/smallasc/tmp/"
+DATA_ROOT = "/var/fileserver/"          # data root
+TEMP_ROOT = "/var/smallasc/tmp/"    # root for generated zip files
+TEMP_ROOT_MAX = 10000                   # upper threshold on storage size in MB
+TEMP_ROOT_MIN = 5000                    # lower threshold on storage size in MB
+TASK_TIMEOUT = 60                       # max execution time for a task in minutes
 
 # Custom setting for the login url
 LOGIN_URL = "/login/"

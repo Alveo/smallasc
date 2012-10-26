@@ -16,14 +16,6 @@ from data import tasks
 from data.models import Files2taskId
 
 
-#
-#   TODO:
-#   -django celery process that will be periodically checking size of temp.
-#   storage for zip files and purging them when a threshold (size, age) is
-#   reached
-#   -django celery process that will be removing failed jobs (maybe emailing the exceptions)
-#
-
 def _unify_hash(l):
         return hashlib.md5(unicode(sorted(l))).hexdigest()
 
@@ -48,7 +40,13 @@ def download_redirect(request):
                 h = _unify_hash(urlPaths)
                 try:
                         t = Files2taskId.objects.get(h=h)
-                        # TODO: check status of t, restart if necessary
+                        # restart a failed job
+                        res = celery.result.AsyncResult(t.task_id)
+                        if res.failed():
+                                res.forget()
+                                t.delete()
+                                raise Files2taskId.DoesNotExist
+
                 except Files2taskId.DoesNotExist:
                         t = tasks.prepareDownload.apply_async((h, urlPaths), retry=False)
                         Files2taskId.objects.create(h=h, task_id=t.id)
