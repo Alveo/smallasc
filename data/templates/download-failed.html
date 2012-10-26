@@ -1,0 +1,16 @@
+{% extends "download.html" %}
+
+
+{% block content %}
+<h2>Oops, something must have gone wrong.</h2>
+<p>Your download request has failed for some reason. We have been notified of the error and are working to resolve it. Please repeat your original request later.</p>
+<p>
+Failed job ID: <i>{{ task_id }}</i><br /> 
+Started at: <i>{{ started_at }}</i><br />
+File: <i>{{ name }}</i><br />
+Permalink: <i>{{ link }}</i><br />
+Exception: <i>{{ exception }}</i><br />
+Traceback: <i>{{ traceback }}</i>
+</p>
+{% endblock %}
+

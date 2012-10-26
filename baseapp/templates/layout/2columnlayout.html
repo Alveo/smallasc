@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <!-- Stylesheet includes -->
+	<link rel="stylesheet" href="/static/styles/main.css" type="text/css" />
+	<link rel="stylesheet" href="/static/styles/theme.css" type="text/css" />
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+ 
+    {% block head %}<!-- extra header elements -->{% endblock %}
+
+    <title>{% block title %}{% endblock %}</title>
+</head>
+
+<body class="dashboard">
+
+    {% include "layout/header.html" %}
+
+ 	<!--  Primary menu bar -->
+    <div id="Tabs"> 
+    	<ul id="MainTabs">
+    		{% block menubar %}{% endblock %}
+		</ul>
+ 	</div>
+
+ 	<div id="Wrapper" style="position: relative;">
+		<div id="screen_body" class="container">
+		 	<div class="Left">
+		 		<!-- Start of page content -->
+		        <div class="col">
+		            <div class="page_header">		       
+		            	<div class="page_header_links">
+		            		{% block page_links %}{% endblock %}	
+						</div>
+						<h1>{% block subtitle %}{% endblock %}</h1>
+					</div>
+					<div class="innercol">
+		    			{% block content %}{% endblock %}
+		    		</div>
+		    	</div>
+	    	    {% include "layout/footer.html" %}
+		    </div>
+		    <div class="Right">
+				<div class="col">
+			  	</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

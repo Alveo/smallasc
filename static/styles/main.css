@@ -1,0 +1,759 @@
+/*-------------------------------------------------
+PAGE BODY
+-------------------------------------------------*/
+body {
+  font-size: 62.5%;
+}
+
+body {
+  margin: 0 auto;
+  padding: 0;
+  font-family: "Lucida Grande", verdana, "Lucida Sans Unicode", Lucida, Arial, helvetica, sans-serif;
+  color: #222;
+  background-color: #e5e5e5;
+  text-align: center;
+}
+
+body {
+  background: #E5E5E5;
+}
+
+/* Make sure the table cells show the right font */
+td { font-family: "Lucida Grande", verdana, "Lucida Sans Unicode", Lucida, Arial, helvetica, sans-serif; }
+
+/*-------------------------------------------------
+TABS
+-------------------------------------------------*/
+
+#Tabs {
+  background: #C5E2E9;
+  margin: 0;
+  height: 25px;
+  padding: 0 30px;
+}
+
+#Tabs ul {
+  margin: 0; padding: 0;
+}
+
+#Tabs li {
+  margin: 0; padding: 0;
+  display: inline;
+  list-style: none;
+  border: none;
+}
+
+#Tabs ul#MainTabs {
+}
+
+div#Tabs a:link,
+div#Tabs a:visited {
+  text-decoration: none;
+}
+
+#Tabs a:hover {
+  color: #fff;
+  background: #333;
+}
+
+#Tabs ul#MainTabs a:link, #Tabs ul#MainTabs a:visited {
+  float: left;
+  font-size: 12px;
+  font-weight: normal;
+  padding: 4px 8px 6px 8px;
+  margin: 0;
+}
+
+#Tabs ul#MainTabs a:link.current, #Tabs ul#MainTabs a:visited.current {
+  background: #e5e5e5 url(/static/images/tab-bg.gif) top repeat-x;
+  border: 1px solid #e5e5e5;
+  color: #222;
+  font-weight: bold;
+  text-decoration: none;
+  margin: 0;
+}
+
+
+div#print_button {
+  float: right;
+  width: 50px;
+  padding-top: 3px;
+  height: 1%;
+}
+
+div#print_button img {
+  width: 25px;
+  height: 17px;
+}
+
+body.unprintable div#print_button {
+  display: none;
+}
+
+body.unprintable #Tabs {
+  margin-right: 25px;
+}
+
+
+/*-------------------------------------------------
+HEADER
+-------------------------------------------------*/
+
+#Header {
+  background: #C5E2E9;
+  padding: 1px 0 0 0;
+  margin: 0;
+  text-align: left;
+    position: relative;
+} 
+
+#Header h1 /* client name */ {
+  padding: 0 0 10px 0;
+  margin: 0 0 0 30px;
+  font-size: 24px;
+  font-weight: normal;
+  color: #000;
+  text-align: left;
+}
+
+#Header.global h1 {
+  margin-top: 7px;
+}
+
+#Header h1 span /* project name */ {
+  font-size: 16px;
+  font-weight: normal;
+  color: #fff;
+  border: none;
+  font-family: "Lucida Grande", "Lucida Sans Unicode", Lucida, Arial, helvetica, sans-serif;
+  } 
+
+#Header h3 {
+  padding: 7px 20px 7px 25px;
+  margin: 0;
+  font-size: 12px;
+  font-weight: normal;
+  text-align: left;
+}
+
+#Header h3 a {
+  padding: 7px;
+}
+
+#Header.global h3 {
+  position: relative;
+  float: right;
+  text-align: right;
+  width: 300px;
+}
+
+#Header h3 span#floatright {
+  text-align: right;
+  width: 300px;
+  position: relative;
+  float: right;
+}
+
+#Header h3 span#floatright,
+#Header.global h3 {
+  font-family: verdana;
+  font-size: 10px;
+}
+
+#Header h3 span#floatright a,
+#Header.global h3 a {
+  padding: 7px 4px;
+}
+
+#Header h3 span.pipe {
+  opacity: 0.6;
+  filter: alpha(opacity=60);
+}
+
+#Header h3 a.current {
+  font-weight: bold;
+  text-decoration: none;
+}
+
+#Header h3 a.free_pitch {
+  font-size: 10px;
+  text-decoration: none !important;
+}
+
+#Header h3 a.free_pitch span {
+  font-size: 12px;
+  text-decoration: underline;
+}
+
+#Header h3 a.free_pitch:hover span {
+  text-decoration: none;
+}
+
+#fresh_all h2 {
+  padding: 0 0 2px 0;
+  margin: 0;
+  border-bottom: 1px dotted #ccc;
+}
+
+#Header a:hover.image {
+  background-color: none;
+  background-color: transparent;
+}
+
+/*-------------------------------------------------
+FOOTER
+-------------------------------------------------*/
+
+.footer {
+  clear: left;
+  font-size: 9px;
+  color: #999;
+  margin: 3px 0 20px 10px;
+  text-align: left;
+  padding-bottom: 15px;
+}
+
+.footer a.image:hover {
+  background: none;
+}
+
+.footer div {
+  margin-left: 120px;
+}
+
+.footer div p {
+  font-size: 9px;
+  line-height: 15px;
+  margin: 0;
+}
+
+.footer div span {
+  color: #bbb;
+}
+
+.footer a:link, .footer a:visited {
+  color: #999;
+}
+
+.footer a:hover {
+  color: #fff;
+  background: #666;
+}
+
+/*-------------------------------------------------
+STRUCTURE
+-------------------------------------------------*/
+
+div#Wrapper {
+  padding: 12px 23px 0 30px;
+  margin: 0 auto;
+}
+
+.container {
+  margin: 0 auto 0 auto;
+  text-align: center;
+  min-width: 750px;
+  }
+
+.ClearAll {
+  padding: 0px;
+  clear: both;
+  font-size: 0px;
+  }
+
+#ContentFrame, #DashContentFrame, .ContentFrame {
+  margin: 0;
+  padding: 0px 0;
+  width: 100%;
+  text-align: left;
+  /*position: relative;*/
+  float: left;
+}
+
+table.layout {
+  clear: left;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+table.layout td.left,
+table.layout td.right {
+  vertical-align: top;
+  padding: 0;
+}
+
+table.layout td.left {
+  width: 70%;
+}
+
+table.layout td.right {
+  width: 30%;
+}
+
+div.Left {
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  width: 80%;
+  float: left;
+  }
+
+div.Right {
+  margin: 0px 0 0 0;
+  padding: 0;
+  text-align: left;
+  /*position: absolute;*/
+  float: left;
+  width: 20%;
+  }
+
+table.layout td.left div.Left,
+table.layout td.right div.Right {
+  width: auto;
+  float: none;
+}
+
+/*-------------------------------------------------
+NEW FOR PROPORTIONAL WIDTH VERSION 
+-------------------------------------------------*/
+
+.col {
+  padding: 0 20px;
+  text-align: left;
+}
+
+.Left .col,
+.Full .col {
+  padding: 0 0 0 0;
+  background: #fff url(/static/images/right-bg.gif) right repeat-y;
+  position: relative;
+}
+
+.Left .innercol,
+.Full .innercol {
+  padding: 15px 60px 20px 23px;
+}
+
+div.Left div.bottom,
+div.Full div.bottom {
+  background: url(/static/images/bottom-bg.gif) top right no-repeat;
+  font-size: 8px;
+}
+
+div.Right .col {
+  min-width: 200px;
+  padding: 0 0 0 9px;
+}
+
+/*-------------------------------------------------
+PAGE HEADER
+-------------------------------------------------*/
+
+div.page_header {
+  background: #edf3fe url(/static/images/right-bg.gif) right repeat-y;
+  margin: 0 0 0 0;
+  padding: 13px 30px 13px 24px;
+}
+
+div.page_header h1 {
+  padding: 0;
+  margin: 0;
+  font-size: 14px;
+  color: #000;
+}
+
+div.page_header h1 span {
+  font-size: 12px;
+  color: #666;
+  font-weight: normal;
+}
+
+div.sheet div.page_header h1 {
+  font-size: 20px;
+}
+
+div.page_header p {
+  margin: 5px 0 0 0;
+}
+
+/*-------------------------------------------------
+PAGE HEADER LINKS
+-------------------------------------------------*/
+
+div.page_header_links {
+  float: right;
+  width: 200px;
+  font-size: 11px;
+  margin-top: 0;
+  text-align: right;
+  color: #ccc;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+div.page_header_links a {
+  color: #ff0000;
+}
+
+div.page_header_links a:hover {
+  background-color: #ff0000;
+  color: #fff;
+}
+
+div.page_header_links a.active:link,
+div.page_header_links a.active:visited,
+div.page_header_links a.active:hover {
+  color: #000;
+  text-decoration: none;
+  font-weight: normal;
+}
+
+div.page_header_links a.edit {
+  text-decoration: none;
+  color: #777;
+}
+
+div.page_header_links a.edit:hover {
+  color: #fff;
+}
+
+/*-------------------------------------------------
+BASIC FORMS
+-------------------------------------------------*/
+
+.basic_form {
+  font-size: 11px;
+}
+
+.basic_form ul {
+  list-style: none;
+}
+
+/*-------------------------------------------------
+FIELDSET
+-------------------------------------------------*/
+
+fieldset {
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #999;
+}
+
+fieldset p {
+  font-size: 11px;
+  margin: 0 0 5px 0;
+  padding: 0;
+  color: #666;
+}
+
+fieldset legend {
+  font-size: 12px;
+  font-weight: bold;
+  color: #874c00;
+}
+
+fieldset legend span {
+  color: #666;
+  font-weight: normal;
+  font-size: 80%;
+}
+
+/* ---OVERVIEW LOG ------------------------------------------- */
+
+table.overview {
+  padding: 0;
+  margin: 0;
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+}
+
+table.overview td {
+  padding: 4px 3px;
+  vertical-align: top;
+  border-bottom: 1px solid #efefef;
+}
+
+table.overview h2.date {
+  margin-bottom: 5px;
+  margin-left: -26px;
+}
+
+table.overview tr.date td {
+  text-transform: uppercase;
+  font-size: 10px;
+  color: #666;
+  border-bottom: none;
+  padding-top: 15px;
+}
+
+table.overview td.what {
+  text-align: right;
+  padding-top: 4px;
+  padding-right: 0px;
+  padding-left: 0px;
+  border: 0;
+}
+
+table.overview td.what span {
+  padding: 3px 4px;
+  color: #fff;
+  font-size: 10px;
+  display: block;
+  float: right;
+  white-space: nowrap;
+  width: 100px;
+}
+
+table.overview td.item {
+  padding-left: 6px;
+  padding-top: 6px;
+  width: 100%;
+  font-size: 12px;
+  color: #000;
+  margin: 0 0 2px 0;
+  line-height: 1.1em;
+}
+
+table.overview td.action {
+  white-space: nowrap;
+  text-align: right;
+  color: #999;
+  font-size: 10px;
+  padding-top: 6px;
+}
+
+table.overview td.what span.comment {
+  background-color: #6492AC;
+}
+
+table.overview td.what span.post {
+  background-color: #334E7D;
+}
+
+table.overview td.what span.file {
+  background-color: #7A4A77;
+  /* reset the bottom margin inheriting from .file on files.css */
+  margin: 0;
+}
+
+table.overview td.what span.milestone {
+  background-color: #5F6E43;
+}
+
+table.overview td.what span.todo {
+  background-color: #C87800;
+}
+
+table.overview td.what span.writeboard {
+  background-color: #24A89E;
+}
+
+table.overview td.what span.private {
+  background-color: red;
+}
+
+table.overview span.name {
+  color: #565656;
+  font-size: 10px;
+  font-style: italic;
+}
+
+table.overview td.item img.file_icon {
+  margin-top: -3px;
+}
+
+table.overview span.due {
+  color: #888;
+  white-space: nowrap;
+}
+
+table.overview span.list {
+  color: #888;
+}
+
+/* ---DASHBOARD ------------------------------------------ */
+
+table.overview th, body.dashboard table.milestones th, body.overview table.milestones th {
+  background: #E9E9E9;
+  border-bottom: 2px solid #fff;
+  color: #000000;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+table.overview th a:link, table.overview th a:visited {
+  font-size: 12px;
+  text-decoration: none;
+  color: #000;
+}
+
+table.overview th a span {
+  color: #666;
+  font-size: 10px;
+}
+
+table.overview th a:hover, table.overview th a:hover span {
+  color: #fff;
+}
+
+body.dashboard table.overview td.date span.heading {
+  padding: 1px 2px;
+  background-color: #fff000;
+  color: #000;
+  font-weight: bold;
+  text-transform: uppercase;
+  display: block;
+  float: left;
+  font-size: 9px;
+}
+
+body.dashboard table.overview td.item {
+  font-size: 11px;
+  padding-top: 5px;
+  padding-left: 6px;
+  line-height: 1.2em;
+}
+
+table.overview td.name, body.dashboard table.overview td.date {
+  color: #222;
+  font-size: 10px;
+  white-space: nowrap;
+  padding-top: 6px;
+}
+
+body.dashboard table.overview td.date {
+  padding-right: 3px;
+  padding-left: 5px;
+  text-align: left;
+  border-left: 1px solid #efefef;
+  border-bottom: 1px solid #efefef;
+  color: #222;
+}
+
+table.overview tr.rowblank td {
+  border: none;
+  padding: 0;
+}
+
+body.dashboard table.overview td.name {
+  padding-right: 3px;
+}
+
+body.dashboard table.overview td.what {
+  padding-top: 3px;
+  padding-left: 3px;
+  border-bottom: 1px solid #efefef;
+}
+
+/*-------------------------------------------------
+ descriptions of components, items etc
+-------------------------------------------------*/
+
+table.description {
+	margin-bottom: 1em;
+	width: 100%;
+	border: 1px solid black;
+}
+
+table.description th  {
+  background: #E9E9E9;
+  border-bottom: 2px solid #fff;
+  color: #000000;
+  font-size: 13px;
+  font-weight: bold;
+  width: 20ex;
+}
+
+table.description td  {
+  border-bottom: 1px solid #ccc; 
+}
+
+/*-------------------------------------------------
+DATES
+-------------------------------------------------*/
+
+h2.date /* the date */ {
+  margin: 0 0 15px -23px;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+h2.date span {
+  border-bottom: 1px solid #ccc;
+  color: #666;
+  padding: 2px 4px 2px 24px;
+}
+
+h2.date span.today {
+  background-color: #fff000;
+  color: #000;
+  font-weight: bold;
+  border-bottom: none;
+}
+
+/*-------------------------------------------------
+LISTS
+-------------------------------------------------*/
+
+div.horizontal_list,
+div.vertical_list {
+  margin-bottom: 25px;
+}
+
+.horizontal_list ul,
+.vertical_list ul {
+  padding-left: 0;
+  border: none;
+}
+
+.vertical_list ul {
+  margin-left: 25px; 
+  border-left: 1px solid #ccc;
+}
+
+.horizontal_list ul li {
+  margin-left: 0; 
+  padding: 3px 15px;
+  border-left: 1px solid #ccc;
+  list-style: none;
+  display: inline;
+}
+
+.vertical_list ul li {
+  margin-left: 0; 
+  padding: 3px 15px;
+  list-style: none;
+}
+
+.horizontal_list ul li.first {
+  margin: 0; 
+  padding: 3px 15px 3px 25px;
+  border-left: none;
+  list-style: none;
+  display: : inline;
+}
+
+/*-------------------------------------------------
+Definition LISTS - http://www.maxdesign.com.au/articles/definition/
+-------------------------------------------------*/
+dl
+{
+	margin-left: 2em;
+	padding: 0;
+}
+	
+dl dt
+{
+	margin: 0;
+	padding: 0;
+	font-weight: bold;
+}
+	
+dl dd
+{
+	margin: 0 0 1em 0;
+	padding: 0;
+}

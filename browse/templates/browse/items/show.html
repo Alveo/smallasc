@@ -1,0 +1,43 @@
+{% extends "layout/2columnlayout.html" %}
+
+<!-- Note the convention of the title, Austalk | View > Object -->
+{% block title %}
+    Austalk | Browse > Item {{item.basename}}
+{% endblock %}
+
+{% block subtitle %}
+    Speaker {{participant_id}}|Session {{ session_id }}|Component {{ item.componentId }}|Item {{item.basename}}
+{% endblock %}
+
+{% block menubar %}
+    <li><a href="/" title="Your dashboard">Dashboard</a></li>
+    <li><a href="/browse/" class="current" title="Browse">Browse</a></li> 
+    <li><a href="/search" title="Search">Search</a></li>  
+{% endblock %}
+
+{% block page_links %}
+    <a href="/browse/">sites</a> | 
+    <a href="/browse/{{ site_id }}/">participants</a> |
+    <a href="/browse/{{ site_id }}/{{ participant_id }}">{{ participant_id }}</a>
+{% endblock %}
+
+{% block content %}
+ 
+            <table class="description">
+              <tr><th colspan=2>Item</th></tr>
+              <tr><th>Item Basename</th><td><a href="{{item.get_absolute_url}}">{{ item.basename }}</a></td></tr>
+              <tr><th>Prompt</th><td>{{ item.prompt }}</td></tr>
+              <tr><th>ID</th><td>{{ item.identifier }}</td></tr>
+              <tr><th>Audio</th><td><a href="{{item.ch6media}}">Play {{item.basename}}</a></td>
+              <tr><th>Media</th><td>
+                 <ul>
+                 {% for m in item.properties.media %}
+                   <li><a href="{{m}}">{{m}}</a></li>
+                 {% endfor %}
+                 </ul>
+             </td></tr>
+             <tr><th>Camera Serial Numbers</th><td>{{item.properties.cameraSN0.0}}, {{item.properties.cameraSN1.0}}</td></tr>
+             <tr><th>Timestamp</th><td>{{item.properties.timestamp.0}}</td></tr>
+             <tr><th>Speaker</th><td>{{item.properties.speaker.0}}</td></tr>
+    </table>   
+{% endblock %}
