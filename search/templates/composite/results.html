@@ -6,14 +6,30 @@
 
 {% block menubar %}
 	<li><a href="/" title="Your dashboard">Dashboard</a></li>
-	<li><a href="/search" class="current" title="Search">Search</a></li>  
+    <li><a href="/stats/" title="Statistics">Statistics</a></li>  
+    <li><a href="/browse/" title="Browse">Browse</a></li>  
+	<li><a href="/search/" class="current" title="Search">Search</a></li>  
+{% endblock %}
+
+{% block subtitle %}
+  Search Results    
 {% endblock %}
 
 {% block content %}
-	<ul>
-		{% for item in result %}
-	    	<li>{{ item }}</li>
-		{% endfor %}
-	</ul>
+ <table class="overview">
+        {% for item in items %}
+           <tr>
+            <table class="description">
+              <tr><th colspan=2>Item</th></tr>
+              <tr><th>Basename</th><td><a href="{{item.get_absolute_url}}">{{ item.basename }}</a></td></tr>
+              <tr><th>Prompt</th><td>{{ item.prompt }}</td></tr>
+              <tr><th>ID</th><td>{{ item.identifier }}</td></tr>
+              <tr><th>Audio</th><td><a href="{{item.ch6media}}">Play {{item.basename}}</a></td>
+            </table>
+            </tr>
+            
+            
+        {% endfor %}
+    </table>
 
 {% endblock %}

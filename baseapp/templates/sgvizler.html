@@ -9,9 +9,10 @@ Visualisation
 {% endblock %}
 
 {% block menubar %}
- <li><a href="/" class="current" title="Your dashboard">Dashboard</a></li>
-    <li><a href="/browse" title="Browse">Browse</a></li>  
- <li><a href="/search" title="Search">Search</a></li>  
+	<li><a href="/" title="Your dashboard">Dashboard</a></li>
+    <li><a href="/stats/" class="current" title="Statistics">Statistics</a></li>  
+    <li><a href="/browse/" title="Browse">Browse</a></li>  
+	<li><a href="/search/" title="Search">Search</a></li>  
 {% endblock %}
 
 
@@ -58,6 +59,7 @@ Visualisation
     
     
 {% block content %}
+
 
 
    {% block query %}

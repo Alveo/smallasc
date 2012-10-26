@@ -98,6 +98,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware'
 )
 
 ROOT_URLCONF = 'smallasc.urls'
@@ -117,6 +118,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.flatpages',
     
     # Admin site has been enabled for all smallasc apps
     'django.contrib.admin',
@@ -174,6 +176,10 @@ LOGIN_URL = "/login/"
 # django-celery
 import djcelery
 djcelery.setup_loader()
+
+# SPARQL_ENDPOINT 
+SPARQL_ENDPOINT = "http://115.146.93.47/openrdf-sesame/repositories/bigasc"
+
 
 
 # load local settings

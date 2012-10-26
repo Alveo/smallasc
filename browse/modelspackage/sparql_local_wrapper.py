@@ -1,5 +1,6 @@
 # Import SPARQL modules and related information
-from browse.settings import *
+from django.conf import settings
+
 from SPARQLWrapper import SPARQLWrapper, JSON
 import os
 
@@ -26,7 +27,7 @@ class SparqlLocalWrapper ():
     @staticmethod
     def create_sparql ():
         """ This function creates a wrapper class used to communicate with the SPARQL endpoint """
-        sparql = SPARQLWrapper (SPARQL_ENDPOINT)
+        sparql = SPARQLWrapper (settings.SPARQL_ENDPOINT)
         sparql.setReturnFormat (JSON)
         return sparql
     
@@ -58,7 +59,7 @@ class SparqlMixin(object):
 
     def create_sparql (self):
         """ This function creates a wrapper class used to communicate with the SPARQL endpoint """
-        self.sparql = SPARQLWrapper (SPARQL_ENDPOINT)
+        self.sparql = SPARQLWrapper (settings.SPARQL_ENDPOINT)
         self.sparql.setReturnFormat (JSON)
         
     def query(self, query):
@@ -99,7 +100,7 @@ class SparqlManager(models.Manager):
 
     def create_sparql (self):
         """ This function creates a wrapper class used to communicate with the SPARQL endpoint """
-        self.sparql = SPARQLWrapper (SPARQL_ENDPOINT)
+        self.sparql = SPARQLWrapper (settings.SPARQL_ENDPOINT)
         self.sparql.setReturnFormat (JSON)
         
     def query(self, query):
@@ -143,7 +144,7 @@ class SparqlModel(models.Model):
 
     def create_sparql (self):
         """ This function creates a wrapper class used to communicate with the SPARQL endpoint """
-        self.sparql = SPARQLWrapper (SPARQL_ENDPOINT)
+        self.sparql = SPARQLWrapper (settings.SPARQL_ENDPOINT)
         self.sparql.setReturnFormat (JSON)
     
     def query(self, query):

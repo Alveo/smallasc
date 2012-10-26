@@ -1,4 +1,4 @@
-{% extends "layout/2columnlayout.html" %}
+{% extends "browse/index.html" %}
 
 <!-- Note the convention of the title, Austalk | View > Object -->
 {% block title %}
@@ -9,11 +9,6 @@
     All Sites
 {% endblock %}
 
-{% block menubar %}
-    <li><a href="/" title="Your dashboard">Dashboard</a></li>
-    <li><a href="/browse/" class="current" title="Browse">Browse</a></li> 
-    <li><a href="/search" title="Search">Search</a></li>  
-{% endblock %}
 
 {% block content %}
         <table class="overview">
