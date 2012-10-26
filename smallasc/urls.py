@@ -18,14 +18,17 @@ urlpatterns = patterns('',
     # The search module at present handles both browse and
     # search, perhaps the module should be renamed?
     url (r'^browse/', include ('browse.urls')),
-	url (r'^search/', include('search.urls')),
+	url (r'^search/', include('search.urls')), 
 
     # download/data app
     url (r'^data/', include ('data.urls', namespace="data", app_name="data")),
 
+    # sample stats pages
+	url(r'^stats/query/$', TemplateView.as_view(template_name='sgvizler.html')),
+	url(r'^stats/$', TemplateView.as_view(template_name='p_report.html')),
 
-	url(r'^report/$', TemplateView.as_view(template_name='sgvizler.html')),
-	url(r'^report/participants$', TemplateView.as_view(template_name='p_report.html')),
+	url(r'^pages/', include('django.contrib.flatpages.urls')),
+
 
     # Uncomment the next line to enable the admin:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

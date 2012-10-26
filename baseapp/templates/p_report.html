@@ -9,7 +9,11 @@ Sample Speaker Statistics
 {% endblock %}
 
 
+
   {% block query %}
+  
+   <p>Try <a href="/stats/query/">a custom query</a>.</p>
+  
 <div id="site_distribution"
       data-sgvizler-query="SELECT ?prop (count(?part) AS ?noOfInstances)
                           WHERE{ 

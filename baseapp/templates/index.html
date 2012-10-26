@@ -10,13 +10,18 @@
 
 {% block menubar %}
 	<li><a href="/" class="current" title="Your dashboard">Dashboard</a></li>
-    <li><a href="/browse" title="Browse">Browse</a></li>  
-	<li><a href="/search" title="Search">Search</a></li>  
+    <li><a href="/stats/" title="Statistics">Statistics</a></li>  
+    <li><a href="/browse/" title="Browse">Browse</a></li>  
+	<li><a href="/search/" title="Search">Search</a></li>  
 {% endblock %}
 
 {% block content %}
-    <ul>
-      <li><a href="/report/participants">Speakers Statistics</a></li>
-      <li><a href="/report">SPARQL visualisations</a></li>
-    </ul>
+{% load flatpages %}
+{% get_flatpages as flatpages %}
+<ul>
+    {% for page in flatpages %}
+        <li><a href="{{ page.url }}">{{ page.title }}</a></li>
+    {% endfor %}
+</ul>
+
 {% endblock %}

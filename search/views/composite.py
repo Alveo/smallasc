@@ -30,7 +30,7 @@ def search (request):
         
         #return render(request, 'composite/results.html', {'result': result})
     
-        return render (request, 'browse/items/index.html', 
+        return render (request, 'composite/results.html', 
         {'site_id' : None,
          'participant_id' : None,
          'session_id' : None,
