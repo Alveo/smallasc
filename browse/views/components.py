@@ -15,11 +15,14 @@ def index (request, site_id, participant_id, session_id):
 
 
     components = Component.objects.filter_by_session (site_id, participant_id, session_id)
+    component_ids = ", ".join([ '"%s"' % component.identifier for component in components ])
 
     return render (request, 'browse/components/index.html', 
         {'site_id' : site_id,
          'participant_id' : participant_id,
          'session_id' : session_id,
-         'components': components})
+         'components': components,
+         'item_ids' : '{ "media": [ ' + component_ids + ' ] }' }
+        )
 
 
