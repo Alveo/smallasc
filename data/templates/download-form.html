@@ -1,0 +1,22 @@
+
+<div>
+<form action="{% url data:download_redirect %}" method="post">
+{% csrf_token %}
+<input type="hidden" name="json" value='{{ item_ids|safe }}' />
+<input type="submit" value="Download" /> channel <select name="channel">
+        <option selected="selected" value="ch2-boundary">ch2-boundary</option>
+            <option value="ch5-c2Right">ch5-c2Right</option>
+            <option value="ch4-c2Left">ch4-c2Left</option>
+            <option value="camera-0-right">camera-0-right</option>
+            <option value="camera-0-left">camera-0-left</option>
+            <option value="camera-1-right">camera-1-right</option>
+            <option value="camera-1-left">camera-1-left</option>
+            <option value="ch3-strobe">ch3-strobe</option>
+            <option value="ch6-speaker">ch6-speaker</option>
+            <option value="ch1-maptask">ch1-maptask</option>
+        </select>
+        as <input type="text" name="name" />.zip
+</form>
+<p>&nbsp;</p>
+</div>
+
