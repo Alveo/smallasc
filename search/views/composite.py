@@ -27,6 +27,7 @@ def search (request):
         wholeword = form.cleaned_data['wholeword']
         
         result = Item.objects.filter_by_prompt(prompt, components, wholeword)
+        item_ids = [ item.identifier for item in result ]
         
         #return render(request, 'composite/results.html', {'result': result})
     
@@ -35,7 +36,8 @@ def search (request):
          'participant_id' : None,
          'session_id' : None,
          'component_id': None,
-         'items': result})
+         'items': result,
+         'item_ids' : item_ids })
     
     else:
         return render(request, 'composite/index.html', {'form': form})

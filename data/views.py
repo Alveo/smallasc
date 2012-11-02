@@ -23,13 +23,49 @@ def _unify_hash(l):
 def _removeDataHostPrefix(url):
         return url.replace(settings.DATA_HOST_PREFIX, "")
 
+def _subquery(d, ch):
+        if d.startswith("http://id.austalk.edu.au/participant/"):     # a participant
+                q = """?session olac:speaker <%s> .
+                ?session rdf:type austalk:RecordedSession .
+                ?component dc:isPartOf ?session .
+                ?item dc:isPartOf ?component .
+                ?item austalk:media ?media .
+                ?media austalk:version 1 .
+                ?media austalk:channel "%s" .
+       """ % (d, ch)
+        elif d.startswith("http://id.austalk.edu.au/session/"):   # a session
+                q = """?component dc:isPartOf <%s> .
+                ?item dc:isPartOf ?component .
+                ?item austalk:media ?media .
+                ?media austalk:version 1 .
+                ?media austalk:channel "%s" .
+       """ % (d, ch)
+        elif d.startswith("http://id.austalk.edu.au/component/"):  # a component
+                q = """?item dc:isPartOf <%s> .
+                ?item austalk:media ?media .
+                ?media austalk:version 1 .
+                ?media austalk:channel "%s" .
+       """ % (d, ch)
+        elif d.startswith("http://id.austalk.edu.au/item/"):     # an item
+                q = """<%s> austalk:media ?media .
+                ?media austalk:version 1 .
+                ?media austalk:channel "%s" .
+       """ % (d, ch)
+        else:   # an error
+                q = ""
+
+        return q
+
+
 
 @csrf_exempt
 def download_redirect(request):
         # TODO: this is just a quick hack to show that this approach works, I'll
         # tidy it up if we decide to go this way
         if request.method == 'POST':
-                """name=\w+&channel=<channel>&json={ 'media' : [<url>+], channels' : [<channel>+], 'name' : \w+ }"""
+                """name=\w+&channels=<channel>&json={'media' : [<url>+], channels' : [<channel>+], 'name' : \w+}"""
+                
+                # validate the request
                 try:
                         data = simplejson.loads(request.POST.get("json"))
                 except ValueError:
@@ -38,20 +74,30 @@ def download_redirect(request):
                 if not 'media' in data:
                         return HttpResponseServerError('Invalid json query syntax - should be { "media" : [<url>+], "channels" : [<channel>+], "name" : "\w+" }')
 
+                # get the filename
                 if not 'name' in data:
                         # we know how to handle an empty name
                         data['name'] = request.POST.get("name", "")
 
-                channel = request.POST.get("channel")
-                data['files'] = [ d for d in data['media'] if d.startswith(settings.DATA_HOST_PREFIX) ]
-                if channel is not None:
-                        s = SparqlManager()
+                # merge the channels
+                channels = request.POST.getlist("channels")
+                if "channels" in data:
+                        channelsdict = {}
+                        for ch in channels + data['channels']:
+                                channelsdict[ch] = 1
+                        channels = channelsdict.keys()
 
-                        q = """?item dc:isPartOf <%s> .
-                ?item austalk:media ?media .
-                ?media austalk:version 1 .
-                ?media austalk:channel "%s" .
-        """
+                # get the data file urls
+                data['files'], data['item_ids'] = ([],[])
+                for d in data['media']:
+                        if d.startswith(settings.DATA_HOST_PREFIX):
+                                data['files'].append(d)
+                        else:
+                                data['item_ids'].append(d)
+
+                # translate item ids to data file urls
+                if len(channels) > 0 and len(data['item_ids']) > 0:
+                        s = SparqlManager()
 
                         qq = """select distinct ?media
 where {
@@ -60,13 +106,15 @@ where {
         }
 }
                         """ % " } UNION {\n\t\t".join(
-                                        [ q % (d, channel) for d in data['media'] if not d.startswith(settings.DATA_HOST_PREFIX) ])
-                        #print qq
+                                        [ _subquery(d, ch) for d in data['item_ids'] for ch in channels ])
+                        #print qq    # debug
 
                         files = s.query(qq)
-                        data['files'] += [ f['media']['value'] for f in files['results']['bindings'] ]
+                        if len(files['results']['bindings']) > 0 and 'media' in files['results']['bindings'][0]:
+                            # success
+                            data['files'] += [ f['media']['value'] for f in files['results']['bindings'] ]
                
-                #print "Number of data file urls:", len(data['files'])
+                #print "Number of data file urls:", len(data['files'])   # debug
 
                 urlPaths = map(_removeDataHostPrefix, data['files'])
 
