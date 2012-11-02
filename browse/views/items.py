@@ -14,13 +14,15 @@ def index (request, site_id, participant_id, session_id, component_id):
     """ Lists all the items for a particular participants session and component type. """
 
     items = Item.objects.filter_by_component (participant_id, session_id, component_id)
+    item_ids = [ item.identifier for item in items ]
 
     return render (request, 'browse/items/index.html', 
         {'site_id' : site_id,
          'participant_id' : participant_id,
          'session_id' : session_id,
          'component_id': component_id,
-         'items': items})
+         'items': items,
+         'item_ids' : item_ids })
  
 @login_required
 def show (request, site_id, participant_id, session_id, component_id, basename):
@@ -30,9 +32,12 @@ def show (request, site_id, participant_id, session_id, component_id, basename):
 
     if item == None:
         return Http404("Item not found %s" % basename)
+
+    print item.properties()['media']
     
     return render (request, 'browse/items/show.html', 
         {'site_id' : site_id,
          'participant_id' : participant_id,
          'session_id' : session_id,
-         'item': item})
+         'item': item,
+         'item_ids' : item.properties()['media'] })

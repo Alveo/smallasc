@@ -17,6 +17,7 @@
 
 {% block content %}
  
+            {% include "download-form.html" %}
             <table class="description">
               <tr><th colspan=2>Item</th></tr>
               <tr><th>Item Basename</th><td><a href="{{item.get_absolute_url}}">{{ item.basename }}</a></td></tr>
