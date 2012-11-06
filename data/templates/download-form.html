@@ -1,0 +1,22 @@
+
+{% load getChannels %}
+
+<div>
+<form style="margin-bottom: 1em;" action="{% url data:download_redirect %}" method="post">
+
+    <input type="hidden" name="json" 
+    value='{ "media": [ {% for id in item_ids %}{% if forloop.last %}"{{ id }}"{% else %}"{{ id }}", {% endif %}{% endfor %} ] }' />
+    <input type="submit" value="Download" /> channel 
+
+        {% getChannels as channels %}
+        <select name="channels">
+        {% for value, label in channels %}
+        <option value="{{ value }}">{{ label }}</option>
+        {% endfor %}
+        </select>
+
+        as <input type="text" name="name" size="16" />.zip
+
+</form>
+</div>
+

@@ -1,0 +1,36 @@
+{% extends "browse/index.html" %}
+
+<!-- Note the convention of the title, Austalk | View > Object -->
+{% block title %}
+    Austalk | Browse > Components
+{% endblock %}
+
+{% block subtitle %}
+    Speaker {{participant_id}}|Session {{ session_id }}|Component List
+{% endblock %}
+
+{% block page_links %}
+    <a href="/browse/">sites</a> | 
+    <a href="/browse/{{ site_id }}/">participants</a> |
+    <a href="/browse/{{ site_id }}/{{ participant_id }}">{{ participant_id }}</a>     
+{% endblock %}
+
+
+{% block content %}
+    {% include "download-form.html" %}
+    <table class="overview">
+        {% for comp in components %}            
+            <tr>
+            <table class="description">
+              <tr><th colspan=2>Component</th></tr>
+              <tr><th>Component Name</th><td><a href="{{comp.get_absolute_url}}">{{ comp.name }}</a></td></tr>
+              <tr><th>Short Name</th><td>{{ comp.componentId }}</td></tr>
+              <tr><th>ID</th><td>{{ comp.identifier }}</td></tr>
+              <tr><th>Ratings</th><td>Audio {{comp.audiorating}}, Video: {{comp.videorating}}</td></tr>
+              <tr><th>Comment</th><td>{{comp.comment}}</td></tr>
+            </table>
+            </tr>
+            
+        {% endfor %}
+    </table>
+{% endblock %}

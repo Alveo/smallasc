@@ -1,0 +1,9 @@
+# Where to chdir at start.
+CELERYBEAT_CHDIR="/home/jumbo/work/macquarie/smallasc/"
+
+# Extra arguments to celerybeat
+CELERYBEAT_OPTS="--schedule=/var/run/celerybeat-schedule"
+
+# Name of the celery config module.
+CELERY_CONFIG_MODULE="smallasc.settings"
+

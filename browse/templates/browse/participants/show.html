@@ -1,0 +1,152 @@
+{% extends "browse/index.html" %}
+
+<!-- Note the convention of the title, Austalk | View > Object -->
+{% block title %}
+    Austalk | Browse > Participants
+{% endblock %}
+
+{% block subtitle %}
+    Speaker {{participant}}
+{% endblock %}
+
+{% block page_links %}
+    <a href="/browse/">sites</a> |
+    <a href="/browse/{{ site_id }}/">participants</a>
+{% endblock %}
+
+
+{% block content %}
+
+    {% include "download-form.html" %}
+    <div class="horizontal_list">
+        <h2>Data</h2>
+        <ul>
+             {% for session in sessions %}
+                {% if forloop.first %}
+                    <li class="first">
+                {% else %}
+                    <li>
+                {% endif %}
+                    <a href="{{ session.get_absolute_url }}">{{ session.name }}</a>
+                    </li>
+             {% endfor %}
+        </ul>
+    </div>
+
+    <div class="vertical_list">
+        <h2>Recording information</h2>
+        <ul>
+            <li>Recording site: <a href="/browse/{{ site_id }}/">{{ site }}</a></li>
+        </ul>
+    </div>
+
+    <div class="horizontal_list">
+        <h2>About</h2>
+        <ul>
+            <li class="first">Gender: {{ participant.properties.gender.0 }}</li>
+            <li>Year of birth: {{ participant.properties.birthYear.0 }}</li>
+            <li>Location of birth: <a href="{{ participant.properties.birthPlace.0 }}">{{ participant.properties.pob_town.0 }}, {{participant.properties.pob_state.0}} {{participant.properties.pob_country.0}}</a></li>
+        </ul>
+    </div>
+
+    <div class="vertical_list">
+        <h2>Education history</h2>
+        <ul>
+            {% for eh in education_history %}
+                <li>from age {{ eh.age_from }} to {{ eh.age_to }} studied at {{ eh.name }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="vertical_list">
+        <h2>Professional history</h2>
+        <ul>
+            {% for ph in professional_history %}
+            <li>
+                from age {{ ph.age_from }} to {{ ph.age_to }}  worked as a {{ ph.name }}
+                {% if ph.less_than_a_year == true %}
+                    for less than a year 
+                {% else %}
+                    for more than year
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="horizontal_list">
+        <h2>Cultural heritage</h2>
+        <ul>
+            <li class="first">Cultural heritage: {{ participant.properties.cultural_heritage.0 }}</li>
+            <li>Religion: {{ participant.properties.religion.0 }}</li>
+            <li>Hobbies: {{ participant.properties.hobbies_details.0 }}</li>
+        </ul>
+    </div>
+
+    <div class="vertical_list">
+        <h2>Language</h2>
+        <ul>
+            <li>First language: {{ participant.properties.first_language.0 }}</li>
+            <li>Other languages spoken/understood: {{ participant.properties.other_languages.0 }}</li>
+        </ul>
+    </div>
+
+    <div class="vertical_list">
+        <h2>About parents</h2>
+
+        <!-- Mothers demographic details -->
+        <div>
+        <h3>About mother, or primary female caregiver</h3>
+        
+        <dl class="table_display">
+          <dt>Mother's cultural heritage</dt><dd>{{ participant.properties.mother_cultural_heritage.0 }}</dd>
+    <dt>Mother's place of birth</dt><dd> {{ participant.properties.mother_pob_town.0 }}, {{ participant.properties.mother_pob_state.0 }}, {{ participant.properties.mother_pob_country.0 }}</dd>
+    <dt>Mother's first language</dt><dd> {{ participant.properties.mother_first_language.0 }}</dd>
+    <dt>Mother's accent</dt><dd> {{ participant.properties.mother_accent.0 }}</dd>
+    <dt>Mother's occupation</dt><dd> {{ participant.properties.mother_occupation.0 }}</dd>
+    <dt>Mother's highest education level</dt><dd> {{ participant.properties.mother_education_level.0 }}</dd>
+        </dl>
+        </div>
+        
+        
+        <div>
+        <!-- Fathers demographic details -->
+        <h3>About father, or primary male caregiver</h3>
+        <dl class='table_display'>
+    <dt>Father's cultural heritage</dt><dd>{{ participant.properties.father_cultural_heritage.0 }}</dd>
+    <dt>Father's place of birth</dt><dd>{{ participant.properties.father_pob_town.0 }}, {{ participant.properties.father_pob_state.0 }}, {{ participant.properties.father_pob_country.0 }}</dd>
+    <dt>Father's first language</dt><dd>{{ participant.properties.father_first_language.0 }}</dd>
+    <dt>Father's accent</dt><dd>{{ participant.properties.father_accent.0 }}</dd>
+    <dt>Father's occupation</dt><dd>{{ participant.properties.father_occupation.0 }}</dd>
+    <dt>Father's highest education level</dt><dd>{{ participant.properties.father_education_level.0 }}</dd>
+        </dl>
+        </div>
+    </div>
+
+    <div class="vertical_list">
+        <h2>Other information</h2>
+        <ul>
+    {% ifequal participant.properties.has_reading_problems.0 "true" %}<li>Has had some reading problems</li>{% endifequal %}
+    {% ifequal participant.properties.has_vocal_training.0 "true" %}<li>Has had vocal training</li>{% endifequal %}
+    {% ifequal participant.properties.has_speech_problems.0 "true" %}<li>Has speech problems</li>{% endifequal %}
+    {% ifequal participant.properties.has_hearing_problems.0 "true" %}<li>Has hearing problems</li>{% endifequal %}
+    {% ifequal participant.properties.is_left_handed.0 "true" %}<li>Is Right-handed</li>{% endifequal %}
+    {% ifequal participant.properties.is_smoker.0 "true" %}<li>Is a smoker</li>{% endifequal %}
+    {% ifequal participant.properties.has_dentures.0 "true" %}<li>Wears dentures</li>{% endifequal %}
+    {% ifequal participant.properties.has_piercings.0 "true" %}<li>Has facial piercings</li>{% endifequal %}
+    {% ifequal participant.properties.has_health_problems.0 "true" %}<li>Has health problems which might affect his/her voice</li>{% endifequal %}
+        </ul>
+    </div>
+    
+    <!-- 
+    <div class="vertical_list">
+      <h2>All properties</h2>
+      <ul>
+      {% for key, value in participant.properties.iteritems %}
+        <li>{{key}}: {{value}}</li>
+      {% endfor %}
+    
+    </div>
+    -->
+    
+{% endblock %}
