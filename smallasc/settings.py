@@ -8,6 +8,7 @@ TEMPLATE_DEBUG = DEBUG
 ADMINS = (
     ('Shirren Premaratne', 'shirren.premaratne@gmail.com'),
     ('Tomas Krajca', 't.l.krajca@gmail.com'),
+    ('Steve Cassidy', 'steve.cassidy@mq.edu.au'),
 )
 
 MANAGERS = ADMINS
@@ -129,13 +130,10 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 
-    'djcelery',
-
     # Smallasc applications listed
     'baseapp',
     'browse',
     'search',
-    'data',
 
 )
 
@@ -168,24 +166,13 @@ LOGGING = {
     }
 }
 
-# data/download module
-# careful, trailing slash everywhere
-DATA_HOST_PREFIX = "http://data.austalk.edu.au/"
-DATA_ROOT = "/var/fileserver/bigasc/publish/"          # data root
-TEMP_ROOT = "/var/smallasc/tmp/"    # root for generated zip files
-TEMP_ROOT_MAX = 10000                   # upper threshold on storage size in MB
-TEMP_ROOT_MIN = 5000                    # lower threshold on storage size in MB
-TASK_TIMEOUT = 60                       # max execution time for a task in minutes
-
 # Custom setting for the login url
 LOGIN_URL = "/login/"
 
-# django-celery
-import djcelery
-djcelery.setup_loader()
-
 # SPARQL_ENDPOINT 
 SPARQL_ENDPOINT = "http://115.146.93.47/openrdf-sesame/repositories/bigasc"
+# SMALLASCDATA_ENDPOINT
+SMALLASCDATA_ENDPOINT = "http://data.austalk.edu.au/download/"
 
 
 
