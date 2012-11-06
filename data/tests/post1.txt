@@ -7,8 +7,8 @@ json={
   "http://id.austalk.edu.au/component/1_1250_1_5", 
   "http://id.austalk.edu.au/session/1_1001_1", 
   "http://id.austalk.edu.au/participant/1_178", 
-  "http://id.austalk.edu.au/item/1_1250_1_5_001", 
+  "http://id.austalk.edu.au/item/1_1250_1_5_001"
  ], 
- "channels": ["ch6-speaker"]
+ "channels": ["ch6-speaker"],
  "name": "male_digits"
 }
