@@ -1,8 +1,0 @@
-json={
- "media": [
-  "http://data.austalk.edu.au/ANU/1_178/1/digits/1_178_1_5_001-ch6-speaker.wav", 
-  "http://data.austalk.edu.au/ANU/1_178/1/digits/1_178_1_5_002-ch6-speaker.wav", 
-  "http://data.austalk.edu.au/UTAS/1_1001/2/digits/1_1001_2_5_012-ch6-speaker.wav", 
-  "http://data.austalk.edu.au/UTAS/1_1250/1/digits/1_1250_1_5_001-ch6-speaker.wav", 
- ], 
-}
