@@ -2,7 +2,7 @@
 {% load getChannels %}
 
 <div>
-<form style="margin-bottom: 1em;" action="{% url data:download_redirect %}" method="post">
+<form style="margin-bottom: 1em;" action="{% url download_redirect %}" method="post">
 
     <input type="hidden" name="json" 
     value='{ "media": [ {% for id in item_ids %}{% if forloop.last %}"{{ id }}"{% else %}"{{ id }}", {% endif %}{% endfor %} ] }' />

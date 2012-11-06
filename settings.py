@@ -19,7 +19,7 @@ SERVER_EMAIL = "django@austalk.edu.au"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',             # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': os.path.join (os.getcwd (), 'smallascdatadb'),  # Or path to database file if using sqlite3.
+        'NAME': os.path.join (os.path.dirname(__file__), 'smallascdatadb'),  # Or path to database file if using sqlite3.
         'USER': '',                                         # Not used with sqlite3.
         'PASSWORD': '',                                     # Not used with sqlite3.
         'HOST': '',                                         # Set to empty string for localhost. Not used with sqlite3.
@@ -141,9 +141,9 @@ INSTALLED_APPS = (
 # careful, trailing slash everywhere
 DATA_HOST_PREFIX = "http://data.austalk.edu.au/"
 DATA_ROOT = "/var/fileserver/bigasc/publish/"          # data root
-TEMP_ROOT = "/var/smallasc/tmp/"    # root for generated zip files
-TEMP_ROOT_MAX = 10000                   # upper threshold on storage size in MB
-TEMP_ROOT_MIN = 5000                    # lower threshold on storage size in MB
+TEMP_ROOT = "/var/django/smallasc/tmp/"    # root for generated zip files
+TEMP_ROOT_MAX = 20000                   # upper threshold on storage size in MB
+TEMP_ROOT_MIN = 15000                    # lower threshold on storage size in MB
 TASK_TIMEOUT = 60                       # max execution time for a task in minutes
 
 # Custom setting for the login url
