@@ -14,7 +14,7 @@ import os
 
 from data import tasks
 from data.models import Files2taskId
-from browse.modelspackage.sparql_local_wrapper import SparqlManager
+from data.utils.sparql_local_wrapper import SparqlManager
 
 
 def _unify_hash(l):
