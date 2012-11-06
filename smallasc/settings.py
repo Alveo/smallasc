@@ -186,7 +186,8 @@ djcelery.setup_loader()
 
 # SPARQL_ENDPOINT 
 SPARQL_ENDPOINT = "http://115.146.93.47/openrdf-sesame/repositories/bigasc"
-
+# SMALLASCDATA_ENDPOINT
+SMALLASCDATA_ENDPOINT = "http://data.austalk.edu.au/download/"
 
 
 # load local settings

@@ -33,6 +33,6 @@ $ python manage.py celery beat --loglevel=info
 !Don't forget to make the tmp directory for zip files as well as sqlite db and its parent directory 
 writable by the celeryd and celerybeat processes!
 
-# chgrp deamon /var/run/smallasc/tmp /var/run/smallasc/tmp/* /home/jumbo/work/macquarie/smallasc /home/jumbo/work/macquarie/smallasc/smallascdb
+# chgrp daemon /var/run/smallasc/tmp /var/run/smallasc/tmp/* /home/jumbo/work/macquarie/smallasc /home/jumbo/work/macquarie/smallasc/smallascdb
 # chmod g+w /var/run/smallasc/tmp /var/run/smallasc/tmp/* /home/jumbo/work/macquarie/smallasc /home/jumbo/work/macquarie/smallasc/smallascdb
 
