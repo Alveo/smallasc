@@ -134,7 +134,7 @@ where {
 
                 time.sleep(1.234)   # just to give the zip generation some time
 
-                return HttpResponseRedirect(reverse("data:download", args=[h]) + "?name="+data['name'])
+                return HttpResponseRedirect(reverse("download", args=[h]) + "?name="+data['name'])
         else:
                 return HttpResponseNotAllowed(['POST'])
 
