@@ -1,0 +1,7 @@
+json={
+ "media": [
+  "http://id.austalk.edu.au/component/1_1250_1_5"
+ ], 
+ "channels" : ["ch6-speaker"],
+ "name": "male_digits"
+}
