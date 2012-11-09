@@ -1,7 +1,7 @@
 
 from django import template
 
-from data import choices
+from baseapp import choices
 
 
 register = template.Library()

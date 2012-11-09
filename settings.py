@@ -129,13 +129,12 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 
-    'djcelery',
-
-    # Smallascdata applications listed
-    'data',
+    # Smallasc applications listed
+    'baseapp',
+    'browse',
+    'search',
 
 )
-
 
 # data/download module
 # careful, trailing slash everywhere
@@ -149,12 +148,10 @@ TASK_TIMEOUT = 60                       # max execution time for a task in minut
 # Custom setting for the login url
 LOGIN_URL = "/login/"
 
-# django-celery
-import djcelery
-djcelery.setup_loader()
-
 # SPARQL_ENDPOINT 
 SPARQL_ENDPOINT = "http://115.146.93.47/openrdf-sesame/repositories/bigasc"
+# SMALLASCDATA_ENDPOINT
+SMALLASCDATA_ENDPOINT = "http://data.austalk.edu.au/download/"
 
 
 # load local settings
