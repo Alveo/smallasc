@@ -6,8 +6,8 @@ from django.shortcuts import render, render_to_response
 from browse.modelspackage.sites import Site, SiteManager
 from browse.modelspackage.participants import Participant, ParticipantManager
 from browse.modelspackage.sessions import Session
-from browse.modelspackage.education_history import EducationHistory
-from browse.modelspackage.professional_history import ProfessionalHistory
+from browse.modelspackage.residence_history import ResidenceHistory 
+from browse.modelspackage.language_usage import LanguageUsage
 from browse.modelspackage.sparql_local_wrapper import SparqlLocalWrapper
 
 
@@ -46,20 +46,19 @@ def show (request, site_id, participant_id):
     if site is None:
         raise Http404 ("Requested site not found")
 
-    sessions = Session.objects.filter_by_participant (participant)
+    sessions = Session.objects.filter_by_participant (participant) 
     
-    education_history = EducationHistory.objects.filter_by_participant (participant)
-    professional_history = ProfessionalHistory.objects.filter_by_participant (participant)
-
-
+    rhist = ResidenceHistory.objects.filter_by_participant(participant)
+    lang = LanguageUsage.objects.filter_by_participant(participant)
+    
     return render (request, 'browse/participants/show.html', 
         {
             'participant': participant,
             'site': site,
-            'site_id': site_id,
+            'site_id': site_id, 
             'sessions': sessions,
-            'education_history': education_history,
-            'professional_history': professional_history,
+            'residential_history': rhist,
+            'language_usage': lang,
             'item_ids' : [ participant.identifier ],
         })
 
