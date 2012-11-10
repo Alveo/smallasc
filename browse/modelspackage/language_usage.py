@@ -18,8 +18,7 @@ class LanguageUsageManager (SparqlManager):
                 ?lu austalk:name ?name .
             FILTER (?part = <%s>) 
             }""" % participant.identifier
-            
-        print query
+             
         
         sparql_results = self.query (query)
 
