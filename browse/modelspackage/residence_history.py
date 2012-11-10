@@ -21,8 +21,7 @@ class ResidenceHistoryManager (SparqlManager):
                 ?rh austalk:less_than_a_year ?lessyear .
                 FILTER (?part = <%s>) 
             } order by ?age_from""" % participant.identifier
-
-        print query
+ 
 
         sparql_results = self.query (query)
 
