@@ -4,22 +4,13 @@ from django.template import RequestContext
 
 # Models in use
 from browse.modelspackage import Item
-from search.forms.composite_search import CompositeSearchForm
+from search.forms import PromptSearchForm
 
 @login_required
-def index (request):
-	""" The composite search view returns pretty much all the standard fieldsets in a simplified
-	view. This view is meant for normal users, not power users. """
-	form = CompositeSearchForm ()
-	return render (request, 'composite/index.html', {'form': form})
-
+def prompt_search (request):
+    """ View to show the results of a prompt search . """
     
-
-@login_required
-def search (request):
-    """ This function shows the results of a browse. """
-    
-    form = CompositeSearchForm (request.GET)
+    form = PromptSearchForm (request.GET)
     
     if form.is_valid ():
         prompt = form.cleaned_data['prompt']
@@ -28,10 +19,8 @@ def search (request):
         
         result = Item.objects.filter_by_prompt(prompt, components, wholeword)
         item_ids = [ item.identifier for item in result ]
-        
-        #return render(request, 'composite/results.html', {'result': result})
     
-        return render (request, 'composite/results.html', 
+        return render (request, 'search/results.html', 
         {'site_id' : None,
          'participant_id' : None,
          'session_id' : None,
@@ -40,6 +29,20 @@ def search (request):
          'item_ids' : item_ids })
     
     else:
-        return render(request, 'composite/index.html', {'form': form})
+        return render(request, 'search/index.html', {'prompt_form': form})
+       
+       
+def participant_search(request):
+	"""Find participants based on demographic fields"""
 
 
+	form = ParticipantSearchForm(request.GET)
+	
+	
+	if form.is_valid():
+		pass
+	
+	else:
+		return render(request, 'search/index.html', {'participant_form': form})
+		
+		
