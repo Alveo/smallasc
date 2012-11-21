@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block subtitle %}
-    Speaker {{participant}}
+    Speaker {{participant.austalk_id}}
 {% endblock %}
 
 {% block page_links %}
@@ -38,16 +38,16 @@
     <h2>Demographic Data</h2>
   
      <table class="description">
-            <tr><th>Gender</th><td> {{ participant.properties.gender.0 }}</td></tr>
-            <tr><th>Year of birth</th><td> {{ participant.properties.birthYear.0 }}</td></tr>
-            <tr><th>Location of birth</th><td> <a href="{{ participant.properties.birthPlace.0 }}">{{ participant.properties.pob_town.0 }}, {{participant.properties.pob_state.0}} {{participant.properties.pob_country.0}}</a></td></tr>
-            <tr><th>Cultural heritage</th><td> {{ participant.properties.cultural_heritage.0 }}</td></tr>
-            <tr><th>Socio-Economic Status</th><td>{{ participant.properties.ses.0 }}</td></tr>
-            <tr><th>Highest Qualification</th><td> {{ participant.properties.education_level.0 }}</td></tr>
-            <tr><th>Professional Qualification</th><td> {{ participant.properties.professional_qualification.0 }}</td></tr>
-            <tr><th>Professional Category</th><td> {{ participant.properties.professional_category.0 }}</td></tr>
-            <tr><th>First language</th><td> {{ participant.properties.first_language.0 }}</td></tr>
-            <tr><th>Other languages spoken/understood</th><td>{{ participant.properties.other_languages.0 }}</td></tr>
+            <tr><th>Gender</th><td> {{ participant.foaf_gender.first }}</td></tr>
+            <tr><th>Year of birth</th><td> {{ participant.dbpedia_birthYear.first }}</td></tr>
+            <tr><th>Location of birth</th><td> <a href="{{ participant.austalk_birthPlace.first }}">{{ participant.austalk_pob_town.first }}, {{participant.austalk_pob_state.first}} {{participant.austalk_pob_country.first}}</a></td></tr>
+            <tr><th>Cultural heritage</th><td> {{ participant.austalk_cultural_heritage.first }}</td></tr>
+            <tr><th>Socio-Economic Status</th><td>{{ participant.austalk_ses.first }}</td></tr>
+            <tr><th>Highest Qualification</th><td> {{ participant.austalk_education_level.first }}</td></tr>
+            <tr><th>Professional Qualification</th><td> {{ participant.austalk_professional_qualification.first }}</td></tr>
+            <tr><th>Professional Category</th><td> {{ participant.austalk_professional_category.first }}</td></tr>
+            <tr><th>First language</th><td> {{ participant.austalk_first_language.first }}</td></tr>
+            <tr><th>Other languages spoken/understood</th><td>{{ participant.austalk_other_languages.first }}</td></tr>
             
             <tr><th>Language Usage</th><td>
             <ul>
@@ -65,36 +65,36 @@
             </td></tr>
             
             
-            {% ifequal participant.properties.is_student.0 "true" %}
-            <tr><th>Student Course</th><td>{{participant.properties.student_course.0}}</td></tr>
-            <tr><th>Student Enrollment</th><td>{{participant.properties.student_enrollment.0}}</td></tr>
-            <tr><th>Student Aspiration</th><td>{{participant.properties.student_aspiration.0}}</td></tr>
-            {% endifequal %}
+            {% if participant.austalk_is_student.first %}
+            <tr><th>Student Course</th><td>{{participant.austalk_student_course.first}}</td></tr>
+            <tr><th>Student Enrollment</th><td>{{participant.austalk_student_enrollment.first}}</td></tr>
+            <tr><th>Student Aspiration</th><td>{{participant.austalk_student_aspiration.first}}</td></tr>
+            {% endif %}
             
-            <tr><th>Mother's cultural heritage</th><td>{{ participant.properties.mother_cultural_heritage.0 }}</td></tr>
-            <tr><th>Mother's place of birth</th><td> {{ participant.properties.mother_pob_town.0 }}, {{ participant.properties.mother_pob_state.0 }}, {{ participant.properties.mother_pob_country.0 }}</td></tr>
-            <tr><th>Mother's first language</th><td> {{ participant.properties.mother_first_language.0 }}</td></tr>
-            <tr><th>Mother's accent</th><td> {{ participant.properties.mother_accent.0 }}</td></tr>
-            <tr><th>Mother's occupation</th><td> {{ participant.properties.mother_occupation.0 }}</td></tr>
-            <tr><th>Mother's highest education level</th><td> {{ participant.properties.mother_education_level.0 }}</td></tr>
+            <tr><th>Mother's cultural heritage</th><td>{{ participant.austalk_mother_cultural_heritage.0 }}</td></tr>
+            <tr><th>Mother's place of birth</th><td> {{ participant.austalk_mother_pob_town.0 }}, {{ participant.austalk_mother_pob_state.0 }}, {{ participant.austalk_mother_pob_country.0 }}</td></tr>
+            <tr><th>Mother's first language</th><td> {{ participant.austalk_mother_first_language.0 }}</td></tr>
+            <tr><th>Mother's accent</th><td> {{ participant.austalk_mother_accent.0 }}</td></tr>
+            <tr><th>Mother's occupation</th><td> {{ participant.austalk_mother_occupation.0 }}</td></tr>
+            <tr><th>Mother's highest education level</th><td> {{ participant.austalk_mother_education_level.0 }}</td></tr>
               
-            <tr><th>Father's cultural heritage</th><td>{{ participant.properties.father_cultural_heritage.0 }}</td></tr>
-            <tr><th>Father's place of birth</th><td>{{ participant.properties.father_pob_town.0 }}, {{ participant.properties.father_pob_state.0 }}, {{ participant.properties.father_pob_country.0 }}</td></tr>
-            <tr><th>Father's first language</th><td>{{ participant.properties.father_first_language.0 }}</td></tr>
-            <tr><th>Father's accent</th><td>{{ participant.properties.father_accent.0 }}</td></tr>
-            <tr><th>Father's occupation</th><td>{{ participant.properties.father_occupation.0 }}</td></tr>
-            <tr><th>Father's highest education level</th><td>{{ participant.properties.father_education_level.0 }}</td></tr> 
+            <tr><th>Father's cultural heritage</th><td>{{ participant.austalk_father_cultural_heritage.0 }}</td></tr>
+            <tr><th>Father's place of birth</th><td>{{ participant.austalk_father_pob_town.0 }}, {{ participant.austalk_father_pob_state.0 }}, {{ participant.austalk_father_pob_country.0 }}</td></tr>
+            <tr><th>Father's first language</th><td>{{ participant.austalk_father_first_language.0 }}</td></tr>
+            <tr><th>Father's accent</th><td>{{ participant.austalk_father_accent.0 }}</td></tr>
+            <tr><th>Father's occupation</th><td>{{ participant.austalk_father_occupation.0 }}</td></tr>
+            <tr><th>Father's highest education level</th><td>{{ participant.austalk_father_education_level.0 }}</td></tr> 
             <tr><th>Other Information</th><td class='horizontal_list'>
             <ul>
-              {% ifequal participant.properties.has_reading_problems.0 "true" %}<li>Has had some reading problems</li>{% endifequal %}
-              {% ifequal participant.properties.has_vocal_training.0 "true" %}<li>Has had vocal training</li>{% endifequal %}
-              {% ifequal participant.properties.has_speech_problems.0 "true" %}<li>Has speech problems</li>{% endifequal %}
-              {% ifequal participant.properties.has_hearing_problems.0 "true" %}<li>Has hearing problems</li>{% endifequal %}
-              {% ifequal participant.properties.is_left_handed.0 "true" %}<li>Is Right-handed</li>{% endifequal %}
-              {% ifequal participant.properties.is_smoker.0 "true" %}<li>Is a smoker</li>{% endifequal %}
-              {% ifequal participant.properties.has_dentures.0 "true" %}<li>Wears dentures</li>{% endifequal %}
-              {% ifequal participant.properties.has_piercings.0 "true" %}<li>Has facial piercings</li>{% endifequal %}
-              {% ifequal participant.properties.has_health_problems.0 "true" %}<li>Has health problems which might affect his/her voice</li>{% endifequal %}
+              {% ifequal participant.austalk_has_reading_problems.0 "true" %}<li>Has had some reading problems</li>{% endifequal %}
+              {% ifequal participant.austalk_has_vocal_training.0 "true" %}<li>Has had vocal training</li>{% endifequal %}
+              {% ifequal participant.austalk_has_speech_problems.0 "true" %}<li>Has speech problems</li>{% endifequal %}
+              {% ifequal participant.austalk_has_hearing_problems.0 "true" %}<li>Has hearing problems</li>{% endifequal %}
+              {% ifequal participant.austalk_is_left_handed.0 "true" %}<li>Is Right-handed</li>{% endifequal %}
+              {% ifequal participant.austalk_is_smoker.0 "true" %}<li>Is a smoker</li>{% endifequal %}
+              {% ifequal participant.austalk_has_dentures.0 "true" %}<li>Wears dentures</li>{% endifequal %}
+              {% ifequal participant.austalk_has_piercings.0 "true" %}<li>Has facial piercings</li>{% endifequal %}
+              {% ifequal participant.austalk_has_health_problems.0 "true" %}<li>Has health problems which might affect his/her voice</li>{% endifequal %}
             </ul>
             </td></tr>
            
@@ -108,8 +108,8 @@
       here as a check that we have all and only the data we want in the database.</p>
       
       <table class='description'>
-      {% for key, value in participant.properties.items %}
-        <tr><th>{{key}}</th><td>{{value}}</td></tr>
+      {% for key in participant.rdf_direct %}
+        <tr><th>{{key}}</th><td>{{participant.key}}</td></tr>
       {% endfor %}
       </table>
     </div>
