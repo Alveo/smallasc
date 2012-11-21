@@ -35,7 +35,7 @@ class ParticipantManager (SparqlManager):
 
         return results
 
-
+    
     def with_data (self, site):
         """ Returns all the participants who have at least one session as a list of instances
         of Participant """

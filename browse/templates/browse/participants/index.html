@@ -20,8 +20,8 @@
                 <td colspan="4">
                     <h2 class="date">
                         <span>
-                            <a href="/browse/{{ site_id }}/{{ part.friendly_id }}">
-                                {{ part }}
+                            <a href="{{part.get_absolute_url}}">
+                                {{ part.austalk_name.first }}
                             </a>
                         </span>
                     </h2>
@@ -29,8 +29,10 @@
             </tr>
             <tr class="event">
                 <td class="what"><span class="post">Details</span></td>
-                <td class="item">Gender: {{ part.properties.gender.0 }}; Birth Year: {{ part.properties.birthYear.0 }}</td>
-                <td class="action">Url: {{ part.identifier }}</td>
+                <td class="item">Gender: {{ part.foaf_gender.first }}; Birth Year: {{ part.dbpedia_birthYear.first }}
+                
+                </td>
+                <td class="action">Url: {{ part.subject }}</td>
                 <td class="name"></td>
             </tr>
         {% endfor %}
