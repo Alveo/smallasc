@@ -108,7 +108,7 @@ MIDDLEWARE_CLASSES = (
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
-    #'participantportal.modelspackage.auth.CustomAuthBackend',
+    'participantportal.modelspackage.auth.CustomAuthBackend',
 )
 
 ROOT_URLCONF = 'smallasc.urls'
