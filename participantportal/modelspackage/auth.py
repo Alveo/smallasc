@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from browse.modelspackage.participants import *
+from participantportal.helpers import read_model_property
 
 class CustomAuthBackend(object):
   """ This custom authenticator is plugged into authentication pipeline
@@ -8,17 +9,20 @@ class CustomAuthBackend(object):
   def authenticate(self, colour, animal, birth_year = None, gender = None):
     # Check to see if the user can be found in the repository, and if so 
     # generate a username and store it locally for future authentication
-    print "Custom Authenticator Invoked with params %s-%s-%s-%s" % (colour, animal, birth_year, gender)
-    
+    # print "Custom Authenticator Invoked with params %s-%s-%s-%s" % (colour, animal, birth_year, gender)
     username = "%s_%s" % (colour, animal)
     participant = self.get_user(username)
 
     if not participant is None:
-      try:
-        user = User.objects.get(username = username)
-      except User.DoesNotExist:
-        user = User(username = username, password="#")
-      return user
+      # Before creating the user check to make sure the
+      # gender and birth year match
+      if birth_year == read_model_property(participant, 'birthYear') and \
+          gender == read_model_property(participant, 'gender'):
+        try:
+          user = User.objects.get(username = username)
+        except User.DoesNotExist:
+          user = User(username = username, password="#")
+        return user
 
     return None
 

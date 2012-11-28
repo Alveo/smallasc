@@ -1,17 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Participant Portal</title>
+{% extends "portal_loginbase.html" %}
 
-  <!-- Stylesheet includes -->
-  <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,700|Bitter:400,700|Nothing+You+Could+Do" media="screen" rel="stylesheet" type="text/css" />
-  <link rel="stylesheet" href="/static/styles/bootstrap.min.css" media="screen" />
-  <link rel="stylesheet" href="/static/styles/primary.css" media="screen" />
-  
-  <script src="/static/js/bootstrap.js"></script>
-</head>
-<body>  
-  <div class="container">
+{% block content %}
     
     <h1 class="centre">Participant Portal</h1>
     
@@ -50,7 +39,8 @@
           </div>
 
           <div class="control-group gender-choice">
-            <label for="id_gender" class="radio inline">Gender</label>
+            <!-- TODO: Need to add a custom renderer here! -->
+            Gender
             <div class="controls">
               {{ form.gender }}
             </div>
@@ -62,6 +52,4 @@
       </div>
     </div>
   
-  </div>
-</body>
-</html>
+{% endblock %}
