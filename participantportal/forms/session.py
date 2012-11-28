@@ -8,7 +8,7 @@ from baseapp.modelspackage.colours import Colour
 # This tuple is defined elsewhere but I am not comfortable
 # using that tuple unless they are all unified in one place
 # otherwise we have too strong a coupling between the applications
-GENDER_CHOICES = (('M', 'Male'), ('F', 'Female'))
+GENDER_CHOICES = (('male', 'Male'), ('female', 'Female'))
 
 def get_years():
   current_year = date.today().year
@@ -20,4 +20,4 @@ class LoginForm(forms.Form):
   colour      = forms.ModelChoiceField(queryset = Colour.objects.all(), initial = 1, 
     widget = Select(attrs={'class':'input-medium'}))
   birth_year  = forms.ChoiceField(choices = get_years(), widget = Select(attrs={'class':'input-medium'}))
-  gender = forms.ChoiceField(choices = GENDER_CHOICES, widget = RadioSelect, initial = 'M')
+  gender = forms.ChoiceField(choices = GENDER_CHOICES, widget = RadioSelect, initial = 'male')

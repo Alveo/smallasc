@@ -5,7 +5,7 @@ class AuthenticationTests(TestCase):
     
   def test_authenitcation_for_valid_user(self):
     auth_backend = CustomAuthBackend()
-    user = auth_backend.authenticate(1, 1093)
+    user = auth_backend.authenticate('1', '1093', '1984', 'female')
     self.assertIsNotNone(user)
 
   def test_authentication_for_invalid_user(self):
