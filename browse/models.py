@@ -2,8 +2,8 @@ from browse.modelspackage.components import Component
 from browse.modelspackage.participants import Participant
 from browse.modelspackage.sessions import Session
 from browse.modelspackage.sites import Site
-from browse.modelspackage.education_history import EducationHistory
-from browse.modelspackage.professional_history import ProfessionalHistory
+#from browse.modelspackage.education_history import EducationHistory
+#from browse.modelspackage.professional_history import ProfessionalHistory
 from browse.modelspackage.locations import Location
 from browse.modelspackage.items import Item
 from browse.modelspackage.media import Media
