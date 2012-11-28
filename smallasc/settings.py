@@ -106,6 +106,11 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware'
 )
 
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    #'participantportal.modelspackage.auth.CustomAuthBackend',
+)
+
 ROOT_URLCONF = 'smallasc.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
@@ -134,7 +139,7 @@ INSTALLED_APPS = (
     'baseapp',
     'browse',
     'search',
-
+    'participantportal',
 )
 
 # A sample logging configuration. The only tangible logging
