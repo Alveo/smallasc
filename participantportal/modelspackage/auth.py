@@ -11,7 +11,7 @@ class CustomAuthBackend(object):
     # generate a username and store it locally for future authentication
     # print "Custom Authenticator Invoked with params %s-%s-%s-%s" % (colour, animal, birth_year, gender)
     username = "%s_%s" % (colour, animal)
-    participant = self.get_user(username)
+    participant = Participant.objects.get(username)
 
     if not participant is None:
       # Before creating the user check to make sure the
@@ -21,13 +21,15 @@ class CustomAuthBackend(object):
         try:
           user = User.objects.get(username = username)
         except User.DoesNotExist:
-          user = User(username = username, password="#")
+          user = User(username = username, is_staff = True, is_active = True, is_superuser = False)
+          user.set_unusable_password()
+          user.save()
         return user
 
     return None
 
   def get_user(self, user_id):
     try:
-      return Participant.objects.get(user_id)
+      return User.objects.get(pk = user_id)
     except User.DoesNotExist:
       return None
