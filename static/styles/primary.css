@@ -7,6 +7,23 @@ body {
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+body.login {
+  background: url(/static/images/bg.jpg) repeat;
+}
+
+.loginbox {
+  background-color: #fff;
+  margin: 20px;
+  padding: 32px;
+  border: #ccc 1px solid;
+  -moz-box-shadow: rgba(0,0,0,0.2) 0 0 20px;
+  -webkit-box-shadow: rgba(0,0,0,0.2) 0 0 20px;
+  box-shadow: rgba(0,0,0,0.2) 0 0 20px;
+  -moz-border-radius: 6px 6px 6px 6px;
+  -webkit-border-radius: 6px 6px 6px 6px;
+  border-radius: 6px 6px 6px 6px;
+}
+
 h1.centre {
   text-align: center;
   margin-top: 50px;
@@ -27,7 +44,7 @@ h2 {
   font-size: 1.7em;
   letter-spacing: -1px;
   margin-bottom: 30px;
-  text-align: center;
+  text-align: left;
   font-weight: normal;
 }
 
