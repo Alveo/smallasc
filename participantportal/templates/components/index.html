@@ -1,0 +1,39 @@
+{% extends "participantportallayout/base.html" %}
+{% block content %}
+<ul class="breadcrumb">
+  <li><span class="divider">/</span></li>
+  <li><a href="/participantportal/">Home</a></li>
+</ul>
+
+{% for comp in components %}
+
+{% if forloop.first %}
+  <h2>Session {{ comp.sessionId }} Components</h2>
+{% endif %}
+
+<h3>
+  Component
+  &nbsp;
+  <a href="/participantportal/{{ comp.site }}/{{ comp.participantId}}/{{ comp.sessionId }}/{{ comp.componentId }}/">{{ comp.name }}</a>
+</h3>           
+
+<table class="table table-striped">
+  <tr>
+    <th>Short Name</th>
+    <td>{{ comp.componentId }}</td>
+  </tr>
+  <tr>
+    <th>ID</th>
+    <td>{{ comp.identifier }}</td>
+  </tr>
+  <tr>
+    <th>Ratings</th>
+    <td>Audio {{comp.audiorating}}, Video: {{comp.videorating}}</td>
+  </tr>
+  <tr>
+    <th>Comment</th>
+    <td>{{comp.comment}}</td>
+  </tr>
+</table>
+{% endfor %}
+{% endblock %}
