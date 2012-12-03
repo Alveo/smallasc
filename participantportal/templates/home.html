@@ -1,24 +1,19 @@
 {% extends "participantportallayout/base.html" %}
 {% block content %}
-    <div class="horizontal_list">
-        <h1>Data</h1>
-        
-        <p>Recorded at <a href="/browse/{{ site_id }}/">{{ site }}</a></p>
-        
-        <ul class="unstyled">
-             {% for session in sessions %}
-                {% if forloop.first %}
-                    <li class="first">
-                {% else %}
-                    <li>
-                {% endif %}
-                    <a href="{{ session.get_absolute_url }}">{{ session.name }}</a>
-                    </li>
-             {% endfor %}
-        </ul>
-    </div>
+  <h1>Personal Data</h1>
+
+  <div class="pagination">
+    <h3>Recordings</h3>
+    <ul>
+     {% for session in sessions %}
+      <li>
+        <a href="/participantportal/{{ session.site }}/{{ session.participantId }}/{{ session.number }}/">{{ session.name }} >></a>
+      </li>
+     {% endfor %}
+    </ul>
+  </div>
     
-  <h2>Demographic Data</h2>
+  <h3>Demographic Information</h3>
   
    <table class="table table-striped">
       <tr>
