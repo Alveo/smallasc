@@ -5,8 +5,9 @@ from browse.modelspackage.participants import Participant
 from browse.modelspackage.sessions import Session
 from browse.modelspackage.residence_history import ResidenceHistory
 from browse.modelspackage.language_usage import LanguageUsage
+from participantportal.settings import *
 
-@login_required
+@login_required(login_url = PP_LOGIN_URL)
 def index (request):
   participant = Participant.objects.get (request.user)
   if participant is None:
