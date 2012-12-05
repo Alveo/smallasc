@@ -84,7 +84,7 @@ class ParticipantManager (SparqlManager):
             
             
 
-        print "Participant not found", participant_id
+        #print "Participant not found", participant_id
         return None
 
 
