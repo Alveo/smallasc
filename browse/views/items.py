@@ -35,7 +35,7 @@ def show (request, site_id, participant_id, session_id, component_id, basename):
     if item == None:
         return Http404("Item not found %s" % basename)
 
-    print item.properties()['media']
+    ##print item.properties()['media']
     
     return render (request, 'browse/items/show.html', 
         {'site_id' : site_id,
