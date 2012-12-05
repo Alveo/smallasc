@@ -1,0 +1,98 @@
+body * {
+	margin: 0;
+	padding: 0;
+}
+
+body.login {
+  	color: #000;
+	background-color: #e5e5e5;
+}
+
+body.login div.login {
+	padding: 20px 35px 25px;
+	background: url(/static/images/login_dialog.png) no-repeat left bottom;
+	text-align: left;
+	width: 410px;
+	margin: 0 auto 50px;
+	font-family: "lucida grande", verdana;
+	font-size: 12px;
+}
+
+body.login div.top{
+	background: url(/static/images/login_dialog.png) no-repeat left top;
+	text-align: left;
+	width: 480px;
+	height: 14px;
+	margin: 50px auto 0;
+}
+
+body.login div.login h1 {
+  color: #000;
+	font-size: 18px;
+	margin: 0 0 20px 0;
+	padding: 0;
+}
+
+body.login div.login h2 {
+  color: #000;
+	font-size: 14px;
+	margin: 0 0 2px 0;
+	padding: 0;
+}
+
+body.login div.login input {
+	width: 275px;
+	font-size: 14px;
+	padding: 3px;
+	margin-bottom: 5px;
+}
+
+body.login div.login label {
+  margin-bottom: 5px;
+}
+
+body.login div.login input.button {
+	width: auto;
+	font-size: 14px;
+	padding: 3px;
+	margin: 0;
+}
+
+body.login div.login div.extras {
+	border-top: 1px dashed #ccc;
+	padding-top: 10px;
+	margin-top: 15px;
+}
+
+body.login div.login div.extras ul {
+	margin: 0;
+	padding: 0;
+}
+
+body.login div.login div.extras ul li {
+	list-style: none;
+	font-size: 12px;
+	padding-bottom: 3px;
+}
+
+#Flash {
+	text-align: left;
+	border: 1px solid #ccc;
+	padding: 5px 5px 5px 30px;
+	font-size: 12px;
+	margin-bottom: 12px;
+}
+
+#Flash.flash_alert {
+	border-color: #c99;
+	color: #fff;
+	background: url(/site_media/images/alertbad_icon.gif) #c00 left no-repeat;
+}
+
+body.login div.login ul li {
+	list-style: none;
+}
+
+body.login div.login ul li input {
+	text-align: left;
+}

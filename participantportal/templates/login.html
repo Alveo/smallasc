@@ -1,0 +1,55 @@
+{% extends "participantportallayout/login_base.html" %}
+
+{% block content %}
+    
+    <h1 class="centre">Participant Portal</h1>
+    
+    <div class="row">
+      <div class="span6 offset3">
+        
+        {% if form.errors %}
+          <div class="alert" id="Flash">
+            Authentication Failure.
+          </div>
+        {% endif %}
+    
+        <form method="POST" action="." class="loginbox well">
+          {% csrf_token %}
+          <h2>Sign In</h2>
+
+          <div class="control-group">
+            <label for="id_colour" class="control-label">Colour</label>
+            <div class="controls">
+              {{ form.colour }}
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label for="id_animal" class="control-label">Animal</label>
+            <div class="controls">
+              {{ form.animal }}
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label for="id_birth_year" class="control-label">Birth Year</label>
+            <div class="controls">
+              {{ form.birth_year }}
+            </div>
+          </div>
+
+          <div class="control-group gender-choice">
+            <!-- TODO: Need to add a custom renderer here! -->
+            Gender
+            <div class="controls">
+              {{ form.gender }}
+            </div>
+          </div>
+
+          <input class="btn btn-primary buttonextend" type="submit" value="Sign in"/>
+        </form>
+      
+      </div>
+    </div>
+  
+{% endblock %}

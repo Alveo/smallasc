@@ -1,0 +1,67 @@
+html {
+  overflow-y: auto;
+}
+
+body {
+  padding-top: 60px;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+body.login {
+  background: url(/static/images/bg.jpg) repeat;
+}
+
+.loginbox {
+  background-color: #fff;
+  margin: 20px;
+  padding: 32px;
+  border: #ccc 1px solid;
+  -moz-box-shadow: rgba(0,0,0,0.2) 0 0 20px;
+  -webkit-box-shadow: rgba(0,0,0,0.2) 0 0 20px;
+  box-shadow: rgba(0,0,0,0.2) 0 0 20px;
+  -moz-border-radius: 6px 6px 6px 6px;
+  -webkit-border-radius: 6px 6px 6px 6px;
+  border-radius: 6px 6px 6px 6px;
+}
+
+input[type="submit"].buttonextend {
+  margin-top: 10px;
+  min-width: 100px;
+  padding: 6px 10px;
+  font-size:16px;
+  font-weight:bold;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+h1.centre {
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 25px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1;
+}
+
+h1 {
+  font-size: 3em;
+  letter-spacing: -2px;
+  margin-bottom: 30px;
+}
+
+h2 {
+  font-size: 1.7em;
+  letter-spacing: -1px;
+  margin-bottom: 30px;
+  text-align: left;
+  font-weight: normal;
+}
+
+p {
+    font-size: 1.1em; 
+    line-height: 1.7em;
+}
+
+.gender-choice ul {
+  list-style: none;
+}
