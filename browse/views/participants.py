@@ -1,5 +1,5 @@
 from django.http import Http404
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render, render_to_response
 
 # Local types
@@ -12,6 +12,7 @@ from browse.modelspackage.sparql_local_wrapper import SparqlLocalWrapper
 
 
 @login_required
+@permission_required('search.can_view_participants')
 def index (request, site_id):
     """ The sites index view displays all the available participants for this site current in the RDF store. 
         HTTP Verb /GET: Url /browse/sites/:id/participants/ """
@@ -34,6 +35,7 @@ def index (request, site_id):
 
 
 @login_required
+@permission_required('search.can_view_participant')
 def show (request, site_id, participant_id):
     """ This view shows the details of a particular participant. 
         HTTP Verb /GET: Url /browse/sites/:id/participants/:id """

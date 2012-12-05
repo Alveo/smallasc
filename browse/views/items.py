@@ -1,5 +1,5 @@
 from django.http import Http404
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render, render_to_response
 
 # Models used for querying
@@ -10,6 +10,7 @@ from browse.modelspackage.sparql_local_wrapper import SparqlLocalWrapper
 
 
 @login_required
+@permission_required('search.can_view_items')
 def index (request, site_id, participant_id, session_id, component_id):
     """ Lists all the items for a particular participants session and component type. """
 
@@ -25,6 +26,7 @@ def index (request, site_id, participant_id, session_id, component_id):
          'item_ids' : item_ids })
  
 @login_required
+@permission_required('search.can_view_item')
 def show (request, site_id, participant_id, session_id, component_id, basename):
     """ View of an individual item. """
 
