@@ -2,7 +2,7 @@
     {
         "fields": {
             "codename": "can_view_sites", 
-            "content_type": 13, 
+            "content_type": 2, 
             "name": "Can view sites"
         }, 
         "model": "auth.permission", 
@@ -11,7 +11,7 @@
     {
         "fields": {
             "codename": "can_view_participants", 
-            "content_type": 13, 
+            "content_type": 2, 
             "name": "Can view participants"
         }, 
         "model": "auth.permission", 
@@ -20,7 +20,7 @@
     {
         "fields": {
             "codename": "can_view_participant", 
-            "content_type": 13, 
+            "content_type": 2, 
             "name": "Can view participant"
         }, 
         "model": "auth.permission", 
@@ -29,7 +29,7 @@
     {
         "fields": {
             "codename": "can_view_components", 
-            "content_type": 13, 
+            "content_type": 2, 
             "name": "Can view components"
         }, 
         "model": "auth.permission", 
@@ -38,7 +38,7 @@
     {
         "fields": {
             "codename": "can_view_items", 
-            "content_type": 13, 
+            "content_type": 2, 
             "name": "Can view items"
         }, 
         "model": "auth.permission", 
@@ -47,12 +47,48 @@
     {
         "fields": {
             "codename": "can_view_item", 
-            "content_type": 13, 
+            "content_type": 2, 
             "name": "Can view item"
         }, 
         "model": "auth.permission", 
         "pk": 1005
-    }, 
+    },
+    {
+        "fields": {
+            "codename": "can_view_dashboard", 
+            "content_type": 2, 
+            "name": "Can view dashboard"
+        }, 
+        "model": "auth.permission", 
+        "pk": 1006
+    },
+    {
+        "fields": {
+            "codename": "can_view_prompt_search", 
+            "content_type": 2, 
+            "name": "Can view prompt search"
+        }, 
+        "model": "auth.permission", 
+        "pk": 1007
+    },
+    {
+        "fields": {
+            "codename": "can_view_participant_search", 
+            "content_type": 2, 
+            "name": "Can view participant search"
+        }, 
+        "model": "auth.permission", 
+        "pk": 1008
+    },
+    {
+        "fields": {
+            "codename": "can_view_search", 
+            "content_type": 2, 
+            "name": "Can view search"
+        }, 
+        "model": "auth.permission", 
+        "pk": 1009
+    },
     {
         "fields": {
             "name": "research", 
@@ -62,7 +98,11 @@
                 1002, 
                 1003, 
                 1004, 
-                1005
+                1005,
+                1006,
+                1007,
+                1008,
+                1009
             ]
         }, 
         "model": "auth.group", 

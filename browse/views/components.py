@@ -3,13 +3,10 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render, render_to_response
 
 # Models used for querying
-from browse.modelspackage.sessions import Session
 from browse.modelspackage.components import Component
-from browse.modelspackage.sparql_local_wrapper import SparqlLocalWrapper
-
 
 @login_required
-@permission_required('search.can_view_components')
+@permission_required('auth.can_view_components')
 def index (request, site_id, participant_id, session_id):
     """ Lists all the components for a particular session. We still keep the other ids as they
     will become useful later. """
