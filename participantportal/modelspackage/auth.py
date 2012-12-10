@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from browse.modelspackage.participants import *
 from participantportal.helpers import read_model_property
+from participantportal.models import UserProfile
 
 class CustomAuthBackend(object):
   """ This custom authenticator is plugged into authentication pipeline
@@ -21,9 +22,16 @@ class CustomAuthBackend(object):
         try:
           user = User.objects.get(username = username)
         except User.DoesNotExist:
-          user = User(username = username, is_staff = True, is_active = True, is_superuser = False)
+          # Create the user and add a profile.
+          # A post save signal could have been used to create the UserProfile
+          # but for what we have this is more cohesive rather than having
+          # mysterious signal fire.
+          user = User(username = username, is_staff = False, is_active = True, is_superuser = False)
           user.set_unusable_password()
           user.save()
+          up = UserProfile.objects.create(user = user)
+          up.save()
+
         return user
 
     return None
