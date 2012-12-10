@@ -111,6 +111,8 @@ AUTHENTICATION_BACKENDS = (
     'participantportal.modelspackage.auth.CustomAuthBackend',
 )
 
+AUTH_PROFILE_MODULE = 'participantportal.UserProfile'
+
 ROOT_URLCONF = 'smallasc.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
@@ -185,6 +187,6 @@ SMALLASCDATA_ENDPOINT = "http://data.austalk.edu.au/download/"
 # put customized stuff here
 try:
     from local_settings import *
-except ImportError:
+except ImportError as e:
     pass
 
