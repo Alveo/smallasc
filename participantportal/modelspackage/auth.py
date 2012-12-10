@@ -31,6 +31,7 @@ class CustomAuthBackend(object):
           user.save()
           up = UserProfile.objects.create(user = user)
           up.save()
+          up.initialise_agreement()
 
         return user
 
