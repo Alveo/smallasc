@@ -4,13 +4,17 @@
 
   <div class="pagination">
     <h3>Recordings</h3>
-    <ul>
-     {% for session in sessions %}
-      <li>
-        <a href="/participantportal/{{ session.site }}/{{ session.participantId }}/{{ session.number }}/">{{ session.name }} >></a>
-      </li>
-     {% endfor %}
-    </ul>
+    {% if sessions %}
+      <ul>
+       {% for session in sessions %}
+        <li>
+          <a href="/participantportal/{{ session.site }}/{{ session.participantId }}/{{ session.number }}/">{{ session.name }} >></a>
+        </li>
+       {% endfor %}
+      </ul>
+    {% else %}
+      <p>No recordings.</p>
+    {% endif %}
   </div>
     
   <h3>Demographic Information</h3>
