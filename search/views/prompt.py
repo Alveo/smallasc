@@ -35,12 +35,12 @@ def prompt_search (request):
 @login_required
 @permission_required('auth.can_view_participant_search') 
 def participant_search(request):
-	"""Find participants based on demographic fields"""
+    """Find participants based on demographic fields"""
 
     form = ParticipantSearchForm(request.GET)
-	if form.is_valid():
+    if form.is_valid():
 		pass
-	else:
+    else:
 		return render(request, 'search/index.html', {'participant_form': form})
 		
 		
