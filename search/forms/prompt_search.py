@@ -33,5 +33,5 @@ class ComponentSearchForm(forms.Form):
                                            required    = False,
                                            choices     = component_choices())
     
-    qa_audio = forms.Choicefield(label="Audio Quality", 
+    qa_audio = forms.ChoiceField(label="Audio Quality", 
                                  choices=QA_AUDIO_CHOICES)
