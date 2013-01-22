@@ -1,9 +1,19 @@
+from baseapp.modelspackage.animals import Animal
+from baseapp.modelspackage.colours import Colour
 from django.db import models
 from django.contrib.auth.models import User
 
 class UserProfile(models.Model):
   # This field is required.
-  user            = models.OneToOneField(User)
+  user = models.OneToOneField(User)
+
+  def colour(self):
+    colour_id = self.user.username.split('_')[0]
+    return Colour.objects.get(id = colour_id).name
+
+  def animal(self):
+    animal_id = self.user.username.split('_')[1]
+    return Animal.objects.get(id = animal_id).name
 
   def initialise_agreement(self):
     """ This function initialises the agreement for the participant """
@@ -13,7 +23,7 @@ class UserProfile(models.Model):
       agreement_status.save()
 
 class Agreement(models.Model):
-  legalise        = models.TextField()
+  legalise = models.TextField()
 
   def __unicode__(self):
     return u'%s' % (self.legalise)
