@@ -4,8 +4,9 @@
   <title>Participant Portal</title>
 
   <!-- Stylesheet includes -->
-  <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,700|Bitter:400,700|Nothing+You+Could+Do" media="screen" rel="stylesheet" type="text/css" />
   <link rel="stylesheet" href="/static/styles/bootstrap.css" media="screen" />
+  <link rel="stylesheet" href="/static/styles/bootstrap-responsive.css" media="screen" />
+  <link rel="stylesheet" href="/static/styles/participantportal.css" media="screen" />
   <link rel="stylesheet" href="/static/styles/primary.css" media="screen" />
   
   <!-- Javascript -->
@@ -18,12 +19,8 @@
   <div class="container-fluid">
     <div class="row-fluid">
       <!-- Use bootstrap to create a simple 3 column layout -->
-      <div class="span1">
-      </div>
-      <div class="span9">
+      <div class="span10 offset1">
         {% block content %}{% endblock %}
-      </div>
-      <div class="span2">
       </div>
     </div>
   </div>

@@ -1,7 +1,5 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, render_to_response
-
-# Models used for querying
 from browse.modelspackage.components import Component
 from participantportal.settings import *
 

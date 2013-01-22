@@ -37,8 +37,6 @@ def login_page(request):
   return render_to_response('login.html', variables)
 
 
-def logout_page (request):
-  """ This function ends a users login session and re-directs the user back render_to_response
-  to the login page. """
+def logout_page(request):
   logout (request)
   return HttpResponseRedirect ('/participantportal/login')
