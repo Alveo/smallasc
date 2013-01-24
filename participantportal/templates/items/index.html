@@ -1,0 +1,34 @@
+{% extends "participantportallayout/base.html" %}
+{% block content %}
+  {% for item in items %}
+    <!-- Is this a Hack?, should the controller create specific properties here, or
+        should we leave the view to work out how to get what it needs? -->
+    {% if forloop.first %}
+       <ul class="breadcrumb">
+        <li><span class="divider">/</span></li>
+        <li><a href="/participantportal/">Home</a><span class="divider">/</span></li>
+        <li><a href="/participantportal/{{ item.site }}/{{ item.participantId }}/{{ item.sessionId }}/">Session</a></li>
+      </ul>
+      <h2>Session {{ item.sessionId }} Component {{ item.componentId }} Items</h2>
+    {% endif %}
+    <h3>
+      Item
+      &nbsp;
+      <a href="/participantportal/{{ item.site }}/{{ item.participantId }}/{{ item.sessionId }}/{{ item.componentId }}/{{ item.basename }}/">{{ item.basename }}</a>
+    </h3>
+    <table class="table table-striped">
+      <tr>
+        <th>Prompt</th>
+        <td>{{ item.prompt }}</td>
+      </tr>
+      <tr>
+        <th>ID</th>
+        <td>{{ item.identifier }}</td>
+      </tr>
+      <tr>
+        <th>Audio</th>
+        <td><a href="{{item.ch6media}}">Play {{item.basename}}</a></td>
+      </tr>
+    </table>
+  {% endfor %}
+{% endblock %}

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Participant Portal</title>
+
+  <!-- Stylesheet includes -->
+  <link rel="stylesheet" href="/static/styles/bootstrap.css" media="screen" />
+  <link rel="stylesheet" href="/static/styles/bootstrap-responsive.css" media="screen" />
+  <link rel="stylesheet" href="/static/styles/participantportal.css" media="screen" />
+  <link rel="stylesheet" href="/static/styles/primary.css" media="screen" />
+  
+  <!-- Javascript -->
+  <script src="/static/js/bootstrap.js"></script>
+</head>
+<body>
+
+  {% include "participantportallayout/header.html" %}
+
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <!-- Use bootstrap to create a simple 3 column layout -->
+      <div class="span10 offset1">
+        {% block content %}{% endblock %}
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
