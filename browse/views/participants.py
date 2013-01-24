@@ -47,6 +47,7 @@ def show (request, site_id, participant_id):
         raise Http404 ("Requested site not found")
 
     sessions = Session.objects.filter_by_participant (participant) 
+    print "SESSIONS:", len(sessions)
     
     rhist = ResidenceHistory.objects.filter_by_participant(participant)
     lang = LanguageUsage.objects.filter_by_participant(participant)

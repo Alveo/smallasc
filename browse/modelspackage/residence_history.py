@@ -9,7 +9,7 @@ class ResidenceHistoryManager (SparqlManager):
     def filter_by_participant (self, participant):
         """ Returns the ResidenceHistory of a participant. """
         query = """
-            select *
+            select distinct ?part ?rh ?age_from ?age_to ?town ?country ?state ?lessyear
             where {
                 ?part rdf:type foaf:Person .
                 ?part austalk:residential_history ?rh .

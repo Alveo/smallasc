@@ -9,7 +9,7 @@ class LanguageUsageManager (SparqlManager):
     def filter_by_participant (self, participant):
         """ Returns the Language Use of a participant. """
         query = """
-            select ?name ?sit ?freq
+            select distinct ?name ?sit ?freq
             where {
                 ?part rdf:type foaf:Person .
                 ?part austalk:language_usage ?lu .

@@ -10,7 +10,7 @@ class SessionManager (SparqlManager):
     def all (self):
         """ Returns all the session names """
         sparql_results = self.query ("""
-            select ?rs ?session ?name ?number ?pid ?sitename
+            select distinct ?rs ?session ?name ?number ?pid ?sitename
             where {
             
                 ?rs rdf:type austalk:RecordedSession .
@@ -45,7 +45,7 @@ class SessionManager (SparqlManager):
         """ Returns all the session names for a participant """
         
         sparql_results = self.query ("""
-            select ?rs ?session ?name ?number ?pid ?sitename
+            select distinct ?rs ?session ?name ?number ?pid ?sitename
             where {
                 BIND (<%s> AS ?participant)
             
@@ -62,6 +62,7 @@ class SessionManager (SparqlManager):
             }
             ORDER BY ?name""" % participant.identifier)
         
+        print "Querying sessions"
         results = []
 
         for result in sparql_results["results"]["bindings"]:

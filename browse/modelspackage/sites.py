@@ -10,7 +10,7 @@ class SiteManager (SparqlManager):
         and the return format are set by the sparql parameter. The function Returns
         objects of type site. """
         sparql_results = self.query ("""
-            SELECT  ?site ?label ?inst ?city  (count(?part) as ?partcount)
+            SELECT  ?site ?label ?inst ?city  (count(distinct ?part) as ?partcount)
             WHERE {
                 ?site rdf:type austalk:RecordingSite .
                 ?site austalk:institution ?inst .
@@ -73,14 +73,14 @@ class Site (SparqlModel):
     def stats(self):
         """Return some statistics for this site"""
         
-        q = """select ?gender (count(?part) as ?count) where {
+        q = """select ?gender (count(distinct ?part) as ?count) where {
         BIND (<%s> AS ?site)
         
         ?part austalk:recording_site ?site .
         ?part foaf:gender ?gender .
         
  } group by ?gender
-        """ % (self.identifier,)
+        """ % (self.identifier,) 
         
         results = self.query(q)
         
