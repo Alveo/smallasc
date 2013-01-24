@@ -1,0 +1,116 @@
+{% extends "participantportallayout/base.html" %}
+{% block content %}
+  <ul class="breadcrumb">
+    <li><span class="divider">/</span></li>
+    <li><a href="/participantportal/">Home</a></li>
+  </ul>
+
+  <h1>Personal Data</h1>
+
+  <div class="pagination">
+    <h3>Recordings</h3>
+    {% if sessions %}
+      <ul>
+       {% for session in sessions %}
+        <li>
+          <a href="/participantportal/{{ session.site }}/{{ session.participantId }}/{{ session.number }}/">{{ session.name }} >></a>
+        </li>
+       {% endfor %}
+      </ul>
+    {% else %}
+      <p>No recordings.</p>
+    {% endif %}
+  </div>
+    
+  <h3>Demographic Information</h3>
+  
+   <table class="table table-striped">
+     
+      {% include "common_demographic.html" %}
+
+      <tr>
+        <th>Mother's cultural heritage</th>
+        <td>{{ participant.properties.mother_cultural_heritage.0 }}</td>
+      </tr>
+      <tr>
+        <th>Mother's place of birth</th>
+        <td> {{ participant.properties.mother_pob_town.0 }}, {{ participant.properties.mother_pob_state.0 }}, {{ participant.properties.mother_pob_country.0 }}
+        </td>
+      </tr>
+      <tr>
+        <th>Mother's first language</th>
+        <td>{{ participant.properties.mother_first_language.0 }}</td>
+      </tr>
+      <tr>
+        <th>Mother's accent</th>
+        <td>{{ participant.properties.mother_accent.0 }}</td>
+      </tr>
+      <tr>
+        <th>Mother's occupation</th>
+        <td> {{ participant.properties.mother_occupation.0 }}</td>
+      </tr>
+      <tr>
+        <th>Mother's highest education level</th>
+        <td> {{ participant.properties.mother_education_level.0 }}</td>
+      </tr>      
+      <tr>
+        <th>Father's cultural heritage</th>
+        <td>{{ participant.properties.father_cultural_heritage.0 }}</td>
+      </tr>
+      <tr>
+        <th>Father's place of birth</th>
+        <td>{{ participant.properties.father_pob_town.0 }}, {{ participant.properties.father_pob_state.0 }}, {{ participant.properties.father_pob_country.0 }}
+        </td>
+      </tr>
+      <tr>
+        <th>Father's first language</th>
+        <td>{{ participant.properties.father_first_language.0 }}</td>
+      </tr>
+      <tr>
+        <th>Father's accent</th>
+        <td>{{ participant.properties.father_accent.0 }}</td>
+      </tr>
+      <tr>
+        <th>Father's occupation</th>
+        <td>{{ participant.properties.father_occupation.0 }}</td>
+      </tr>
+      <tr>
+        <th>Father's highest education level</th>
+        <td>{{ participant.properties.father_education_level.0 }}</td>
+      </tr> 
+      <tr>
+        <th>Other Information</th>
+        <td class='horizontal_list'>
+          <ul>
+            {% ifequal participant.properties.has_reading_problems.0 "true" %}
+              <li>Has had some reading problems</li>
+            {% endifequal %}
+            {% ifequal participant.properties.has_vocal_training.0 "true" %}
+              <li>Has had vocal training</li>
+            {% endifequal %}
+            {% ifequal participant.properties.has_speech_problems.0 "true" %}
+              <li>Has speech problems</li>
+            {% endifequal %}
+            {% ifequal participant.properties.has_hearing_problems.0 "true" %}
+              <li>Has hearing problems</li>
+            {% endifequal %}
+            {% ifequal participant.properties.is_left_handed.0 "true" %}
+              <li>Is Right-handed</li>
+            {% endifequal %}
+            {% ifequal participant.properties.is_smoker.0 "true" %}
+              <li>Is a smoker</li>
+            {% endifequal %}
+            {% ifequal participant.properties.has_dentures.0 "true" %}
+              <li>Wears dentures</li>
+            {% endifequal %}
+            {% ifequal participant.properties.has_piercings.0 "true" %}
+              <li>Has facial piercings</li>
+            {% endifequal %}
+            {% ifequal participant.properties.has_health_problems.0 "true" %}
+              <li>Has health problems which might affect his/her voice</li>
+            {% endifequal %}
+          </ul>
+        </td>
+      </tr>   
+  </table>
+{% endblock %}
