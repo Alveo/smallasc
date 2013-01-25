@@ -1,4 +1,4 @@
-{% extends "browse/index.html" %}
+{% extends "layout/base.html" %}
 
 <!-- Note the convention of the title, Austalk | View > Object -->
 {% block title %}
@@ -9,19 +9,17 @@
     All Sites
 {% endblock %}
 
-
 {% block content %}
-<table class="table table-striped">
-  <tbody>
-  {% for site in sites %}
-    <tr>
-      <th><a href="{{ site.get_absolute_url }}">{{ site.name }}</a></th>
-      <td class="what"><span class="post">Participant Statistics</span></td>
-      <td class="item">Male: {{site.stats.male}}, Female: {{site.stats.female}}</td>
-      <td class="action">Participant Total: {{ site.participant_count }}</td>
-      <td class="name"></td>
-    </tr>
-  {% endfor %}
-</tbody>
-</table>
+{% for site in sites %}
+  <section class="statsection">
+    <header>
+      <h2>
+        <a href="{{ site.get_absolute_url }}">{{ site.name }}</a>
+      </h2>
+    </header>
+    <p><em>{{site.stats.male}}</em> male participants</p>
+    <p><em>{{site.stats.female}}</em> female participants</p>
+    <p><em>{{ site.participant_count }}</em> total participants</p>
+  </section>
+{% endfor %}
 {% endblock %}

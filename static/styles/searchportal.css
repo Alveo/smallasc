@@ -1,0 +1,23 @@
+.statsection h2 {
+  margin-bottom: 10px;
+}
+
+.statsection h3 {
+  font-size: 1.3em;
+  font-weight: 400;
+  margin: 0 10px 5px 0;
+}
+
+.statsection p {
+  margin-left: 10px;
+  display: inline-block;
+}
+
+.statsection a {
+  text-decoration: underline;
+}
+
+.statsection em {
+  font-weight: 600;
+  text-decoration: normal;
+}
