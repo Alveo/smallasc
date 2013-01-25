@@ -1,0 +1,9 @@
+html {
+  overflow-y: auto;
+}
+
+body {
+  padding-top: 60px;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+

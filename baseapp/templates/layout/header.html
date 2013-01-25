@@ -1,13 +1,21 @@
-<!-- Header which contains name of project and links on right side of page -->
-<div id="Header" class="global">
-
-	<h3>
-		{{ user.get_full_name }} <span class="pipe">|</span>
-    	<a href="/logout" title="Sign out and end session">Sign out</a> <span class="pipe">|</span>    	
-    	<a href="" class="help" target="_blank"><span>Help</span></a> 
-    </h3>
-    
-    <!-- Global application title which appears in left hand side of application -->
-    <h1>Austalk {Beta}</h1> 
-
-</div>
+<header class="navbar navbar-fixed-top navbar-inverse">
+  <div class="navbar-inner">
+    <div class="container">
+      <nav>
+        <ul class="nav">
+          <li><a href="/" title="Home">Home</a></li>
+          <li><a href="/stats/" title="Statistics">Statistics</a></li>  
+          <li><a href="/browse/" title="Browse">Browse</a></li>  
+          <li><a href="/search/" title="Search">Search</a></li>  
+        </ul>
+      </nav>
+      <nav>
+        <ul class="nav pull-right">
+          <li>{{ user.get_full_name }} <span class="pipe">|</span></li>
+          <li><a href="/logout" title="Sign out and end session">Sign out</a> <span class="pipe">|</span></li>
+          <li><a href="" class="help" target="_blank"><span>Help</span></a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
