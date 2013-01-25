@@ -2,9 +2,25 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:300);
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400);
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:600);
-@import url(https://fonts.googleapis.com/css?family=Nunito:400);
-@import url(https://fonts.googleapis.com/css?family=Nunito:300);
 
 #agreementcell {
   width: 400px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1;
+}
+
+h1 {
+  font-size: 3em;
+  letter-spacing: -2px;
+  margin-bottom: 30px;
+}
+
+h2 {
+  font-size: 1.7em;
+  letter-spacing: -1px;
+  margin-bottom: 30px;
+  text-align: left;
+  font-weight: 600;
 }
