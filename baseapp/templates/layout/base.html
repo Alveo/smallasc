@@ -22,7 +22,12 @@
     <div class="row-fluid">
       <!-- Use bootstrap to create a simple 3 column layout -->
       <div class="span10 offset1">
-        {% block content %}{% endblock %}
+        <h1>
+          {% block subtitle %}
+          {% endblock %}
+        </h1>
+        {% block content %}
+        {% endblock %}
       </div>
     </div>
   </div>
