@@ -1,39 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Meta Search Login</title>
+  <title>{% block title %}{% endblock %}</title>
+
+  <!-- Stylesheet includes -->
   <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,600" media="screen" rel="stylesheet" type="text/css" />
-  <link href="/static/styles/bootstrap.css" media="screen" rel="stylesheet" />
-  <link href="/static/styles/login.css" media="screen" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/styles/bootstrap.css" media="screen" />
+  <link rel="stylesheet" href="/static/styles/bootstrap-responsive.css" media="screen" />
+  <link rel="stylesheet" href="/static/styles/login.css" media="screen" />
+  
+  <script src="/static/js/bootstrap.js"></script>
 </head>
-<body>
+<body class="login">  
+  
   <div class="container">
+  
+    <h1 class="centre">
+      {% block formheading %}{% endblock %}
+    </h1>
+  
     <div class="row">
-      <section class="outer-form">
-        <header id="banner" class="navbar">
-          <div class="navbar-inner header-inner">
-            <div class="container">
-              <nav>
-                <ul class="nav">
-                  <li>
-                    <a href="/" alt="bigasc meta search" class="logo">Bigasc Meta Search</a>
-                  </li>
-                </ul>
-              </nav>
-              <nav>
-                <ul class="nav pull-right">
-                  <li class="separator">|</li>
-                  <li><a href="register/" alt="register">Register</a></li>
-                </ul>
-              </nav>
-            </div>
-          </div>
-        </header>
-        <section class="inner-form">
-          {% block content %}{% endblock %}
-        </section>
+      <section class="span4 offset4">
+        {% block content %}{% endblock %}
       </section>
     </div>
+  
   </div>
+
 </body>
 </html>
