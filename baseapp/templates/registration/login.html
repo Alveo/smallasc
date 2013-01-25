@@ -1,37 +1,45 @@
 {% extends "layout/login_base.html" %}
+
+{% block title %}
+	Meta Search Portal | Sign In
+{% endblock %}
+
+{% block formheading %}
+	Meta Search Portal
+{% endblock %}
+
 {% block content %}
-		
-		<!-- Check firstly to see if there was a login failure attempt prior to continuing -->
-		{% if form.errors %}
-			<aside class="flash_alert" id="Flash">Sorry, your username or password wasn't recognized</aside>
-		{% endif %}
-		
-		<!-- Login form -->
-		<form method="POST" action="." class="form">
-			{% csrf_token %}
-			
-			<div class="control-group">
-        <div class="controls">
-					<label for="id_username">
-						<h2>Username</h2>
-					</label>
-					{{ form.username }}
-				</div>
-			</div>
-
-			<div class="control-group">
-        <div class="controls">
-					<label for="id_password">
-						<h2>Password</h2>
-					</label>
-					{{ form.password }}
-				</div>
-			</div>
-			
-			<!-- This hidden field is used to tell the application where to proceed to on a successful login -->
-			<input type="hidden" name="next" value="/"/>
-			<input type="submit" value="Sign in" class="btn btn-primary" />
-
-		</form>
+				
+<!-- Login form -->
+<form method="POST" action="." class="loginbox">
+	{% csrf_token %}
+  <h2>Sign In</h2>
 	
+	<!-- Check firstly to see if there was a login failure attempt prior to continuing -->
+	{% if form.errors %}
+		<aside class="alert" id="Flash">
+			Sorry, your username or password wasn't recognized
+		</aside>
+	{% endif %}
+
+	<div class="control-group">
+    <div class="controls">
+			<label for="id_username">Username</label>
+			{{ form.username }}
+		</div>
+	</div>
+
+	<div class="control-group">
+    <div class="controls">
+			<label for="id_password">Password</label>
+			{{ form.password }}
+		</div>
+	</div>
+	
+	<!-- This hidden field is used to tell the application where to proceed to on a successful login -->
+	<input type="hidden" name="next" value="/"/>
+	<input type="submit" value="Sign in" class="btn btn-primary" />
+
+</form>
+
 {% endblock %}
