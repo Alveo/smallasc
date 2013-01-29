@@ -1,38 +1,32 @@
-{% extends "browse/index.html" %}
+{% extends "layout/base.html" %}
 
 <!-- Note the convention of the title, Austalk | View > Object -->
 {% block title %}
     Austalk | Browse > Participants
 {% endblock %}
 
+{% block breadcrumbs %}
+    <ul class="breadcrumb">
+        <li><span class="divider">/</span></li>
+        <li><a href="/browse/" class="admin">All Sites</a></li>
+    </ul>
+{% endblock %}
+
 {% block subtitle %}
     {{ site.name }} Participants
 {% endblock %}
 
-{% block page_links %}
-    <a href="/browse/" class="admin">sites</a>    
-{% endblock %}
-
-{% block content %} 
-    <table class="overview">
-        {% for part in participants %}
-            <tr class="date">
-                <td colspan="4">
-                    <h2 class="date">
-                        <span>
-                            <a href="/browse/{{ site_id }}/{{ part.friendly_id }}">
-                                {{ part }}
-                            </a>
-                        </span>
-                    </h2>
-                </td>
-            </tr>
-            <tr class="event">
-                <td class="what"><span class="post">Details</span></td>
-                <td class="item">Gender: {{ part.properties.gender.0 }}; Birth Year: {{ part.properties.birthYear.0 }}</td>
-                <td class="action">Url: {{ part.identifier }}</td>
-                <td class="name"></td>
-            </tr>
-        {% endfor %}
-    </table>
+{% block content %}
+  {% for part in participants %}
+    <section class="statsection">
+      <header>
+        <h2>
+          <a href="/browse/{{ site_id }}/{{ part.friendly_id }}">{{ part }}</a>
+        </h2>
+      </header>
+      <p>Gender: {{ part.properties.gender.0 }}</p>
+      <p>Birth Year: {{ part.properties.birthYear.0 }}</p>
+      <p>Url: {{ part.identifier }}</p>
+    </section>
+  {% endfor %}
 {% endblock %}

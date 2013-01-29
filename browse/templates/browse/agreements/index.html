@@ -1,10 +1,22 @@
-{% extends "participantportallayout/base.html" %}
-{% block content %}
-  <ul class="breadcrumb">
+{% extends "layout/base.html" %}
+
+<!-- Note the convention of the title, Austalk | View > Object -->
+{% block title %}
+    Austalk | Browse > Agreements
+{% endblock %}
+
+{% block subtitle %}
+    Registered Participants
+{% endblock %}
+
+{% block breadcrumbs %}
+   <ul class="breadcrumb">
     <li><span class="divider">/</span></li>
-    <li><a href="/participantportal/">Home</a></li>
+    <li><a href="/">Home</a></li>
   </ul>
-  <h1>Registered Participants</h1>
+{% endblock %}
+
+{% block content %}
   <table class="table table-striped">
     <thead>
       <th>Identifier</th>
