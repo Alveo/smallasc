@@ -33,8 +33,6 @@ class ItemManager (SparqlManager):
                 ?media austalk:channel "ch6-speaker" .
         
         } order by ?id""" % (qpart,)
-        
-        print qq
      
         sparql_results = self.query (qq)
         results = []
