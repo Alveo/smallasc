@@ -20,7 +20,7 @@ class CustomAuthBackend(object):
         try:
           user = User.objects.get(username = username)
         except User.DoesNotExist:
-          user = create_user(username)
+          user = self.create_user(username)
 
         return user
 
