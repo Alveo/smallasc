@@ -118,7 +118,7 @@ class Participant (SparqlModel):
     def __unicode__ (self):
         """ Simple name representation for sites """
         
-        return self.properties()['id'][0] + " - " + self.properties()['name'][0]
+        return self.properties()['id'][0] + " (" + self.properties()['name'][0] + ")"
         
 
     class Meta:

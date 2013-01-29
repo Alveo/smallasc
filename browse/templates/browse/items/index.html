@@ -1,4 +1,4 @@
-{% extends "browse/index.html" %}
+{% extends "layout/base.html" %}
 
 <!-- Note the convention of the title, Austalk | View > Object -->
 {% block title %}
@@ -6,32 +6,37 @@
 {% endblock %}
 
 {% block subtitle %}
-    Site {{site_id}}|Speaker {{participant_id}}|Session {{ session_id }}|Component {{ component_id }}|Item list
+  {{ component_id }} item list
 {% endblock %}
 
-{% block page_links %}
-    <a href="/browse/">sites</a> | 
-    <a href="/browse/{{ site_id }}/">participants</a> |
-    <a href="/browse/{{ site_id }}/{{ participant_id }}">{{ participant_id }}</a>
+{% block breadcrumbs %}
+  <ul class="breadcrumb">
+    <li><span class="divider">/</span></li>
+    <li><a href="/browse/">All Sites</a></li>
+    <li><span class="divider">/</span></li>
+    <li><a href="/browse/{{ site_id }}/">{{ site.name }}</a></li>
+    <li><span class="divider">/</span></li>
+    <li><a href="/browse/{{ site_id }}/{{ participant_id }}">Speaker {{ participant_id }}</a></li>
+    <li><span class="divider">/</span></li>
+    <li><a href="/browse/{{ site_id }}/{{ participant_id }}/{{ session_id }}">Session {{ session_id }}</a></li>
+  </ul>
 {% endblock %}
-
 
 {% block content %}
  {% include "download-form.html" %}
- <table class="overview">
-        {% for item in items %}
-           <tr>
-            <table class="description">
-              <tr><th colspan=2>Item</th></tr>
-              <tr><th>Basename</th><td><a href="{{item.get_absolute_url}}">{{ item.basename }}</a></td></tr>
-              <tr><th>Prompt</th><td>{{ item.prompt }}</td></tr>
-              <tr><th>ID</th><td>{{ item.identifier }}</td></tr>
-              <tr><th>Audio</th><td><a href="{{item.ch6media}}">Play {{item.basename}}</a></td>
-            </table>
-            </tr>
-            
-            
-        {% endfor %}
-    </table>
+ <section>
+    <ul>
+      {% for item in items %}
+      <li>
+        <h2><a href="{{item.get_absolute_url}}">Item {{ item.basename }}</a></h2>
+        <table class="table table-striped">
+          <tr><th>Prompt</th><td>{{ item.prompt }}</td></tr>
+          <tr><th>ID</th><td>{{ item.identifier }}</td></tr>
+          <tr><th>Audio</th><td><a href="{{item.ch6media}}">Play {{item.basename}}</a></td>
+        </table>
+      </li>
+      {% endfor %}
+  </ul>
+</section>  
 {% endblock %}
 

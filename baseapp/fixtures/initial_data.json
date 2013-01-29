@@ -91,6 +91,15 @@
     },
     {
         "fields": {
+            "codename": "can_view_agreements", 
+            "content_type": 2, 
+            "name": "Can view agreements"
+        }, 
+        "model": "auth.permission", 
+        "pk": 1010
+    },
+    {
+        "fields": {
             "name": "research", 
             "permissions": [
                 1000, 
@@ -102,7 +111,8 @@
                 1006,
                 1007,
                 1008,
-                1009
+                1009,
+                1010
             ]
         }, 
         "model": "auth.group", 
