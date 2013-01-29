@@ -94,7 +94,6 @@ class SparqlManager(models.Manager):
                         PREFIX dbpedia:<http://dbpedia.org/ontology/>
                         PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
                         PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
-                        PREFIX ns1:<http://purl.org/dc/terms/>
                         %s"""
         return namespaces % query
 
@@ -138,7 +137,6 @@ class SparqlModel(models.Model):
                         PREFIX dbpedia:<http://dbpedia.org/ontology/>
                         PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
                         PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
-                        PREFIX ns1:<http://purl.org/dc/terms/>
                         %s"""
         return namespaces % query
 
@@ -176,7 +174,7 @@ class SparqlModel(models.Model):
         
         
         qq = """
-            select ?prop ?value
+            select distinct ?prop ?value
             where {
                 <%s> ?prop ?value .
         }""" % self.identifier
