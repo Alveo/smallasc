@@ -1,98 +1,75 @@
-body * {
-	margin: 0;
-	padding: 0;
+@charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:600);
+
+html {
+  overflow-y: auto;
+}
+
+body {
+  padding-top: 60px;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 body.login {
-  	color: #000;
-	background-color: #e5e5e5;
+  background: url(/static/images/bg.jpg) repeat;
 }
 
-body.login div.login {
-	padding: 20px 35px 25px;
-	background: url(/static/images/login_dialog.png) no-repeat left bottom;
-	text-align: left;
-	width: 410px;
-	margin: 0 auto 50px;
-	font-family: "lucida grande", verdana;
-	font-size: 12px;
+.loginbox {
+  background-color: #fff;
+  margin: 20px;
+  padding: 30px;
+  border: #ccc 1px solid;
+
+  -moz-box-shadow: 0 0 10px rgba(0,0,0,0.4) ;
+  -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.4) ;
+  box-shadow: 0 0 10px rgba(0,0,0,0.4) ;
+
+  -moz-border-radius: 6px 6px 6px 6px;
+  -webkit-border-radius: 6px 6px 6px 6px;
+  border-radius: 6px 6px 6px 6px;
 }
 
-body.login div.top{
-	background: url(/static/images/login_dialog.png) no-repeat left top;
-	text-align: left;
-	width: 480px;
-	height: 14px;
-	margin: 50px auto 0;
+input[type="submit"] {
+  font-size:16px;
+  font-weight:bold;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-body.login div.login h1 {
-  color: #000;
-	font-size: 18px;
-	margin: 0 0 20px 0;
-	padding: 0;
+input[type="text"] {
+  width: 90%;
 }
 
-body.login div.login h2 {
-  color: #000;
-	font-size: 14px;
-	margin: 0 0 2px 0;
-	padding: 0;
+input[type="password"] {
+  width: 90%;
 }
 
-body.login div.login input {
-	width: 275px;
-	font-size: 14px;
-	padding: 3px;
-	margin-bottom: 5px;
+h1.centre {
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 25px;
 }
 
-body.login div.login label {
-  margin-bottom: 5px;
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1;
 }
 
-body.login div.login input.button {
-	width: auto;
-	font-size: 14px;
-	padding: 3px;
-	margin: 0;
+h1 {
+  font-size: 3em;
+  letter-spacing: -2px;
+  margin-bottom: 30px;
 }
 
-body.login div.login div.extras {
-	border-top: 1px dashed #ccc;
-	padding-top: 10px;
-	margin-top: 15px;
+h2 {
+  font-size: 1.7em;
+  letter-spacing: -1px;
+  margin-bottom: 30px;
+  text-align: left;
+  font-weight: 600;
 }
 
-body.login div.login div.extras ul {
-	margin: 0;
-	padding: 0;
-}
-
-body.login div.login div.extras ul li {
-	list-style: none;
-	font-size: 12px;
-	padding-bottom: 3px;
-}
-
-#Flash {
-	text-align: left;
-	border: 1px solid #ccc;
-	padding: 5px 5px 5px 30px;
-	font-size: 12px;
-	margin-bottom: 12px;
-}
-
-#Flash.flash_alert {
-	border-color: #c99;
-	color: #fff;
-	background: url(/site_media/images/alertbad_icon.gif) #c00 left no-repeat;
-}
-
-body.login div.login ul li {
-	list-style: none;
-}
-
-body.login div.login ul li input {
-	text-align: left;
+.loginbox ul {
+  display: inline;
+  list-style: none;
 }

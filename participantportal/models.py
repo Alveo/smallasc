@@ -22,14 +22,29 @@ class UserProfile(models.Model):
       agreement_status = AgreementStatus(agreement = agreement, user = self, has_agreed = False)
       agreement_status.save()
 
+  def has_accepted_agreements(self):
+    for agreement in self.agreementstatus_set.all():
+      if agreement.has_agreed == False:
+        return False
+
+    return True
+
+
 class Agreement(models.Model):
+  
   legalise = models.TextField()
 
   def __unicode__(self):
     return u'%s' % (self.legalise)
 
+
 class AgreementStatus(models.Model):
+  
   agreement       = models.ForeignKey(Agreement)
   user            = models.ForeignKey(UserProfile)
   has_agreed      = models.BooleanField(default = False)
   agreement_date  = models.DateField(null = True)
+
+  def accept(self, accepted_on):
+    self.has_agreed = True
+    self.agreement_date = accepted_on

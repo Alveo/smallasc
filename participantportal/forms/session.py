@@ -17,7 +17,6 @@ def get_years():
 class LoginForm(forms.Form):
 
   animal      = forms.ModelChoiceField(queryset = Animal.objects.order_by('name'), initial = 1)
-  colour      = forms.ModelChoiceField(queryset = Colour.objects.all(), initial = 1, 
-    widget = Select(attrs={'class':'input-medium'}))
+  colour      = forms.ModelChoiceField(queryset = Colour.objects.all(), initial = 1, widget = Select(attrs={'class':'input-medium'}))
   birth_year  = forms.ChoiceField(choices = get_years(), widget = Select(attrs={'class':'input-medium'}))
   gender = forms.ChoiceField(choices = GENDER_CHOICES, widget = RadioSelect, initial = 'male')
