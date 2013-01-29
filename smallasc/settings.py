@@ -177,7 +177,7 @@ LOGGING = {
 LOGIN_URL = "/login/"
 
 # SPARQL_ENDPOINT 
-SPARQL_ENDPOINT = "http://115.146.93.47/openrdf-sesame/repositories/bigasc"
+SPARQL_ENDPOINT = "http://115.146.93.47/openrdf-sesame/repositories/bigasc_prod"
 # SMALLASCDATA_ENDPOINT
 SMALLASCDATA_ENDPOINT = "http://data.austalk.edu.au/download/"
 
