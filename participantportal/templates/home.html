@@ -1,0 +1,32 @@
+{% extends "participantportallayout/base.html" %}
+{% block content %}
+  <h1>Data Summary</h1>
+  
+  <table class="table table-striped">
+    {% include "common_demographic.html" %}
+  </table>
+
+  <section class="pagination">
+    <h1>Recordings</h1>
+    {% if sessions %}
+      <ul>
+       {% for session in sessions %}
+        <li>
+          <a href="/participantportal/{{ session.site }}/{{ session.participantId }}/{{ session.number }}/">{{ session.name }} >></a>
+        </li>
+       {% endfor %}
+      </ul>
+    {% else %}
+      <p><em>You have no recordings at present.</em></p>
+    {% endif %}
+  </section>
+
+  {% if not user_profile.has_accepted_agreements %}
+    <section>
+      <h1>Terms &amp; Conditions</h1>
+      <a href="/participantportal/termsandconditions/" alt="terms and conditions">
+        #TODO: Click to view and accept the data sharing agreement.
+      </a>
+    </section>
+  {% endif %}
+{% endblock %}

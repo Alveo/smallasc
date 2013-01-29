@@ -1,0 +1,75 @@
+@charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:600);
+
+html {
+  overflow-y: auto;
+}
+
+body {
+  padding-top: 60px;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+body.login {
+  background: url(/static/images/bg.jpg) repeat;
+}
+
+.loginbox {
+  background-color: #fff;
+  margin: 20px;
+  padding: 30px;
+  border: #ccc 1px solid;
+
+  -moz-box-shadow: 0 0 10px rgba(0,0,0,0.4) ;
+  -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.4) ;
+  box-shadow: 0 0 10px rgba(0,0,0,0.4) ;
+
+  -moz-border-radius: 6px 6px 6px 6px;
+  -webkit-border-radius: 6px 6px 6px 6px;
+  border-radius: 6px 6px 6px 6px;
+}
+
+input[type="submit"] {
+  font-size:16px;
+  font-weight:bold;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+input[type="text"] {
+  width: 90%;
+}
+
+input[type="password"] {
+  width: 90%;
+}
+
+h1.centre {
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 25px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1;
+}
+
+h1 {
+  font-size: 3em;
+  letter-spacing: -2px;
+  margin-bottom: 30px;
+}
+
+h2 {
+  font-size: 1.7em;
+  letter-spacing: -1px;
+  margin-bottom: 30px;
+  text-align: left;
+  font-weight: 600;
+}
+
+.loginbox ul {
+  display: inline;
+  list-style: none;
+}

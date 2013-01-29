@@ -1,0 +1,28 @@
+{% extends "layout/base.html" %}
+
+{% block title %}
+  Austalk Meta Search | Home
+{% endblock %}
+
+{% block subtitle %}
+	Corpus Search
+{% endblock %}
+
+{% block content %}
+    <fieldset>
+        <legend>Select Participants</legend>
+    <form action="/search/results" method="GET" class="basic_form">
+         {{ participant_form.as_p }}
+        <input type="submit" value="Search" />
+    </form>
+    </fieldset>
+
+
+    <fieldset>
+        <legend>Select by Prompt Text</legend>
+	   <form action="/search/results" method="GET" class="basic_form">
+	        {{ prompt_form.as_p }}
+	       <input type="submit" value="Search" />
+	   </form>
+    </fieldset>
+{% endblock %}

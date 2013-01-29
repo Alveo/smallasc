@@ -1,0 +1,39 @@
+{% extends "layout/base.html" %}
+
+<!-- Note the convention of the title, Austalk | View > Object -->
+{% block title %}
+    Austalk | Browse > Components
+{% endblock %}
+
+{% block subtitle %}
+    Session {{ session_id }} component list
+{% endblock %}
+
+{% block breadcrumbs %}
+  <ul class="breadcrumb">
+    <li><span class="divider">/</span></li>
+    <li><a href="/browse/">All Sites</a></li>
+    <li><span class="divider">/</span></li>
+    <li><a href="/browse/{{ site_id }}/">{{ site.name }}</a></li>
+    <li><span class="divider">/</span></li>
+    <li><a href="/browse/{{ site_id }}/{{ participant_id }}">Speaker {{ participant_id }}</a></li>
+  </ul>
+{% endblock %}
+
+{% block content %}
+  <section>
+    <ul>
+      {% for comp in components %}            
+        <li>
+          <h2><a href="{{comp.get_absolute_url}}">{{ comp.name }} component</a></h2>
+          <table class="table table-striped">
+            <tr><th>Short Name</th><td>{{ comp.componentId }}</td></tr>
+            <tr><th>ID</th><td>{{ comp.identifier }}</td></tr>
+            <tr><th>Ratings</th><td>Audio {{comp.audiorating}}, Video: {{comp.videorating}}</td></tr>
+            <tr><th>Comment</th><td>{{comp.comment}}</td></tr>
+          </table>
+        </li>
+      {% endfor %}
+    </ul>
+  </section>
+{% endblock %}

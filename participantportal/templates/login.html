@@ -1,0 +1,54 @@
+{% extends "layout/login_base.html" %}
+
+{% block title %}
+  Participant Portal | Sign In
+{% endblock %}
+
+{% block formheading %}
+  Participant Portal
+{% endblock %}
+
+{% block content %}
+    
+<form method="POST" action="." class="loginbox form-inline">
+  {% csrf_token %}
+  <h2>Sign In</h2>
+
+  {% if form.errors %}
+    <aside class="alert" id="Flash">
+      Authentication Failure.
+    </aside>
+  {% endif %}
+
+  <div class="control-group">
+    <label for="id_colour" class="control-label">Colour</label>
+    <div class="controls">
+      {{ form.colour }}
+    </div>
+  </div>
+
+  <div class="control-group">
+    <label for="id_animal" class="control-label">Animal</label>
+    <div class="controls">
+      {{ form.animal }}
+    </div>
+  </div>
+
+  <div class="control-group">
+    <label for="id_birth_year" class="control-label">Birth Year</label>
+    <div class="controls">
+      {{ form.birth_year }}
+    </div>
+  </div>
+
+  <div class="control-group">
+    <label class="control-label">Gender</label>
+    <div class="controls">
+      {{ form.gender }}
+    </div>
+  </div>
+
+  <input class="btn btn-primary buttonextend" type="submit" value="Sign in"/>
+</form>
+  
+{% endblock %}
