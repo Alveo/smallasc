@@ -56,7 +56,7 @@ class ComponentManager (SparqlManager):
         
         
         sparql_results = self.query ("""
-            select * where {
+            select distinct * where {
 
                 %s
                 
