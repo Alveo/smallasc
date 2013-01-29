@@ -9,8 +9,7 @@ Sample Speaker Statistics
 {% endblock %}
 
 
-
-  {% block query %}
+{% block query %}
   
    <p>Try <a href="/stats/query/">a custom query</a>.</p>
   
@@ -25,8 +24,7 @@ Sample Speaker Statistics
                           ORDER BY ?prop"
       data-sgvizler-chart="gPieChart"
       data-sgvizler-loglevel="0"
-      data-sgvizler-chart-options="title=Number of Participants per Site"
-      style="width:800px; height:400px;"></div>
+      data-sgvizler-chart-options="title=Number of Participants per Site"></div>
       
 <div id="gender_distribution"
       data-sgvizler-query="SELECT ?prop (count(?part) AS ?noOfInstances)
@@ -82,12 +80,6 @@ WHERE {
       data-sgvizler-chart="sMap"
       data-sgvizler-loglevel="0"
       data-sgvizler-chart-options="title=Birthplace of Participants"
-      style="width:800px; height:400px;"></div> 
-      
-            
-      
-      
-      
-      
-  {% endblock %}
+      style="width:800px; height:400px;"></div>      
+{% endblock %}
     
