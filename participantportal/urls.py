@@ -9,5 +9,5 @@ urlpatterns = patterns('participantportal.views',
   url (r'^(\w+)/(\w+)/(\w+)/([a-z0-9-]+)/$', 'items.index'),
   url (r'^(\w+)/(\w+)/(\w+)/([a-z0-9-]+)/([0-9_]+)/$', 'items.show'),
   url(r'^login/$', 'session.login_page'),
-  url(r'^logout/$', 'session.logout_page')
+  url(regex = r'^logout/$', view = 'logout_page', name = 'session', kwargs = { 'redirect_url' : '/participantportal/login'}, )
 )
