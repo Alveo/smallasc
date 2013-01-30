@@ -1,13 +1,17 @@
 {% extends "participantportallayout/base.html" %}
 
-{% block content %}
+{% block breadcrumbs %}
   <ul class="breadcrumb">
     <li><span class="divider">/</span></li>
     <li><a href="/participantportal/">Home</a></li>
   </ul>
+{% endblock %}
 
-  <h1>Personal Data</h1>
+{% block subtitle %}
+  Personal Data
+{% endblock %}
 
+{% block content %}
   {% include "recordings.html" %}
     
   <h3>Demographic Information</h3>

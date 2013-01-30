@@ -9,15 +9,14 @@ from browse.modelspackage.items import Item
 
 
 @login_required
-@permission_required('auth.can_view_items')
-def index (request, site_id, participant_id, session_id, component_id):
-    """ Lists all the items for a particular participants session and component type. """
+#@permission_required('auth.can_view_items')
+def index (request, site_id, participant_id, session_id, component_id, template = 'browse/items/index.html'):
 
     site = Site.objects.get (site_id)
     items = Item.objects.filter_by_component (participant_id, session_id, component_id)
     item_ids = [ item.identifier for item in items ]
 
-    return render (request, 'browse/items/index.html', 
+    return render (request, template, 
         {'site_id' : site_id,
          'site' : site,
          'participant_id' : participant_id,
@@ -27,9 +26,8 @@ def index (request, site_id, participant_id, session_id, component_id):
          'item_ids' : item_ids })
  
 @login_required
-@permission_required('auth.can_view_item')
-def show (request, site_id, participant_id, session_id, component_id, basename):
-    """ View of an individual item. """
+#@permission_required('auth.can_view_item')
+def show (request, site_id, participant_id, session_id, component_id, basename, template = 'browse/items/show.html'):
 
     site = Site.objects.get (site_id)
     item = Item.objects.get (participant_id, basename)

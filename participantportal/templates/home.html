@@ -1,7 +1,10 @@
 {% extends "participantportallayout/base.html" %}
+
+{% block subtitle %}
+  Data Summary
+{% endblock %}
+
 {% block content %}
-  <h1>Data Summary</h1>
-  
   <table class="table table-striped">
     {% include "browse/participants/common_demographic.html" %}
   </table>
