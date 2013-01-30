@@ -35,8 +35,6 @@ def index (request, site_id):
 @login_required
 @permission_required('auth.can_view_participant')
 def show (request, site_id, participant_id):
-    """ This view shows the details of a particular participant. 
-        HTTP Verb /GET: Url /browse/sites/:id/participants/:id """
         
     participant = Participant.objects.get (participant_id)
     if participant is None:
@@ -47,8 +45,6 @@ def show (request, site_id, participant_id):
         raise Http404 ("Requested site not found")
 
     sessions = Session.objects.filter_by_participant (participant) 
-    print "SESSIONS:", len(sessions)
-    
     rhist = ResidenceHistory.objects.filter_by_participant(participant)
     lang = LanguageUsage.objects.filter_by_participant(participant)
     
