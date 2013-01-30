@@ -73,3 +73,7 @@ h2 {
   display: inline;
   list-style: none;
 }
+
+#participant-para {
+  margin: 20px 0 0 0;
+}

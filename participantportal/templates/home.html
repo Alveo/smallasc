@@ -3,23 +3,10 @@
   <h1>Data Summary</h1>
   
   <table class="table table-striped">
-    {% include "common_demographic.html" %}
+    {% include "browse/participants/common_demographic.html" %}
   </table>
 
-  <section class="pagination">
-    <h1>Recordings</h1>
-    {% if sessions %}
-      <ul>
-       {% for session in sessions %}
-        <li>
-          <a href="/participantportal/{{ session.site }}/{{ session.participantId }}/{{ session.number }}/">{{ session.name }} >></a>
-        </li>
-       {% endfor %}
-      </ul>
-    {% else %}
-      <p><em>You have no recordings at present.</em></p>
-    {% endif %}
-  </section>
+  {% include "recordings.html" %}
 
   {% if not user_profile.has_accepted_agreements %}
     <section>
