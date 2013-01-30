@@ -1,0 +1,16 @@
+{% extends "participantportallayout/base.html" %}
+
+{% block breadcrumbs %}
+<ul class="breadcrumb">
+  <li><span class="divider">/</span></li>
+  <li><a href="/participantportal/">Home</a></li>
+</ul>
+{% endblock %}
+
+{% block subtitle %}
+  Session {{ session_id }} component list
+{% endblock %}
+
+{% block content %}
+  {% include "browse/components/component_list.html" %}
+{% endblock %}

@@ -21,9 +21,15 @@
   <div class="container-fluid">
     <div class="row-fluid">
       <!-- Use bootstrap to create a simple 3 column layout -->
-      <div class="span10 offset1">
+      <section class="span10 offset1">
+        <header>
+          {% block breadcrumbs %}{% endblock %}
+        </header>
+        <h1>
+          {% block subtitle %}{% endblock %}
+        </h1>
         {% block content %}{% endblock %}
-      </div>
+      </section>
     </div>
   </div>
 
