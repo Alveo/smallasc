@@ -9,7 +9,7 @@ class CustomAuthBackend(object):
   """ This custom authenticator is plugged into authentication pipeline
   and is configured in settings.py."""
   def authenticate(self, colour, animal, birth_year = None, gender = None):
-    # print "Custom Authenticator Invoked with params %s-%s-%s-%s" % (colour, animal, birth_year, gender)
+    print "Custom Authenticator Invoked with params %s-%s-%s-%s" % (colour, animal, birth_year, gender)
     username = "%s_%s" % (colour, animal)
     participant = Participant.objects.get(username)
 

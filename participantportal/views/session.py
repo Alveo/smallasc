@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login
 from django.forms.util import ErrorList
 from django.forms.forms import NON_FIELD_ERRORS
 from django.http import HttpResponseRedirect
@@ -35,8 +35,3 @@ def login_page(request):
 
   variables = RequestContext(request, {'form': form})
   return render_to_response('login.html', variables)
-
-
-def logout_page(request):
-  logout (request)
-  return HttpResponseRedirect ('/participantportal/login')

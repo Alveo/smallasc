@@ -9,20 +9,19 @@
 {% endblock %}
 
 {% block content %}
-    <fieldset>
-        <legend>Select Participants</legend>
-    <form action="/search/results" method="GET" class="basic_form">
-         {{ participant_form.as_p }}
-        <input type="submit" value="Search" />
-    </form>
-    </fieldset>
+<fieldset>
+  <legend>Select Participants</legend>
+  <form action="/search/results" method="GET" class="basic_form">
+    {{ participant_form.as_p }}
+    <input type="submit" value="Search" class="btn btn-primary"/>
+  </form>
+</fieldset>
 
-
-    <fieldset>
-        <legend>Select by Prompt Text</legend>
-	   <form action="/search/results" method="GET" class="basic_form">
-	        {{ prompt_form.as_p }}
-	       <input type="submit" value="Search" />
-	   </form>
-    </fieldset>
+<fieldset>
+  <legend>Select by Prompt Text</legend>
+  <form action="/search/results" method="GET" class="basic_form">
+    {{ prompt_form.as_p }}
+    <input type="submit" value="Search" class="btn btn-primary" />
+  </form>
+</fieldset>
 {% endblock %}
