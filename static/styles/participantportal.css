@@ -6,3 +6,8 @@
 #agreementcell {
   width: 400px;
 }
+
+ul {
+  margin-left: 0px;
+  list-style: none;
+}

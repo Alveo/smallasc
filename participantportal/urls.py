@@ -2,7 +2,7 @@ from django.conf.urls import patterns, include, url
 from baseapp.views.security import logout_page
 
 urlpatterns = patterns('participantportal.views',
-  url(r'^$', 'home.index'),
+  url(regex = r'^$', view = 'data.index', name = 'home', kwargs = { 'template': 'home.html' }, ),
   url(r'^data/$', 'data.index'),
   url(r'^termsandconditions/$', 'termsandconditions.index'),
   url (r'^(\w+)/(\w+)/(\w+)/$', 'components.index'),
