@@ -121,7 +121,11 @@
     {
         "fields": {
             "name": "participants", 
-            "permissions": []
+            "permissions": [
+                1003,
+                1004,
+                1005
+            ]
         }, 
         "model": "auth.group", 
         "pk": 2

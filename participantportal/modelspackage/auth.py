@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.db import transaction
 from browse.modelspackage.participants import *
 from participantportal.helpers import read_model_property
@@ -9,7 +9,7 @@ class CustomAuthBackend(object):
   """ This custom authenticator is plugged into authentication pipeline
   and is configured in settings.py."""
   def authenticate(self, colour, animal, birth_year = None, gender = None):
-    print "Custom Authenticator Invoked with params %s-%s-%s-%s" % (colour, animal, birth_year, gender)
+    #print "Custom Authenticator Invoked with params %s-%s-%s-%s" % (colour, animal, birth_year, gender)
     username = "%s_%s" % (colour, animal)
     participant = Participant.objects.get(username)
 
@@ -31,9 +31,19 @@ class CustomAuthBackend(object):
     user = User(username = username, is_staff = False, is_active = True, is_superuser = False)
     user.set_unusable_password()
     user.save()
+
+    self.add_user_to_participant_group(user)
+
     up = UserProfile.objects.create(user = user)
     up.save()
     up.initialise_agreement()
+    return user
+
+
+  def add_user_to_participant_group(self, user):
+    participant_group = Group.objects.get(name = 'participants')
+    user.groups.add(participant_group)
+
 
   def get_user(self, user_id):
     try:

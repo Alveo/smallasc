@@ -5,9 +5,8 @@ from django.forms.forms import NON_FIELD_ERRORS
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response, render
 from django.template import RequestContext
-
-# Import forms
 from participantportal.forms.session import LoginForm
+
 
 def login_page(request):
   if request.method == 'POST':
@@ -24,8 +23,6 @@ def login_page(request):
         gender      = form.data['gender'])
 
       if user is not None:
-        # The authenticator requires that a password is set, but the actual
-        # password is not all that important
         login(request, user)
         return HttpResponseRedirect ('/participantportal/')
       else:

@@ -9,7 +9,7 @@ from browse.modelspackage.items import Item
 
 
 @login_required
-#@permission_required('auth.can_view_items')
+@permission_required('auth.can_view_items')
 def index (request, site_id, participant_id, session_id, component_id, template = 'browse/items/index.html'):
 
     site = Site.objects.get (site_id)
@@ -26,7 +26,7 @@ def index (request, site_id, participant_id, session_id, component_id, template 
          'item_ids' : item_ids })
  
 @login_required
-#@permission_required('auth.can_view_item')
+@permission_required('auth.can_view_item')
 def show (request, site_id, participant_id, session_id, component_id, basename, template = 'browse/items/show.html'):
 
     site = Site.objects.get (site_id)

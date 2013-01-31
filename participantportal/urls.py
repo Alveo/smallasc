@@ -1,5 +1,4 @@
 from django.conf.urls import patterns, include, url
-from baseapp.views.security import logout_page
 from browse.views import components
 
 urlpatterns = patterns('',
@@ -30,7 +29,7 @@ urlpatterns = patterns('',
   url(r'^login/$', 'participantportal.views.session.login_page'),
   
   url(regex = r'^logout/$', 
-      view = 'logout_page', 
+      view = 'baseapp.views.security.logout_page', 
       name = 'session', 
       kwargs = { 'redirect_url' : '/participantportal/login'}, )
 )
