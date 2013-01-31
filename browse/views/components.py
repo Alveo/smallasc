@@ -8,7 +8,7 @@ from browse.modelspackage.components import Component
 
 
 @login_required
-#@permission_required('auth.can_view_components')
+@permission_required('auth.can_view_components')
 def index (request, site_id, participant_id, session_id, template = 'browse/components/index.html'):
 
     site = Site.objects.get (site_id)
