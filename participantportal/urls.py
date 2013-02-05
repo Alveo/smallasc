@@ -9,7 +9,7 @@ urlpatterns = patterns('',
   
   url(r'^data/$', 'participantportal.views.data.index'),
   
-  url(r'^termsandconditions/$', 'termsandconditions.index'),
+  url(r'^termsandconditions/$', 'participantportal.views.termsandconditions.index'),
   
   url(regex = r'^(\w+)/(\w+)/(\w+)/$', 
       view = 'browse.views.components.index', 
