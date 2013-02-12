@@ -181,6 +181,7 @@ SPARQL_ENDPOINT = "http://115.146.93.47/openrdf-sesame/repositories/bigasc_prod"
 # SMALLASCDATA_ENDPOINT
 SMALLASCDATA_ENDPOINT = "http://data.austalk.edu.au/download/"
 
+JWT_SECRET = "austalk_secret"
 
 
 # load local settings
