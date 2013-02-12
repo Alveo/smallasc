@@ -1,0 +1,24 @@
+
+{% load getChannels %}
+{% load smallascdataEndpoint %}
+
+<form action="{% smallascdataEndpoint %}" method="post" id="download-form">
+  <legend>Download form</legend>
+  <input type="hidden" 
+        name="json" 
+        value='{ "media": [ {% for id in item_ids %}{% if forloop.last %}"{{ id }}"{% else %}"{{ id }}", {% endif %}{% endfor %} ] }' />
+  
+  channel 
+
+  {% getChannels as channels %}
+    <select name="channels">
+      {% for value, label in channels %}
+        <option value="{{ value }}">{{ label }}</option>
+      {% endfor %}
+    </select>
+
+  as <input type="text" name="name" id="file-name" />.zip for all items listed.
+
+  <input type="submit" value="Download" class="btn btn-primary" /> 
+</form>
+
