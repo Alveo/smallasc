@@ -1,15 +1,16 @@
 
 {% load getChannels %}
 {% load smallascdataEndpoint %}
+{% load createDataJson %}
 
 <form action="{% smallascdataEndpoint %}" method="post" id="download-form">
   <legend>Download form</legend>
   <input type="hidden" 
         name="json" 
-        value='{ "media": [ {% for id in item_ids %}{% if forloop.last %}"{{ id }}"{% else %}"{{ id }}", {% endif %}{% endfor %} ] }' />
-  
-  channel 
+        value='{{ item_ids|createDataJson:user.is_authenticated|safe }}' />
 
+  channel
+  
   {% getChannels as channels %}
     <select name="channels">
       {% for value, label in channels %}
