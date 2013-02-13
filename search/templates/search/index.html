@@ -11,7 +11,7 @@
 {% block content %}
 <fieldset>
   <legend>Select Participants</legend>
-  <form action="/search/results" method="GET" class="basic_form">
+  <form action="/search/results/participants" method="GET" class="form">
     {{ participant_form.as_p }}
     <input type="submit" value="Search" class="btn btn-primary"/>
   </form>
@@ -19,7 +19,7 @@
 
 <fieldset>
   <legend>Select by Prompt Text</legend>
-  <form action="/search/results" method="GET" class="basic_form">
+  <form action="/search/results" method="GET" class="form">
     {{ prompt_form.as_p }}
     <input type="submit" value="Search" class="btn btn-primary" />
   </form>
