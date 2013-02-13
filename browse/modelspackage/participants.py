@@ -87,8 +87,7 @@ class ParticipantManager (SparqlManager):
                 ?part rdf:type foaf:Person .
                 ?part ?prop ?value .
                 ?part foaf:gender ?gender .
-                FILTER (?gender = %s)
-            }""" % gender        
+            }"""        
 
         sparql_results = self.query(qq)
 
