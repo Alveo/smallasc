@@ -2,7 +2,6 @@ from django.utils import unittest
 from browse.modelspackage import *
 
 # Import SPARQL modules and related information
-from browse.settings import *
 from SPARQLWrapper import SPARQLWrapper, JSON
 
 
@@ -32,7 +31,6 @@ class SparqlTests (unittest.TestCase):
            
     
 class SiteTests (unittest.TestCase):
-
 
     def test_retrieveallsites (self):
         results = Site.objects.all ()
@@ -182,7 +180,6 @@ class ParticipantTests (unittest.TestCase):
         self.assertEqual(props['bar'], 'foo')
 
 
-
     def test_retrievemedia (self): 
         
         items = Item.objects.filter_by_component("1_1093", "2", "sentences")
@@ -195,3 +192,8 @@ class ParticipantTests (unittest.TestCase):
 
         # print components[0].identifier
         # print items[0].identifier
+
+
+    def test_filterbygender (self):
+        parts = Participant.objects.filter ("Male")
+        print parts

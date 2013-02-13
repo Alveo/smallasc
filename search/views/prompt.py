@@ -4,7 +4,7 @@ from django.template import RequestContext
 
 # Models in use
 from browse.modelspackage import Item
-from search.forms import PromptSearchForm
+from search.forms import PromptSearchForm, ParticipantSearchForm
 
 @login_required
 @permission_required('auth.can_view_prompt_search')
@@ -31,16 +31,20 @@ def prompt_search (request):
     
     else:
         return render(request, 'search/index.html', {'prompt_form': form})
-       
+
+
 @login_required
 @permission_required('auth.can_view_participant_search') 
 def participant_search(request):
-    """Find participants based on demographic fields"""
 
-    form = ParticipantSearchForm(request.GET)
-    if form.is_valid():
-		pass
+    form = ParticipantSearchForm (request.GET)
+    if form.is_valid ():
+      gender = form.cleaned_data['gender']
+      ses = form.cleaned_data['ses']
+      highest_qual = form.cleaned_data['highest_qual']
+      prof_cat = form.cleaned_data['prof_cat']
+      
     else:
-		return render(request, 'search/index.html', {'participant_form': form})
+      return render (request, 'search/index.html', {'participant_form': form})
 		
 		

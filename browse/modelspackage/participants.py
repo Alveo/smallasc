@@ -11,7 +11,6 @@ from browse.modelspackage.sparql_local_wrapper import SparqlModel, SparqlManager
 
 class ParticipantManager (SparqlManager):
 
-
     def all (self, site):
         """ Returns all the participants stored in the rdf store as instances of Participant. """
         sparql_results = self.query ("""
@@ -40,7 +39,6 @@ class ParticipantManager (SparqlManager):
         """ Returns all the participants who have at least one session as a list of instances
         of Participant """
         
-        
         sparql_results = self.query ("""
             select distinct ?part 
             where {
@@ -53,20 +51,16 @@ class ParticipantManager (SparqlManager):
         results = []
 
         for result in sparql_results["results"]["bindings"]:
-            part = Participant (
-                                identifier          = result["part"]["value"], )
+            part = Participant (identifier = result["part"]["value"])
             part.set_site (site)
             results.append (part)
 
         return results
 
 
-
-
     def get (self, participant_id):
         """ This function returns the particulars of a participant. """
 
-            
         qq = """
             select  ?part ?prop ?value
             where {
@@ -74,27 +68,41 @@ class ParticipantManager (SparqlManager):
                 ?part ?prop ?value .
 
                 FILTER (?part = <http://id.austalk.edu.au/participant/%s>)
-            }""" % participant_id
-        
+            }""" % participant_id        
 
         sparql_results = self.query(qq)
 
         for result in sparql_results["results"]["bindings"]:
             return Participant(identifier = result["part"]["value"])
-            
-            
-
+                        
         #print "Participant not found", participant_id
+        return None
+
+
+    def filter (self, gender):
+        """ This method filters participants using the params list passed in """
+        qq = """
+            select  ?part ?prop ?value
+            where {
+                ?part rdf:type foaf:Person .
+                ?part ?prop ?value .
+                ?part foaf:gender ?gender .
+                FILTER (?gender = %s)
+            }""" % gender        
+
+        sparql_results = self.query(qq)
+
+        for result in sparql_results["results"]["bindings"]:
+            return Participant(identifier = result["part"]["value"])
+                        
         return None
 
 
 class Participant (SparqlModel):
     """ A participant for a recording session."""
 
-
     # custom manager
     objects = ParticipantManager()
-    
 
     # Associations
     site = None
@@ -111,7 +119,6 @@ class Participant (SparqlModel):
 
     def friendly_id (self):
         """ This function converts the participants fully qualified id into something shorter. """
-        
         return self.properties()['id'][0]
 
 
