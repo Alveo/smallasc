@@ -1,5 +1,6 @@
 from django import forms
 from django.forms.widgets import CheckboxSelectMultiple
+from browse.modelspackage.participants import Participant
 
 EDUCATION_LEVELS = (('any', 'Any'),
               ('primary to junior high', 'Primary School to Junior High School'),
@@ -54,6 +55,12 @@ class ParticipantSearchForm (forms.Form):
     ses = forms.ChoiceField (label='Socio Economic Status', choices = SES_CHOICES)
     highest_qual = forms.ChoiceField (label='Highest Qualification', choices=EDUCATION_LEVELS)
     prof_cat = forms.ChoiceField (label='Professional Category', choices=PROFESSIONAL_CATEGORIES)
-    #first_language = forms.CharField(label='First Language')
+
+
+class ParticipantSearchFilterForm (forms.Form):
     
-    
+    participants_field = forms.MultipleChoiceField (widget = forms.CheckboxSelectMultiple)
+
+    def __init__ (self, participants, *args, **kwargs):
+        super (ParticipantSearchFilterForm, self).__init__ (*args, **kwargs)
+        self.fields["participants_field"].choices = [(part.friendly_id (), part.friendly_id ()) for part in participants]
