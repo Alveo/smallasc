@@ -9,15 +9,14 @@
 {% endblock %}
 
 {% block content %}
-{% include "download-form.html" %}
-
-    <table class="">
-        {% for part in participants %}
-            <tr>
-                <td>{{ part }}</td>
-            </tr>
-        {% endfor %}
-    </table>
+    
+    <fieldset>
+        <legend>Filter Participants</legend>
+        <form action="/search/results" method="GET" class="form">
+            {{ form.as_p }}
+            <input type="submit" value="Search" class="btn btn-primary" />
+        </form>
+    </fieldset>
 
     <table class="overview">
         {% for item in items %}
@@ -32,4 +31,6 @@
             </tr>
         {% endfor %}
     </table>
+
+    {% include "download-form.html" %}
 {% endblock %}

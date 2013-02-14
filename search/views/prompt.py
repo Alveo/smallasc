@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render, render_to_response
 from django.template import RequestContext
 from browse.modelspackage import Item, Participant
-from search.forms import PromptSearchForm, ParticipantSearchForm
+from search.forms import PromptSearchForm, ParticipantSearchForm, ParticipantSearchFilterForm
 
 
 @login_required
@@ -39,20 +39,14 @@ def participant_search(request):
     if form.is_valid ():
         predicates = {}
 
-        if not form.cleaned_data['gender'] == 'any':
-            predicates["foaf:gender"] = form.cleaned_data['gender']
-
-        if not form.cleaned_data['ses'] == 'any':
-            predicates["austalk:ses"] = form.cleaned_data['ses']
-
-        if not form.cleaned_data['highest_qual'] == 'any':
-            predicates["austalk:education_level"] = form.cleaned_data['highest_qual']
-
-        if not form.cleaned_data['prof_cat'] == 'any':
-            predicates["austalk:professional_category"] = form.cleaned_data['prof_cat']
-
-        parts = Participant.objects.filter (predicates)
-        return render (request, 'search/results.html', { 'participants': parts })
+        # TODO: Nicer way to write this?
+        if not form.cleaned_data['gender'] == 'any': predicates["foaf:gender"] = form.cleaned_data['gender']
+        if not form.cleaned_data['ses'] == 'any': predicates["austalk:ses"] = form.cleaned_data['ses']
+        if not form.cleaned_data['highest_qual'] == 'any': predicates["austalk:education_level"] = form.cleaned_data['highest_qual']
+        if not form.cleaned_data['prof_cat'] == 'any': predicates["austalk:professional_category"] = form.cleaned_data['prof_cat']
+       
+        form = ParticipantSearchFilterForm (Participant.objects.filter (predicates))
+        return render (request, 'search/results.html', { 'form': form })
     else:
         return render (request, 'search/index.html', { 'participant_form': form })
 		
