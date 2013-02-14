@@ -1,10 +1,9 @@
 from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render, render_to_response
 from django.template import RequestContext
-
-# Models in use
-from browse.modelspackage import Item
+from browse.modelspackage import Item, Participant
 from search.forms import PromptSearchForm, ParticipantSearchForm
+
 
 @login_required
 @permission_required('auth.can_view_prompt_search')
@@ -21,14 +20,13 @@ def prompt_search (request):
         result = Item.objects.filter_by_prompt(prompt, components, wholeword)
         item_ids = [ item.identifier for item in result ]
     
-        return render (request, 'search/results.html', 
-        {'site_id' : None,
-         'participant_id' : None,
-         'session_id' : None,
-         'component_id': None,
-         'items': result,
-         'item_ids' : item_ids })
-    
+        return render (request, 'search/results.html', {
+            'site_id' : None,
+            'participant_id' : None,
+            'session_id' : None,
+            'component_id': None,
+            'items': result,
+            'item_ids' : item_ids })
     else:
         return render(request, 'search/index.html', {'prompt_form': form})
 
@@ -39,12 +37,23 @@ def participant_search(request):
 
     form = ParticipantSearchForm (request.GET)
     if form.is_valid ():
-      gender = form.cleaned_data['gender']
-      ses = form.cleaned_data['ses']
-      highest_qual = form.cleaned_data['highest_qual']
-      prof_cat = form.cleaned_data['prof_cat']
-      
+        predicates = {}
+
+        if not form.cleaned_data['gender'] == 'any':
+            predicates["foaf:gender"] = form.cleaned_data['gender']
+
+        if not form.cleaned_data['ses'] == 'any':
+            predicates["austalk:ses"] = form.cleaned_data['ses']
+
+        if not form.cleaned_data['highest_qual'] == 'any':
+            predicates["austalk:education_level"] = form.cleaned_data['highest_qual']
+
+        if not form.cleaned_data['prof_cat'] == 'any':
+            predicates["austalk:professional_category"] = form.cleaned_data['prof_cat']
+
+        parts = Participant.objects.filter (predicates)
+        return render (request, 'search/results.html', { 'participants': parts })
     else:
-      return render (request, 'search/index.html', {'participant_form': form})
+        return render (request, 'search/index.html', { 'participant_form': form })
 		
 		
