@@ -60,7 +60,6 @@ class ParticipantManager (SparqlManager):
 
     def get (self, participant_id):
         """ This function returns the particulars of a participant. """
-
         qq = """
             select  ?part ?prop ?value
             where {
@@ -70,7 +69,7 @@ class ParticipantManager (SparqlManager):
                 FILTER (?part = <http://id.austalk.edu.au/participant/%s>)
             }""" % participant_id        
 
-        sparql_results = self.query(qq)
+        sparql_results = self.query (qq)
 
         for result in sparql_results["results"]["bindings"]:
             return Participant(identifier = result["part"]["value"])
@@ -79,22 +78,27 @@ class ParticipantManager (SparqlManager):
         return None
 
 
-    def filter (self, gender):
-        """ This method filters participants using the params list passed in """
+    def filter (self, predicates = {}):
+        """ 
+            This method filters participants using a hash of predicates. Perhaps we
+            should push this method up the class heirarchy?
+        """
         qq = """
-            select  ?part ?prop ?value
+            select  distinct ?part
             where {
                 ?part rdf:type foaf:Person .
-                ?part ?prop ?value .
-                ?part foaf:gender ?gender .
-            }"""        
+            """
+        for (key,value) in predicates.items():
+            qq += """ ?part """ + key + " '" + value + "' . "
 
-        sparql_results = self.query(qq)
+        qq += """}"""
 
+        sparql_results = self.query (qq)
+        results = []
         for result in sparql_results["results"]["bindings"]:
-            return Participant(identifier = result["part"]["value"])
+            results.append (Participant(identifier = result["part"]["value"]))
                         
-        return None
+        return results
 
 
 class Participant (SparqlModel):
@@ -123,9 +127,12 @@ class Participant (SparqlModel):
 
     def __unicode__ (self):
         """ Simple name representation for sites """
-        
         return self.properties()['id'][0] + " (" + self.properties()['name'][0] + ")"
-        
+    
+
+    def __eq__ (self, other):
+        return self.friendly_id () == other.friendly_id ()
+
 
     class Meta:
         app_label= 'search'

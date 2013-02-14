@@ -181,19 +181,28 @@ class ParticipantTests (unittest.TestCase):
 
 
     def test_retrievemedia (self): 
-        
         items = Item.objects.filter_by_component("1_1093", "2", "sentences")
-
-        # There should be 59 items for sentences
         self.assertEqual (59, len (items))
-        # print items
-        # Now get the media
         media = Media.filter_by_componentitems (components[0], items[0])
-
-        # print components[0].identifier
-        # print items[0].identifier
 
 
     def test_filterbygender (self):
-        parts = Participant.objects.filter ("Male")
-        print parts
+        predicates = {  
+            "foaf:gender": "male", 
+            "austalk:ses": "Professional", 
+            "austalk:education_level": "Bachelor Degree", 
+            "austalk:professional_category": "assoc professional"
+        }
+        male_qual_parts = Participant.objects.filter (predicates)
+
+        self.assertTrue (len (male_qual_parts) > 0)
+
+        predicates = {  
+            "foaf:gender": "male",
+            "austalk:ses": "Professional",
+            "austalk:education_level": "Bachelor Degree"
+        }
+        male_parts = Participant.objects.filter (predicates)
+
+        self.assertTrue (len (male_parts) > 0)
+        self.assertTrue (len (set (male_qual_parts).intersection (set (male_parts))) == len (male_qual_parts))
