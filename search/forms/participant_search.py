@@ -56,6 +56,9 @@ class ParticipantSearchForm (forms.Form):
     highest_qual = forms.ChoiceField (label='Highest Qualification', choices=EDUCATION_LEVELS)
     prof_cat = forms.ChoiceField (label='Professional Category', choices=PROFESSIONAL_CATEGORIES)
 
+    def url (self):
+        return "/search/results/participants"
+
 
 class ParticipantSearchFilterForm (ParticipantSearchForm):
     
@@ -63,3 +66,6 @@ class ParticipantSearchFilterForm (ParticipantSearchForm):
         widget = forms.CheckboxSelectMultiple,
         error_messages = { 'required': 'Please select from the following list of participants'},
         label = "Participants")
+
+    def url (self):
+        return "/search/results/items"

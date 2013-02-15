@@ -105,12 +105,9 @@ class SessionTests (unittest.TestCase):
 
 class ParticipantTests (unittest.TestCase):
 
-
     def test_retrieveparticipantsforexistingsite (self):
         sites = Site.objects.all ()
         parts = Participant.objects.all (sites[0])
-
-        print parts[0]
 
         self.assertTrue (len (parts) > 0)
         self.assertTrue (isinstance (parts[0], Participant)) 
@@ -206,3 +203,10 @@ class ParticipantTests (unittest.TestCase):
 
         self.assertTrue (len (male_parts) > 0)
         self.assertTrue (len (set (male_qual_parts).intersection (set (male_parts))) == len (male_qual_parts))
+
+
+class ItemTests (unittest.TestCase):
+
+    def test_filterbyparticipant (self):
+        items = Item.objects.filter_by_participant ("2_515")
+        print items
