@@ -12,7 +12,7 @@
 
 {% if init_form %}
 <fieldset>
-  <form action="/search/results/participants" method="GET" class="form">
+  <form action="{{ init_form.url }}" method="GET" class="form">
     <section>
         {{ init_form.as_p }}
     </section>
