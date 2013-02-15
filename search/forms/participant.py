@@ -57,10 +57,9 @@ class ParticipantSearchForm (forms.Form):
     prof_cat = forms.ChoiceField (label='Professional Category', choices=PROFESSIONAL_CATEGORIES)
 
 
-class ParticipantSearchFilterForm (forms.Form):
+class ParticipantSearchFilterForm (ParticipantSearchForm):
     
-    participants_field = forms.MultipleChoiceField (widget = forms.CheckboxSelectMultiple)
-
-    def __init__ (self, participants, *args, **kwargs):
-        super (ParticipantSearchFilterForm, self).__init__ (*args, **kwargs)
-        self.fields["participants_field"].choices = [(part.friendly_id (), part.friendly_id ()) for part in participants]
+    participants_field = forms.MultipleChoiceField (
+        widget = forms.CheckboxSelectMultiple,
+        error_messages = { 'required': 'Please select from the following list of participants'},
+        label = "Participants")

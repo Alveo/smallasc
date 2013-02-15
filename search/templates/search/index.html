@@ -9,14 +9,19 @@
 {% endblock %}
 
 {% block content %}
+
+{% if init_form %}
 <fieldset>
-  <legend>Select Participants</legend>
   <form action="/search/results/participants" method="GET" class="form">
-    {{ participant_form.as_p }}
+    <section>
+        {{ init_form.as_p }}
+    </section>
     <input type="submit" value="Search" class="btn btn-primary"/>
   </form>
 </fieldset>
+{% endif %}
 
+{% if false %}
 <fieldset>
   <legend>Select by Prompt Text</legend>
   <form action="/search/results" method="GET" class="form">
@@ -24,4 +29,6 @@
     <input type="submit" value="Search" class="btn btn-primary" />
   </form>
 </fieldset>
+{% endif %}
+
 {% endblock %}
