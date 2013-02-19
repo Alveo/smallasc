@@ -105,7 +105,18 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware'
 )
 
+<<<<<<< mine
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'participantportal.modelspackage.auth.CustomAuthBackend',
+)
+
+AUTH_PROFILE_MODULE = 'participantportal.UserProfile'
+
+ROOT_URLCONF = 'smallasc.urls'
+=======
 ROOT_URLCONF = 'data.urls'
+>>>>>>> theirs
 
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'wsgi.application'
@@ -133,7 +144,7 @@ INSTALLED_APPS = (
     'baseapp',
     'browse',
     'search',
-
+    'participantportal',
 )
 
 # data/download module
@@ -149,15 +160,16 @@ TASK_TIMEOUT = 60                       # max execution time for a task in minut
 LOGIN_URL = "/login/"
 
 # SPARQL_ENDPOINT 
-SPARQL_ENDPOINT = "http://115.146.93.47/openrdf-sesame/repositories/bigasc"
+# SPARQL_ENDPOINT = "http://115.146.93.47/openrdf-sesame/repositories/bigasc_prod"
+SPARQL_ENDPOINT = "http://115.146.93.47/openrdf-sesame/repositories/bigasc_native"
+
 # SMALLASCDATA_ENDPOINT
 SMALLASCDATA_ENDPOINT = "http://data.austalk.edu.au/download/"
-
 
 # load local settings
 # put customized stuff here
 try:
     from local_settings import *
-except ImportError:
+except ImportError as e:
     pass
 

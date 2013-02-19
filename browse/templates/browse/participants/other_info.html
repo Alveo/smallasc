@@ -1,0 +1,15 @@
+<tr>
+  <th>Other Information</th>
+  <td class='horizontal_list'>
+    <ul>{% ifequal participant.properties.has_reading_problems.0 "true" %}
+    <li>Has had some reading problems</li>{% endifequal %} {% ifequal participant.properties.has_vocal_training.0 "true" %}
+    <li>Has had vocal training</li>{% endifequal %} {% ifequal participant.properties.has_speech_problems.0 "true" %}
+    <li>Has speech problems</li>{% endifequal %} {% ifequal participant.properties.has_hearing_problems.0 "true" %}
+    <li>Has hearing problems</li>{% endifequal %} {% ifequal participant.properties.is_left_handed.0 "true" %}
+    <li>Is Right-handed</li>{% endifequal %} {% ifequal participant.properties.is_smoker.0 "true" %}
+    <li>Is a smoker</li>{% endifequal %} {% ifequal participant.properties.has_dentures.0 "true" %}
+    <li>Wears dentures</li>{% endifequal %} {% ifequal participant.properties.has_piercings.0 "true" %}
+    <li>Has facial piercings</li>{% endifequal %} {% ifequal participant.properties.has_health_problems.0 "true" %}
+    <li>Has health problems which might affect his/her voice</li>{% endifequal %}</ul>
+  </td>
+</tr>

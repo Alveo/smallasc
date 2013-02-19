@@ -1,0 +1,22 @@
+{% extends "participantportal/layout/base.html" %}
+
+{% block subtitle %}
+  Data Summary
+{% endblock %}
+
+{% block content %}
+  <table class="table table-striped">
+    {% include "browse/participants/common_demographic.html" %}
+  </table>
+
+  {% include "recordings.html" %}
+
+  {% if not user_profile.has_accepted_agreements %}
+    <section>
+      <h1>Terms &amp; Conditions</h1>
+      <a href="/participantportal/termsandconditions/" title="terms and conditions">
+        Click to view and accept the data sharing agreement.
+      </a>
+    </section>
+  {% endif %}
+{% endblock %}

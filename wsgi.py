@@ -20,10 +20,13 @@ sys.path.append(os.path.dirname(__file__))
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
 
+#application = get_wsgi_application()
+
 # for django celery
 import djcelery
 djcelery.setup_loader()
 
 import django.core.handlers.wsgi
 application = django.core.handlers.wsgi.WSGIHandler()
+>>>>>>> theirs
 
