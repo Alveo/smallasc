@@ -1,0 +1,70 @@
+{% extends "participantportal/layout/base.html" %}
+{% block content %}
+<ul class="breadcrumb">
+  <li><span class="divider">/</span></li>
+  <li><a href="/participantportal/">Home</a><span class="divider">/</span></li>
+  <li><a href="/participantportal/{{ item.site }}/{{ item.participantId }}/{{ item.sessionId }}/">Session</a><span class="divider">/</span></li>
+  <li><a href="/participantportal/{{ item.site }}/{{ item.participantId }}/{{ item.sessionId }}/{{ item.componentId }}">Component</a></li>
+</ul>
+
+<h2>Session {{ item.sessionId }} Component {{ item.componentId }} Item {{ item.basename }}</h2>
+
+<table class="table table-striped">
+  <tr>
+    <th>Item Basename</th>
+    <td>{{ item.basename }}</td>
+  </tr>
+  <tr>
+    <th>Prompt</th>
+    <td>{{ item.prompt }}</td>
+  </tr>
+  <tr>
+    <th>ID</th>
+    <td>{{ item.identifier }}</td>
+  </tr>
+  <tr>
+    <th>Audio</th>
+    <td><a href="{{item.ch6media}}">Play {{item.basename}}</a></td>
+  </tr>
+  <tr>
+    <th>Media</th>
+    <td>
+      <ul>
+        {% for m in item.properties.media %}
+          <li><a href="{{m}}">{{m}}</a></li>
+        {% endfor %}
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <th>Camera Serial Numbers</th>
+    <td>{{item.properties.cameraSN0.0}}, {{item.properties.cameraSN1.0}}</td>
+  </tr>
+  <tr>
+    <th>Timestamp</th>
+    <td>{{item.properties.timestamp.0}}</td>
+  </tr>
+  <tr>
+    <th>Speaker</th>
+    <td>{% for s in item.properties.speaker %}{{s}} {% endfor %}</td>
+  </tr>
+  {% if item.properties.information_giver %}
+  <tr>
+    <th>Information Giver</th>
+    <td>{{item.properties.information_giver.0}}</td>
+  </tr>
+  {% endif %}
+  {% if item.properties.information_follower %}
+  <tr>
+    <th>Information Follower</th>
+    <td>{{item.properties.information_follower.0}}</td>
+  </tr>
+  {% endif %}
+  {% if item.properties.map %}
+  <tr>
+    <th>Map</th>
+    <td>{{item.properties.map.0}}</td>
+  </tr>
+  {% endif %}  
+</table>   
+{% endblock %}

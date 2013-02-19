@@ -12,12 +12,12 @@
         {% getChannels as channels %}
         <select name="channels">
         {% for value, label in channels %}
-        <option value="{{ value }}">{{ label }}</option>
+          <option value="{{ value }}">{{ label }}</option>
         {% endfor %}
-        </select>
+    </select>
 
-        as <input type="text" name="name" size="16" />.zip
+  as <input type="text" name="name" id="file-name" />.zip for all items listed.
 
+  <input type="submit" value="Download" class="btn btn-primary" /> 
 </form>
-</div>
 
