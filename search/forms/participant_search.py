@@ -51,10 +51,10 @@ SES_CHOICES = (('any', 'Any'), ('Professional', 'Professional'), ('Non-Professio
 
 class ParticipantSearchForm (forms.Form):
 
-    gender = forms.ChoiceField (label="Gender", choices=GENDER_CHOICES)
-    ses = forms.ChoiceField (label='Socio Economic Status', choices = SES_CHOICES)
-    highest_qual = forms.ChoiceField (label='Highest Qualification', choices=EDUCATION_LEVELS)
-    prof_cat = forms.ChoiceField (label='Professional Category', choices=PROFESSIONAL_CATEGORIES)
+    gender = forms.ChoiceField (label = "Gender", choices = GENDER_CHOICES)
+    ses = forms.ChoiceField (label = 'Socio Economic Status', choices = SES_CHOICES)
+    highest_qual = forms.ChoiceField (label = 'Highest Qualification', choices = EDUCATION_LEVELS)
+    prof_cat = forms.ChoiceField (label = 'Professional Category', choices = PROFESSIONAL_CATEGORIES)
 
     def url (self):
         return "/search/results/participants"
@@ -68,4 +68,4 @@ class ParticipantSearchFilterForm (ParticipantSearchForm):
         label = "Participants")
 
     def url (self):
-        return "/search/results/items"
+        return "/search/results/components"
