@@ -52,6 +52,14 @@ class ComponentManager (SparqlManager):
         return self.generate_component_list(qpart)
 
 
+    def filter_by_participant (self, participant_id):
+        qpart = """
+            BIND ("%s" AS ?pid)
+            """ % (participant_id)
+
+        return self.generate_component_list(qpart)
+
+
     def generate_component_list(self, qpart):
         
         
