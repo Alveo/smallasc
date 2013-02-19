@@ -105,7 +105,6 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware'
 )
 
-<<<<<<< mine
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'participantportal.modelspackage.auth.CustomAuthBackend',
@@ -114,9 +113,8 @@ AUTHENTICATION_BACKENDS = (
 AUTH_PROFILE_MODULE = 'participantportal.UserProfile'
 
 ROOT_URLCONF = 'smallasc.urls'
-=======
-ROOT_URLCONF = 'data.urls'
->>>>>>> theirs
+# I am confused by this?
+#ROOT_URLCONF = 'data.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'wsgi.application'
