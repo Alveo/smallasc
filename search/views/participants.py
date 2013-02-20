@@ -8,10 +8,9 @@ from search.forms import ParticipantSearchForm, ParticipantSearchFilterForm
 def search (request):
 
     search_form = ParticipantSearchForm(request.GET)
-
+    
     if search_form.is_valid():
-        predicates = search_form.generate_predicates()
-        participants = Participant.objects.filter(predicates)
+        participants = Participant.objects.filter(search_form.generate_predicates())
         participant_form = ParticipantSearchFilterForm(participants, request.GET)
         return render (request, 'search/index.html', { 'form': participant_form })
     else:
