@@ -10,11 +10,11 @@
 
 {% block content %}
 
-{% if init_form %}
+{% if form %}
 <fieldset>
-  <form action="{{ init_form.url }}" method="GET" class="form">
+  <form action="{{ form.post_url }}" method="GET" class="form">
     <section>
-        {{ init_form.as_p }}
+        {{ form.as_p }}
     </section>
     <input type="submit" value="Search" class="btn btn-primary"/>
   </form>

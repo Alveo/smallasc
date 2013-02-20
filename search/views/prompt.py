@@ -7,7 +7,7 @@ from search.forms import PromptSearchForm, ParticipantSearchForm, ParticipantSea
 
 @login_required
 @permission_required('auth.can_view_prompt_search')
-def prompt_search (request):
+def search (request):
     
     form = PromptSearchForm (request.GET)
     if form.is_valid ():
@@ -27,49 +27,3 @@ def prompt_search (request):
             'item_ids' : item_ids })
     else:
         return render(request, 'search/index.html', {'prompt_form': form})
-
-
-@login_required
-@permission_required('auth.can_view_participant_search') 
-def participant_search(request):
-
-    form = ParticipantSearchFilterForm (request.GET)
-    predicates = {}
-
-    # TODO: Nicer way to write this?
-    if not form.data['gender'] == 'any': 
-        predicates["foaf:gender"] = form.data['gender']
-    if not form.data['ses'] == 'any': 
-        predicates["austalk:ses"] = form.data['ses']
-    if not form.data['highest_qual'] == 'any': 
-        predicates["austalk:education_level"] = form.data['highest_qual']
-    if not form.data['prof_cat'] == 'any': 
-        predicates["austalk:professional_category"] = form.data['prof_cat']
-
-    form.fields["participants_field"].choices = \
-        [(part.friendly_id (), part) for part in Participant.objects.filter (predicates)]
-
-    return render (request, 'search/index.html', { 'init_form': form })
-
-
-@login_required
-@permission_required('auth.can_view_item_search') 
-def item_search(request):
-
-    form = ParticipantSearchFilterForm (request.GET)
-    predicates = {}
-
-    # TODO: Nicer way to write this?
-    if not form.data['gender'] == 'any': 
-        predicates["foaf:gender"] = form.data['gender']
-    if not form.data['ses'] == 'any': 
-        predicates["austalk:ses"] = form.data['ses']
-    if not form.data['highest_qual'] == 'any': 
-        predicates["austalk:education_level"] = form.data['highest_qual']
-    if not form.data['prof_cat'] == 'any': 
-        predicates["austalk:professional_category"] = form.data['prof_cat']
-
-    form.fields["participants_field"].choices = \
-        [(part.friendly_id (), part) for part in Participant.objects.filter (predicates)]
-
-    return render (request, 'search/items.html', { 'init_form': form })
