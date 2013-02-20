@@ -1,9 +1,6 @@
 from django import forms
 from django.forms.widgets import CheckboxSelectMultiple
-
-# Models in use
-from browse.modelspackage import Site
-from browse.modelspackage import Protocol
+from browse.modelspackage.participants import Participant
 
 EDUCATION_LEVELS = (('any', 'Any'),
               ('primary to junior high', 'Primary School to Junior High School'),
@@ -27,8 +24,7 @@ ENROLLMENT_TYPES = (('any', 'Any'),
               ('parttime', 'Part Time'),
             )
 
-PROFESSIONAL_CATEGORIES = (
-                           ('any', 'Any'),
+PROFESSIONAL_CATEGORIES = (('any', 'Any'),
               ("manager and admin", "Managers and Administrators (e.g. school principal, judge, farm manager)"),
               ("professional", "Professionals (e.g. doctors, engineer, architect, scientist, teacher)"),
               ("assoc professional", "Associate professionals (e.g. police officer, nurse, ambulance driver)"),
@@ -47,25 +43,37 @@ CULTURAL_HERITAGES = (('any', 'Any'),
               ("Aboriginal Australian", "Aboriginal Australian"),
               ("Other", "Other"),
             )
+
 GENDER_CHOICES = (('any', 'Any'), ('male', 'Male'), ('female', 'Female'))
+
 SES_CHOICES = (('any', 'Any'), ('Professional', 'Professional'), ('Non-Professional', 'Non-Professional')) 
 
 
 class ParticipantSearchForm (forms.Form):
-    """ Form to find participants via demographic data"""
 
-    gender = forms.ChoiceField(label="Gender", 
-                               choices=GENDER_CHOICES
-                               )
-    ses = forms.ChoiceField(label='Socio Economic Status', 
-                            choices = SES_CHOICES)
+    gender = forms.ChoiceField (label = "Gender", choices = GENDER_CHOICES)
+    ses = forms.ChoiceField (label = 'Socio Economic Status', choices = SES_CHOICES)
+    highest_qual = forms.ChoiceField (label = 'Highest Qualification', choices = EDUCATION_LEVELS)
+    prof_cat = forms.ChoiceField (label = 'Professional Category', choices = PROFESSIONAL_CATEGORIES)
+
+    def url (self):
+        return "/search/results/participants"
+
+
+class ParticipantSearchFilterForm (ParticipantSearchForm):
     
-    highest_qual = forms.ChoiceField(label='Highest Qualification',
-                                     choices=EDUCATION_LEVELS)
-    
-    prof_cat = forms.ChoiceField(label='Professional Category',
-                                 choices=PROFESSIONAL_CATEGORIES)
-    
-    #first_language = forms.CharField(label='First Language')
-    
-    
+    participants_field = forms.MultipleChoiceField (
+        widget = forms.CheckboxSelectMultiple,
+        error_messages = { 'required': 'Please select from the following list of participants'},
+        label = "Participants")
+
+    def url (self):
+        return "/search/results/participants/components"
+
+
+class ParticipantComponentSearchForm (ParticipantSearchFilterForm):
+
+    components_field = forms.MultipleChoiceField (
+        widget = forms.CheckboxSelectMultiple,
+        error_messages = { 'required': 'Please select from the following list of components'},
+        label = "Components")

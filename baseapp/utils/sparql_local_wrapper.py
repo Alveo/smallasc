@@ -94,6 +94,7 @@ class SparqlManager(models.Manager):
                         PREFIX dbpedia:<http://dbpedia.org/ontology/>
                         PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
                         PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+                        PREFIX ns1:<http://purl.org/dc/terms/>
                         %s"""
         return namespaces % query
 
@@ -107,8 +108,10 @@ class SparqlManager(models.Manager):
         definitions to the start of the query. Return
         a Python dictionary that reflects the JSON returned
         from the SPARQL endpoint"""
+        
         self.sparql.setQuery(self.canonicalise_query(query))
         return self.sparql.query().convert()
+
 
 
 class SparqlModel(models.Model):
@@ -135,6 +138,7 @@ class SparqlModel(models.Model):
                         PREFIX dbpedia:<http://dbpedia.org/ontology/>
                         PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
                         PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+                        PREFIX ns1:<http://purl.org/dc/terms/>
                         %s"""
         return namespaces % query
 
@@ -172,7 +176,7 @@ class SparqlModel(models.Model):
         
         
         qq = """
-            select distinct ?prop ?value
+            select ?prop ?value
             where {
                 <%s> ?prop ?value .
         }""" % self.identifier

@@ -6,7 +6,6 @@ class ItemManager (SparqlManager):
     
     def generate_list(self, qpart):
         
-        
         qq = """
             select ?item ?id ?prompt ?basename ?sitelabel ?media ?spkrname ?sessid ?compid
             where {
@@ -53,7 +52,6 @@ class ItemManager (SparqlManager):
         return results
     
     
-    
     def filter_by_component (self, participant_id, session_id, component_id):
         """ Method returns all the items filtered by the participant/session/component. """
         
@@ -65,6 +63,7 @@ class ItemManager (SparqlManager):
       
         return self.generate_list(qq)
    
+
     def get (self, participant_id, basename):
         """ Return the item for this participant with this basename. """
         
@@ -78,7 +77,13 @@ class ItemManager (SparqlManager):
         else:
             return None
 
-    def filter_by_prompt(self, prompt, components, wholeword=False):
+
+    def filter_by_participant (self, participant_id):
+        qq = """BIND (<http://id.austalk.edu.au/participant/%s> as ?spkrid)""" % (participant_id)      
+        return self.generate_list (qq)
+
+
+    def filter_by_prompt (self, prompt, components, wholeword=False):
         """Search through items in components, returning all
         those that contain the text in prompt"""
         
@@ -99,8 +104,6 @@ class ItemManager (SparqlManager):
             items = [i for i in items if i.componentId in components]
         
         return items
-        
-        
         
  
 class Item (SparqlModel):
@@ -123,14 +126,13 @@ class Item (SparqlModel):
     # a custom manager
     objects = ItemManager ()     
         
+
     def get_absolute_url(self):
         """Return a canonical URL for this item"""
                 
-        return "/browse/%s/%s/%s/%s/%s" % (self.site, self.participantId, self.sessionId, self.componentId, self.basename)    
+        return "/browse/%s/%s/%s/%s/%s" % (self.site, 
+            self.participantId, self.sessionId, self.componentId, self.basename)    
 
-    
-        
-        
-        
+          
     class Meta:
         app_label= 'search'
