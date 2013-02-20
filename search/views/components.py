@@ -1,31 +1,34 @@
 from django.contrib.auth.decorators import login_required, permission_required
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render
 from django.template import RequestContext
 from browse.modelspackage import Component, Participant
-from search.forms import ParticipantComponentSearchForm
+from search.forms import ParticipantSearchForm, ParticipantSearchFilterForm, ParticipantComponentSearchForm
 
 
 @login_required
 @permission_required('auth.can_view_item_search') 
-def search (request):
+def search(request):
 
-    form = ParticipantComponentSearchForm (request.GET)
-    predicates = {}
-    
-    # TODO: Nicer way to write this?
-    if not form.data['gender'] == 'any': 
-        predicates["foaf:gender"] = form.data['gender']
-    if not form.data['ses'] == 'any': 
-        predicates["austalk:ses"] = form.data['ses']
-    if not form.data['highest_qual'] == 'any': 
-        predicates["austalk:education_level"] = form.data['highest_qual']
-    if not form.data['prof_cat'] == 'any': 
-        predicates["austalk:professional_category"] = form.data['prof_cat']
+    participant_form = ParticipantSearchFilterForm(request.GET)
+    component_form = ParticipantComponentSearchForm(request.GET)
 
-    form.fields["participants_field"].choices = \
-        [(part.friendly_id (), part) for part in Participant.objects.filter (predicates)]
+    print "Form statuses %s, %s" % (participant_form.is_valid(), component_form.is_valid())
 
-    # Retrieve the components for each participant
-
-
-    return render (request, 'search/index.html', { 'form': form })
+    # If the component form is invalid and the participant form is
+    # valid then this means we can search for the component list
+    if not component_form.is_valid():
+        search_form = ParticipantSearchForm(request.GET)
+        predicates = search_form.generate_predicates()
+        participant_form.fields["participants_field"].choices = \
+            [(part.friendly_id (), part) for part in Participant.objects.filter (predicates)]
+        # If the participant form is valid then we have all the data we need
+        # so we can render the component form
+        if participant_form.is_valid():
+            print participant_form.cleaned_data["participants_field"]
+            return render (request, 'search/index.html', { 'form': component_form })
+        else:
+            print participant_form.errors
+    else:
+        print component_form.cleaned_data
+        # components = Component.objects.filter_by_participant ("")
+        return render (request, 'search/index.html', { 'form': form })
