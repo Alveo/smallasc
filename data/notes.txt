@@ -1,0 +1,38 @@
+Celery Notes (Debian/Ubuntu):
+
+----------------------------------------------------------------------------------------------------------
+Installation/dependencies:
+
+# easy_install django-celery
+# apt-get install rabbitmq-server    # for rabbitmq as a message queue
+
+----------------------------------------------------------------------------------------------------------
+- Development/testing
+$ python manage.py runserver
+$ python manage.py celery worker --loglevel=info
+$ python manage.py celery beat --loglevel=info
+
+----------------------------------------------------------------------------------------------------------
+- Production (http://docs.celeryproject.org/en/latest/tutorials/daemonizing.html)
+# curl "https://raw.github.com/celery/celery/3.0/extra/generic-init.d/celerybeat" > /etc/init.d/celerybeat
+# curl "https://raw.github.com/celery/celery/3.0/extra/generic-init.d/celeryd" > /etc/init.d/celeryd
+#
+# cp ../etc/default/celeryd ../etc/default/celerybeat /etc/default
+#
+# mkdir -p /var/log/celery
+# chown -R daemon.daemon /var/log/celery/
+# mkdir -p /var/run/celery
+# chown -R daemon.daemon /var/run/celery/
+#
+# /etc/init.d/celeryd start
+# /etc/init.d/celerybeat start
+#
+# update-rc.d celeryd defaults
+# update-rc.d celerybeat defaults
+
+!Don't forget to make the tmp directory for zip files as well as sqlite db and its parent directory 
+writable by the celeryd and celerybeat processes!
+
+# chgrp daemon /var/run/smallasc/tmp /var/run/smallasc/tmp/* /home/jumbo/work/macquarie/smallasc /home/jumbo/work/macquarie/smallasc/smallascdb
+# chmod g+w /var/run/smallasc/tmp /var/run/smallasc/tmp/* /home/jumbo/work/macquarie/smallasc /home/jumbo/work/macquarie/smallasc/smallascdb
+

@@ -11,7 +11,6 @@ def index (request):
     prompt_form = PromptSearchForm ()
     part_form = ParticipantSearchForm()
     
-    return render (request, 'search/index.html', {'prompt_form': prompt_form,
-                                                  'participant_form': part_form})
+    return render (request, 'search/index.html', {'prompt_form': prompt_form, 'form': part_form})
 
     

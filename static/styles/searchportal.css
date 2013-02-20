@@ -37,3 +37,7 @@ section ul {
   margin-top: 10px;
   display: block;
 }
+
+#id_prof_cat {
+  width: 500px;
+}

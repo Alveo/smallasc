@@ -2,7 +2,6 @@ from django.utils import unittest
 from browse.modelspackage import *
 
 # Import SPARQL modules and related information
-from browse.settings import *
 from SPARQLWrapper import SPARQLWrapper, JSON
 
 
@@ -32,7 +31,6 @@ class SparqlTests (unittest.TestCase):
            
     
 class SiteTests (unittest.TestCase):
-
 
     def test_retrieveallsites (self):
         results = Site.objects.all ()
@@ -107,12 +105,9 @@ class SessionTests (unittest.TestCase):
 
 class ParticipantTests (unittest.TestCase):
 
-
     def test_retrieveparticipantsforexistingsite (self):
         sites = Site.objects.all ()
         parts = Participant.objects.all (sites[0])
-
-        print parts[0]
 
         self.assertTrue (len (parts) > 0)
         self.assertTrue (isinstance (parts[0], Participant)) 
@@ -182,16 +177,46 @@ class ParticipantTests (unittest.TestCase):
         self.assertEqual(props['bar'], 'foo')
 
 
-
     def test_retrievemedia (self): 
-        
         items = Item.objects.filter_by_component("1_1093", "2", "sentences")
-
-        # There should be 59 items for sentences
         self.assertEqual (59, len (items))
-        # print items
-        # Now get the media
         media = Media.filter_by_componentitems (components[0], items[0])
 
-        # print components[0].identifier
-        # print items[0].identifier
+
+    def test_filterbygender (self):
+        predicates = {  
+            "foaf:gender": "male", 
+            "austalk:ses": "Professional", 
+            "austalk:education_level": "Bachelor Degree", 
+            "austalk:professional_category": "assoc professional"
+        }
+        male_qual_parts = Participant.objects.filter (predicates)
+
+        self.assertTrue (len (male_qual_parts) > 0)
+
+        predicates = {  
+            "foaf:gender": "male",
+            "austalk:ses": "Professional",
+            "austalk:education_level": "Bachelor Degree"
+        }
+        male_parts = Participant.objects.filter (predicates)
+
+        self.assertTrue (len (male_parts) > 0)
+        self.assertTrue (len (set (male_qual_parts).intersection (set (male_parts))) == len (male_qual_parts))
+
+
+class ComponentTests (unittest.TestCase):
+
+    def test_filterbyparticipant (self):
+        components = Component.objects.filter_by_participant ("2_566")
+        self.assertTrue (len (components) > 0)
+
+        for comp in components:
+            print "%s - %s" % (comp.sessionId, comp.name)
+
+
+class ItemTests (unittest.TestCase):
+
+    def test_filterbyparticipant (self):
+        items = Item.objects.filter_by_participant ("2_566")
+        self.assertTrue (len (items) > 0)

@@ -177,7 +177,9 @@ LOGGING = {
 LOGIN_URL = "/login/"
 
 # SPARQL_ENDPOINT 
-SPARQL_ENDPOINT = "http://115.146.93.47/openrdf-sesame/repositories/bigasc_prod"
+# SPARQL_ENDPOINT = "http://115.146.93.47/openrdf-sesame/repositories/bigasc_prod"
+SPARQL_ENDPOINT = "http://115.146.93.47/openrdf-sesame/repositories/bigasc_native"
+
 # SMALLASCDATA_ENDPOINT
 SMALLASCDATA_ENDPOINT = "http://data.austalk.edu.au/download/"
 
@@ -190,4 +192,3 @@ try:
     from local_settings import *
 except ImportError as e:
     pass
-
