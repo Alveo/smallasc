@@ -142,11 +142,16 @@ class Component (SparqlModel):
         return self.name
 
     def get_absolute_url(self):
-        """Return a canonical URL for this item"""
-                
+        """Return a canonical URL for this item"""                
         return "/browse/%s/%s/%s/%s/" % (self.site, self.participantId, self.sessionId, self.componentId)    
 
-    
+    def session_and_comp_name(self):
+        return "%s-%s" % (self.sessionId, self.name)
+
+    # Two components are considered equal if they have the same name in the
+    # same session
+    def __eq__ (self, other):
+        return self.session_and_comp_name() == other.session_and_comp_name()
 
     class Meta:
         app_label= 'search'

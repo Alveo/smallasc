@@ -49,7 +49,7 @@ GENDER_CHOICES = (('any', 'Any'), ('male', 'Male'), ('female', 'Female'))
 SES_CHOICES = (('any', 'Any'), ('Professional', 'Professional'), ('Non-Professional', 'Non-Professional')) 
 
 
-class ParticipantSearchForm (forms.Form):
+class ParticipantSearchForm(forms.Form):
 
     gender = forms.ChoiceField (label = "Gender", choices = GENDER_CHOICES)
     ses = forms.ChoiceField (label = 'Socio Economic Status', choices = SES_CHOICES)
@@ -70,7 +70,7 @@ class ParticipantSearchForm (forms.Form):
         return "/search/results/participants"
 
 
-class ParticipantSearchFilterForm (ParticipantSearchForm):
+class ParticipantSearchFilterForm(ParticipantSearchForm):
     
     participants_field = forms.MultipleChoiceField (
             widget = forms.CheckboxSelectMultiple,
@@ -86,9 +86,14 @@ class ParticipantSearchFilterForm (ParticipantSearchForm):
         return "/search/results/participants/components"
 
 
-class ParticipantComponentSearchForm (ParticipantSearchFilterForm):
+class ParticipantComponentSearchForm(ParticipantSearchFilterForm):
 
     components_field = forms.MultipleChoiceField (
         widget = forms.CheckboxSelectMultiple,
         error_messages = { 'required': 'Please select from the following list of components'},
         label = "Components")
+
+    def __init__(self, participants, components, *args, **kwargs):
+        super(ParticipantComponentSearchForm, self).__init__(participants, *args, **kwargs)
+        if not components is None:
+            self.fields["components_field"].choices = [(comp.componentId, "Session %s - Component %s" % (comp.sessionId, comp)) for comp in components]
