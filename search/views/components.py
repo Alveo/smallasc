@@ -9,7 +9,6 @@ from search.forms import ParticipantSearchForm, ParticipantSearchFilterForm, Par
 @permission_required('auth.can_view_item_search') 
 def search(request):
 
-    participant_form = ParticipantSearchFilterForm(request.GET)
     component_form = ParticipantComponentSearchForm(request.GET)
 
     print "Form statuses %s, %s" % (participant_form.is_valid(), component_form.is_valid())
@@ -19,8 +18,8 @@ def search(request):
     if not component_form.is_valid():
         search_form = ParticipantSearchForm(request.GET)
         predicates = search_form.generate_predicates()
-        participant_form.fields["participants_field"].choices = \
-            [(part.friendly_id (), part) for part in Participant.objects.filter (predicates)]
+        participant_form = ParticipantSearchFilterForm(Participant.objects.filter(predicates), request.GET)
+
         # If the participant form is valid then we have all the data we need
         # so we can render the component form
         if participant_form.is_valid():
