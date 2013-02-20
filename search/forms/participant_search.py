@@ -63,8 +63,7 @@ class ParticipantSearchForm (forms.Form):
             if not self.cleaned_data['ses'] == 'any': predicates["austalk:ses"] = self.cleaned_data['ses']
             if not self.cleaned_data['highest_qual'] == 'any': predicates["austalk:education_level"] = self.cleaned_data['highest_qual']
             if not self.cleaned_data['prof_cat'] == 'any': predicates["austalk:professional_category"] = self.cleaned_data['prof_cat']
-        else:
-            print "ParticipantSearchForm Errors:%s" % (self.errors)
+
         return predicates
 
     def url (self):
@@ -73,13 +72,15 @@ class ParticipantSearchForm (forms.Form):
 
 class ParticipantSearchFilterForm (ParticipantSearchForm):
     
-    def __init__(self, participants, *args, **kwargs):
-        super(ParticipantSearchFilterForm, self).__init__(*args, **kwargs)
-        self.fields["participants_field"] = forms.MultipleChoiceField (
-            choices = participants,
+    participants_field = forms.MultipleChoiceField (
             widget = forms.CheckboxSelectMultiple,
             error_messages = { 'required': 'Please select from the following list of participants'},
             label = "Participants")
+
+    def __init__(self, participants, *args, **kwargs):
+        super(ParticipantSearchFilterForm, self).__init__(*args, **kwargs)
+        if not participants is None:
+            self.fields["participants_field"].choices = [(part.friendly_id (), part) for part in participants]
 
     def url (self):
         return "/search/results/participants/components"
