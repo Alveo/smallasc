@@ -68,4 +68,12 @@ class ParticipantSearchFilterForm (ParticipantSearchForm):
         label = "Participants")
 
     def url (self):
-        return "/search/results/components"
+        return "/search/results/participants/components"
+
+
+class ParticipantComponentSearchForm (ParticipantSearchFilterForm):
+
+    components_field = forms.MultipleChoiceField (
+        widget = forms.CheckboxSelectMultiple,
+        error_messages = { 'required': 'Please select from the following list of components'},
+        label = "Components")
