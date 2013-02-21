@@ -28,7 +28,7 @@ def search(request):
             print "Components %s" % (component_form.cleaned_data["components_field"])
             print "Can perform download now"
 
-        return render (request, 'search/index.html', { 'form': component_form })
+        return render(request, 'search/index.html', { 'form': component_form })
     else:
-        # We should not reach this and if so render a 500 for the moment
-        return HttpResponse(status=500)
+        # If we reach here then the user has adjusted the initial search criteria
+        return render(request, 'search/index.html', {'form': participant_form})
