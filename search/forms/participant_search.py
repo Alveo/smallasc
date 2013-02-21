@@ -96,4 +96,4 @@ class ParticipantComponentSearchForm(ParticipantSearchFilterForm):
     def __init__(self, participants, components, *args, **kwargs):
         super(ParticipantComponentSearchForm, self).__init__(participants, *args, **kwargs)
         if not components is None:
-            self.fields["components_field"].choices = [(comp.componentId, "Session %s - Component %s" % (comp.sessionId, comp)) for comp in components]
+            self.fields["components_field"].choices = [(comp.identifier, "Session %s - Component %s" % (comp.sessionId, comp)) for comp in components]

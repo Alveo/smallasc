@@ -5,5 +5,5 @@ register = template.Library()
 
 @register.simple_tag
 def smallascdataEndpoint():
-            return settings.SMALLASCDATA_ENDPOINT
+    return settings.SMALLASCDATA_ENDPOINT
 
