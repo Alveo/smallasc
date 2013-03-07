@@ -11,9 +11,6 @@
   <link rel="stylesheet" href="{{ STATIC_URL }}styles/portal.css" media="screen" />
   <link rel="stylesheet" href="{{ STATIC_URL }}styles/searchportal.css" media="screen" />
   
-  <!-- Javascript -->
-  <!--<script src="/static/js/bootstrap.js"></script>-->
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
   {% block head %}<!-- extra header elements -->{% endblock %}
 </head>
 <body>
@@ -37,6 +34,10 @@
       </div>
     </div>
   </div>
+
+<!-- Placed at end to help improve page load times -->
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap.js"></script>
 
 </body>
 </html>

@@ -79,10 +79,7 @@ class ParticipantManager (SparqlManager):
 
 
     def filter (self, predicates = {}):
-        """ 
-            This method filters participants using a hash of predicates. Perhaps we
-            should push this method up the class heirarchy?
-        """
+
         qq = """
             select  distinct ?part
             where {
@@ -110,23 +107,20 @@ class Participant (SparqlModel):
     # Associations
     site = None
 
-    # Setter
+
     def set_site (self, site):
         self.site = site
 
   
     def get_absolute_url(self):
-        """Return a canonical URL for this item"""    
         return "/browse/%s/%s" % (self.site.label, self.friendly_id ())
 
 
     def friendly_id (self):
-        """ This function converts the participants fully qualified id into something shorter. """
         return self.properties()['id'][0]
 
 
     def __unicode__ (self):
-        """ Simple name representation for sites """
         return self.properties()['id'][0] + " (" + self.properties()['name'][0] + ")"
     
 
