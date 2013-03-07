@@ -9,27 +9,24 @@ from browse.modelspackage.sessions import Session
 from browse.modelspackage.residence_history import ResidenceHistory 
 from browse.modelspackage.language_usage import LanguageUsage
 
+
 @login_required
 @permission_required('auth.can_view_participants')
-def index (request, site_id):
-    """ The sites index view displays all the available participants for this site current in the RDF store. 
-        HTTP Verb /GET: Url /browse/sites/:id/participants/ """
+def index(request, site_id):
 
-    site = Site.objects.get (site_id)
+    site = Site.objects.get(site_id)
     if site is None:
-        raise Http404 ("Requested site not found")
-
-    # If we have a site, then let's get it's participants, just those with some data uploaded
-    participants = Participant.objects.with_data (site)
+        participants = Participant.objects.filter()
+    else:
+        participants = Participant.objects.with_data(site)
+    
     part_ids = [ part.identifier for part in participants ]
-
-    return render (request, 'browse/participants/index.html', 
-        {
-            'participants': participants,
-            'site': site,
-            'site_id': site_id,
-            'item_ids' : part_ids,
-        })
+    return render (request, 'browse/participants/index.html', {
+        'participants': participants,
+        'site': site,
+        'site_id': site_id,
+        'item_ids' : part_ids,
+    })
 
 
 @login_required

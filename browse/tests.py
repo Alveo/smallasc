@@ -171,9 +171,7 @@ class ParticipantTests (unittest.TestCase):
         
         self.assertTrue (len(items) > 0)
         item = items[0]
-        # print "IDENT: ", item.identifier
         props = item.properties()
-        # print "PROPS: ", props
         self.assertEqual(props['bar'], 'foo')
 
 
@@ -183,6 +181,16 @@ class ParticipantTests (unittest.TestCase):
         media = Media.filter_by_componentitems (components[0], items[0])
 
 
+    def test_filterwithnopredicates(self):
+
+        participants = Participant.objects.filter()
+        self.assertTrue(len(participants) > 0)
+        
+        #for part in participants:
+        #    print part.properties()
+        #    print part.friendly_id()
+
+
     def test_filterbygender (self):
         predicates = {  
             "foaf:gender": "male", 
@@ -190,8 +198,9 @@ class ParticipantTests (unittest.TestCase):
             "austalk:education_level": "Bachelor Degree", 
             "austalk:professional_category": "assoc professional"
         }
-        male_qual_parts = Participant.objects.filter (predicates)
 
+        male_qual_parts = Participant.objects.filter (predicates)
+        
         self.assertTrue (len (male_qual_parts) > 0)
 
         predicates = {  
