@@ -20,6 +20,9 @@ urlpatterns = patterns('',
     url (r'^browse/', include ('browse.urls')),
 	url (r'^search/', include('search.urls')), 
 
+    # pseudo SSO authentication module
+	url (r'^sso/', include('sso.urls')), 
+
     # sample stats pages
 	url(r'^stats/query/$', TemplateView.as_view(template_name='sgvizler.html')),
 	url(r'^stats/$', TemplateView.as_view(template_name='p_report.html')),

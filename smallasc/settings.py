@@ -142,6 +142,7 @@ INSTALLED_APPS = (
     'browse',
     'search',
     'participantportal',
+    'sso',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -175,6 +176,7 @@ LOGGING = {
 
 # Custom setting for the login url
 LOGIN_URL = "/login/"
+LOGIN_REDIRECT_URL = "/"
 
 # SPARQL_ENDPOINT 
 # SPARQL_ENDPOINT = "http://115.146.93.47/openrdf-sesame/repositories/bigasc_prod"
