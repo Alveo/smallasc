@@ -45,9 +45,8 @@ CULTURAL_HERITAGES = (('any', 'Any'),
             )
 
 GENDER_CHOICES = (('any', 'Any'), ('male', 'Male'), ('female', 'Female'))
-
-SES_CHOICES = (('any', 'Any'), ('Professional', 'Professional'), ('Non-Professional', 'Non-Professional')) 
-
+SES_CHOICES = (('any', 'Any'), ('Professional', 'Professional'), ('Non-Professional', 'Non-Professional'))
+EXTRA_CHOICES = [('all', 'All')]
 
 class ParticipantSearchForm(forms.Form):
 
@@ -73,14 +72,25 @@ class ParticipantSearchForm(forms.Form):
 class ParticipantSearchFilterForm(ParticipantSearchForm):
     
     participants_field = forms.MultipleChoiceField (
-            widget = forms.CheckboxSelectMultiple,
-            error_messages = { 'required': 'Please select from the following list of participants'},
-            label = "Participants")
+        widget = forms.CheckboxSelectMultiple,
+        error_messages = { 'required': 'Please select from the following list of participants'},
+        label = "Participants")
+
 
     def __init__(self, participants, *args, **kwargs):
         super(ParticipantSearchFilterForm, self).__init__(*args, **kwargs)
+        self.participants = participants
         if not participants is None:
-            self.fields["participants_field"].choices = [(part.friendly_id (), part) for part in participants]
+            self.fields["participants_field"].choices = EXTRA_CHOICES
+            self.fields["participants_field"].choices.extend([(part.friendly_id (), part) for part in participants])
+
+
+    def return_selected_participants(self):
+        if u'all' in self.cleaned_data["participants_field"]:
+            return [part.friendly_id() for part in self.participants]
+        else:
+            return self.cleaned_data["participants_field"]
+
 
     def url (self):
         return "/search/results/participants/components"
@@ -92,6 +102,7 @@ class ParticipantComponentSearchForm(ParticipantSearchFilterForm):
         widget = forms.CheckboxSelectMultiple,
         error_messages = { 'required': 'Please select from the following list of components'},
         label = "Components")
+
 
     def __init__(self, participants, components, *args, **kwargs):
         super(ParticipantComponentSearchForm, self).__init__(participants, *args, **kwargs)

@@ -18,8 +18,8 @@ def search (request):
     # so we can render the component form
     if participant_form.is_valid ():
         components = []
-        for part in participant_form.cleaned_data["participants_field"]:
-            components = components + Component.objects.filter_by_participant(part)
+        for part in participant_form.return_selected_participants():
+            components += Component.objects.filter_by_participant(part)
 
         component_form = ParticipantComponentSearchForm (
             participants,
@@ -30,7 +30,7 @@ def search (request):
             items = []
             for comp in components:
                 if comp.identifier in component_form.cleaned_data["components_field"]:
-                    items = items + Item.objects.filter_by_component (comp.participantId, comp.sessionId, comp.componentId) 
+                    items += Item.objects.filter_by_component (comp.participantId, comp.sessionId, comp.componentId) 
 
             item_ids = [item.identifier for item in items]
             return render (request, 'search/results.html', { 'items': items, 'item_ids': item_ids })

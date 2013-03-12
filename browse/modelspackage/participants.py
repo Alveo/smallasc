@@ -108,6 +108,11 @@ class Participant (SparqlModel):
     # Associations
     site = None
 
+    def get_name(self):
+        return self.properties()['name'][0]
+
+    # Fields
+    name = property(get_name)
 
     def set_site (self, site):
         self.site = site
