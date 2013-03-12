@@ -32,18 +32,10 @@ def search (request):
                 if comp.identifier in component_form.cleaned_data["components_field"]:
                     items = items + Item.objects.filter_by_component (comp.participantId, comp.sessionId, comp.componentId) 
 
-            item_ids = []
-            for item in items:
-                item_ids.append (item.identifier)
-
-            return render (request, 
-                'search/results.html', { 
-                'items': items, 
-                'item_ids': item_ids })
+            item_ids = [item.identifier for item in items]
+            return render (request, 'search/results.html', { 'items': items, 'item_ids': item_ids })
         else:
-            return render(request, 
-                'search/index.html', { 
-                'form': component_form })
+            return render(request, 'search/index.html', { 'form': component_form })
     else:
         # If we reach here then the user has adjusted the initial search criteria and the
         # participant form is no longer valid so we need to re-render it

@@ -8,6 +8,7 @@ from browse.modelspackage.participants import Participant
 from browse.modelspackage.sessions import Session
 from browse.modelspackage.residence_history import ResidenceHistory 
 from browse.modelspackage.language_usage import LanguageUsage
+from search.forms import ParticipantSearchForm
 
 
 @login_required
@@ -16,7 +17,8 @@ def index(request, site_id):
 
     site = Site.objects.get(site_id)
     if site is None:
-        participants = Participant.objects.filter()
+        search_form = ParticipantSearchForm (request.GET)
+        participants = Participant.objects.filter (search_form.generate_predicates())
     else:
         participants = Participant.objects.with_data(site)
     
