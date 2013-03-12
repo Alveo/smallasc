@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render
 from django.template import RequestContext
+
 from operator import attrgetter
 from browse.modelspackage import Item, Component, Participant
 from search.forms import ParticipantSearchForm, ParticipantSearchFilterForm, ParticipantComponentSearchForm

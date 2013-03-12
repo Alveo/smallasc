@@ -2,14 +2,14 @@ from django import forms
 from django.forms.widgets import CheckboxSelectMultiple
 
 # Models in use
+#from browse.modelspackage import Protocol
 from browse.modelspackage import Site
-from browse.modelspackage import Protocol
 
 def component_choices():
 
-    p = Protocol()
-    
-    return p.components() 
+    #p = Protocol()
+    #return p.components() 
+    return ()
 
 QA_AUDIO_CHOICES = (('any', 'Any'),
                     ('A', 'A'),
