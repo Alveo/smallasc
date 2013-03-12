@@ -13,7 +13,7 @@ urlpatterns = patterns('',
 	url (r'^$', 'baseapp.views.dashboard.index'),
     url (r'^login/$', 'django.contrib.auth.views.login'),
     url (r'^logout/$', 'baseapp.views.security.logout_page'),
-    url (r'^register/$', 'baseapp.views.registration.register_page'),
+    #url (r'^register/$', 'baseapp.views.registration.register_page'),
 
     # The search module at present handles both browse and
     # search, perhaps the module should be renamed?
