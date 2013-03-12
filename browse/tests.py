@@ -185,10 +185,6 @@ class ParticipantTests (unittest.TestCase):
 
         participants = Participant.objects.filter()
         self.assertTrue(len(participants) > 0)
-        
-        #for part in participants:
-        #    print part.properties()
-        #    print part.friendly_id()
 
 
     def test_filterbygender (self):
