@@ -1,0 +1,20 @@
+{% extends "layout/base.html" %}
+
+{% block title %}
+	Austalk Meta Search | Home
+{% endblock %}
+
+{% block subtitle %}
+  Dashboard
+{% endblock %}
+
+{% block content %}
+{% load flatpages %}
+{% get_flatpages as flatpages %}
+<ul>
+    {% for page in flatpages %}
+        <li><a href="{{ page.url }}">{{ page.title }}</a></li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

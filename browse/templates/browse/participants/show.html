@@ -1,0 +1,54 @@
+{% extends "layout/base.html" %}
+
+{% block title %}
+    Austalk | Browse > Participants
+{% endblock %}
+
+{% block breadcrumbs %}
+  <ul class="breadcrumb">
+    <li><span class="divider">/</span></li>
+    <li><a href="/browse/">All Sites</a></li>
+    <li><span class="divider">/</span></li>
+    <li><a href="/browse/{{ site_id }}/">{{ site.name }}</a></li>
+  </ul>
+{% endblock %}
+
+{% block subtitle %}
+    Speaker {{ participant }}
+{% endblock %}
+
+{% block content %}
+  <section class="pagination">
+    <p>Recorded at <a href="/browse/{{ site_id }}/">{{ site }}</a></p>  
+    <ul>
+       {% for session in sessions %}
+          <li><a href="{{ session.get_absolute_url }}">{{ session.name }}</a></li>
+       {% endfor %}
+    </ul>
+  </section>
+    
+  <section>
+    <h2>Demographic Data</h2>
+    <table class="table table-striped">
+      {% include "browse/participants/common_demographic.html" %}
+      {% include "browse/participants/mothers_info.html" %}
+      {% include "browse/participants/fathers_info.html" %}
+      {% include "browse/participants/other_info.html" %}         
+    </table>
+  </section>
+
+  <section>
+    <h2>All properties</h2>
+    <p>
+      This list shows all properties stored in the database about this 
+      participant.  This is not intended to be shown in the final version, it's just
+      here as a check that we have all and only the data we want in the database.
+    </p>  
+    <table class="table table-striped">
+      {% for key, value in participant.properties.items %}
+        <tr><th>{{key}}</th><td>{{value}}</td></tr>
+      {% endfor %}
+    </table>
+  </section>
+    
+{% endblock %}
