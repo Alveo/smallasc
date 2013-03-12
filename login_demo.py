@@ -12,7 +12,7 @@ def getAuthenticatedOpener(url, username, password):
         import cookielib, urllib2, urllib
         from lxml import etree
 
-        DEBUG = 1
+        DEBUG = 1   # turns httplib into debug mode (0 to disable)
 
         # create a cookie jar, build and install a cookie-enabled opener
         cj = cookielib.CookieJar()
@@ -28,8 +28,9 @@ def getAuthenticatedOpener(url, username, password):
         if len(csrfmiddlewaretokens) == 1:
                 csrfmiddlewaretoken = csrfmiddlewaretokens[0]
         else:
-                # TODO: handle error
-                pass
+                # TODO: error, we haven't found a csrfmiddlewaretoken, fail
+                print "Can't find csrfmiddlewaretoken"
+                return None
 
         # create login POST data
         params = urllib.urlencode(dict(username=username, password=password, csrfmiddlewaretoken=csrfmiddlewaretoken))
@@ -37,10 +38,12 @@ def getAuthenticatedOpener(url, username, password):
         try:
                 r = opener.open(LOGIN_URL, params)
         except urllib2.HTTPError as e:
-                # TODO
+                # TODO: error, something went wrong with our login request
                 print e
+                return None
                 
         if r.geturl() == LOGIN_URL:
+                # we got redirected to the same login page - login must have failed
                 print "login failed"
                 return None
         else:
@@ -52,6 +55,7 @@ if __name__ == "__main__":
         opener = getAuthenticatedOpener(LOGIN_URL, USERNAME, PASSWORD)
 
         if opener is not None:
+                # we have a valid opener, let's visit some protected services :)
                 a = opener.open(AUTH_URL)
                 print a.read()[:500]
 
