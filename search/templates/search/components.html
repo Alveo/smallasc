@@ -7,33 +7,42 @@
 {% block content %}
 {% if form %}
 
-<p>
+<div>
     {% if participant_count > 0 %}
-        Found <strong>{{ participant_count }}</strong> participants.
-        To view <a href="{{ participant_url }}" title="view found participants" target="_blank">click here</a>.
-        To filter participants <a href="{{ participant_filter_url }}" title="filter participants">click here</a>.
+        <p class="lead">
+            Found <strong>{{ participant_count }}</strong> participants.
+            To view participants <a href="{{ participant_url }}" title="view found participants" target="_blank">click here</a>.
+        </p>
+        <p class="lead">
+            To filter these participants <a href="{{ participant_filter_url }}" title="filter participants">click here</a>.
+        </p>
     {% else %}
-        No participants found.
+        <p>No participants found.</p>
     {% endif %}
-</p>
+</div>
 
-<fieldset>
-  <form action="/search/participants/components" method="GET" class="form">
+<form action="/search/participants/components" method="GET" class="form">
     
-    {% include "search/core_fields.html" %}
+    <fieldset>
 
-    <div class="control-group">
-        <label for="id_components_field" class="control-label">Components</label>
-            <div class="controls list-controls">
-                {{ form.components_field }}
-            </div>
-        </label>
-    </div>
+        {% include "search/core_fields.html" %}
 
-    <input type="submit" value="Search" class="btn btn-primary"/>
+        <div class="control-group">
+            <label for="id_components_field" class="control-label">Components</label>
+                <div class="controls list-controls">
+                    {{ form.components_field }}
+                </div>
+            </label>
+        </div>
 
+        <div class="controls list-controls">
+            {{ form.participants_field }}
+        </div>
+
+        <input type="submit" value="Search" class="btn btn-primary"/>
+
+    </fieldset>
   </form>
-</fieldset>
 
 {% endif %}
 {% endblock %}

@@ -13,14 +13,17 @@
     {% endif %}
 </p>
 
-<fieldset>
-  <form action="/search/participants/components" method="GET" class="form">
-    
-    {% include "search/core_fields.html" %}
+<form action="/search/participants/components" method="GET" class="form">
 
-    <input type="submit" value="Search" class="btn btn-primary"/>
-  </form>
-</fieldset>
+	<fieldset>    
+    	
+    	{% include "search/core_fields.html" %}
+
+    	<input type="submit" value="Search" class="btn btn-primary"/>
+
+    </fieldset>
+
+</form>
 
 {% endif %}
 {% endblock %}

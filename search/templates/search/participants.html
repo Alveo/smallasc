@@ -7,23 +7,36 @@
 {% block content %}
 {% if form %}
 
-<fieldset>
-  <form action="/search/participants/components" method="GET" class="form">
+<div>
+    {% if participant_count > 0 %}
+        <p class="lead">
+            Found <strong>{{ participant_count }}</strong> participants.
+            To view participants <a href="{{ participant_url }}" title="view found participants" target="_blank">click here</a>.
+        </p>
+    {% else %}
+        <p>No participants found.</p>
+    {% endif %}
+</div>
+
+<form action="/search/participants/components" method="GET" class="form">
+
+    <fieldset>
     
-    {% include "search/core_fields.html" %}
+        {% include "search/core_fields.html" %}
 
-    <div class="control-group">
-        <label for="id_components_field" class="control-label">Participants</label>
-            <div class="controls list-controls">
-                {{ form.participants_field }}
-            </div>
-        </label>
-    </div>
+        <div class="control-group">
+            <label for="id_components_field" class="control-label">Participants</label>
+                <div class="controls list-controls">
+                    {{ form.participants_field }}
+                </div>
+            </label>
+        </div>
 
-    <input type="submit" value="Search" class="btn btn-primary"/>
+        <input type="submit" value="Search" class="btn btn-primary"/>
 
-  </form>
-</fieldset>
+    </fieldset>
+
+</form>
 
 {% endif %}
 {% endblock %}
