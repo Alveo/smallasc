@@ -37,9 +37,10 @@ def search(request):
     else:
 
         return render(request, 'search/components.html', { 
-            'form': component_form, 
-            'participant_count': len(participants),
-            'participant_url': append_querystring_to_url(request, '/browse/participants')
+            'form':                     component_form, 
+            'participant_count':        len(participants),
+            'participant_url':          append_querystring_to_url(request, '/browse/participants'),
+            'participant_filter_url':   append_querystring_to_url(request, '/search/participants')
         }) # Should use reverse urls instead of hard coded urls
 
 
