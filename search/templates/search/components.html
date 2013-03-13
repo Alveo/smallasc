@@ -10,10 +10,10 @@
 <div>
     {% if participant_count > 0 %}
         <p class="lead">
-            Found <strong>{{ participant_count }}</strong> participants.
-            To view participants <a href="{{ participant_url }}" title="view found participants" target="_blank">click here</a>.
+            Found <strong>{{ participant_count }}</strong> participant(s).
         </p>
         <p class="lead">
+            To view participants <a href="{{ participant_url }}" title="view found participants" target="_blank">click here</a>.
             To filter these participants <a href="{{ participant_filter_url }}" title="filter participants">click here</a>.
         </p>
     {% else %}
@@ -35,7 +35,6 @@
             </label>
         </div>
 
-        <label for="id_participants_field" class="control-label">Participants</label>
         <div class="controls list-controls">
             {{ form.participants_field }}
         </div>

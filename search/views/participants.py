@@ -49,9 +49,8 @@ def filter(request):
 
         if participant_count > 0:
 
-        	form		  = ParticipantSearchFilterForm(participants, request.GET)
-
+        	form = ParticipantSearchFilterForm(participants, request.GET)
     		return render(request, 'search/participants.html', { 'form': form, 'participant_count': participant_count })
 
-
-   	return render(request, 'search/index.html', { 'form': form })
+   	
+    return render(request, 'search/index.html', { 'form': form })
