@@ -41,6 +41,8 @@ def search(request):
 
     else:
 
+        print component_form.fields["participants_field"].choices
+
         return render(request, 'search/components.html', { 
             'form':                     component_form, 
             'participant_count':        len(filtered_participants),
