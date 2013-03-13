@@ -1,37 +1,26 @@
 {% extends "layout/base.html" %}
 
-{% block title %}
-  Austalk Meta Search | Home
-{% endblock %}
+{% block title %}Austalk Meta Search | Home{% endblock %}
 
-{% block subtitle %}
-	Corpus Search
-{% endblock %}
+{% block subtitle %}Corpus Search{% endblock %}
 
 {% block content %}
-
 {% if form %}
+
+<p>
+    {% if participant_count == 0 %}
+        No participants found.
+    {% endif %}
+</p>
+
 <fieldset>
-  <form action="{{ form.url }}" method="GET" class="form">
-    <section>
-        {{ form.as_p }}
-    </section>
-    <section>
-      Number of participants {{ form.participants|length }}
-    </section>
+  <form action="/search/results/participants" method="GET" class="form">
+    
+    {% include "search/core_fields.html" %}
+
     <input type="submit" value="Search" class="btn btn-primary"/>
   </form>
 </fieldset>
-{% endif %}
 
-{% if false %}
-<fieldset>
-  <legend>Select by Prompt Text</legend>
-  <form action="/search/results" method="GET" class="form">
-    {{ prompt_form.as_p }}
-    <input type="submit" value="Search" class="btn btn-primary" />
-  </form>
-</fieldset>
 {% endif %}
-
 {% endblock %}
