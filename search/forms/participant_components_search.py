@@ -7,7 +7,8 @@ from search.forms.choice_options        import *
 class ParticipantComponentSearchForm(ParticipantSearchForm):
 
     participants_field  = forms.MultipleChoiceField(
-        widget          = forms.CheckboxSelectMultiple)
+        widget          = forms.CheckboxSelectMultiple,
+        required        = False)
 
     components_field    = forms.MultipleChoiceField (
         widget          = forms.CheckboxSelectMultiple,
@@ -20,7 +21,8 @@ class ParticipantComponentSearchForm(ParticipantSearchForm):
 
         if not participants is None:         
             self.participants                         = participants
-            self.fields["participants_field"].choices = [(part.friendly_id (), part) for part in participants]
+            self.fields["participants_field"].widget  = forms.MultipleHiddenInput()
+            self.fields["participants_field"].choices = ([(part.friendly_id (), part) for part in participants])
 
 
         if not components is None:
