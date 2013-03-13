@@ -1,20 +1,27 @@
 from django.contrib.auth.decorators import login_required, permission_required
-from django.shortcuts import render, render_to_response
-from browse.modelspackage import Participant
-from search.forms import ParticipantSearchForm, ParticipantSearchFilterForm
+from django.core.urlresolvers       import reverse
+from django.shortcuts               import render, redirect
+
+from browse.modelspackage           import Participant
+from search.forms                   import ParticipantSearchForm
+from search.helpers                 import append_querystring_to_url
+
 
 @login_required
 @permission_required('auth.can_view_participant_search') 
-def search (request):
+def search(request):
 
-    search_form = ParticipantSearchForm(request.GET)
-    
+    search_form       = ParticipantSearchForm(request.GET)
+    participant_count = 0
+
     if search_form.is_valid():
+        
+        participants      = Participant.objects.filter(search_form.generate_predicates())
+        participant_count = len(participants)
 
-        participants = Participant.objects.filter(search_form.generate_predicates())
-        participant_form = ParticipantSearchFilterForm(participants, request.GET)
+        if participant_count > 0:
 
-        return render (request, 'search/index.html', { 'form': participant_form })
-    else:
-    	
-        return render (request, 'search/index.html', { 'form': search_form })
+            redirect_url = append_querystring_to_url(request, reverse('search.views.components.search'))
+            return redirect(redirect_url)
+
+    return render(request, 'search/index.html', { 'form': search_form, 'participant_count': participant_count })

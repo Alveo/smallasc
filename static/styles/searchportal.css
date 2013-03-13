@@ -19,7 +19,7 @@
   margin-right: 5px;
 }
 
-section ul {
+section ul, .list-controls ul {
   margin-left: 0px;
   list-style: none;
 }
