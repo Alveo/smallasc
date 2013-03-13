@@ -51,7 +51,7 @@ def filter(request):
 
         	form		  = ParticipantSearchFilterForm(participants, request.GET)
 
-    		return render(request, 'search/participants.html', { 'form': form })
+    		return render(request, 'search/participants.html', { 'form': form, 'participant_count': participant_count })
 
 
    	return render(request, 'search/index.html', { 'form': form })
