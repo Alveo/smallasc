@@ -1,14 +1,11 @@
 from django import forms
 
-from search.forms.participant_search    import ParticipantSearchForm
+from search.forms                       import ParticipantSearchFilterForm
 from search.forms.choice_options        import *
 
 
-class ParticipantComponentSearchForm(ParticipantSearchForm):
+class ParticipantComponentSearchForm(ParticipantSearchFilterForm):
 
-    participants_field  = forms.MultipleChoiceField(
-        widget          = forms.CheckboxSelectMultiple,
-        required        = False)
 
     components_field    = forms.MultipleChoiceField (
         widget          = forms.CheckboxSelectMultiple,
@@ -17,13 +14,11 @@ class ParticipantComponentSearchForm(ParticipantSearchForm):
 
 
     def __init__(self, participants, components, *args, **kwargs):
-        super(ParticipantComponentSearchForm, self).__init__(*args, **kwargs)
 
-        if not participants is None:         
-            self.participants                         = participants
-            self.fields["participants_field"].widget  = forms.MultipleHiddenInput()
-            self.fields["participants_field"].choices = ([(part.friendly_id (), part) for part in participants])
+        super(ParticipantComponentSearchForm, self).__init__(participants, *args, **kwargs)
 
+        self.fields["participants_field"].required  = False
+        self.fields["participants_field"].widget    = forms.MultipleHiddenInput()
 
         if not components is None:
             self.components                         = components

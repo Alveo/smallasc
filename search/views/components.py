@@ -19,7 +19,6 @@ def search(request):
     for participant in filtered_participants:
         components += Component.objects.filter_by_participant(participant.friendly_id())
 
-
     components_sorted   = sorted(set(components), key = lambda comp: comp.sessionId) # The use of set ensures items are unique
     component_form      = ParticipantComponentSearchForm(filtered_participants, components_sorted, request.GET)
 
@@ -29,8 +28,6 @@ def search(request):
 
         for comp in component_form.return_selected_components():
             for participant in filtered_participants:
-            
-                print "Component %s with participant identifier %s" % (comp.identifier, participant.friendly_id())
 
                 items += Item.objects.filter_by_component(participant.friendly_id(), comp.sessionId, comp.componentId) 
 
@@ -40,8 +37,6 @@ def search(request):
         })
 
     else:
-
-        print component_form.fields["participants_field"].choices
 
         return render(request, 'search/components.html', { 
             'form':                     component_form, 
@@ -56,11 +51,7 @@ def user_filtered_participants(request, all_participants):
     
     participant_form    = ParticipantSearchFilterForm(all_participants, request.GET)
 
-    print request.GET
-
     if participant_form.is_valid():
-
-        print "User filtered participants %s" % (participant_form.return_selected_participants())
 
         return participant_form.return_selected_participants()
 
