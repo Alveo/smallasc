@@ -11,14 +11,14 @@
     {% if participant_count > 0 %}
         Found <strong>{{ participant_count }}</strong> participants.
         To view <a href="{{ participant_url }}" title="view found participants" target="_blank">click here</a>.
-        To filter participants <a href="#" title="view found participants" target="_blank">click here</a>.
+        To filter participants <a href="{{ participant_filter_url }}" title="filter participants">click here</a>.
     {% else %}
         No participants found.
     {% endif %}
 </p>
 
 <fieldset>
-  <form action="/search/results/participants/components" method="GET" class="form">
+  <form action="/search/participants/components" method="GET" class="form">
     
     {% include "search/core_fields.html" %}
 
@@ -34,5 +34,6 @@
 
   </form>
 </fieldset>
+
 {% endif %}
 {% endblock %}

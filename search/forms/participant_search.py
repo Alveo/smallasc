@@ -33,9 +33,9 @@ class ParticipantSearchForm(forms.Form):
 class ParticipantSearchFilterForm(ParticipantSearchForm):
     
     participants_field = forms.MultipleChoiceField (
-        widget = forms.CheckboxSelectMultiple,
-        error_messages = { 'required': 'Please select from the following list of participants'},
-        label = "Participants")
+        widget          = forms.CheckboxSelectMultiple,
+        error_messages  = { 'required': 'Please select from the following list of participants'},
+        label           = "Participants")
 
 
     def __init__(self, participants, *args, **kwargs):
@@ -44,13 +44,23 @@ class ParticipantSearchFilterForm(ParticipantSearchForm):
         self.participants = participants
 
         if not participants is None:
-            self.fields["participants_field"].choices = EXTRA_CHOICES
-            self.fields["participants_field"].choices.extend([(part.friendly_id (), part) for part in participants])
+            # self.fields["participants_field"].choices = EXTRA_CHOICES
+            # self.fields["participants_field"].choices.extend([(part.friendly_id (), part) for part in participants])
+            self.fields["participants_field"].choices = [(part.friendly_id (), part) for part in participants]
 
 
     def return_selected_participants(self):
 
+        results = []
+
         if u'all' in self.cleaned_data["participants_field"]:
-            return [part.friendly_id() for part in self.participants]
+
+            return self.participants
+        
         else:
-            return self.cleaned_data["participants_field"]
+
+            for participant in self.participants:
+                if participant.friendly_id() in self.cleaned_data["participants_field"]:
+                    results.append(participant)
+
+            return results

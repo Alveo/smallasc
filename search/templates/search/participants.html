@@ -1,0 +1,29 @@
+{% extends "layout/base.html" %}
+
+{% block title %}Austalk Meta Search | Home{% endblock %}
+
+{% block subtitle %}Corpus Search{% endblock %}
+
+{% block content %}
+{% if form %}
+
+<fieldset>
+  <form action="/search/participants/components" method="GET" class="form">
+    
+    {% include "search/core_fields.html" %}
+
+    <div class="control-group">
+        <label for="id_components_field" class="control-label">Participants</label>
+            <div class="controls list-controls">
+                {{ form.participants_field }}
+            </div>
+        </label>
+    </div>
+
+    <input type="submit" value="Search" class="btn btn-primary"/>
+
+  </form>
+</fieldset>
+
+{% endif %}
+{% endblock %}

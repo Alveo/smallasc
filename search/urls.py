@@ -1,10 +1,9 @@
-from django.conf.urls import patterns, include, url
-from django.views.generic import DetailView, ListView
+from django.conf.urls 		import patterns, include, url
 
-# Generic patterns for search
+
 urlpatterns = patterns('search.views',
-    url (r'^$', 'index'),
+    url (r'^$', 'participants.search'),
     url (r'^results/$', 'prompt.search'),
-    url (r'^results/participants/$', 'participants.search'),
-    url (r'^results/participants/components/$', 'components.search'),
+    url (r'^participants/$', 'participants.filter'),
+    url (r'^participants/components/$', 'components.search'),
 )
