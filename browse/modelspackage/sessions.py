@@ -62,7 +62,6 @@ class SessionManager (SparqlManager):
             }
             ORDER BY ?name""" % participant.identifier)
         
-        print "Querying sessions"
         results = []
 
         for result in sparql_results["results"]["bindings"]:

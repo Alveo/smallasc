@@ -1,18 +1,18 @@
 import re
-from django.db import models
-from urlparse import urlparse
 
-# Models in use
-from baseapp.modelspackage.colours import Colour
-from baseapp.modelspackage.animals import Animal
-from browse.modelspackage.sparql_local_wrapper import SparqlModel, SparqlManager
+from django.db                                  import models
+from urlparse                                   import urlsplit
+
+from baseapp.modelspackage.colours              import Colour
+from baseapp.modelspackage.animals              import Animal
+from browse.modelspackage.sparql_local_wrapper  import SparqlModel, SparqlManager
 
 
 class ParticipantManager (SparqlManager):
 
     def all (self, site):
-        """ Returns all the participants stored in the rdf store as instances of Participant. """
-        sparql_results = self.query ("""
+
+        sparql_results = self.query("""
             select ?part ?gender ?dob
             where {
                 ?part rdf:type foaf:Person .
@@ -24,19 +24,20 @@ class ParticipantManager (SparqlManager):
         results = []
 
         for result in sparql_results["results"]["bindings"]:
+            
             part = Participant (
-                                identifier          = result["part"]["value"], 
-                                gender              = result["gender"]["value"],
-                                birth_year          = result["dob"]["value"])
-            part.set_site (site)
+                identifier          = result["part"]["value"], 
+                gender              = result["gender"]["value"],
+                birth_year          = result["dob"]["value"]
+            )
+
             results.append (part)
+
 
         return results
 
 
     def with_data (self, site):
-        """ Returns all the participants who have at least one session as a list of instances
-        of Participant """
         
         sparql_results = self.query ("""
             select distinct ?part 
@@ -50,15 +51,15 @@ class ParticipantManager (SparqlManager):
         results = []
 
         for result in sparql_results["results"]["bindings"]:
+
             part = Participant (identifier = result["part"]["value"])
-            part.set_site (site)
-            results.append (part)
+            results.append(part)
 
         return results
 
 
     def get (self, participant_id):
-        """ This function returns the particulars of a participant. """
+
         qq = """
             select  ?part ?prop ?value
             where {
@@ -73,7 +74,6 @@ class ParticipantManager (SparqlManager):
         for result in sparql_results["results"]["bindings"]:
             return Participant(identifier = result["part"]["value"])
                         
-        #print "Participant not found", participant_id
         return None
 
 
@@ -91,7 +91,9 @@ class ParticipantManager (SparqlManager):
         qq += """}"""
 
         sparql_results = self.query (qq)
+
         results = []
+        
         for result in sparql_results["results"]["bindings"]:
             results.append (Participant(identifier = result["part"]["value"]))
                         
@@ -99,22 +101,27 @@ class ParticipantManager (SparqlManager):
 
 
 class Participant (SparqlModel):
-    """ A participant for a recording session."""
 
     # custom manager
     objects = ParticipantManager()
 
-    # Associations
-    site = None
 
     def get_name(self):
         return self.properties()['name'][0]
 
+
+    def get_site(self):
+
+        site_url        = self.properties()['recording_site'][0]
+        site_path       = urlsplit(site_url).path
+        path_components = site_path.split('/')
+
+        return path_components[len(path_components) - 1]
+
+
     # Fields
     name = property(get_name)
-
-    def set_site (self, site):
-        self.site = site
+    site = property(get_site)
 
   
     def get_absolute_url(self):

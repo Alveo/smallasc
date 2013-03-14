@@ -206,6 +206,8 @@ class ParticipantTests (unittest.TestCase):
         }
         male_parts = Participant.objects.filter (predicates)
 
+        print male_parts[0].site
+
         self.assertTrue (len (male_parts) > 0)
         self.assertTrue (len (set (male_qual_parts).intersection (set (male_parts))) == len (male_qual_parts))
 
