@@ -19,13 +19,10 @@ def index(request, site_id):
         participants = Participant.objects.with_data(site)
     
 
-    part_ids = [ part.identifier for part in participants ]
+    part_ids = [part.identifier for part in participants]
     
-
-    return render (request, 'browse/participants/index.html', {
+    return render(request, 'browse/participants/index.html', {
         'participants': participants,
-        'site':         site,
-        'site_id':      site_id,
         'item_ids' :    part_ids,
     })
 
