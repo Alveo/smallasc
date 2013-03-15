@@ -1,5 +1,9 @@
 Feature: Authentication within the BaseApp
 
+    Scenario: Check login window presents login title
+        Given I access the url "/login/"
+        Then I see the heading "Meta Search Portal"
+
     Scenario: Check login window presents username field
         Given I access the url "/login/"
         Then I see that label 1 is "Username"
