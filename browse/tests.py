@@ -209,21 +209,4 @@ class ParticipantTests (unittest.TestCase):
         print male_parts[0].site
 
         self.assertTrue (len (male_parts) > 0)
-        self.assertTrue (len (set (male_qual_parts).intersection (set (male_parts))) == len (male_qual_parts))
-
-
-class ComponentTests (unittest.TestCase):
-
-    def test_filterbyparticipant (self):
-        components = Component.objects.filter_by_participant ("2_566")
-        self.assertTrue (len (components) > 0)
-
-        for comp in components:
-            print "%s - %s" % (comp.sessionId, comp.name)
-
-
-class ItemTests (unittest.TestCase):
-
-    def test_filterbyparticipant (self):
-        items = Item.objects.filter_by_participant ("2_566")
-        self.assertTrue (len (items) > 0)
+        self.assertTrue (len (set (male_qual_parts).intersection (set (male_parts))) == len (male_qual_parts)
