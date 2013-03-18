@@ -41,3 +41,9 @@ def see_link(step, occurence, url):
     link        = world.dom.cssselect("a")[occurence - 1]
 
     assert link.attrib['href'] == url
+
+
+@step(r'After I login into the portal')
+def login(step):
+
+    world.browser.post('/login/', { 'username': 'joeblogs', 'password': 'password' }, follow = True)

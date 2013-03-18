@@ -32,7 +32,9 @@ def search(request):
 
     else:
 
-    	return render(request, 'search/index.html', { 'form': search_form })
+    	return render(request, 'search/index.html', { 
+            'form': search_form 
+        })
 
 
 @login_required
