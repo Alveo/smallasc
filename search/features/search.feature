@@ -25,4 +25,12 @@ Feature: Search for items
         Given I access the url "/search/"
         Then I see that label 4 is "Professional Category"
 
-    
+    Scenario: The first step in a search is to Find Speakers
+        After I login into the portal
+        Given I access the url "/search/"
+        Then I see the button "Find Speakers"
+
+    Scenario: The second step in a search is to Find Items
+        After I login into the portal
+        Given I access the url "/search/participants/components/?gender=male&ses=Professional&highest_qual=Bachelor+Degree&prof_cat=manager+and+admin"
+        Then I see the button "Find Items"
