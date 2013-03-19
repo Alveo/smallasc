@@ -23,9 +23,10 @@
       <li>
         <h2><a href="{{item.get_absolute_url}}">Item {{ item.basename }}</a></h2>
         <table class="table table-striped">
-          <tr><th>Prompt</th><td>{{ item.prompt }}</td></tr>
-          <tr><th>ID</th><td>{{ item.identifier }}</td></tr>
-          <tr><th>Audio</th><td><a href="{{item.ch6media}}">Play {{item.basename}}</a></td>
+          <tr>
+            <th>Prompt</th>
+            <td>{{ item.prompt|truncatewords:20 }}</td>
+          </tr>
         </table>
       </li>
       {% endfor %}

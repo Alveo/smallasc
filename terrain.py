@@ -23,7 +23,8 @@ def see_label(step, occurence, text):
     occurence   = int(occurence)
     label       = world.dom.cssselect('label')[occurence - 1]
 
-    assert label.text == text
+    assert label.text == text, \
+        "label text '%s' does not equal expected '%s'" % (label.text, text)
 
 
 @step(r'I see that paragraph (\d) is "(.*)"')
@@ -41,7 +42,8 @@ def see_heading(step, text):
     
     heading = world.dom.cssselect('h1')[0]
 
-    assert heading.text.strip() == text
+    assert heading.text.strip() == text, \
+        "heading text '%s' does not equal expected '%s'" % (heading.text.strip(), text)
 
 
 @step(r'I see that link (\d) is "(.*)"')
@@ -50,7 +52,8 @@ def see_link(step, occurence, url):
     occurence   = int(occurence)
     link        = world.dom.cssselect("a")[occurence - 1]
 
-    assert link.attrib['href'] == url
+    assert link.attrib['href'] == url, \
+        "link href '%s' does not equal expected '%s'" % (link.attrib['href'], url)
 
 
 @step(r'After I login into the portal')
