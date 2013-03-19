@@ -3,7 +3,7 @@ from django.core.urlresolvers       import reverse
 from django.shortcuts               import render
 
 from browse.modelspackage           import Item, Component, Participant
-from search.forms                   import ParticipantSearchForm, ParticipantSearchFilterForm, ParticipantComponentSearchForm
+from search.forms                   import SearchForm, ParticipantSearchForm, ComponentSearchForm
 from search.helpers                 import append_querystring_to_url
 
 
@@ -11,7 +11,7 @@ from search.helpers                 import append_querystring_to_url
 @permission_required('auth.can_view_item_search') 
 def search(request):
 
-    search_form             = ParticipantSearchForm(request.GET)
+    search_form             = SearchForm(request.GET)
     all_participants        = Participant.objects.filter(search_form.generate_predicates())
     filtered_participants   = user_filtered_participants(request, all_participants)
 
@@ -20,7 +20,7 @@ def search(request):
         components += Component.objects.filter_by_participant(participant.friendly_id())
 
     components_sorted   = sorted(set(components), key = lambda comp: comp.sessionId) # The use of set ensures items are unique
-    component_form      = ParticipantComponentSearchForm(filtered_participants, components_sorted, request.GET)
+    component_form      = ComponentSearchForm(filtered_participants, components_sorted, request.GET)
 
     if component_form.is_valid():
 
@@ -49,7 +49,7 @@ def search(request):
 
 def user_filtered_participants(request, all_participants):
     
-    participant_form    = ParticipantSearchFilterForm(all_participants, request.GET)
+    participant_form    = ParticipantSearchForm(all_participants, request.GET)
 
     if participant_form.is_valid():
 

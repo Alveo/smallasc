@@ -1,10 +1,10 @@
 from django import forms
 
-from search.forms                       import ParticipantSearchFilterForm
+from search.forms                       import ParticipantSearchForm
 from search.forms.choice_options        import *
 
 
-class ParticipantComponentSearchForm(ParticipantSearchFilterForm):
+class ComponentSearchForm(ParticipantSearchForm):
 
 
     components_field    = forms.MultipleChoiceField (
@@ -15,7 +15,7 @@ class ParticipantComponentSearchForm(ParticipantSearchFilterForm):
 
     def __init__(self, participants, components, *args, **kwargs):
 
-        super(ParticipantComponentSearchForm, self).__init__(participants, *args, **kwargs)
+        super(ComponentSearchForm, self).__init__(participants, *args, **kwargs)
 
         self.fields["participants_field"].required  = False
         self.fields["participants_field"].widget    = forms.MultipleHiddenInput()
