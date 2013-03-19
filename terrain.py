@@ -47,3 +47,11 @@ def see_link(step, occurence, url):
 def login(step):
 
     world.browser.post('/login/', { 'username': 'joeblogs', 'password': 'password' }, follow = True)
+
+
+@step(r'Then I see the button "(.*)"')
+def see_button(step, text):
+    
+    button = world.dom.xpath('//input[@type="submit"]')[0]
+
+    assert button.value == text
