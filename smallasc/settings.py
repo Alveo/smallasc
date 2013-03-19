@@ -5,6 +5,8 @@ import os
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+PAGE_SIZE = 10
+
 ADMINS = (
     ('Shirren Premaratne', 'shirren.premaratne@gmail.com'),
     ('Tomas Krajca', 't.l.krajca@gmail.com'),
@@ -139,6 +141,7 @@ INSTALLED_APPS = (
 
     # 3rd party apps
     'lettuce.django',
+    'bootstrap-pagination',
 
     # Smallasc applications listed
     'baseapp',

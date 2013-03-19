@@ -68,3 +68,12 @@ def see_button(step, text):
     button = world.dom.xpath('//input[@type="submit"]')[0]
 
     assert button.value == text
+
+
+@step(r'Then I see a div for "(.*)"')
+def see_div(step, name):
+
+    div_element = world.dom.xpath('//div[@class="%s"]' % (name))
+
+    assert len(div_element) == 1, \
+        "Div element %s is missing or present too many times" % (name)
