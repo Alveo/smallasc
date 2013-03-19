@@ -34,3 +34,8 @@ Feature: Search for items
         After I login into the portal
         Given I access the url "/search/participants/components/?gender=male&ses=Professional&highest_qual=Bachelor+Degree&prof_cat=manager+and+admin"
         Then I see the button "Find Items"
+
+    Scenario: Search must list the number of participants that match the search criteria
+        After I login into the portal
+        Given I access the url "/search/participants/components/?gender=male&ses=Professional&highest_qual=Bachelor+Degree&prof_cat=manager+and+admin"
+        Then I see that paragraph 1 is "Found 3 participant(s)."

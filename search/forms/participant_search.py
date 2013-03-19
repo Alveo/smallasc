@@ -1,31 +1,40 @@
 from django import forms
-from search.forms.choice_options import *
+
+from search.forms.choice_options        import *
+from search.forms.search_form           import SearchForm
 
 
-class ParticipantSearchForm(forms.Form):
+class ParticipantSearchForm(SearchForm):
+    
+    participants_field = forms.MultipleChoiceField (
+        widget          = forms.CheckboxSelectMultiple,
+        error_messages  = { 'required': 'Please select from the following list of participants'},
+        label           = "Participants")
 
-    gender          = forms.ChoiceField (label = "Gender", choices = GENDER_CHOICES)
-    ses             = forms.ChoiceField (label = 'Socio Economic Status', choices = SES_CHOICES)
-    highest_qual    = forms.ChoiceField (label = 'Highest Qualification', choices = EDUCATION_LEVELS)
-    prof_cat        = forms.ChoiceField (label = 'Professional Category', choices = PROFESSIONAL_CATEGORIES)
+
+    def __init__(self, participants, *args, **kwargs):
+        super(ParticipantSearchForm, self).__init__(*args, **kwargs)
+
+        self.participants = participants
+
+        if not participants is None:
+            self.fields["participants_field"].choices = EXTRA_CHOICES
+            self.fields["participants_field"].choices.extend([(part.friendly_id (), part) for part in participants])
 
 
-    def generate_predicates(self):
+    def return_selected_participants(self):
+
+        results = []
+
+        if u'all' in self.cleaned_data["participants_field"]:
+
+            results = self.participants
         
-        predicates = {}
+        else:
+
+            for participant in self.participants:
+                if participant.friendly_id() in self.cleaned_data["participants_field"]:
+                    results.append(participant)
+
         
-        if self.is_valid():
-            if not self.cleaned_data['gender'] == 'any': 
-                predicates["foaf:gender"] = self.cleaned_data['gender'] 
-
-            if not self.cleaned_data['ses'] == 'any': 
-                predicates["austalk:ses"] = self.cleaned_data['ses']
-
-            if not self.cleaned_data['highest_qual'] == 'any': 
-                predicates["austalk:education_level"] = self.cleaned_data['highest_qual']
-
-            if not self.cleaned_data['prof_cat'] == 'any': 
-                predicates["austalk:professional_category"] = self.cleaned_data['prof_cat']
-
-        return predicates
-
+        return results
