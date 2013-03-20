@@ -4,26 +4,17 @@
 
 {% block subtitle %}Corpus Search{% endblock %}
 
+{% block breadcrumbs %}
+    {%include "search/crumbs.html" %}
+{% endblock %}
+
 {% block content %}
-{% if form %}
-
-<p>
-    {% if participant_count == 0 %}
-        No participants found.
-    {% endif %}
-</p>
-
-<form action="/search/participants/components" method="GET" class="form">
-
+<form action="/search/participants/components" method="GET" class="forms">
 	<fieldset>    
     	
     	{% include "search/core_fields.html" %}
 
     	<input type="submit" value="Find Speakers" class="btn btn-primary"/>
-
     </fieldset>
-
 </form>
-
-{% endif %}
 {% endblock %}

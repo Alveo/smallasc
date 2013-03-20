@@ -38,7 +38,7 @@ Feature: Search for items
     Scenario: Search must list the number of participants that match the search criteria
         After I login into the portal
         Given I access the url "/search/participants/components/?gender=male&ses=Professional&highest_qual=Bachelor+Degree&prof_cat=manager+and+admin"
-        Then I see that paragraph 1 is "Found 3 participant(s)."
+        Then I see that "in the search form" paragraph 1 is "Found 3 participant(s)."
 
     Scenario: Search results includes the appropriate heading
         After I login into the portal

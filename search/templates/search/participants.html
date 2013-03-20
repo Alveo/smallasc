@@ -4,24 +4,12 @@
 
 {% block subtitle %}Corpus Search{% endblock %}
 
+{% block breadcrumbs %}
+    {%include "search/crumbs.html" %}
+{% endblock %}
+
 {% block content %}
-{% if form %}
-
-<div>
-    {% if participant_count > 0 %}
-        <p class="lead">
-            Found <strong>{{ participant_count }}</strong> participant(s).
-        </p>
-        <p class="lead">
-            To view participants <a href="{{ participant_url }}" title="view found participants" target="_blank">click here</a>.
-        </p>
-    {% else %}
-        <p>No participants found.</p>
-    {% endif %}
-</div>
-
-<form action="/search/participants/components" method="GET" class="form">
-
+<form action="/search/participants/components" method="GET" class="forms">
     <fieldset>
     
         {% include "search/core_fields.html" %}
@@ -37,8 +25,5 @@
         <input type="submit" value="Find Components" class="btn btn-primary"/>
 
     </fieldset>
-
 </form>
-
-{% endif %}
 {% endblock %}
