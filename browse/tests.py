@@ -28,31 +28,6 @@ class SparqlTests (unittest.TestCase):
        results = sparql.query ().convert ()
 
        self.assertEqual (20, len (results["results"]["bindings"]))
-           
-    
-class SiteTests (unittest.TestCase):
-
-    def test_retrieveallsites (self):
-        results = Site.objects.all ()
-        
-        # Assert that we are getting some data back and that the type of the objects returned
-        # are what we expect
-        self.assertTrue (len (results) > 0)
-        self.assertTrue (results[0].participant_count > 0)
-
-        self.assertTrue (isinstance (results[0], Site)) 
-
-
-    def test_retrievenonexistingsite (self):
-        self.assertIsNone (Site.objects.get ("BLAH"))
-
-
-    def test_retrieveexistingsite (self):
-        result = Site.objects.get ("UTAS")
-        
-        self.assertIsNotNone (result)
-        self.assertTrue (isinstance (result, Site)) 
-        self.assertEqual ("Hobart", result.location)
 
 
 class SessionTests (unittest.TestCase):

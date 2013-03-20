@@ -34,7 +34,7 @@ def see_paragraph(step, occurence, text):
     paragraph   = world.dom.xpath('//p[%s]' % (occurence))[0]
 
     assert paragraph.text_content().strip() == text, \
-        "parapgraph text '%s' does not equal expected '%s'" % (paragraph.text_content().strip(), text)
+        "paragraph text '%s' does not equal expected '%s'" % (paragraph.text_content().strip(), text)
 
 
 @step(r'Then I see the heading "(.*)"')
