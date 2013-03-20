@@ -1,7 +1,9 @@
 from django.http                            import Http404
 from django.contrib.auth.decorators         import login_required, permission_required
 from django.shortcuts                       import render
+from django.template                        import RequestContext
 
+from baseapp.helpers                        import generate_paginated_object
 from browse.modelspackage                   import Site, Participant, Session, ResidenceHistory, LanguageUsage
 from search.forms                           import ParticipantSearchForm
 
@@ -18,12 +20,9 @@ def index(request, site_id):
     else:
         participants = Participant.objects.with_data(site)
     
-
-    part_ids = [part.identifier for part in participants]
-    
     return render(request, 'browse/participants/index.html', {
-        'participants': participants,
-        'item_ids' :    part_ids,
+        'request'       : request,
+        'participants'  : generate_paginated_object(request, participants)
     })
 
 
@@ -45,7 +44,6 @@ def show(request, site_id, participant_id):
     sessions = Session.objects.filter_by_participant (participant) 
     rhist    = ResidenceHistory.objects.filter_by_participant(participant)
     lang     = LanguageUsage.objects.filter_by_participant(participant)
-    
 
     return render (request, 'browse/participants/show.html', {
         'participant':          participant,

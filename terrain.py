@@ -17,7 +17,7 @@ def access_url(step, url):
     world.dom   = html.fromstring(response.content)
 
 
-@step(r'I see that label (\d) is "(.*)"')
+@step(r'I see that label (\d+) is "(.*)"')
 def see_label(step, occurence, text):
     
     occurence   = int(occurence)
@@ -27,7 +27,7 @@ def see_label(step, occurence, text):
         "label text '%s' does not equal expected '%s'" % (label.text, text)
 
 
-@step(r'I see that paragraph (\d) is "(.*)"')
+@step(r'I see that paragraph (\d+) is "(.*)"')
 def see_paragraph(step, occurence, text):
     
     occurence   = int(occurence)
@@ -35,6 +35,16 @@ def see_paragraph(step, occurence, text):
 
     assert paragraph.text_content().strip() == text, \
         "paragraph text '%s' does not equal expected '%s'" % (paragraph.text_content().strip(), text)
+
+
+@step(r'Then I see that "(.*)" paragraph (\d+) is "(.*)"')
+def see_summary_paragraph(step, source, occurrence, paragraph):
+    
+    paragraph_text = world.dom.xpath("//p[%s]" % (occurrence))[0]
+
+    assert paragraph in paragraph_text.text_content().strip(), \
+        "paragraph text '%s' not in '%s'" % \
+        (paragraph, paragraph_text.text_content().strip())
 
 
 @step(r'Then I see the heading "(.*)"')
@@ -46,7 +56,7 @@ def see_heading(step, text):
         "heading text '%s' does not equal expected '%s'" % (heading.text.strip(), text)
 
 
-@step(r'I see that link (\d) is "(.*)"')
+@step(r'I see that link (\d+) is "(.*)"')
 def see_link(step, occurence, url):
     
     occurence   = int(occurence)
