@@ -1,5 +1,7 @@
 {% extends "layout/base.html" %}
 
+{% load bootstrap_pagination %}
+
 {% block title %}
   Austalk Meta Search | Results
 {% endblock %}
@@ -16,8 +18,10 @@
 {% endblock %}
 
 {% block content %}
- {% include "download-form.html" %}
- <section>
+
+{% include "download-form.html" %}
+
+<section>
     <ul>
       {% for item in items %}
       <li>
@@ -30,6 +34,9 @@
         </table>
       </li>
       {% endfor %}
-  </ul>
+    </ul>
 </section>  
+
+{% bootstrap_paginate items %}
+
 {% endblock %}

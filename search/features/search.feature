@@ -69,3 +69,8 @@ Feature: Search for items
         After I login into the portal
         Given I access the url "/search/participants/components/?gender=male&ses=Professional&highest_qual=Bachelor+Degree&prof_cat=manager+and+admin&components_field=http%3A%2F%2Fid.austalk.edu.au%2Fcomponent%2F4_540_1_3&participants_field=4_540"
         Then I should not see the field "Audio"
+
+    Scenario: Search result list items must be paginated
+        After I login into the portal
+        Given I access the url "/search/participants/components/?gender=male&ses=Professional&highest_qual=Bachelor+Degree&prof_cat=manager+and+admin&components_field=http%3A%2F%2Fid.austalk.edu.au%2Fcomponent%2F4_540_1_3&participants_field=4_540"
+        Then I see a div for "pagination pagination-centered "
