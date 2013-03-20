@@ -1,0 +1,10 @@
+<div>
+    {% if participant_count > 0 %}
+        <p class="lead">
+            Found <a href="{{ participant_url }}" title="view participants" target="_blank">{{ participant_count }} participant(s)</a>.
+            To filter these participants <a href="{{ participant_filter_url }}" title="filter participants">click here</a>.
+        </p>
+    {% else %}
+        <p class="lead"><strong>No participants found.</strong></p>
+    {% endif %}
+</div>
