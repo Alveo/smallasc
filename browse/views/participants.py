@@ -5,7 +5,7 @@ from django.template                        import RequestContext
 
 from baseapp.helpers                        import generate_paginated_object
 from browse.modelspackage                   import Site, Participant, Session, ResidenceHistory, LanguageUsage
-from search.forms                           import ParticipantSearchForm
+from search.forms                           import SearchForm
 
 
 @login_required
@@ -15,7 +15,7 @@ def index(request, site_id):
     site = Site.objects.get(site_id)
 
     if site is None:
-        search_form  = ParticipantSearchForm(request.GET)
+        search_form  = SearchForm(request.GET)
         participants = Participant.objects.filter(search_form.generate_predicates())
     else:
         participants = Participant.objects.with_data(site)

@@ -34,3 +34,8 @@ Feature: Browsing participants
         After I login into the portal
         Given I access the url "/browse/UWA/"
         Then I see that link 9 is "/browse/"
+
+    Scenario: Participants must be available when performing faceted browsing
+        After I login into the portal
+        Given I access the url "/browse/participants/?gender=male&ses=Professional&highest_qual=Bachelor+Degree&prof_cat=manager+and+admin"
+        Then I see the heading "Participants"
