@@ -27,14 +27,10 @@ class ParticipantSearchForm(SearchForm):
         results = []
 
         if u'all' in self.cleaned_data["participants_field"]:
-
             results = self.participants
-        
         else:
-
             for participant in self.participants:
                 if participant.friendly_id() in self.cleaned_data["participants_field"]:
                     results.append(participant)
-
         
         return results
