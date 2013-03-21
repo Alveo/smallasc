@@ -29,7 +29,6 @@ def search(request):
 
         for comp in component_form.return_selected_components():
             for participant in filtered_participants:
-
                 items += Item.objects.filter_by_component(participant.friendly_id(), comp.sessionId, comp.componentId) 
 
         return render (request, 'search/results.html', { 
@@ -37,7 +36,6 @@ def search(request):
             'items'     : generate_paginated_object(request, items), 
             'item_ids'  : [item.identifier for item in items] 
         })
-
     else:
         return render(request, 'search/components.html', { 
             'form':                     component_form, 
@@ -47,11 +45,9 @@ def search(request):
         }) # TODO: Should use reverse urls instead of hard coded urls
 
 
-
 def user_filtered_participants(request, all_participants):
     
-    participant_form    = ParticipantSearchForm(all_participants, request.GET)
-
+    participant_form  = ParticipantSearchForm(all_participants, request.GET)
     if participant_form.is_valid():
         return participant_form.return_selected_participants()
 
