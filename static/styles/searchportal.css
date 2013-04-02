@@ -49,3 +49,8 @@ section ul, .list-controls ul {
 #id_prof_cat {
   width: 500px;
 }
+
+#id_speaker_no_field {
+  text-align: center;
+  width: 50px;
+}

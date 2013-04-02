@@ -20,8 +20,8 @@ def see_label(step, occurence, text):
     occurence   = int(occurence)
     label       = world.dom.cssselect('label')[occurence - 1]
 
-    assert label.text == text, \
-        "label text '%s' does not equal expected '%s'" % (label.text, text)
+    assert label.text.strip() == text, \
+        "label text '%s' does not equal expected '%s'" % (label.text.strip(), text)
 
 
 @step(r'I see that paragraph (\d+) is "(.*)"')

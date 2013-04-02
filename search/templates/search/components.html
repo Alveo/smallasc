@@ -15,7 +15,7 @@
         {% include "search/core_fields.html" %}
 
         <div class="control-group">
-            <label for="id_components_field" class="control-label">Components</label>
+            <label for="id_components_field" class="control-label">Components
                 <div class="controls list-controls">
                     {{ form.components_field }}
                 </div>
@@ -28,6 +28,12 @@
             {{ form.participants_field }}
         </div>
         
+        <div class="control-group">
+            <label for="id_speaker_no_field" class="control-label">Limit result set to
+                {{ form.speaker_no_field }} speakers.
+            </label>
+        </div>
+
         <input type="submit" value="Find Items" class="btn btn-primary"/>
 
     </fieldset>

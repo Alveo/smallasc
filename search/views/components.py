@@ -16,20 +16,13 @@ def search(request):
     all_participants        = Participant.objects.filter(search_form.generate_predicates())
     filtered_participants   = user_filtered_participants(request, all_participants)
 
-    components = []
-    for participant in filtered_participants:
-        components += Component.objects.filter_by_participant(participant.friendly_id())
-
-     # The use of a set ensures items are unique
-    components_sorted   = sorted(set(components), key = lambda comp: comp.sessionId)
-    component_form      = ComponentSearchForm(filtered_participants, components_sorted, request.GET)
+    component_form          = create_component_search_form(request, filtered_participants)
 
     if component_form.is_valid():
         items = []
 
         for comp in component_form.return_selected_components():
-            for participant in filtered_participants:
-                items += Item.objects.filter_by_component(participant.friendly_id(), comp.sessionId, comp.componentId) 
+            items += retrieve_items(filtered_participants, comp, component_form.get_speaker_no()) 
 
         return render (request, 'search/results.html', { 
             'request'   : request,
@@ -43,6 +36,35 @@ def search(request):
             'participant_url':          append_querystring_to_url(request, '/browse/participants'),
             'participant_filter_url':   append_querystring_to_url(request, '/search/participants')
         }) # TODO: Should use reverse urls instead of hard coded urls
+
+
+def retrieve_items(participants, component, limit):
+    
+    items = []
+    count = 0
+
+    for participant in participants:
+        if count < limit:
+            items += Item.objects.filter_by_component(
+                        participant.friendly_id(), 
+                        component.sessionId, 
+                        component.componentId
+                    ) 
+
+        count += 1
+
+    return items
+
+
+def create_component_search_form(request, participants):
+    
+    components = []
+    for participant in participants:
+        components += Component.objects.filter_by_participant(participant.friendly_id())
+
+     # The use of a set ensures items are unique
+    components_sorted   = sorted(set(components), key = lambda comp: comp.sessionId)
+    return ComponentSearchForm(participants, components_sorted, request.GET)
 
 
 def user_filtered_participants(request, all_participants):
