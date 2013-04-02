@@ -4,10 +4,10 @@ from search.forms.choice_options    import *
 
 class SearchForm(forms.Form):
 
-    gender          = forms.ChoiceField (label = "Gender", choices = GENDER_CHOICES)
-    ses             = forms.ChoiceField (label = 'Socio Economic Status', choices = SES_CHOICES)
-    highest_qual    = forms.ChoiceField (label = 'Highest Qualification', choices = EDUCATION_LEVELS)
-    prof_cat        = forms.ChoiceField (label = 'Professional Category', choices = PROFESSIONAL_CATEGORIES)
+    gender          = forms.ChoiceField(required = False, label = "Gender", choices = GENDER_CHOICES)
+    ses             = forms.ChoiceField(required = False, label = 'Socio Economic Status', choices = SES_CHOICES)
+    highest_qual    = forms.ChoiceField(required = False, label = 'Highest Qualification', choices = EDUCATION_LEVELS)
+    prof_cat        = forms.ChoiceField(required = False, label = 'Professional Category', choices = PROFESSIONAL_CATEGORIES)
 
 
     def generate_predicates(self):
