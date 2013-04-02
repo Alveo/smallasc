@@ -1,5 +1,6 @@
 {% if form.errors %}
     <aside class="alert" id="Flash">
+        <header>Errors</header>
         {% for field in form %}
             {% if field.errors %}
                 {{ field.errors|escape }}
