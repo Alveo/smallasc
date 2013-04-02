@@ -7,16 +7,13 @@ from search.forms.choice_options        import *
 
 class ComponentSearchForm(ParticipantSearchForm):
 
-    DEFAULT_SPEAKER_QUANTITY = 1
-
     components_field    = forms.MultipleChoiceField (
         widget          = forms.CheckboxSelectMultiple,
-        error_messages  = { 'required': 'Please select from the following list of components'},
+        error_messages  = { 'required': 'Please select one or more components'},
         label           = "Components"
     )
 
     speaker_no_field    = forms.IntegerField(
-        widget          = forms.TextInput(attrs = {'value' : DEFAULT_SPEAKER_QUANTITY}),
         error_messages  = { 'required': 'Please provide a number between 1 and 100'},
         min_value       = 1,
         max_value       = 100

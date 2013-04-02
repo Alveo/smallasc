@@ -5,6 +5,7 @@ from django.shortcuts               import render
 from baseapp.helpers                import generate_paginated_object
 from browse.modelspackage           import Item, Component, Participant
 from search.forms                   import SearchForm, ParticipantSearchForm, ComponentSearchForm
+from search.forms.choice_options    import DEFAULT_SPEAKER_QUANTITY
 from search.helpers                 import append_querystring_to_url
 
 
@@ -20,7 +21,6 @@ def search(request):
 
     if component_form.is_valid():
         items = []
-
         for comp in component_form.return_selected_components():
             items += retrieve_items(filtered_participants, comp, component_form.get_speaker_no()) 
 
@@ -38,13 +38,12 @@ def search(request):
         }) # TODO: Should use reverse urls instead of hard coded urls
 
 
-def retrieve_items(participants, component, limit):
-    
+def retrieve_items(participants, component, speaker_limit):
     items = []
     count = 0
 
     for participant in participants:
-        if count < limit:
+        if count < speaker_limit:
             items += Item.objects.filter_by_component(
                         participant.friendly_id(), 
                         component.sessionId, 
@@ -64,7 +63,12 @@ def create_component_search_form(request, participants):
 
      # The use of a set ensures items are unique
     components_sorted   = sorted(set(components), key = lambda comp: comp.sessionId)
-    return ComponentSearchForm(participants, components_sorted, request.GET)
+
+    bound_data = request.GET.copy()
+    if not 'speaker_no_field' in bound_data:
+        bound_data['speaker_no_field'] = DEFAULT_SPEAKER_QUANTITY
+
+    return ComponentSearchForm(participants, components_sorted, bound_data)
 
 
 def user_filtered_participants(request, all_participants):

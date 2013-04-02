@@ -53,3 +53,5 @@ SES_CHOICES = (
 )
 
 EXTRA_CHOICES = [('all', 'All')]
+
+DEFAULT_SPEAKER_QUANTITY = 1
