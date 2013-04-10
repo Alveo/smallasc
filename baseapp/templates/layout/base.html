@@ -10,7 +10,12 @@
   <!-- Primary stylesheet with specialisation below -->
   <link rel="stylesheet" href="{{ STATIC_URL }}styles/portal.css" media="screen" />
   <link rel="stylesheet" href="{{ STATIC_URL }}styles/searchportal.css" media="screen" />
-  
+
+  {# loading jquery here so that sgvizler can use it #}
+  <!--  using version 1.8 of jquery because of sgvizler -->
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+
+
   {% block head %}<!-- extra header elements -->{% endblock %}
 </head>
 <body>
@@ -36,8 +41,9 @@
   </div>
 
 <!-- Placed at end to help improve page load times -->
-<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap.js"></script>
+
+{% block extrajs %}<!--  extra javascript goes here -->{% endblock %}
 
 </body>
 </html>

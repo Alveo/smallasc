@@ -10,36 +10,37 @@ Sample Speaker Statistics
 
 
 {% block query %}
-  
+
    <p>Try <a href="/stats/query/">a custom query</a>.</p>
-  
+
 <div id="site_distribution"
       data-sgvizler-query="SELECT ?prop (count(?part) AS ?noOfInstances)
-                          WHERE{ 
-                            ?part a foaf:Person .  
-                            ?part austalk:recording_site ?site . 
+                          WHERE{
+                            ?part a foaf:Person .
+                            ?part austalk:recording_site ?site .
                             ?site rdfs:label ?prop .
                             }
                           GROUP BY ?prop
                           ORDER BY ?prop"
       data-sgvizler-chart="gPieChart"
       data-sgvizler-loglevel="0"
-      data-sgvizler-chart-options="title=Number of Participants per Site"></div>
-      
+      data-sgvizler-chart-options="title=Number of Participants per Site"
+      style="width:800px; height:400px;"></div>
+
 <div id="gender_distribution"
       data-sgvizler-query="SELECT ?prop (count(?part) AS ?noOfInstances)
-                          WHERE{ 
-                            ?part a foaf:Person .  
-                            ?part foaf:gender ?prop . 
+                          WHERE{
+                            ?part a foaf:Person .
+                            ?part foaf:gender ?prop .
                             }
                           GROUP BY ?prop
                           ORDER BY ?prop"
       data-sgvizler-chart="gPieChart"
       data-sgvizler-loglevel="0"
       data-sgvizler-chart-options="title=Gender Distribution"
-      style="width:800px; height:400px;"></div>      
-      
-      
+      style="width:800px; height:400px;"></div>
+
+
       <div id="age_distribution"
       data-sgvizler-query="SELECT  (2011-?dob as ?age) (count(?part) as ?count)
 WHERE {
@@ -51,9 +52,9 @@ order by ?dob"
       data-sgvizler-chart="gColumnChart"
       data-sgvizler-loglevel="0"
       data-sgvizler-chart-options="title=Age Distribution"
-      style="width:800px; height:400px;"></div> 
+      style="width:800px; height:400px;"></div>
 
-      
+
 <div id="qual_distribution"
       data-sgvizler-query="SELECT  ?el (count(?part) as ?partcount)
 WHERE {
@@ -64,8 +65,8 @@ group by ?el"
       data-sgvizler-chart="gPieChart"
       data-sgvizler-loglevel="0"
       data-sgvizler-chart-options="title=Qualification Distribution"
-      style="width:800px; height:400px;"></div> 
-      
+      style="width:800px; height:400px;"></div>
+
 <h2>Birthplaces of Participants</h2>
 
 <div id="birthplaces"
@@ -80,6 +81,5 @@ WHERE {
       data-sgvizler-chart="sMap"
       data-sgvizler-loglevel="0"
       data-sgvizler-chart-options="title=Birthplace of Participants"
-      style="width:800px; height:400px;"></div>      
+      style="width:800px; height:400px;"></div>
 {% endblock %}
-    
