@@ -1,5 +1,21 @@
 {% extends "layout/base.html" %}
 
+{% block head %}
+<script src="{{ STATIC_URL }}audiojs/audiojs/audio.min.js"></script>
+<script>
+  audiojs.events.ready(function() {
+   /* use custom useFlash function to stop triggering flash on Firefox when
+      it's not needed */
+   var as = audiojs.createAll({
+             useFlash: (function() {
+                            var a = document.createElement('audio');
+                               return !(a.canPlayType && a.canPlayType('audio/x-wav;').replace(/no/, ''));
+     })(),
+   })
+   });
+</script>
+{% endblock %}
+
 <!-- Note the convention of the title, Austalk | View > Object -->
 {% block title %}
     Austalk | Browse > Item {{item.basename}}
@@ -32,7 +48,7 @@
       <tr><th>Item Basename</th><td><a href="{{item.get_absolute_url}}">{{ item.basename }}</a></td></tr>
       <tr><th>Prompt</th><td>{{ item.prompt }}</td></tr>
       <tr><th>ID</th><td>{{ item.identifier }}</td></tr>
-      <tr><th>Audio</th><td><a href="{{item.ch6media}}">Play {{item.basename}}</a></td>
+      <tr><th>Audio</th><td><audio src="{{item.ch6media}}"></td>
       <tr><th>Media</th><td>
          <ul>
          {% for m in item.properties.media %}
@@ -51,7 +67,7 @@
      {% endif %}
      {% if item.properties.map %}
      <tr><th>Map</th><td>{{item.properties.map.0}}</td></tr>
-     {% endif %}   
+     {% endif %}
     </table>
 </section>
 {% endblock %}
