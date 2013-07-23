@@ -64,7 +64,7 @@ def login(request):
                       defaults={'expire_date' : timezone.now() + datetime.timedelta(seconds=20), 
                                 'tsession_key' : tsession, })
                 
-                return HttpResponseRedirect('%s://%s/sso/login/?tsessionid=%s&next=%s' % (parsed_next.scheme, parsed_next.netloc, tsession, parsed_next.path))
+                return HttpResponseRedirect('%s/sso/login/?tsessionid=%s&next=%s' % (next, tsession, parsed_next.path))
 
         else:
                 return django_login(request)
