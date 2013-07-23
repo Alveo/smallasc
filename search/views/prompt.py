@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render, render_to_response
 from django.template import RequestContext
 from browse.modelspackage import Item, Participant
-from search.forms import PromptSearchForm, ParticipantSearchForm, ParticipantSearchFilterForm
+from search.forms import PromptSearchForm, ParticipantSearchForm
 
 
 @login_required
