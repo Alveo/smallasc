@@ -41,13 +41,14 @@
 {% block content %}
  {% include "download-form.html" %}
  <section>
+ 	<p>List contains {{items|length}} items.</p>
+ 	
     <ul>
       {% for item in items %}
       <li>
-        <h2><a href="{{item.get_absolute_url}}">Item {{ item.basename }}</a></h2>
+        <h4><a href="{{item.get_absolute_url}}">Item {{ item.basename }}</a></h4>
         <table class="table table-striped">
           <tr><th>Prompt</th><td>{{ item.prompt }}</td></tr>
-          <tr><th>ID</th><td>{{ item.identifier }}</td></tr>
           <tr><th>Audio</th><td><audio src="{{item.ch6media}}"></td>
         </table>
       </li>
