@@ -10,7 +10,7 @@ class SiteManager (SparqlManager):
         and the return format are set by the sparql parameter. The function Returns
         objects of type site. """
         sparql_results = self.query ("""
-            SELECT  ?site ?label ?inst ?city  (count(distinct ?part) as ?partcount)
+            SELECT  distinct ?site ?label ?inst ?city  (count(distinct ?part) as ?partcount)
             WHERE {
                 ?site rdf:type austalk:RecordingSite .
                 ?site austalk:institution ?inst .
@@ -38,7 +38,7 @@ class SiteManager (SparqlManager):
         """ This function retrieves a site using it's short identifier (not the full url). We do
         not use the full url because placing this in the resource description is a bit ugly."""
         sparql_results = self.query ("""
-            SELECT  ?site ?inst ?city
+            SELECT distinct ?site ?inst ?city
             WHERE {
                 ?site rdf:type austalk:RecordingSite .
                 ?site austalk:institution ?inst .

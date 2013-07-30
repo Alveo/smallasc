@@ -183,5 +183,5 @@ class ParticipantTests (unittest.TestCase):
 
         print male_parts[0].site
 
-        self.assertTrue (len (male_parts) > 0)
-        self.assertTrue (len (set (male_qual_parts).intersection (set (male_parts))) == len (male_qual_parts)
+        self.assertTrue (len(male_parts) > 0)
+        self.assertTrue (len(set(male_qual_parts).intersection (set(male_parts))) == len(male_qual_parts))

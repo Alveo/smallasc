@@ -1,9 +1,4 @@
 
-LOGIN_URL = "http://austalk.stevecassidy.net/login/?next=/"
-AUTH_URL = "http://data.austalk.edu.au/"
-AUTH_URL2 = "http://data.austalk.edu.au/MAUS/"
-USERNAME = "demo"
-PASSWORD = "austalk"
 
 
 def getAuthenticatedOpener(url, username, password):
@@ -52,13 +47,20 @@ def getAuthenticatedOpener(url, username, password):
 
 if __name__ == "__main__":
 
-        opener = getAuthenticatedOpener(LOGIN_URL, USERNAME, PASSWORD)
+    LOGIN_URL = "http://austalk.stevecassidy.net/login/?next=/"
+    AUTH_URL = "http://data.austalk.edu.au/download/"
+    AUTH_URL2 = "http://data.austalk.edu.au/download/UC/"
+    USERNAME = "demo"
+    PASSWORD = "austalk"
 
-        if opener is not None:
-                # we have a valid opener, let's visit some protected services :)
-                a = opener.open(AUTH_URL)
-                print a.read()[:500]
 
-                a = opener.open(AUTH_URL2)
-                print a.read()[:500]
+    opener = getAuthenticatedOpener(LOGIN_URL, USERNAME, PASSWORD)
+
+    if opener is not None:
+            # we have a valid opener, let's visit some protected services :)
+            a = opener.open(AUTH_URL)
+            print a.read()[:500]
+
+            a = opener.open(AUTH_URL2)
+            print a.read()[:500]
 

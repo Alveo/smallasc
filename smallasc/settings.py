@@ -105,6 +105,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware'
 )
 
@@ -149,6 +150,8 @@ INSTALLED_APPS = (
     'search',
     'participantportal',
     'sso',
+    
+    'debug_toolbar',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -189,7 +192,7 @@ LOGIN_REDIRECT_URL = "/"
 SPARQL_ENDPOINT = "http://115.146.93.47/openrdf-sesame/repositories/bigasc_native"
 
 # SMALLASCDATA_ENDPOINT
-SMALLASCDATA_ENDPOINT = "http://data.austalk.edu.au/download/"
+SMALLASCDATA_ENDPOINT = "http://data.austalk.edu.au/download/download/"
 
 JWT_SECRET = "austalk_secret"
 
