@@ -24,8 +24,9 @@ urlpatterns = patterns('',
 	url (r'^sso/', include('sso.urls')), 
 
     # sample stats pages
-	url(r'^stats/query/$', TemplateView.as_view(template_name='sgvizler.html')),
-	url(r'^stats/$', TemplateView.as_view(template_name='p_report.html')),
+	url(r'^stats/query/$', TemplateView.as_view(template_name='statistics/sgvizler.html')),
+	url(r'^stats/age.html$', TemplateView.as_view(template_name='statistics/age.htm')),
+	url(r'^stats/$', TemplateView.as_view(template_name='statistics/p_report.html')),
 
 	url(r'^pages/', include('django.contrib.flatpages.urls')),
 
