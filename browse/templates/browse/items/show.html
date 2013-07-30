@@ -32,7 +32,7 @@
     <li><span class="divider">/</span></li>
     <li><a href="/browse/{{ site_id }}/{{ participant_id }}/{{ session_id }}">Session {{ session_id }}</a></li>
     <li><span class="divider">/</span></li>
-    <li><a href="/browse/{{ site_id }}/{{ participant_id }}/{{ session_id }}/{{ item.componentId }}">Component list</a></li>
+    <li><a href="/browse/{{ site_id }}/{{ participant_id }}/{{ session_id }}/{{ item.componentId }}">{{component_id}}</a></li>
   </ul>
 {% endblock %}
 
@@ -41,7 +41,6 @@
 {% endblock %}
 
 {% block content %}
-  {% include "download-form.html" %}
   <section>
     <h2>Item details</h2>
     <table class="table table-striped">

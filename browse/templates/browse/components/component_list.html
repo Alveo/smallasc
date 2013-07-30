@@ -2,7 +2,7 @@
   <ul>
     {% for comp in components %}            
       <li>
-        <h2><a href="{{comp.get_absolute_url}}">{{ comp.name }} component</a></h2>
+        <h4><a href="{{comp.get_absolute_url}}">{{ comp.name }} component</a></h4>
         <table class="table table-striped">
           <tr><th>Short Name</th><td>{{ comp.componentId }}</td></tr>
           <tr><th>ID</th><td>{{ comp.identifier }}</td></tr>

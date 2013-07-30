@@ -24,14 +24,13 @@
 <section class="statsection">
 
   <header>
-    <h2>
+    <h4>
       <a href="/browse/{{ part.site }}/{{ part.friendly_id }}">{{ part }}</a>
-    </h2>
+    </h4>
   </header>
 
   <p>Gender:        {{ part.properties.gender.0 }}</p>
   <p>Birth Year:    {{ part.properties.birthYear.0 }}</p>
-  <p>Url:           {{ part.identifier }}</p>
 
 </section>
 {% endfor %}
