@@ -107,8 +107,12 @@ class SparqlManager(models.Manager):
         definitions to the start of the query. Return
         a Python dictionary that reflects the JSON returned
         from the SPARQL endpoint"""
+        
+        print query
+        
         self.sparql.setQuery(self.canonicalise_query(query))
         return self.sparql.query().convert()
+
 
 
 class SparqlModel(models.Model):

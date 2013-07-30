@@ -13,12 +13,18 @@ from sso.models import TSession
 import datetime
 import urlparse
 import hashlib
+import logging
+# Get an instance of a logger
+logger = logging.getLogger('django')
 
 
 @csrf_exempt
 def is_valid_session(request):
         if request.method == 'POST':
                 session_key = request.POST.get('sessionid')
+                
+                logger.debug("Looking up sessionid: %s" % (session_key,))
+                
                 s = get_object_or_404(Session, session_key=session_key, expire_date__gt=timezone.now())
                 # just to make sure this is not an anonymous session
                 uid = s.get_decoded().get('_auth_user_id')
@@ -33,6 +39,9 @@ def is_valid_session(request):
 def is_valid_tsession(request):
         if request.method == 'POST':
                 tsession_key = request.POST.get('sessionid')
+                
+                logger.debug("Looking up tsessionid: %s" % (tsession_key,))
+                
                 s = get_object_or_404(TSession, tsession_key=tsession_key, expire_date__gt=timezone.now())
 
                 return HttpResponse(s.session_key)
@@ -48,7 +57,7 @@ def login(request):
 
                         # authentication failed
                         if not request.user.is_authenticated():
-                                return l
+                            return l
 
                 next = request.REQUEST.get('next', settings.LOGIN_REDIRECT_URL)
                 parsed_next = urlparse.urlparse(next) 
@@ -64,8 +73,7 @@ def login(request):
                       defaults={'expire_date' : timezone.now() + datetime.timedelta(seconds=20), 
                                 'tsession_key' : tsession, })
                 
-                return HttpResponseRedirect('%s/sso/login/?tsessionid=%s&next=%s' % (next, tsession, parsed_next.path))
-
+                return HttpResponseRedirect('%s://%s/sso/login/?tsessionid=%s&next=%s' % (parsed_next.scheme, parsed_next.netloc, tsession, parsed_next.path))
         else:
                 return django_login(request)
 

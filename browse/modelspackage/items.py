@@ -7,7 +7,7 @@ class ItemManager (SparqlManager):
     def generate_list(self, qpart):
 
         qq = """
-            select ?item ?id ?prompt ?basename ?sitelabel ?media ?spkrname ?sessid ?compid
+            select distinct ?item ?id ?prompt ?basename ?sitelabel ?media ?spkrname ?sessid ?compid
             where {
 
                 %s
