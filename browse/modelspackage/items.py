@@ -7,31 +7,25 @@ class ItemManager (SparqlManager):
     def generate_list(self, qpart):
 
         qq = """
-            select distinct ?item ?id ?prompt ?basename ?sitelabel ?media ?spkrname ?sessid ?compid
+            select distinct ?item ?prompt ?basename ?sitelabel ?media ?spkrname ?sessid ?compid
             where {
 
                 %s
 
-                ?rc rdf:type austalk:RecordedComponent .
-                ?rc olac:speaker ?spkrid .
+                ?item olac:speaker ?spkrid .                
                 ?spkrid austalk:recording_site ?site .
                 ?spkrid austalk:id ?spkrname .
                 ?site rdfs:label ?sitelabel .
-                ?rc austalk:prototype ?component .
-                ?rc dc:isPartOf ?rs .
-                ?rs austalk:prototype ?session .
-                ?session austalk:id ?sessid .
-                ?component austalk:shortname ?compid .
-                ?item dc:isPartOf ?rc .
-                ?item austalk:prototype ?ip .
-                ?item austalk:basename ?basename .
-                ?ip austalk:id ?id .
-                ?ip austalk:prompt ?prompt .
-                ?item austalk:media ?media .
+                
+                ?item austalk:session ?sessid .
+                ?item ausnc:componentName ?compid .   
+                ?item dc:title ?basename .
+                ?item austalk:prompt ?prompt .
+                ?item ausnc:document ?media .
                 ?media austalk:version 1 .
                 ?media austalk:channel "ch6-speaker16" .
 
-        } order by ?id""" % (qpart,)
+        } order by ?basename""" % (qpart,)
 
         sparql_results = self.query (qq)
         results = []
@@ -39,7 +33,6 @@ class ItemManager (SparqlManager):
         for result in sparql_results["results"]["bindings"]:
             results.append (Item (
                                 identifier      = result["item"]["value"],
-                                id              = result["id"]["value"],
                                 prompt          = result["prompt"]["value"],
                                 basename        = result["basename"]["value"],
                                 site            = result["sitelabel"]["value"],
@@ -57,7 +50,7 @@ class ItemManager (SparqlManager):
 
         qq = """
                 BIND (<http://id.austalk.edu.au/participant/%(part)s> as ?spkrid)
-                BIND (%(sess)s as ?sessid)
+                BIND ("%(sess)s" as ?sessid)
                 BIND ("%(comp)s" as ?compid)
             """ % {'part': participant_id, 'sess': session_id, 'comp': component_id}
 
