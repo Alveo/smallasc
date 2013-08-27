@@ -40,5 +40,4 @@ def show (request, site_id, participant_id, session_id, component_id, basename, 
          'participant_id' : participant_id,
          'component_id' :  component_id,
          'session_id' : session_id,
-         'item': item,
-         'item_ids' : item.properties()['media'] })
+         'item': item,})
