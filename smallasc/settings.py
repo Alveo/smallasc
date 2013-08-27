@@ -8,8 +8,6 @@ TEMPLATE_DEBUG = DEBUG
 PAGE_SIZE = 10
 
 ADMINS = (
-    ('Shirren Premaratne', 'shirren.premaratne@gmail.com'),
-    ('Tomas Krajca', 't.l.krajca@gmail.com'),
     ('Steve Cassidy', 'steve.cassidy@mq.edu.au'),
 )
 
@@ -17,6 +15,14 @@ MANAGERS = ADMINS
 
 EMAIL_SUBJECT_PREFIX = "[austalk] "
 SERVER_EMAIL = "django@austalk.edu.au"
+
+DEFAULT_FROM_EMAIL = "steve.cassidy@mq.edu.au"
+
+EMAIL_FROM = "no-reply@austalk.edu.au"
+EMAIL_HOST = "mail.science.mq.edu.au"
+EMAIL_PORT = 25
+EMAIL_USERNAME = ""
+EMAIL_PASSWORD = ""
 
 DATABASES = {
     'default': {
@@ -143,6 +149,7 @@ INSTALLED_APPS = (
     # 3rd party apps
     'lettuce.django',
     'bootstrap-pagination',
+ #   'registration',
 
     # Smallasc applications listed
     'baseapp',
@@ -195,6 +202,11 @@ SPARQL_ENDPOINT = "http://115.146.93.47/openrdf-sesame/repositories/bigasc_nativ
 SMALLASCDATA_ENDPOINT = "http://data.austalk.edu.au/download/download/"
 
 JWT_SECRET = "austalk_secret"
+
+
+## django-registration related settings
+ACCOUNT_ACTIVATION_DAYS = 7
+
 
 
 # load local settings
