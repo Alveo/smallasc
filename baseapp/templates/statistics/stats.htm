@@ -1,118 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    
-    <!-- Stylesheet includes -->
-	<link rel="stylesheet" href="/static/styles/main.css" type="text/css" />
-	<link rel="stylesheet" href="/static/styles/theme.css" type="text/css" />
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
- 
-    
+{% extends "statistics/sgvizler.html" %}
 
-    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script type="text/javascript" id="sgvzlr_script" src="http://sgvizler.googlecode.com/svn/release/0.5/sgvizler.js"></script>
-    <script type="text/javascript">
-      // CONFIGURATION Sgvizler 0.5: Set variables to fit your setup.
-      // NB! Do not let the last item in a list end with a comma.
+{% block title %}
+ Austalk Meta Search | Reports | Age
+{% endblock %}
 
-       //// Query settings. The defaults settings are listed.
-       sgvizler.option.query = {
-           // Default query. 
-           'query':                "SELECT  ?inst (count(?part) as ?partcount)\nWHERE {\n ?site rdf:type austalk:RecordingSite .\n ?site rdfs:label ?inst .\n ?part rdf:type foaf:Person .\n ?part austalk:recording_site ?site .\n}\ngroup by ?inst",
-           'endpoint':             "http://sesame.stevecassidy.net/openrdf-sesame/repositories/bigasc_prod",
-           'endpoint_output':      'json',  
-           // Default chart type. 
-           'chart':                'gPieChart',
-           // Default log level. Must be either 0, 1, or 2. 
-           'loglevel':             1
-       };
+{% block subtitle %}
+Sample Speaker Statistics
+{% endblock %}
 
-        //// Prefixes
-       // Add convenient prefixes for your dataset. rdf, rdfs, xsd, owl
-       // are already set.  Examples: 
-       sgvizler.option.namespace['dc'] = 'http://purl.org/dc/terms/';
-       sgvizler.option.namespace['ausnc'] = 'http://ns.ausnc.org.au/schemas/ausnc_md_model/';
-       sgvizler.option.namespace['olac'] = 'http://www.language-archives.org/OLAC/1.1/';
-       sgvizler.option.namespace['ice'] = 'http://ns.ausnc.org.au/schemas/ice/';
-       sgvizler.option.namespace['foaf'] = 'http://xmlns.com/foaf/0.1/';
-       sgvizler.option.namespace['graf'] = 'http://www.xces.org/ns/GrAF/1.0/';
-       sgvizler.option.namespace['austalk'] = 'http://ns.austalk.edu.au/';
-       sgvizler.option.namespace['geo'] = "http://www.w3.org/2003/01/geo/wgs84_pos#";
-       sgvizler.option.namespace['iso639schema'] = "http://downlode.org/rdf/iso-639/schema#";
-       sgvizler.option.namespace['protocol'] = "http://id.austalk.edu.au/protocol/";
-       sgvizler.option.namespace['austalkd'] = "http://data.austalk.edu.au/";
-       sgvizler.option.namespace['dbp'] = "http://dbpedia.org/ontology/";
-       sgvizler.option.namespace['geo'] = "http://www.w3.org/2003/01/geo/wgs84_pos#";
-       
-       //// Leave this as is. Ready, steady, GO!
-       $(document).ready(sgvizler.go());
-    </script>
-    
-    
 
-    <title>
- Austalk Meta Search | Reports
-</title>
-</head>
+{% block query %}
 
-<body class="dashboard">
-
-    <!-- Header which contains name of project and links on right side of page -->
-<div id="Header" class="global">
-
-	<h3>
-		 <span class="pipe">|</span>
-    	<a href="/logout" title="Sign out and end session">Sign out</a> <span class="pipe">|</span>    	
-    	<a href="" class="help" target="_blank"><span>Help</span></a> 
-    </h3>
-    
-    <!-- Global application title which appears in left hand side of application -->
-    <h1>Austalk {Beta}</h1> 
-
-</div>
-
- 	<!--  Primary menu bar -->
-    <div id="Tabs"> 
-    	<ul id="MainTabs">
-    		
-	<li><a href="/" title="Your dashboard">Dashboard</a></li>
-    <li><a href="/stats/" class="current" title="Statistics">Statistics</a></li>  
-    <li><a href="/browse/" title="Browse">Browse</a></li>  
-	<li><a href="/search/" title="Search">Search</a></li>  
-
-		</ul>
- 	</div>
-
- 	<div id="Wrapper" style="position: relative;">
-		<div id="screen_body" class="container">
-		 	<div class="Left">
-		 		<!-- Start of page content -->
-		        <div class="col">
-		            <div class="page_header">		       
-		            	<div class="page_header_links">
-		            			
-						</div>
-						<h1>
-Speaker Statistics
-</h1>
-					</div>
-					<div class="innercol">
-		    			
-
-    <table border="0" cellpadding="10";>
-   <tr>
-   		<td><h3><a href="gender.htm">Gender</h3></td>
-   		<td><h3><a href="age.htm">Age</h3></td>
-   		<td><h3><a href="culture.htm">Cultural Heritage</h3></td>
-   		<td><h3><a href="language.htm">Language</h3></td>
-   		<td><h3><a href="birthplaces.htm">Birthplaces</h3></td>
-   		<td><h3><a href="professional_category.htm">Professional Category</h3></td>
-   		<td><h3><a href="query.htm">Custom Query</h3></td>
-   	</tr>
-   	<tr>
-   </tr>
-   </table>
-   
    <table border="1" cellpadding="10">
    <tr>
    <td>
@@ -194,41 +92,4 @@ WHERE {
       style="width:800px; height:400px;"></div> 
       
             
-      
-      
-      
-      
-  
-    
-    
-    <div id="footer">
-      <!-- Please leave a link to the Sgvizler homepage --> 
-      <p>
-	Graphs generated by Sgvizler which visualizes the result of SPARQL SELECT queries using
-	javascript and the Google Visualization API. For more
-	information, see
-	the <a href="http://code.google.com/p/sgvizler/">Sgvizler</a>
-	homepage. (c) 2011 Martin G. Skj&#230;veland.
-      </p>
-    </div>
-
-
-		    		</div>
-		    	</div>
-	    	    <div class="bottom">&nbsp;</div>
-	<div class="footer">
-		 Ver: 0.1:&nbsp;
-		 
-		 	Logged in as demo
-		 		
-	</div>
-</div>
-		    </div>
-		    <div class="Right">
-				<div class="col">
-			  	</div>
-			</div>
-		</div>
-	</div>
-</body>
-</html>
+{% endblock %}
