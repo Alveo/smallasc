@@ -18,7 +18,7 @@ class ItemManager (SparqlManager):
                 ?site rdfs:label ?sitelabel .
                 
                 ?item austalk:session ?sessid .
-                ?item ausnc:componentName ?compid .   
+                ?item austalk:componentName ?compid .   
                 ?item dc:title ?basename .
                 ?item austalk:prompt ?prompt .
                 ?item ausnc:document ?media .

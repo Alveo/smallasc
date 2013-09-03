@@ -23,19 +23,7 @@ urlpatterns = patterns('',
     # pseudo SSO authentication module
 	url (r'^sso/', include('sso.urls')), 
 
-    # sample stats pages
-	url(r'^stats/query/$', TemplateView.as_view(template_name='statistics/sgvizler.html')),
-	url(r'^stats/age.html$', TemplateView.as_view(template_name='statistics/age.htm')),
-	url(r'^stats/birthplaces.html$', TemplateView.as_view(template_name='statistics/birthplaces.htm')),
-	url(r'^stats/culture.html$', TemplateView.as_view(template_name='statistics/culture.htm')),
-	url(r'^stats/gender.html$', TemplateView.as_view(template_name='statistics/gender.htm')),
-	url(r'^stats/help.html$', TemplateView.as_view(template_name='statistics/help_page.htm')),
-	url(r'^stats/language.html$', TemplateView.as_view(template_name='statistics/language.htm')),
-	url(r'^stats/professional_category.html$', TemplateView.as_view(template_name='statistics/professional_category.htm')),
-	url(r'^stats/query.html$', TemplateView.as_view(template_name='statistics/query.htm')),
-	url(r'^stats/stats.html$', TemplateView.as_view(template_name='statistics/stats.htm')),
-	url(r'^stats/$', TemplateView.as_view(template_name='statistics/p_report.html')),
-
+	url(r'^stats/', include('stats.urls')),
 	url(r'^pages/', include('django.contrib.flatpages.urls')),
 
 	# django-registration
