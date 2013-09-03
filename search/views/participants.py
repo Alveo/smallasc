@@ -16,8 +16,12 @@ def search(request):
 
     if search_form.is_valid():
         
+        print "PREDICATES: ", search_form.generate_predicates()
+        
         participants      = Participant.objects.filter(search_form.generate_predicates())
         participant_count = len(participants)
+
+        print "PARTICIPANTS: ", participant_count
 
         if participant_count > 0:
 
@@ -31,7 +35,7 @@ def search(request):
     	})
 
     else:
-
+        
     	return render(request, 'search/index.html', { 
             'form': search_form 
         })

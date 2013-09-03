@@ -52,6 +52,36 @@ SES_CHOICES = (
     ('Non-Professional', 'Non-Professional')
 )
 
+AGEGROUP_CHOICES = (
+    ('any', 'Any'),
+    ('<30', 'less than 30'),
+    ('30-49', '30 to 49'),
+    ('>"),50', 'over 50'),                
+    )
+
+RECORDING_SITES = (
+    ('any', 'Any'),
+    ('<http://id.austalk.edu.au/protocol/site/FLIN>', 'Adelaide, Flinders University'),
+    ('<http://id.austalk.edu.au/protocol/site/UNE>', 'Armidale, University of New England'),
+    ('<http://id.austalk.edu.au/protocol/site/CSUB>', 'Bathurst, Charles Sturt University'),
+    ('<http://id.austalk.edu.au/protocol/site/UQB>', 'Brisbane, University of Queensland'),
+    ('<http://id.austalk.edu.au/protocol/site/UC>', 'Canberra, University of Canberra'),
+    ('<http://id.austalk.edu.au/protocol/site/ANU>', 'Canberra, Australian National University'),
+    ('<http://id.austalk.edu.au/protocol/site/UMELBC>', 'Castlemaine, University of Melbourne'),
+    ('<http://id.austalk.edu.au/protocol/site/CDUD>', 'Darwin, Charles Darwin University'),
+    ('<http://id.austalk.edu.au/protocol/site/UTAS>', 'Hobart, University of Tasmania'),
+    ('<http://id.austalk.edu.au/protocol/site/USCM>', 'Maroochydore, University of the Sunshine Coast'),
+    ('<http://id.austalk.edu.au/protocol/site/UMELBM>', 'Melbourne, University of Melbourne'),
+    ('<http://id.austalk.edu.au/protocol/site/UWA>', 'Perth, University of Western Australia'),
+    ('<http://id.austalk.edu.au/protocol/site/USYD>', 'Sydney, University of Sydney'),
+    ('<http://id.austalk.edu.au/protocol/site/UNSW>', 'Sydney, University of New South Wales'),
+    ('<http://id.austalk.edu.au/protocol/site/UQT>', 'Townsville, University of Queensland'),
+    )
+
+LANGUAGE_CHOICES = (
+    ('any', 'Any'),
+    )
+
 EXTRA_CHOICES = [('all', 'All')]
 
 DEFAULT_SPEAKER_QUANTITY = 1

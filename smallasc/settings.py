@@ -157,6 +157,7 @@ INSTALLED_APPS = (
     'search',
     'participantportal',
     'sso',
+    'stats',
     
     'debug_toolbar',
 )

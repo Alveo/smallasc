@@ -83,13 +83,14 @@ class ParticipantManager (SparqlManager):
             select  distinct ?part
             where {
                 ?part rdf:type foaf:Person .
-                ?part austalk:recording_site ?site .
             """
         for (key,value) in predicates.items():
             qq += """ ?part """ + key + " '" + value + "' . "
 
         qq += """}"""
 
+        print qq
+        
         sparql_results = self.query (qq)
 
         results = []

@@ -5,9 +5,9 @@ from search.forms.choice_options    import *
 class SearchForm(forms.Form):
 
     gender          = forms.ChoiceField(required = False, label = "Gender", choices = GENDER_CHOICES)
-    ses             = forms.ChoiceField(required = False, label = 'Socio Economic Status', choices = SES_CHOICES)
-    highest_qual    = forms.ChoiceField(required = False, label = 'Highest Qualification', choices = EDUCATION_LEVELS)
-    prof_cat        = forms.ChoiceField(required = False, label = 'Professional Category', choices = PROFESSIONAL_CATEGORIES)
+    agegroup        = forms.ChoiceField(required = False, label = 'Age', choices = AGEGROUP_CHOICES)
+    recording_site  = forms.ChoiceField(required = False, label = 'Recording Site', choices = RECORDING_SITES)
+    first_language  = forms.ChoiceField(required = False, label = 'First Language', choices = LANGUAGE_CHOICES)
 
 
     def generate_predicates(self):
@@ -18,14 +18,15 @@ class SearchForm(forms.Form):
             if not self.cleaned_data['gender'] == 'any': 
                 predicates["foaf:gender"] = self.cleaned_data['gender'] 
 
-            if not self.cleaned_data['ses'] == 'any': 
-                predicates["austalk:ses"] = self.cleaned_data['ses']
+            if not self.cleaned_data['agegroup'] == 'any': 
+                predicates["austalk:ageGroup"] = self.cleaned_data['agegroup']
 
-            if not self.cleaned_data['highest_qual'] == 'any': 
-                predicates["austalk:education_level"] = self.cleaned_data['highest_qual']
+            if not self.cleaned_data['recording_site'] == 'any': 
+                predicates["austalk:recording_site"] = self.cleaned_data['recording_site']
 
-            if not self.cleaned_data['prof_cat'] == 'any': 
-                predicates["austalk:professional_category"] = self.cleaned_data['prof_cat']
+            if not self.cleaned_data['first_language'] == 'any': 
+                predicates["austalk:first_language"] = self.cleaned_data['first_language']
 
         return predicates
+
 
