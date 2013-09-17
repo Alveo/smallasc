@@ -73,9 +73,7 @@ def login(request):
                       defaults={'expire_date' : timezone.now() + datetime.timedelta(seconds=20), 
                                 'tsession_key' : tsession, })
                 
-                # hack because we're not running smallasc-data on the root 
-                # should remove /download/ from this path
-                return HttpResponseRedirect('%s://%s/download/sso/login/?tsessionid=%s&next=%s' % (parsed_next.scheme, parsed_next.netloc, tsession, parsed_next.path))
+                return HttpResponseRedirect('%s://%s/sso/login/?tsessionid=%s&next=%s' % (parsed_next.scheme, parsed_next.netloc, tsession, parsed_next.path))
         else:
                 return django_login(request)
 
