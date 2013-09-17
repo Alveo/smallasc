@@ -200,7 +200,7 @@ LOGIN_REDIRECT_URL = "/"
 SPARQL_ENDPOINT = "http://115.146.93.47/openrdf-sesame/repositories/bigasc_native"
 
 # SMALLASCDATA_ENDPOINT
-SMALLASCDATA_ENDPOINT = "http://data.austalk.edu.au/download/download/"
+SMALLASCDATA_ENDPOINT = "http://data.austalk.edu.au/download/"
 
 JWT_SECRET = "austalk_secret"
 
