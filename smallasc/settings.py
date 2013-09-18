@@ -149,7 +149,8 @@ INSTALLED_APPS = (
     # 3rd party apps
     'lettuce.django',
     'bootstrap-pagination',
- #   'registration',
+    'registration',
+    'registration.supplements.default',
 
     # Smallasc applications listed
     'baseapp',
