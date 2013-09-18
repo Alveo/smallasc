@@ -27,7 +27,7 @@ urlpatterns = patterns('',
 	url(r'^pages/', include('django.contrib.flatpages.urls')),
 
 	# django-registration
-	#url(r'^accounts/', include('registration.backends.default.urls')),
+	url(r'^registration/', include('registration.urls')),
 
     # Uncomment the next line to enable the admin:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
