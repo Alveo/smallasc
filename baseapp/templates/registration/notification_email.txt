@@ -1,0 +1,9 @@
+{% load url from future %}
+{% load i18n %}
+
+A new registration request for {{ user }} has been received at {{site_name}}.
+
+To approve or reject this request, please visit the site admin page
+at http://{{ site.domain }}/admin/
+
+

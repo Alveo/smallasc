@@ -1,7 +1,7 @@
 {% load url from future %}
 {% load i18n %}
 {% blocktrans %}Dear {{ user }},{% endblocktrans %}
-{% trans 'Your account registration was created successfully.' %}
+Your request to register on {{ site_name }} has been received.
 
-{% trans 'Please wait until the inspector verify your registration.' %}
-{% trans 'You will receive an acceptance or rejection email within several days.' %}
+Please wait until the site administrator approves your registration.
+You will receive an acceptance or rejection email within a few days.
