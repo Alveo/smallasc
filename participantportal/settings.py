@@ -1,0 +1,1 @@
+PP_LOGIN_URL = '/participantportal/login/'

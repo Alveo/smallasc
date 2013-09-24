@@ -1,0 +1,92 @@
+{% extends "statistics/sgvizler.html" %}
+
+{% block title %}
+ Austalk Meta Search | Reports | Birthplace
+{% endblock %}
+
+{% block subtitle %}
+Sample Speaker Statistics
+{% endblock %}
+
+
+{% block query %}
+
+<h2>Number of Participants Per Recording Site</h2>
+
+<table border="0" cellpadding="10";>
+   <tr>
+   		<td>
+<div id="recording_site"
+      data-sgvizler-query=
+      				"SELECT ?prop (count(?part) AS ?noOfInstances)
+                          WHERE{ 
+                            ?part a foaf:Person .  
+                            ?part austalk:recording_site ?site . 
+                            ?site rdfs:label ?prop .
+                            }
+                          GROUP BY ?prop"
+      data-sgvizler-chart="gColumnChart"
+      data-sgvizler-loglevel="0"
+      style="width:800px; height:400px;"></div>     
+      
+      </td>
+      <td>
+<div id="recording_site_table"
+      data-sgvizler-query="SELECT (?inst AS ?Recording_site) (count(?part) AS ?no_Of_Participants)
+                          WHERE{ 
+                            ?site rdf:type austalk:RecordingSite .
+							?site austalk:institution ?inst .
+                            ?part a foaf:Person .  
+                            ?part austalk:recording_site ?site . 
+                            }
+                          GROUP BY ?inst"
+
+      data-sgvizler-chart="gTable"
+      data-sgvizler-loglevel="0"
+      style="width:350px; height:400px;"></div>      
+  		</td>
+  	</tr>
+</table>
+
+<h2>Participant Birthplaces</h2>
+<div id="birthplace_table"
+      data-sgvizler-query="SELECT (?pob_town as ?Town)
+      (?pob_state as ?State)
+      (?pob_country as ?Country) 
+      (count(distinct ?part) as ?Number_of_participants)
+      WHERE {
+      	?site rdf:type austalk:RecordingSite .
+      	?site rdfs:label ?recording_site .
+      	?part rdf:type foaf:Person .
+      	?part austalk:recording_site ?site .
+      	?part austalk:pob_town ?pob_town .
+      	?part austalk:pob_state ?pob_state .
+      	?part austalk:pob_country ?pob_country .
+      	}
+      	GROUP BY ?pob_town ?pob_state ?pob_country
+      	ORDER BY ?pob_town"
+
+      data-sgvizler-chart="gTable"
+      data-sgvizler-loglevel="0"
+      style="width:600px; height:400px;"></div>   
+
+
+
+<h2>Participant Birthplaces Map</h2>
+<div id="birthplaces"
+      data-sgvizler-query="SELECT  ?lat ?long ?id
+WHERE {
+ ?part rdf:type foaf:Person .
+ ?part austalk:name ?id .
+ ?part austalk:birthPlace ?place .
+ ?place geo:lat ?lat .
+ ?place geo:long ?long .
+}"
+      data-sgvizler-chart="sMap"
+      data-sgvizler-loglevel="0"
+      data-sgvizler-chart-options="title=Birthplace of Participants"
+      style="width:800px; height:400px;"></div> 
+      
+            
+      
+{% endblock %}

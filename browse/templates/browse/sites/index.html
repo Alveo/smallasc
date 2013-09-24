@@ -1,0 +1,34 @@
+{% extends "layout/base.html" %}
+
+{% load bootstrap_pagination %}
+
+<!-- Note the convention of the title, Austalk | View > Object -->
+{% block title %}
+    Austalk | Browse > Sites
+{% endblock %}
+
+{% block subtitle %}
+    Sites
+{% endblock %}
+
+{% block content %}
+
+{% for site in sites %}
+  <section class="statsection">
+
+    <header>
+      <h2>
+        <a href="{{ site.get_absolute_url }}">{{ site.name }}, {{site.location}}</a>
+      </h2>
+    </header>
+
+    <p><em>{{site.stats.male}}</em> male participants</p>
+    <p><em>{{site.stats.female}}</em> female participants</p>
+    <p><em>{{ site.participant_count }}</em> total participants</p>
+
+  </section>
+{% endfor %}
+
+{% bootstrap_paginate sites %}
+
+{% endblock %}

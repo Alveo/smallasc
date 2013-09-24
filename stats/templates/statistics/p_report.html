@@ -1,0 +1,85 @@
+{% extends "statistics/sgvizler.html" %}
+
+{% block title %}
+ Austalk Meta Search | Reports
+{% endblock %}
+
+{% block subtitle %}
+Sample Speaker Statistics
+{% endblock %}
+
+
+{% block query %}
+
+   <p>Try <a href="/stats/query/">a custom query</a>.</p>
+
+<div id="site_distribution"
+      data-sgvizler-query="SELECT ?prop (count(?part) AS ?noOfInstances)
+                          WHERE{
+                            ?part a foaf:Person .
+                            ?part austalk:recording_site ?site .
+                            ?site rdfs:label ?prop .
+                            }
+                          GROUP BY ?prop
+                          ORDER BY ?prop"
+      data-sgvizler-chart="gPieChart"
+      data-sgvizler-loglevel="0"
+      data-sgvizler-chart-options="title=Number of Participants per Site"
+      style="width:800px; height:400px;"></div>
+
+<div id="gender_distribution"
+      data-sgvizler-query="SELECT ?prop (count(?part) AS ?noOfInstances)
+                          WHERE{
+                            ?part a foaf:Person .
+                            ?part foaf:gender ?prop .
+                            }
+                          GROUP BY ?prop
+                          ORDER BY ?prop"
+      data-sgvizler-chart="gPieChart"
+      data-sgvizler-loglevel="0"
+      data-sgvizler-chart-options="title=Gender Distribution"
+      style="width:800px; height:400px;"></div>
+
+
+      <div id="age_distribution"
+      data-sgvizler-query="SELECT  (2011-?dob as ?age) (count(?part) as ?count)
+WHERE {
+ ?part rdf:type foaf:Person .
+ ?part dbpedia:birthYear ?dob .
+}
+group by ?dob
+order by ?dob"
+      data-sgvizler-chart="gColumnChart"
+      data-sgvizler-loglevel="0"
+      data-sgvizler-chart-options="title=Age Distribution"
+      style="width:800px; height:400px;"></div>
+
+
+<div id="qual_distribution"
+      data-sgvizler-query="SELECT  ?el (count(?part) as ?partcount)
+WHERE {
+ ?part rdf:type foaf:Person .
+ ?part austalk:education_level ?el .
+}
+group by ?el"
+      data-sgvizler-chart="gPieChart"
+      data-sgvizler-loglevel="0"
+      data-sgvizler-chart-options="title=Qualification Distribution"
+      style="width:800px; height:400px;"></div>
+
+<h2>Birthplaces of Participants</h2>
+
+<div id="birthplaces"
+      data-sgvizler-query="SELECT  ?lat ?long ?id
+WHERE {
+ ?part rdf:type foaf:Person .
+ ?part austalk:name ?id .
+ ?part austalk:birthPlace ?place .
+ ?place geo:lat ?lat .
+ ?place geo:long ?long .
+}"
+      data-sgvizler-chart="sMap"
+      data-sgvizler-loglevel="0"
+      data-sgvizler-chart-options="title=Birthplace of Participants"
+      style="width:800px; height:400px;"></div>
+{% endblock %}

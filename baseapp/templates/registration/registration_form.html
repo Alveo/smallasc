@@ -1,0 +1,20 @@
+{% extends "layout/login_base.html" %}
+
+{% block title %}
+	Austalk Corpus | Registration
+{% endblock %}
+
+{% block formheading %}
+	Austalk Corpus
+{% endblock %}
+
+{% block content %}
+				
+<!-- Login form -->
+<form method="POST" action="." class="loginbox">
+	{% csrf_token %}
+	{{form}}
+	<input type="submit" value="Register" class="btn btn-primary" />
+</form>
+
+{% endblock %}
