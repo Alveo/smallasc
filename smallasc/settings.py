@@ -151,6 +151,7 @@ INSTALLED_APPS = (
     'bootstrap-pagination',
     'registration',
     'registration.supplements.default',
+    'registration.contrib.notification',
 
     # Smallasc applications listed
     'baseapp',

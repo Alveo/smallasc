@@ -6,7 +6,7 @@
 
 
 {% block content %}
-  <p>Activation was successful. You may now <a href="/accounts/login?next=/">login</a>
+  <p>Activation was successful. You may now <a href="{% url 'auth_login' %}">login</a>
   using your username and password.</p>
   
 <p>Your username:   {{ account.username }} </p>
