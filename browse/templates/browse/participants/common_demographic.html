@@ -4,12 +4,16 @@
     <td> {{ participant.properties.gender.0 }}</td>
   </tr>
   <tr>
-    <th>Year of birth</th>
-    <td> {{ participant.properties.birthYear.0 }}</td>
+    <th>Age</th>
+    <td> {{ participant.properties.age.0 }}</td>
   </tr>
   <tr>
     <th>Location of birth</th>
     <td><a href="{{ participant.properties.birthPlace.0 }}" target="_blank">{{ participant.properties.pob_town.0 }}, {{participant.properties.pob_state.0}} {{participant.properties.pob_country.0}}</a></td>
+  </tr>
+   <tr>
+    <th>Suburb</th>
+    <td> {{ participant.properties.suburb.0 }}</td>
   </tr>
   <tr>
     <th>Cultural heritage</th>
@@ -54,7 +58,7 @@
     <td>
       <ul>
       {% for place in residential_history %} 
-         <li>{{place.town}}, {{place.state}}, {{place.country}} from {{place.age_from}} to {{place.age_to}}</li>
+         <li>{{place.town}}, {{place.state}}, {{place.country}}</li>
       {% endfor %}
       </ul>
     </td>
