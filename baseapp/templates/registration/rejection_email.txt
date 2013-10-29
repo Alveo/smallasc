@@ -1,0 +1,10 @@
+{% load url from future %}
+{% load i18n %}
+{% blocktrans %}Dear {{ user }},{% endblocktrans %}
+
+Your request to register on {{ site_name }} has been rejected.
+
+{% if message %}
+{% trans 'Reason for rejection:' %}
+{{ message }}
+{% endif %}
