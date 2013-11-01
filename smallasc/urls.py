@@ -35,4 +35,7 @@ urlpatterns = patterns('',
 
     # Url routing for the Participant Portal
     url (r'^participantportal/', include('participantportal.urls')),
+    
+    # SPARQL endpoint
+    url(r'^sparql/', 'baseapp.views.sparql.sparql_endpoint'),
 )
