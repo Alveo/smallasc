@@ -9,5 +9,5 @@ class StatsView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(StatsView, self).get_context_data(**kwargs)
-        context['endpoint'] = settings.SPARQL_ENDPOINT
+        context['endpoint'] = '/sparql/'
         return context

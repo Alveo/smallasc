@@ -4,24 +4,28 @@ from django.conf import settings
 from SPARQLWrapper import SPARQLWrapper, JSON
 import os
 
+NAMESPACES =   """PREFIX dc:<http://purl.org/dc/terms/>
+                PREFIX austalk:<http://ns.austalk.edu.au/>
+                PREFIX olac:<http://www.language-archives.org/OLAC/1.1/>
+                PREFIX ausnc:<http://ns.ausnc.org.au/schemas/ausnc_md_model/>
+                PREFIX foaf:<http://xmlns.com/foaf/0.1/>
+                PREFIX dbpedia:<http://dbpedia.org/ontology/>
+                PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+                PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+                PREFIX geo:<http://www.w3.org/2003/01/geo/wgs84_pos#>
+                PREFIX iso639schema:<http://downlode.org/rdf/iso-639/schema#> 
+                
+                %s"""
+
+
 class SparqlLocalWrapper ():
 
     @staticmethod
     def canonicalise_query (query):
-        """ Each query needs to be preceeded with the namespaces used for the query, this method
-        returns all such namespaces. """
-        namespaces =   """PREFIX dc:<http://purl.org/dc/terms/>
-                        PREFIX austalk:<http://ns.austalk.edu.au/>
-                        PREFIX olac:<http://www.language-archives.org/OLAC/1.1/>
-                        PREFIX ausnc:<http://ns.ausnc.org.au/schemas/ausnc_md_model/>
-                        PREFIX foaf:<http://xmlns.com/foaf/0.1/>
-                        PREFIX dbpedia:<http://dbpedia.org/ontology/>
-                        PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-                        PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
-                        PREFIX geo:<http://www.w3.org/2003/01/geo/wgs84_pos#>
-                        
-                        %s"""
-        return namespaces % query
+        """ Each query needs to be preceeded with the NAMESPACES used for the query, this method
+        returns all such NAMESPACES. """
+
+        return NAMESPACES % query
 
     @staticmethod
     def create_sparql ():
@@ -42,18 +46,10 @@ class SparqlMixin(object):
         self.create_sparql()
 
     def canonicalise_query (self, query):
-        """ Each query needs to be preceeded with the namespaces used for the query, this method
-        returns all such namespaces. """
-        namespaces =   """PREFIX dc:<http://purl.org/dc/terms/>
-                        PREFIX austalk:<http://ns.austalk.edu.au/>
-                        PREFIX olac:<http://www.language-archives.org/OLAC/1.1/>
-                        PREFIX ausnc:<http://ns.ausnc.org.au/schemas/ausnc_md_model/>
-                        PREFIX foaf:<http://xmlns.com/foaf/0.1/>
-                        PREFIX dbpedia:<http://dbpedia.org/ontology/>
-                        PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-                        PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
-                        %s"""
-        return namespaces % query
+        """ Each query needs to be preceeded with the NAMESPACES used for the query, this method
+        returns all such NAMESPACES. """
+
+        return NAMESPACES % query
 
     def create_sparql (self):
         """ This function creates a wrapper class used to communicate with the SPARQL endpoint """
@@ -82,18 +78,10 @@ class SparqlManager(models.Manager):
         
     
     def canonicalise_query (self, query):
-        """ Each query needs to be preceeded with the namespaces used for the query, this method
-        returns all such namespaces. """
-        namespaces =   """PREFIX dc:<http://purl.org/dc/terms/>
-                        PREFIX austalk:<http://ns.austalk.edu.au/>
-                        PREFIX olac:<http://www.language-archives.org/OLAC/1.1/>
-                        PREFIX ausnc:<http://ns.ausnc.org.au/schemas/ausnc_md_model/>
-                        PREFIX foaf:<http://xmlns.com/foaf/0.1/>
-                        PREFIX dbpedia:<http://dbpedia.org/ontology/>
-                        PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-                        PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
-                        %s"""
-        return namespaces % query
+        """ Each query needs to be preceeded with the NAMESPACES used for the query, this method
+        returns all such NAMESPACES. """
+
+        return NAMESPACES % query
 
     def create_sparql (self):
         """ This function creates a wrapper class used to communicate with the SPARQL endpoint """
@@ -129,16 +117,8 @@ class SparqlModel(models.Model):
     def canonicalise_query (self, query):
         """ Each query needs to be preceeded with the namespaces used for the query, this method
         returns all such namespaces. """
-        namespaces =   """PREFIX dc:<http://purl.org/dc/terms/>
-                        PREFIX austalk:<http://ns.austalk.edu.au/>
-                        PREFIX olac:<http://www.language-archives.org/OLAC/1.1/>
-                        PREFIX ausnc:<http://ns.ausnc.org.au/schemas/ausnc_md_model/>
-                        PREFIX foaf:<http://xmlns.com/foaf/0.1/>
-                        PREFIX dbpedia:<http://dbpedia.org/ontology/>
-                        PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-                        PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
-                        %s"""
-        return namespaces % query
+ 
+        return NAMESPACES % query
 
     def create_sparql (self):
         """ This function creates a wrapper class used to communicate with the SPARQL endpoint """
