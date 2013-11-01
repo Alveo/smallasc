@@ -9,7 +9,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
 
     # sample stats pages
-    url(r'^query/$', StatsView.as_view(template_name='statistics/sgvizler.html')),
+    url(r'^custom.html$', StatsView.as_view(template_name='statistics/sgvizler.html')),
     url(r'^age.html$', StatsView.as_view(template_name='statistics/age.htm')),
     url(r'^birthplaces.html$', StatsView.as_view(template_name='statistics/birthplaces.htm')),
     url(r'^culture.html$', StatsView.as_view(template_name='statistics/culture.htm')),
