@@ -1,0 +1,12 @@
+{% extends 'layout/login_base.html' %}
+
+{% load i18n %}
+
+{% block title %}Activation is complete{% endblock %}
+
+{% block formheading %}<h1>Activation is complete</h1>{% endblock %}
+
+{% block content %}
+{{ block.super }}
+<p>Your account has now been activated. Proceed to <a href="/login/">Login</a>.</p>
+{% endblock %}

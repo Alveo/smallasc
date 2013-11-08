@@ -1,0 +1,72 @@
+{% extends "layout/base.html" %}
+
+{% block head %}
+<script src="{{ STATIC_URL }}audiojs/audiojs/audio.min.js"></script>
+<script>
+  audiojs.events.ready(function() {
+   /* use custom useFlash function to stop triggering flash on Firefox when
+      it's not needed */
+   var as = audiojs.createAll({
+             useFlash: (function() {
+                            var a = document.createElement('audio');
+                               return !(a.canPlayType && a.canPlayType('audio/x-wav;').replace(/no/, ''));
+     })(),
+   })
+   });
+</script>
+{% endblock %}
+
+<!-- Note the convention of the title, Austalk | View > Object -->
+{% block title %}
+    Austalk | Browse > Item {{item.basename}}
+{% endblock %}
+
+{% block breadcrumbs %}
+  <ul class="breadcrumb">
+    <li><span class="divider">/</span></li>
+    <li><a href="/browse/">All Sites</a></li>
+    <li><span class="divider">/</span></li>
+    <li><a href="/browse/{{ site_id }}/">{{ site.name }}</a></li>
+    <li><span class="divider">/</span></li>
+    <li><a href="/browse/{{ site_id }}/{{ participant_id }}">Speaker {{ participant_id }}</a></li>
+    <li><span class="divider">/</span></li>
+    <li><a href="/browse/{{ site_id }}/{{ participant_id }}/{{ session_id }}">Session {{ session_id }}</a></li>
+    <li><span class="divider">/</span></li>
+    <li><a href="/browse/{{ site_id }}/{{ participant_id }}/{{ session_id }}/{{ item.componentId }}">{{component_id}}</a></li>
+  </ul>
+{% endblock %}
+
+{% block subtitle %}
+  Item {{item.basename}}
+{% endblock %}
+
+{% block content %}
+  <section>
+    <h2>Item details</h2>
+    <table class="table table-striped">
+      <tr><th>Item Basename</th><td><a href="{{item.get_absolute_url}}">{{ item.basename }}</a></td></tr>
+      <tr><th>Prompt</th><td>{{ item.prompt }}</td></tr>
+      <tr><th>ID</th><td>{{ item.identifier }}</td></tr>
+      <tr><th>Audio</th><td><audio src="{{item.ch6media}}"></td>
+      <tr><th>Media</th><td>
+         <ul>
+         {% for m in item.properties.document %}
+           <li><a href="{{m}}">{{m}}</a></li>
+         {% endfor %}
+         </ul>
+     </td></tr>
+     <tr><th>Camera Serial Numbers</th><td>{{item.properties.cameraSN0.0}}, {{item.properties.cameraSN1.0}}</td></tr>
+     <tr><th>Timestamp</th><td>{{item.properties.created.0}}</td></tr>
+     <tr><th>Speaker</th><td>{% for s in item.properties.speaker %}{{s}} {% endfor %}</td></tr>
+     {% if item.properties.information_giver %}
+     <tr><th>Information Giver</th><td>{{item.properties.information_giver.0}}</td></tr>
+     {% endif %}
+     {% if item.properties.information_follower %}
+     <tr><th>Information Follower</th><td>{{item.properties.information_follower.0}}</td></tr>
+     {% endif %}
+     {% if item.properties.map %}
+     <tr><th>Map</th><td>{{item.properties.map.0}}</td></tr>
+     {% endif %}
+    </table>
+</section>
+{% endblock %}

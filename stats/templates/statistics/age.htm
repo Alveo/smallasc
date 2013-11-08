@@ -1,0 +1,157 @@
+{% extends "statistics/sgvizler.html" %}
+
+{% block title %}
+ Austalk Meta Search | Reports | Age
+{% endblock %}
+
+{% block subtitle %}
+Sample Speaker Statistics
+{% endblock %}
+
+
+{% block query %}
+
+<h2>Age Distribution vs Gender</h2>
+
+<table border="0" cellpadding="10";>
+   <tr>
+   		<td>
+<div id="age_groups"
+      data-sgvizler-query="
+      				SELECT ?gender (count(?under30) as ?UnderThirty) 
+      				(count(?from31to49) as ?ThirtyOneToFortyNine) 
+      				(count(?over50) as ?OverFifty)					WHERE{
+						?site rdf:type austalk:RecordingSite .
+						?site rdfs:label ?inst .
+						?part rdf:type foaf:Person .
+						?part austalk:recording_site ?site .
+						?part dbpedia:birthYear ?dob .
+						?part foaf:gender ?gender
+						{
+							?part dbpedia:birthYear ?under30 .
+							FILTER (?under30 >= 1982 )}
+							UNION{
+								?part dbpedia:birthYear ?from31to49 .
+								FILTER (?from31to49 < 1982 && ?from31to49 > 1962 )}
+							UNION{
+								?part dbpedia:birthYear ?over50 .
+								FILTER (?over50 >= 1962 )}
+						}
+						GROUP BY ?gender"
+
+      data-sgvizler-chart="gColumnChart"
+      data-sgvizler-loglevel="0"
+      style="width:800px; height:400px;"></div>     
+      
+      </td>
+      <td>
+<div id="age_groups_table"
+      data-sgvizler-query="
+      				SELECT ?gender (count(?under30) as ?UnderThirty) 
+      				(count(?from31to49) as ?ThirtyOneToFortyNine) 
+      				(count(?over50) as ?OverFifty)					WHERE{
+						?site rdf:type austalk:RecordingSite .
+						?site rdfs:label ?inst .
+						?part rdf:type foaf:Person .
+						?part austalk:recording_site ?site .
+						?part dbpedia:birthYear ?dob .
+						?part foaf:gender ?gender
+						{
+							?part dbpedia:birthYear ?under30 .
+							FILTER (?under30 >= 1982 )}
+							UNION{
+								?part dbpedia:birthYear ?from31to49 .
+								FILTER (?from31to49 < 1982 && ?from31to49 > 1962 )}
+							UNION{
+								?part dbpedia:birthYear ?over50 .
+								FILTER (?over50 >= 1962 )}
+						}
+						GROUP BY ?gender"
+
+      data-sgvizler-chart="gTable"
+      data-sgvizler-loglevel="0"
+      style="width:430px; height:100px;"></div>      
+  		</td>
+  	</tr>
+</table>
+  		
+    
+<h2>Age Distribution Per Recording Site</h2>  
+<table border="0" cellpadding="10";>
+   <tr>
+   		<td>
+<div id="age_group_distribution_per_institution"
+      data-sgvizler-query="
+      				SELECT ?inst (count(?under30) as ?UnderThirty) 
+      				(count(?from31to49) as ?ThirtyOneToFortyNine) 
+      				(count(?over50) as ?OverFifty)					WHERE{
+						?site rdf:type austalk:RecordingSite .
+						?site rdfs:label ?inst .
+						?part rdf:type foaf:Person .
+						?part austalk:recording_site ?site .
+						?part dbpedia:birthYear ?dob .
+						{
+							?part dbpedia:birthYear ?under30 .
+							FILTER (?under30 >= 1982 )}
+							UNION{
+								?part dbpedia:birthYear ?from31to49 .
+								FILTER (?from31to49 < 1982 && ?from31to49 > 1962 )}
+							UNION{
+								?part dbpedia:birthYear ?over50 .
+								FILTER (?over50 >= 1962 )}
+						}
+						GROUP BY ?inst"
+
+      data-sgvizler-chart="gColumnChart"
+      data-sgvizler-loglevel="0"
+      style="width:800px; height:400px;"></div>      
+      	</td>
+      	<td>
+<div id="age_group_distribution_per_institution_table"
+      data-sgvizler-query="
+      				SELECT ?inst (count(?under30) as ?UnderThirty) 
+      				(count(?from31to49) as ?ThirtyOneToFortyNine) 
+      				(count(?over50) as ?OverFifty)					WHERE{
+						?site rdf:type austalk:RecordingSite .
+						?site rdfs:label ?inst .
+						?part rdf:type foaf:Person .
+						?part austalk:recording_site ?site .
+						?part dbpedia:birthYear ?dob .
+						{
+							?part dbpedia:birthYear ?under30 .
+							FILTER (?under30 >= 1982 )}
+							UNION{
+								?part dbpedia:birthYear ?from31to49 .
+								FILTER (?from31to49 < 1982 && ?from31to49 > 1962 )}
+							UNION{
+								?part dbpedia:birthYear ?over50 .
+								FILTER (?over50 >= 1962 )}
+						}
+						GROUP BY ?inst
+						ORDER BY ?inst"
+
+      data-sgvizler-chart="gTable"
+      data-sgvizler-loglevel="0"
+      style="width:430px; height:400px;"></div>  
+      </td>
+  	</tr>
+</table>
+  		  
+      	
+            
+      <div id="age_distribution"
+      data-sgvizler-query="SELECT  (2011-?dob as ?age) (count(?part) as ?count)
+WHERE {
+ ?part rdf:type foaf:Person .
+ ?part dbpedia:birthYear ?dob .
+}
+group by ?dob
+order by ?dob"
+      data-sgvizler-chart="gColumnChart"
+      data-sgvizler-loglevel="0"
+      data-sgvizler-chart-options="title=Age Distribution Across Sites"
+      style="width:800px; height:400px;"></div> 
+
+      
+
+      {% endblock %}
