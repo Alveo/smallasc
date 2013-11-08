@@ -37,7 +37,7 @@ class ParticipantManager (SparqlManager):
         return results
 
 
-    def with_data (self, site):
+    def with_data (self, site, limit=1000, offset=0):
         
         sparql_results = self.query ("""
             select distinct ?part 
@@ -46,7 +46,7 @@ class ParticipantManager (SparqlManager):
                 ?part austalk:recording_site <%s> . 
                 ?rs olac:speaker ?part .
                 ?rs rdf:type austalk:RecordedSession .
-            }""" % site.identifier)
+            } LIMIT %d OFFSET %d""" % (site.identifier, limit, offset))
 
         results = []
 
