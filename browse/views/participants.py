@@ -10,7 +10,7 @@ from search.forms                           import SearchForm
 
 @login_required
 @permission_required('auth.can_view_participants')
-def index(request, site_id):
+def index(request, site_id, page=0):
 
     site = Site.objects.get(site_id)
 
@@ -18,7 +18,7 @@ def index(request, site_id):
         search_form  = SearchForm(request.GET)
         participants = Participant.objects.filter(search_form.generate_predicates())
     else:
-        participants = Participant.objects.with_data(site)
+        participants = Participant.objects.with_data(site, limit=1000, offset=page*10)
     
     return render(request, 'browse/participants/index.html', {
         'request'       : request,

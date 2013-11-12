@@ -211,6 +211,9 @@ JWT_SECRET = "austalk_secret"
 ACCOUNT_ACTIVATION_DAYS = 7
 
 
+# do we want to see queries that take a long time
+REPORT_LONG_QUERIES = True
+SHORT_QUERY_TIME = 0  # in seconds, show queries that take longer than this
 
 # load local settings
 # put customized stuff here
