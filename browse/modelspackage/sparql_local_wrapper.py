@@ -98,7 +98,7 @@ class SparqlManager(models.Manager):
         a Python dictionary that reflects the JSON returned
         from the SPARQL endpoint"""
         
-        print "Manager", query
+        print "Manager", self.canonicalise_query(query)
                 
         start = time.time()
         self.sparql.setQuery(self.canonicalise_query(query))

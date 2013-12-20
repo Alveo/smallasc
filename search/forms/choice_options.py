@@ -56,7 +56,7 @@ AGEGROUP_CHOICES = (
     ('any', 'Any'),
     ('<30', 'less than 30'),
     ('30-49', '30 to 49'),
-    ('>"),50', 'over 50'),                
+    ('>50', 'over 50'),                
     )
 
 RECORDING_SITES = (
