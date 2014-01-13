@@ -204,6 +204,11 @@ SPARQL_ENDPOINT = "http://115.146.93.47/openrdf-sesame/repositories/bigasc_nativ
 # SMALLASCDATA_ENDPOINT
 SMALLASCDATA_ENDPOINT = "http://data.austalk.edu.au/download/"
 
+# should we print Sparql queries to the log for debugging?
+PRINT_SPARQL = False
+# when printing queries, do we want to see all the prefix lines?
+PRINT_SPARQL_PREFIXES = False
+
 JWT_SECRET = "austalk_secret"
 
 
