@@ -1,3 +1,10 @@
+COLOUR_ID_CHOICES = (('any', 'Any'),
+                     ('1', '1 - Gold'),
+                     ('2', '2 - Green'),
+                     ('3', '3 - Red'),
+                     ('4', '4 - Blue'))
+
+
 EDUCATION_LEVELS = (('any', 'Any'),
       ('primary to junior high', 'Primary School to Junior High School'),
       ('school certificate', 'Junior Secondary (up to School Certificate level)'),

@@ -29,7 +29,7 @@ def search(request):
 
     else:
         
-    	return render(request, 'search/index.html', { 
+    	return render(request, 'search/participants.html', { 
             'form': search_form 
         })
 
