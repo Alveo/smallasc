@@ -63,9 +63,6 @@ class SparqlMixin(object):
         a Python dictionary that reflects the JSON returned
         from the SPARQL endpoint"""
         
-        
-        print "Mx", self.canonicalise_query(query)
-        
         self.sparql.setQuery(self.canonicalise_query(query))
         return self.sparql.query().convert()
 
@@ -98,12 +95,19 @@ class SparqlManager(models.Manager):
         a Python dictionary that reflects the JSON returned
         from the SPARQL endpoint"""
         
-        print "Manager", self.canonicalise_query(query)
+        
+        if settings.PRINT_SPARQL:
+            if settings.PRINT_SPARQL_PREFIXES:
+                print self.canonicalise_query(query)
+            else:
+                print query
                 
         start = time.time()
         self.sparql.setQuery(self.canonicalise_query(query))
         result = self.sparql.query().convert()
-        print "Time: ", time.time()-start
+        
+        if settings.PRINT_SPARQL:
+            print len(result['results']['bindings']), "results in", time.time()-start, "s"
         
         return result
 
@@ -139,10 +143,19 @@ class SparqlModel(models.Model):
         a Python dictionary that reflects the JSON returned
         from the SPARQL endpoint"""
         
+        
+        if settings.PRINT_SPARQL:
+            if settings.PRINT_SPARQL_PREFIXES:
+                print self.canonicalise_query(query)
+            else:
+                print query
+        
         start = time.time()
         self.sparql.setQuery(self.canonicalise_query(query))
         result = self.sparql.query().convert()
-        print "Time: ", time.time()-start
+        
+        if settings.PRINT_SPARQL:
+            print len(result['results']['bindings']), "results in", time.time()-start, "s"
         
         return result
 
