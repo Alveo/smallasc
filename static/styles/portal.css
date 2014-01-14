@@ -3,14 +3,18 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400);
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:600);
 
+html, body {
+  height: 95%;
+}
+
 html {
   overflow-y: auto;
 }
 
 body {
-  padding-top: 60px;
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 300;
+  padding-top: 60px;
 }
 
 input {
@@ -34,4 +38,25 @@ h2 {
   margin-bottom: 30px;
   text-align: left;
   font-weight: 600;
+}
+
+/* Wrapper for page content to push down footer */
+#wrap {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  /* Negative indent footer by its height */
+  margin-bottom: -60px;
+  /* Pad bottom by footer height */
+  padding-bottom: 60px;
+}
+
+/* Set the fixed height of the footer here */
+#footer { 
+  height: 5%;
+  min-height: 2em;
+  border-top: 1px solid #ccc;
+}
+#footer p {
+	padding-top: 0.5em;
 }
