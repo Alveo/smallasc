@@ -2,7 +2,7 @@ import os
 
 # Django settings for smallasc project.
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 PAGE_SIZE = 10
@@ -12,6 +12,8 @@ ADMINS = (
 )
 
 MANAGERS = ADMINS
+
+ALLOWED_HOSTS = ['bigasc.edu.au']
 
 EMAIL_SUBJECT_PREFIX = "[austalk] "
 SERVER_EMAIL = "django@austalk.edu.au"
