@@ -50,10 +50,14 @@ class ComponentManager (SparqlManager):
 
                 BIND ("%s" AS ?pid)
                 BIND (%s as ?sessionid)
-  
+                
                 ?participant austalk:id ?pid .
-                ?rc rdf:type austalk:RecordedComponent .
-                ?rc olac:speaker ?participant .     
+                ?rs rdf:type austalk:RecordedSession .
+                ?rs olac:speaker ?participant .
+                ?rc dc:isPartOf ?rs .
+                
+                ?rs austalk:prototype ?ps .
+                ?ps austalk:id ?sessionid .
                 
             }
         """ % (participant_id, session_id)
