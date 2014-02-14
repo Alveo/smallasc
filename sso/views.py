@@ -43,7 +43,7 @@ def is_valid_tsession(request):
                 
                 logger.debug("Looking up tsessionid: %s" % (tsession_key,))
                 
-                ss = Tsession.objects.filter(tsession_key__exact=tsession_key, expire_date__gt=timezone.now())
+                ss = TSession.objects.filter(tsession_key__exact=tsession_key, expire_date__gt=timezone.now())
                 if ts.count() == 0:
                     raise Http404
                 elif ts.count() > 1:
