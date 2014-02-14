@@ -7,6 +7,7 @@ from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
+from django.http import Http404
 
 from sso.models import TSession
 
@@ -42,7 +43,16 @@ def is_valid_tsession(request):
                 
                 logger.debug("Looking up tsessionid: %s" % (tsession_key,))
                 
-                s = get_object_or_404(TSession, tsession_key=tsession_key, expire_date__gt=timezone.now())
+                ss = Tsession.objects.filter(tsession_key__exact=tsession_key, expire_date__gt=timezone.now())
+                if ts.count() == 0:
+                    raise Http404
+                elif ts.count() > 1:
+                    # too many sessions, remove all but the first one
+                    for s in ts[1:]:
+                        s.delete()
+                    s = ts[0]
+                else:
+                    s = ts[0]
 
                 return HttpResponse(s.session_key)
         else:
