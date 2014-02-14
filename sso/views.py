@@ -44,15 +44,15 @@ def is_valid_tsession(request):
                 logger.debug("Looking up tsessionid: %s" % (tsession_key,))
                 
                 ss = TSession.objects.filter(tsession_key__exact=tsession_key, expire_date__gt=timezone.now())
-                if ts.count() == 0:
+                if ss.count() == 0:
                     raise Http404
-                elif ts.count() > 1:
+                elif ss.count() > 1:
                     # too many sessions, remove all but the first one
-                    for s in ts[1:]:
+                    for s in ss[1:]:
                         s.delete()
-                    s = ts[0]
+                    s = ss[0]
                 else:
-                    s = ts[0]
+                    s = ss[0]
 
                 return HttpResponse(s.session_key)
         else:
