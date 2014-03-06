@@ -9,11 +9,16 @@
 {% endblock %}
 
 {% block content %}
+
+<p>This from allows you to find items based on the item prompt. It is most useful for 
+	the words component. Enter the words you are interested in separated by 
+	commas, eg 'hood, hod, head, had'. </p>
+
 <form method="GET" class="forms">
 	<fieldset>
 		{{prompt_form.as_p}} 
 
-    	<input type="submit" value="Find Speakers" class="btn btn-primary"/>
+    	<input type="submit" value="Find Items" class="btn btn-primary"/>
     </fieldset>
 </form>
 {% endblock %}

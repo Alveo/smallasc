@@ -40,13 +40,17 @@ class PromptSearchForm (forms.Form):
     """ Form used to represent the composite search fields """
     # Construct the sites choice list in the form
 
-    prompt = forms.CharField(label='Prompt contains')
-    wholeword = forms.BooleanField(label="Match whole word", required=False)
+    prompt = forms.CharField(label='Prompts separated by comma') 
     
-    components = forms.MultipleChoiceField(widget     = CheckboxSelectMultiple (),
-                                           label       = 'Components',
-                                           required    = False,
-                                           choices     = COMPONENT_CHOICES)
+   # components = forms.MultipleChoiceField(widget     = CheckboxSelectMultiple (),
+   #                                        label       = 'Components',
+   #                                        required    = False,
+   #                                        choices     = COMPONENT_CHOICES)
     
-    qa_audio = forms.ChoiceField(label="Audio Quality", 
-                                 choices=QA_AUDIO_CHOICES)
+   # qa_audio = forms.ChoiceField(label="Audio Quality", 
+    #                             choices=QA_AUDIO_CHOICES)
+    
+    
+    
+    
+    
