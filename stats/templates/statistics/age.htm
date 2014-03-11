@@ -20,7 +20,8 @@ Sample Speaker Statistics
       data-sgvizler-query="
       				SELECT ?gender (count(?under30) as ?UnderThirty) 
       				(count(?from31to49) as ?ThirtyOneToFortyNine) 
-      				(count(?over50) as ?OverFifty)					WHERE{
+      				(count(?over50) as ?OverFifty)
+					WHERE{
 						?site rdf:type austalk:RecordingSite .
 						?site rdfs:label ?inst .
 						?part rdf:type foaf:Person .
@@ -39,7 +40,7 @@ Sample Speaker Statistics
 						}
 						GROUP BY ?gender"
 
-      data-sgvizler-chart="gColumnChart"
+      data-sgvizler-chart="google.visualization.ColumnChart"
       data-sgvizler-loglevel="0"
       style="width:800px; height:400px;"></div>     
       
@@ -49,7 +50,8 @@ Sample Speaker Statistics
       data-sgvizler-query="
       				SELECT ?gender (count(?under30) as ?UnderThirty) 
       				(count(?from31to49) as ?ThirtyOneToFortyNine) 
-      				(count(?over50) as ?OverFifty)					WHERE{
+      				(count(?over50) as ?OverFifty)
+					WHERE{
 						?site rdf:type austalk:RecordingSite .
 						?site rdfs:label ?inst .
 						?part rdf:type foaf:Person .
@@ -68,7 +70,7 @@ Sample Speaker Statistics
 						}
 						GROUP BY ?gender"
 
-      data-sgvizler-chart="gTable"
+      data-sgvizler-chart="google.visualization.Table"
       data-sgvizler-loglevel="0"
       style="width:430px; height:100px;"></div>      
   		</td>
@@ -84,7 +86,8 @@ Sample Speaker Statistics
       data-sgvizler-query="
       				SELECT ?inst (count(?under30) as ?UnderThirty) 
       				(count(?from31to49) as ?ThirtyOneToFortyNine) 
-      				(count(?over50) as ?OverFifty)					WHERE{
+      				(count(?over50) as ?OverFifty)
+					WHERE{
 						?site rdf:type austalk:RecordingSite .
 						?site rdfs:label ?inst .
 						?part rdf:type foaf:Person .
@@ -102,7 +105,7 @@ Sample Speaker Statistics
 						}
 						GROUP BY ?inst"
 
-      data-sgvizler-chart="gColumnChart"
+      data-sgvizler-chart="google.visualization.ColumnChart"
       data-sgvizler-loglevel="0"
       style="width:800px; height:400px;"></div>      
       	</td>
@@ -111,7 +114,8 @@ Sample Speaker Statistics
       data-sgvizler-query="
       				SELECT ?inst (count(?under30) as ?UnderThirty) 
       				(count(?from31to49) as ?ThirtyOneToFortyNine) 
-      				(count(?over50) as ?OverFifty)					WHERE{
+      				(count(?over50) as ?OverFifty)
+					WHERE{
 						?site rdf:type austalk:RecordingSite .
 						?site rdfs:label ?inst .
 						?part rdf:type foaf:Person .
@@ -130,7 +134,7 @@ Sample Speaker Statistics
 						GROUP BY ?inst
 						ORDER BY ?inst"
 
-      data-sgvizler-chart="gTable"
+      data-sgvizler-chart="google.visualization.Table"
       data-sgvizler-loglevel="0"
       style="width:430px; height:400px;"></div>  
       </td>
@@ -147,7 +151,7 @@ WHERE {
 }
 group by ?dob
 order by ?dob"
-      data-sgvizler-chart="gColumnChart"
+      data-sgvizler-chart="google.visualization.ColumnChart"
       data-sgvizler-loglevel="0"
       data-sgvizler-chart-options="title=Age Distribution Across Sites"
       style="width:800px; height:400px;"></div> 
