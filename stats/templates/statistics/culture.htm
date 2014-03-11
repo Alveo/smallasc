@@ -28,7 +28,7 @@ Sample Speaker Statistics
       					}
       					GROUP BY ?cult"
 
-      data-sgvizler-chart="gColumnChart"
+      data-sgvizler-chart="google.visualization.ColumnChart"
       data-sgvizler-loglevel="0"
       style="width:800px; height:400px;"></div>     
       
@@ -45,7 +45,7 @@ Sample Speaker Statistics
       					}
       					GROUP BY ?cult"
 
-      data-sgvizler-chart="gTable"
+      data-sgvizler-chart="google.visualization.Table"
       data-sgvizler-loglevel="0"
       style="width:430px; height:400px;"></div>      
   		</td>
@@ -58,10 +58,19 @@ Sample Speaker Statistics
       <td>
 <div id="cultural_heritage_across_sites_table"
       data-sgvizler-query="
-      				SELECT (?inst as ?Recording_site) (?cult as ?Culture)(count(?cult) as ?Participants)WHERE {?site rdf:type austalk:RecordingSite .?site rdfs:label ?inst .?part rdf:type foaf:Person .?part austalk:recording_site ?site .OPTIONAL { ?part austalk:cultural_heritage ?cult} }GROUP BY ?inst ?cult"
+      				SELECT (?inst as ?Recording_site) (?cult as ?Culture)(count(?cult) as ?Participants)
+
+WHERE {
+?site rdf:type austalk:RecordingSite .
+?site rdfs:label ?inst .
+?part rdf:type foaf:Person .
+?part austalk:recording_site ?site .
+OPTIONAL { ?part austalk:cultural_heritage ?cult} 
+}
+GROUP BY ?inst ?cult"
 
 
-      data-sgvizler-chart="gTable"
+      data-sgvizler-chart="google.visualization.Table"
       data-sgvizler-loglevel="0"
       style="width:600px; height:400px;"></div>      
   		</td>
@@ -75,7 +84,8 @@ Sample Speaker Statistics
 <!--
           
 <table border="0" cellpadding="10";>
-      <tr>      <td>
+      <tr>
+      <td>
       Univerity of Tasmania
       <div id="cultural_heritage_per_site_UTAS"
       data-sgvizler-query="SELECT (?cultural_heritage as ?cultural_heritage) 
@@ -131,7 +141,8 @@ Sample Speaker Statistics
       					data-sgvizler-chart="gPieChart"
       data-sgvizler-loglevel="2"
       style="width:300px; height:200px;"></div>      
-      		</td>      <td>
+      		</td>
+      <td>
       Charles Sturt University
       <div id="cultural_heritage_per_site_CSUB"
       data-sgvizler-query="SELECT (?cultural_heritage as ?cultural_heritage) 
@@ -190,7 +201,8 @@ Sample Speaker Statistics
       data-sgvizler-loglevel="2"
       style="width:300px; height:200px;"></div>      
       		</td>
-            <td>
+      
+      <td>
       University of Melbourne (Melbourne)
       <div id="cultural_heritage_per_site_UMELBM"
       data-sgvizler-query="SELECT (?cultural_heritage as ?cultural_heritage) 
@@ -247,7 +259,8 @@ Sample Speaker Statistics
                           data-sgvizler-chart="gPieChart"
       data-sgvizler-loglevel="2"
       style="width:300px; height:200px;"></div>      
-      		</td>      <td>
+      		</td>
+      <td>
       Univerity of Western Australia
       <div id="cultural_heritage_per_site_UWA"
       data-sgvizler-query="SELECT (?cultural_heritage as ?cultural_heritage) 
@@ -304,7 +317,8 @@ Sample Speaker Statistics
       data-sgvizler-loglevel="2"
       style="width:300px; height:200px;"></div>      
       		</td>
-      </tr><tr>      <td>
+      </tr><tr>
+      <td>
       Univerity of New England
       <div id="cultural_heritage_per_site_UNE"
       data-sgvizler-query="SELECT (?cultural_heritage as ?cultural_heritage) 

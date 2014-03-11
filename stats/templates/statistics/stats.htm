@@ -30,7 +30,7 @@ Sample Speaker Statistics
                             }
                           GROUP BY ?prop
                           ORDER BY ?prop"
-      data-sgvizler-chart="gPieChart"
+      data-sgvizler-chart="google.visualization.PieChart"
       data-sgvizler-loglevel="0"
       data-sgvizler-chart-options="title=Number of Participants per Site"
       style="width:800px; height:400px;"></div>
@@ -43,7 +43,7 @@ Sample Speaker Statistics
                             }
                           GROUP BY ?prop
                           ORDER BY ?prop"
-      data-sgvizler-chart="gPieChart"
+      data-sgvizler-chart="google.visualization.PieChart"
       data-sgvizler-loglevel="0"
       data-sgvizler-chart-options="title=Gender Distribution"
       style="width:800px; height:400px;"></div>      
@@ -57,7 +57,7 @@ WHERE {
 }
 group by ?dob
 order by ?dob"
-      data-sgvizler-chart="gColumnChart"
+      data-sgvizler-chart="google.visualization.ColumnChart"
       data-sgvizler-loglevel="0"
       data-sgvizler-chart-options="title=Age Distribution"
       style="width:800px; height:400px;"></div> 
@@ -70,7 +70,7 @@ WHERE {
  ?part austalk:education_level ?el .
 }
 group by ?el"
-      data-sgvizler-chart="gPieChart"
+      data-sgvizler-chart="google.visualization.PieChart"
       data-sgvizler-loglevel="0"
       data-sgvizler-chart-options="title=Qualification Distribution"
       style="width:800px; height:400px;"></div> 
@@ -86,7 +86,7 @@ WHERE {
  ?place geo:lat ?lat .
  ?place geo:long ?long .
 }"
-      data-sgvizler-chart="sMap"
+      data-sgvizler-chart="sgvizler.visualization.Map"
       data-sgvizler-loglevel="0"
       data-sgvizler-chart-options="title=Birthplace of Participants"
       style="width:800px; height:400px;"></div> 

@@ -18,9 +18,10 @@
 {% block content %}
  {{flatpage.content}}
  
+
 {% load flatpages %}
  {% get_flatpages as flatpages %}
-<ul>
+<ul class="footer_links">
     {% for page in flatpages %}
         <li><a href="{{ page.url }}">{{ page.title }}</a></li>
     {% endfor %}
