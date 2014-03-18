@@ -8,7 +8,7 @@ html {
 }
 
 body {
-  padding-top: 60px;
+  margin-top: 10px;
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 300;
 }
@@ -31,7 +31,66 @@ h1 {
 
 h2 {
   font-size: 1.5em;
-  margin-bottom: 30px;
+  /* margin-bottom: 30px; */
   text-align: left;
   font-weight: 600;
+}
+
+
+
+/* To align logo image towards the left */
+.logo
+{
+  float:left;
+}
+
+/* To align the top navigation bar towards the right */
+.navbar
+{
+  float:right;
+}
+/* To allow dropdown menu on hover instead of click (default in bootstrap) */
+ul.nav li.dropdown:hover > ul.dropdown-menu {
+    display: block;    
+}
+
+ul
+{
+  list-style-type: none;
+  text-decoration: none;
+}
+.myLinks
+{
+  float:left;
+}
+
+.images-slider
+{
+  float:right;
+  width:80%;
+}
+
+.main-content{
+  text-align: justify;
+}
+
+
+.sidebar{
+  padding-top:20px;
+}
+
+
+ul.footer_links li {
+  display:inline;
+  font-size:small;
+
+}
+
+ul.footer_links li:before{
+  content: '| ';
+}
+
+ul.footer_links li:last-child :after{
+  content: ' |';
+  
 }

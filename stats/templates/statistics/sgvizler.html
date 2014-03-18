@@ -10,8 +10,14 @@
 
 {% block head %}
   <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-  <script type="text/javascript" id="sgvzlr_script" src="http://sgvizler.googlecode.com/svn/release/0.5/sgvizler.js"></script>
+  
+  <!-- <script type="text/javascript" id="sgvzlr_script" src="http://sgvizler.googlecode.com/svn/release/0.5/sgvizler.js"></script>
+
+-->
+<script type="text/javascript" src="http://beta.data2000.no/sgvizler/release/0.6/sgvizler.js"></script>
+
   <script type="text/javascript">
+  /*
     // CONFIGURATION Sgvizler 0.5: Set variables to fit your setup.
     // NB! Do not let the last item in a list end with a comma.
 
@@ -45,7 +51,68 @@
 
      //// Leave this as is. Ready, steady, GO!
      $(document).ready(sgvizler.go());
+
+     */
   </script>
+
+  <script>
+
+  
+
+    /*  Setup of Sgvizler trunk version on Trac 0.11.  */
+
+      // Wait until page is ready to configure Sgvizler:
+      $(document).ready(
+          function (){
+              sgvizler
+                  .defaultEndpointOutputFormat('json')
+                  .defaultEndpointURL('{{ endpoint }}')
+                  // Add prefixes used in examples:
+                  .prefix('w',     "http://sws.ifi.uio.no/ont/world.owl#")
+                  .prefix('dbpedia',  "http://dbpedia.org/ontology/")
+                  .prefix('geo',   "http://www.w3.org/2003/01/geo/wgs84_pos#")
+                  .prefix('dc',   "http://purl.org/dc/terms/")
+                  .prefix('fn',    "http://www.w3.org/2005/xpath-functions#")
+                  .prefix('afn',   "http://jena.hpl.hp.com/ARQ/function#")
+                  .prefix('npdv',  "http://sws.ifi.uio.no/vocab/npd#")
+                  .prefix('npdv2', "http://sws.ifi.uio.no/vocab/npd-v2#")
+                  .prefix('geos',  "http://www.opengis.net/ont/geosparql#")
+                  .prefix('austalkd',  "http://data.austalk.edu.au/")
+                  .prefix('ausnc',  "http://ns.ausnc.org.au/schemas/ausnc_md_model/")
+                  .prefix('olac',  "http://www.language-archives.org/OLAC/1.1/")
+                  .prefix('ice',  "http://ns.ausnc.org.au/schemas/ice/")
+                  .prefix('foaf',  "http://xmlns.com/foaf/0.1/")
+                  .prefix('protocol',  "http://id.austalk.edu.au/protocol/")
+
+                  .prefix('austalk',  "http://ns.austalk.edu.au/")
+                  .prefix('graf',  "http://www.xces.org/ns/GrAF/1.0/")
+                  .prefix('iso639schema',  "http://downlode.org/rdf/iso-639/schema#")
+
+
+                  // Draw all sgvizler containers on page:
+                  .containerDrawAll();
+          }
+      );
+
+      /* Trac 0.11 uses an old version of jQuery. Sgvizler requires a newer
+         version. We re-introduce some old jQuery functions used by Trac but
+         not in the new version: 
+         - loadStylesheet 
+      */
+      jQuery.extend(
+          {
+              loadStyleSheet: function(file, type) {
+                  $('<link>').attr('rel', 'stylesheet')
+                      .attr('type', type)
+                      .attr('href', file)
+                      .appendTo('head');
+              }
+          }
+      );
+
+  </script>
+
+
 {% endblock %}
 
 {% block content %}
@@ -83,8 +150,12 @@
 	  Width:  <input name="width" id="sgvzlr_strWidth" type="text" size="3"/>
 	  Height: <input name="height" id="sgvzlr_strHeight" type="text" size="3"/>
 	  Chart Type: <select name="chart" id="sgvzlr_optChart"></select>
-	  <input type="button" value="Reset" onclick="sgvizler.ui.resetPage()"/>
-	  <input type="button" value="GO!" onclick="sgvizler.ui.submitQuery()"/>
+	  
+    <!--
+    <input type="button" value="Reset" onclick="sgvizler.ui.resetPage()"/>
+	  <input type="button" value="GO!" onclick="sgvizler.ui.submitQuery()"/>-->
+    <input type="button" value="Reset" onclick="sgvizler.formReset()"/>
+    <input type="button" value="GO!" onclick="sgvizler.formSubmit()"/>
 	</p>
       </form>
       <div id="sgvzlr_cMessage"></div>

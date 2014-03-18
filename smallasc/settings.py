@@ -111,7 +111,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    #'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware'
 )
 
@@ -148,7 +148,7 @@ INSTALLED_APPS = (
 
     # 3rd party apps
     'lettuce.django',
-    'bootstrap-pagination',
+    'bootstrap_pagination',
     'registration',
     'registration.supplements.default',
     'registration.contrib.notification',
@@ -161,7 +161,7 @@ INSTALLED_APPS = (
     'sso',
     'stats',
     
-    'debug_toolbar',
+    #'debug_toolbar',
 )
 
 # A sample logging configuration. The only tangible logging
