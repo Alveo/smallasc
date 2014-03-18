@@ -1,0 +1,179 @@
+{% extends "layout/base.html" %}
+
+{% block title %}
+  Austalk Meta Search | Reports
+{% endblock %}
+
+{% block subtitle %}
+  Visualisation
+{% endblock %}
+
+{% block head %}
+  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+  
+  <!-- <script type="text/javascript" id="sgvzlr_script" src="http://sgvizler.googlecode.com/svn/release/0.5/sgvizler.js"></script>
+
+-->
+<script type="text/javascript" src="http://beta.data2000.no/sgvizler/release/0.6/sgvizler.js"></script>
+
+  <script type="text/javascript">
+  /*
+    // CONFIGURATION Sgvizler 0.5: Set variables to fit your setup.
+    // NB! Do not let the last item in a list end with a comma.
+
+     //// Query settings. The defaults settings are listed.
+     sgvizler.option.query = {
+         // Default query.
+         'query':                "SELECT  ?inst (count(?part) as ?partcount)\nWHERE {\n ?site rdf:type austalk:RecordingSite .\n ?site rdfs:label ?inst .\n ?part rdf:type foaf:Person .\n ?part austalk:recording_site ?site .\n}\ngroup by ?inst",
+         'endpoint':             "{{ endpoint }}",
+         'endpoint_output':      'json',
+         // Default chart type.
+         'chart':                'gPieChart',
+         // Default log level. Must be either 0, 1, or 2.
+         'loglevel':             1
+     };
+
+     //// Prefixes
+     // Add convenient prefixes for your dataset. rdf, rdfs, xsd, owl
+     // are already set.  Examples:
+     sgvizler.option.namespace['dc'] = 'http://purl.org/dc/terms/';
+     sgvizler.option.namespace['ausnc'] = 'http://ns.ausnc.org.au/schemas/ausnc_md_model/';
+     sgvizler.option.namespace['olac'] = 'http://www.language-archives.org/OLAC/1.1/';
+     sgvizler.option.namespace['ice'] = 'http://ns.ausnc.org.au/schemas/ice/';
+     sgvizler.option.namespace['foaf'] = 'http://xmlns.com/foaf/0.1/';
+     sgvizler.option.namespace['graf'] = 'http://www.xces.org/ns/GrAF/1.0/';
+     sgvizler.option.namespace['austalk'] = 'http://ns.austalk.edu.au/';
+     sgvizler.option.namespace['protocol'] = "http://id.austalk.edu.au/protocol/";
+     sgvizler.option.namespace['austalkd'] = "http://data.austalk.edu.au/";
+     sgvizler.option.namespace['dbpedia'] = "http://dbpedia.org/ontology/";
+     sgvizler.option.namespace['geo'] = "http://www.w3.org/2003/01/geo/wgs84_pos#";
+     sgvizler.option.namespace['iso639schema'] = "http://downlode.org/rdf/iso-639/schema#";
+
+     //// Leave this as is. Ready, steady, GO!
+     $(document).ready(sgvizler.go());
+
+     */
+  </script>
+
+  <script>
+
+  
+
+    /*  Setup of Sgvizler trunk version on Trac 0.11.  */
+
+      // Wait until page is ready to configure Sgvizler:
+      $(document).ready(
+          function (){
+              sgvizler
+                  .defaultEndpointOutputFormat('json')
+                  .defaultEndpointURL('{{ endpoint }}')
+                  // Add prefixes used in examples:
+                  .prefix('w',     "http://sws.ifi.uio.no/ont/world.owl#")
+                  .prefix('dbpedia',  "http://dbpedia.org/ontology/")
+                  .prefix('geo',   "http://www.w3.org/2003/01/geo/wgs84_pos#")
+                  .prefix('dc',   "http://purl.org/dc/terms/")
+                  .prefix('fn',    "http://www.w3.org/2005/xpath-functions#")
+                  .prefix('afn',   "http://jena.hpl.hp.com/ARQ/function#")
+                  .prefix('npdv',  "http://sws.ifi.uio.no/vocab/npd#")
+                  .prefix('npdv2', "http://sws.ifi.uio.no/vocab/npd-v2#")
+                  .prefix('geos',  "http://www.opengis.net/ont/geosparql#")
+                  .prefix('austalkd',  "http://data.austalk.edu.au/")
+                  .prefix('ausnc',  "http://ns.ausnc.org.au/schemas/ausnc_md_model/")
+                  .prefix('olac',  "http://www.language-archives.org/OLAC/1.1/")
+                  .prefix('ice',  "http://ns.ausnc.org.au/schemas/ice/")
+                  .prefix('foaf',  "http://xmlns.com/foaf/0.1/")
+                  .prefix('protocol',  "http://id.austalk.edu.au/protocol/")
+
+                  .prefix('austalk',  "http://ns.austalk.edu.au/")
+                  .prefix('graf',  "http://www.xces.org/ns/GrAF/1.0/")
+                  .prefix('iso639schema',  "http://downlode.org/rdf/iso-639/schema#")
+
+
+                  // Draw all sgvizler containers on page:
+                  .containerDrawAll();
+          }
+      );
+
+      /* Trac 0.11 uses an old version of jQuery. Sgvizler requires a newer
+         version. We re-introduce some old jQuery functions used by Trac but
+         not in the new version: 
+         - loadStylesheet 
+      */
+      jQuery.extend(
+          {
+              loadStyleSheet: function(file, type) {
+                  $('<link>').attr('rel', 'stylesheet')
+                      .attr('type', type)
+                      .attr('href', file)
+                      .appendTo('head');
+              }
+          }
+      );
+
+  </script>
+
+
+{% endblock %}
+
+{% block content %}
+
+    <table border="0" cellpadding="10";>
+   <tr>
+        <td><a href="gender.html">Gender</a></td>
+        <td><a href="age.html">Age</a></td>
+        <td><a href="culture.html">Cultural Heritage</a></td>
+        <td><a href="language.html">Language</a></td>
+        <td><a href="birthplaces.html">Birthplaces</a></td>
+        <!--
+        <td><a href="professional_category.html">Professional Category</a></td>
+        <td><a href="query.html">Custom Query</a></td>
+        -->
+    </tr>
+    <tr>
+   </tr>
+   </table>
+
+
+  {% block query %}
+
+    This section contains a input form where users can write and
+    execute their own SPARQL queries. The query is sent to Sgvizler
+    via the URL in GET parameters.
+
+    <div id="queryarea">
+      <pre id="sgvzlr_cPrefix"></pre>
+      <textarea id="sgvzlr_cQuery" rows="10" cols="80"></textarea>
+      <form method="get" id="sgvzlr_formQuery">
+	<p>
+
+   <input type="hidden" value="" name="query" id="sgvzlr_strQuery"/>
+	  Width:  <input name="width" id="sgvzlr_strWidth" type="text" size="3"/>
+	  Height: <input name="height" id="sgvzlr_strHeight" type="text" size="3"/>
+	  Chart Type: <select name="chart" id="sgvzlr_optChart"></select>
+	  
+    <!--
+    <input type="button" value="Reset" onclick="sgvizler.ui.resetPage()"/>
+	  <input type="button" value="GO!" onclick="sgvizler.ui.submitQuery()"/>-->
+    <input type="button" value="Reset" onclick="sgvizler.formReset()"/>
+    <input type="button" value="GO!" onclick="sgvizler.formSubmit()"/>
+	</p>
+      </form>
+      <div id="sgvzlr_cMessage"></div>
+    </div>
+
+    <div id="sgvzlr_gchart" style="width:800px; height:400px;"></div>
+  {% endblock %}
+
+
+    <div id="footer">
+      <!-- Please leave a link to the Sgvizler homepage -->
+      <p>
+	Graphs generated by Sgvizler which visualizes the result of SPARQL SELECT queries using
+	javascript and the Google Visualization API. For more
+	information, see
+	the <a href="http://code.google.com/p/sgvizler/">Sgvizler</a>
+	homepage. (c) 2011 Martin G. Skj&#230;veland.
+      </p>
+    </div>
+
+{% endblock %}

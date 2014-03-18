@@ -1,0 +1,24 @@
+{% extends "layout/base.html" %}
+
+{% block title %}
+    Austalk | Browse > Components
+{% endblock %}
+
+{% block subtitle %}
+    Session {{ session_id }} component list
+{% endblock %}
+
+{% block breadcrumbs %}
+  <ul class="breadcrumb">
+    <li><span class="divider">/</span></li>
+    <li><a href="/browse/">All Sites</a></li>
+    <li><span class="divider">/</span></li>
+    <li><a href="/browse/{{ site_id }}/">{{ site.name }}</a></li>
+    <li><span class="divider">/</span></li>
+    <li><a href="/browse/{{ site_id }}/{{ participant_id }}">Speaker {{ participant_id }}</a></li>
+  </ul>
+{% endblock %}
+
+{% block content %}
+  {% include "browse/components/component_list.html" %}
+{% endblock %}

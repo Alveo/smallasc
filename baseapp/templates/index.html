@@ -1,0 +1,65 @@
+{% extends "layout/base.html" %}
+
+{% block title %}
+	Austalk Meta Search | Home
+{% endblock %}
+
+{% block subtitle %}
+   
+{% endblock %}
+
+{% block image_slider %}
+<!--
+   <img src ="{{STATIC_URL}}images/banner-9.jpg" class="img-responsive" style="border-radius:15px;"/>
+-->
+{% endblock %}
+
+
+{% block content %}
+{% load flatpages %}
+<!--
+{% get_flatpages as flatpages %}
+<ul>
+    {% for page in flatpages %}
+        <li><a href="{{ page.url }}">{{ page.title }}</a></li>
+    {% endfor %}
+</ul>
+-->
+ 
+
+         
+
+<div class="main-content">
+        
+        <div class="page-header">
+            
+          <h1>AusTalk: An audio-visual corpus of Australian English</h1>
+        </div>
+        <h3>1000 speakers countrywide</h3>
+        <h3>Recording modern Australian English</h3>
+
+        AusTalk will be a large state-of-the-art database of spoken Australian English from all around the country. Starting in June 2011, a thousand adults of all ages from 15 different locations in all states & territories are being recorded, representing the regional and social diversity and linguistic variation of Australian English, including Australian Aboriginal English. Each speaker is recorded on three separate occasions so that we can sample their voice in a range of scripted and spontaneous speech situations at various times. Later, this database will be expanded to include more age groups including children, more accents and more ways of speaking.
+
+
+        <h4>Australian accents</h4>
+        The Australian accent is distinctive and uniquely ours. The things we talk about and the ways we talk about them are intimately entwined with our sense of self. Our accent is a powerful and enduring symbol of national identity that we preserve despite the influx of electronic media and cultural icons from overseas. However, just as society changes, so too does language as it constantly evolves to meet the changing needs of its users. Australian English has seen much change throughout its history and it's in the national interest to carefully document our linguistic heritage as an important record of our collective identity within our changing culture. 
+        AusTalk will provide a valuable and enduring digital repository of present day speech as a snapshot of this important time in our linguistic history. As there is a close link between "national self-perception" and how we use language, AusTalk will be a profound cultural resource for all Australians.
+        
+       
+
+        <h4> Major project spanning two decades: scientific research and better technologies</h4>
+        AusTalk will be a national treasure that will provide a permanent record of Australian English, support Australian English speech science research and development, and help develop Australian speech technology applications, from better telephone-based speech recognition systems (e.g., taxi bookings) and computer avatars, to hearing aids and Cochlear Implants improvements, or computer aids for learning-impaired children.
+
+
+
+       </div>
+
+             
+{% endblock %} <!-- end Content -->
+
+
+
+{% block sidebar %}
+	{% include "layout/sidebar.html" %}
+  
+{% endblock %} <!-- end sidebar -->

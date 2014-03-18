@@ -1,0 +1,16 @@
+{% extends 'layout/login_base.html' %}
+
+{% load i18n %}
+
+{% block title %}{% trans 'Activate your account' %}{% endblock %}
+
+{% block formheading %}<h1>{% trans 'Activate your account' %}</h1>{% endblock %}
+
+{% block content %}
+{{ block.super }}
+<p>{% trans 'Please fill the password to complete account activation' %}</p>
+<form action="" method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <p><input type="submit" value="{% trans 'Activate' %}"></p>
+</form>
+{% endblock %}

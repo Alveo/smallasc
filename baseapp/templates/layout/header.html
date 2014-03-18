@@ -1,0 +1,68 @@
+<div class="logo">
+    <img src="{{ STATIC_URL }}images/logo.png" width="100px" height="90px"/>  
+  </div>
+
+<nav class="navbar navbar-default" role="navigation">
+   <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+       <a class="navbar-brand" href="#"></a>  
+    </div>
+
+
+
+  <div class="navbar-collapse collapse" id="navbar-collapse-1">
+          <ul class="nav navbar-nav ">
+            <li> <a href="/">Home </a></li>
+            <li><a href="/stats/">Statistics</a></li>
+            <li><a href="/browse">Browse</a></li>
+
+            {% if user.is_authenticated %}
+              <li class="nav pull-right"><a href="/logout" title="Sign out and end session">Sign out</a></li>
+            {% else %}
+              <li class="nav pull-right"><a href="/login" title="Sign out and end session">Sign In</a></li>
+            {% endif %}
+          </ul>
+        </div><!--/.nav-collapse -->
+        <!--
+  <div class="navbar-inner">
+    <div class="container">
+      
+      <nav>
+        <ul class="nav">
+          <li><a href="/" title="Home">Home</a></li>
+          
+          <li><a href="/stats/" title="Statistics">Statistics</a></li>  
+          
+          <li class="dropdown">
+            <a href="/browse">Browse</a>
+          </li>
+		  <!-
+          <li><a href="/search/" title="Search">Search</a></li>  
+         ->
+        </ul>
+      
+
+      
+        <ul class="nav pull-right">
+          <!-
+          	{% if perms.auth.can_view_agreements %}
+          <li><a href="/browse/agreements/" title="Signed agreements">Agreements</a></li>
+          {% endif %}
+          
+          <li><a href="/logout" title="Sign out and end session">Sign out</a></li>
+        </ul>
+      </nav>
+
+    </div>
+  </div>-->
+</div> <!-- / CONTAINER-FLUID -->
+</nav>
+
+<div class="clearfix"></div>

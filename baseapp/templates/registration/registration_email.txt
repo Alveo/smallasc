@@ -1,0 +1,7 @@
+{% load url from future %}
+{% load i18n %}
+{% blocktrans %}Dear {{ user }},{% endblocktrans %}
+Your request to register on {{ site_name }} has been received.
+
+Please wait until the site administrator approves your registration.
+You will receive an acceptance or rejection email within a few days.

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>{% block title %}{% endblock %}</title>
+
+  <!-- Stylesheet includes -->
+  <link rel="stylesheet" href="{{ STATIC_URL }}styles/bootstrap.css" media="screen" />
+  <link rel="stylesheet" href="{{ STATIC_URL }}styles/bootstrap-responsive.css" media="screen" />
+  <link rel="stylesheet" href="{{ STATIC_URL }}styles/login.css" media="screen" />
+  
+  <script src="/static/js/bootstrap.js"></script>
+</head>
+<body class="login">  
+  
+  <div class="container">
+  
+    <h1 class="centre">
+      {% block formheading %}{% endblock %}
+    </h1>
+  
+    <div class="row">
+      <section class="span4 offset4">
+        {% block content %}{% endblock %}
+      </section>
+    </div>
+  
+  	<div>
+  		{% block extracontent %}{% endblock %}
+  	</div>
+  </div>
+
+</body>
+</html>
