@@ -70,7 +70,7 @@ group by ?el"
 <h2>Birthplaces of Participants</h2>
 
 <div id="birthplaces"
-      data-sgvizler-query="SELECT ?lat ?long 
+      data-sgvizler-query="SELECT ?lat ?long
         WHERE {
          ?part rdf:type foaf:Person .
          ?part austalk:name ?id .
@@ -85,7 +85,7 @@ group by ?el"
       
       <!--
       Previous Query before Upgrading Sgvizler to 0.6
-           data-sgvizler-query="SELECT ?lat ?long 
+      data-sgvizler-query="SELECT  ?lat ?long ?id
         WHERE {
          ?part rdf:type foaf:Person .
          ?part austalk:name ?id .

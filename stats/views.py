@@ -5,9 +5,11 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.conf import settings
 
 
+
 class StatsView(TemplateView):
 	#login_required = True
 	template_name = "statistics/p_report.html"
+	
 	
 	@method_decorator(login_required)
 	def dispatch(self, *args, **kwargs):
