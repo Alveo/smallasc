@@ -67,9 +67,15 @@ group by ?el"
       data-sgvizler-chart-options="title=Qualification Distribution"
       style="width:800px; height:400px;"></div>
 
+<!--
+  Temporarily removing this feature because of an error after updating sgvizler to 0.6 and jquery to 1.9
+  @ TODO : need to resolve
+  @ author : Suren
+  
 <h2>Birthplaces of Participants</h2>
 
 <div id="birthplaces"
+
       data-sgvizler-query="SELECT ?lat ?long
         WHERE {
          ?part rdf:type foaf:Person .
@@ -82,9 +88,12 @@ group by ?el"
       data-sgvizler-loglevel="0"
       data-sgvizler-chart-options="title=Birthplace of Participants"
       style="width:800px; height:400px;"></div>
-      
+
+-->
+
       <!--
       Previous Query before Upgrading Sgvizler to 0.6
+
       data-sgvizler-query="SELECT  ?lat ?long ?id
         WHERE {
          ?part rdf:type foaf:Person .
