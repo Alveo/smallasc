@@ -1,4 +1,5 @@
 <div class="logo">
+
     <img src="{{ STATIC_URL }}images/logo.jpg" width="100px" height="90px"/>  
   </div>
 
@@ -22,6 +23,7 @@
             <li> <a href="/">Home </a></li>
             <li><a href="/stats/">Statistics</a></li>
             <li><a href="/browse">Browse</a></li>
+
 
             {% if user.is_authenticated %}
               <li class="nav pull-right"><a href="/logout" title="Sign out and end session">Sign out</a></li>

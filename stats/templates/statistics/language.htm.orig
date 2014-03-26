@@ -65,6 +65,7 @@ Sample Speaker Statistics
       data-sgvizler-query="
       				SELECT (?sln as ?SecondLanguage) (count(distinct ?part) as ?participants)
 
+
                   WHERE {
                   ?site rdf:type austalk:RecordingSite .
                   ?part rdf:type foaf:Person .

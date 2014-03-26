@@ -64,7 +64,6 @@ Sample Speaker Statistics
 <div id="second_language"
       data-sgvizler-query="
       				SELECT (?sln as ?SecondLanguage) (count(distinct ?part) as ?participants)
-
                   WHERE {
                   ?site rdf:type austalk:RecordingSite .
                   ?part rdf:type foaf:Person .
@@ -74,6 +73,7 @@ Sample Speaker Statistics
                   GROUP BY ?sln
                   ORDER BY DESC(count(?part))
                   "
+
       data-sgvizler-chart="google.visualization.PieChart"
       data-sgvizler-loglevel="0"
       style="width:800px; height:400px;"></div>     
