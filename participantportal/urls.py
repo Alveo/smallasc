@@ -12,7 +12,7 @@ urlpatterns = patterns('',
   
   url(r'^termsandconditions/$', 'participantportal.views.termsandconditions.index'),
 
-   (r'^information_sheet/$',             direct_to_template, {'template': 'information_sheet.html'}),
+
   
   url(regex = r'^(\w+)/(\w+)/(\w+)/$', 
       view = 'browse.views.components.index', 
@@ -30,6 +30,19 @@ urlpatterns = patterns('',
       kwargs = { 'template': 'participantportal/items/show.html'}, ),
   
   url(r'^login/$', 'participantportal.views.session.login_page'),
+
+  # Trying to implement Forgot Password
+  url(regex = r'^reset/$', 
+        #view = 'django.contrib.auth.views.password_reset', 
+        
+        view = 'participantportal.views.session.password_reset',
+        #'post_reset_redirect' : '/participantportal/reset/done/'
+        name="password_reset",
+      ),
+
+    
+ 
+    
   
   url(regex = r'^logout/$', 
       view = 'baseapp.views.security.logout_page', 

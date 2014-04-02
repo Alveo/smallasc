@@ -11,7 +11,7 @@ from browse.modelspackage.sparql_local_wrapper  import SparqlModel, SparqlManage
 class ParticipantManager (SparqlManager):
 
     def all (self, site):
-
+        print ('site --------- ', site)
         sparql_results = self.query("""
             select ?part ?gender ?dob
             where {
@@ -22,18 +22,18 @@ class ParticipantManager (SparqlManager):
             }""" % site.identifier)
 
         results = []
-
+        
         for result in sparql_results["results"]["bindings"]:
             
             part = Participant (
-                identifier          = result["part"]["value"], 
-                gender              = result["gender"]["value"],
-                birth_year          = result["dob"]["value"]
+                identifier          = result["part"]["value"]
+                #gender              = result["gender"]["value"],
+                #birth_year          = result["dob"]["value"]
             )
 
             results.append (part)
 
-
+        
         return results
 
 
