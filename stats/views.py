@@ -12,6 +12,7 @@ class StatsView(TemplateView):
 	
 	
 	@method_decorator(login_required)
+	@method_decorator(permission_required('auth.can_view_sites'))
 	def dispatch(self, *args, **kwargs):
 		return super(StatsView, self).dispatch(*args, **kwargs)
 

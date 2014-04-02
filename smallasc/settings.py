@@ -9,6 +9,7 @@ PAGE_SIZE = 10
 
 ADMINS = (
     ('Steve Cassidy', 'steve.cassidy@mq.edu.au'),
+    ('Suren' , 'shopuz@gmail.com'),
 )
 
 MANAGERS = ADMINS
@@ -16,7 +17,8 @@ MANAGERS = ADMINS
 EMAIL_SUBJECT_PREFIX = "[austalk] "
 SERVER_EMAIL = "django@austalk.edu.au"
 
-DEFAULT_FROM_EMAIL = "steve.cassidy@mq.edu.au"
+#DEFAULT_FROM_EMAIL = "steve.cassidy@mq.edu.au"
+DEFAULT_FROM_EMAIL = "suren.shopushrestha@mq.edu.au"
 
 EMAIL_FROM = "no-reply@austalk.edu.au"
 EMAIL_HOST = "mail.science.mq.edu.au"

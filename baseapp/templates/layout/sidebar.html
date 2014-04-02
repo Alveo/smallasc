@@ -5,7 +5,11 @@
 		{% get_flatpages as flatpages %}
 		
 		    {% for page in flatpages%}
-		        <a href="{{ page.url }}" class="list-group-item">{{ page.title }}</a>
+
+		    	{% if 'Information Sheet' not in page.title %}
+		        	<a href="{{ page.url }}" class="list-group-item">{{ page.title }}</a>
+		        {% endif %}
+		        
 		    {% endfor %}
 		
 
