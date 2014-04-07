@@ -3,7 +3,7 @@ from django.db import transaction
 from browse.modelspackage.participants import *
 from participantportal.helpers import read_model_property
 from participantportal.models import UserProfile
-
+from browse.modelspackage.sites import Site
 
 class CustomAuthBackend(object):
   """ This custom authenticator is plugged into authentication pipeline
@@ -11,6 +11,7 @@ class CustomAuthBackend(object):
   def authenticate(self, colour, animal, birth_year = None, gender = None):
     #print "Custom Authenticator Invoked with params %s-%s-%s-%s" % (colour, animal, birth_year, gender)
     username = "%s_%s" % (colour, animal)
+
     participant = Participant.objects.get(username)
 
     if not participant is None:
@@ -25,7 +26,7 @@ class CustomAuthBackend(object):
         return user
 
     return None
-
+ 
   @transaction.commit_on_success  
   def create_user(self, username):
     user = User(username = username, is_staff = False, is_active = True, is_superuser = False)
@@ -50,3 +51,21 @@ class CustomAuthBackend(object):
       return User.objects.get(pk = user_id)
     except User.DoesNotExist:
       return None
+
+  
+  # First implementation of Password Reset
+  '''
+
+  def authenticate_password_reset(self, site_label, birth_year = None, gender = None):
+
+    site = Site.objects.get(label=site_label)
+    participants = Participant.objects.all(site)
+
+    for participant in participants:
+      if birth_year == read_model_property(participant, 'birthYear') and gender == read_model_property(participant, 'gender'): #and mother_qual == read_model_property(participant, 'mother_education_level'):
+        #user = User.objects.get(username = read_model_property(participant, 'id'))
+        #return user
+        return participant
+
+    return None
+  '''

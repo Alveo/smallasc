@@ -14,7 +14,9 @@ Sample Speaker Statistics
    
      
 <h2>Gender Distribution</h2>
-<table border="0" cellpadding="10";>   <tr>   		<td>
+<table border="0" cellpadding="10";>
+   <tr>
+   		<td>
 <div id="gender_distribution"
       data-sgvizler-query="SELECT (?prop AS ?Gender) (count(distinct ?part) AS ?no_ff_Participants)
                           WHERE{ 
@@ -23,11 +25,12 @@ Sample Speaker Statistics
                             }
                           GROUP BY ?prop
                           ORDER BY ?prop"
-      data-sgvizler-chart="gPieChart"
+      data-sgvizler-chart="google.visualization.PieChart"
       data-sgvizler-loglevel="0"
       style="width:600px; height:400px;"></div>      
       
-            </td>      <td>
+            </td>
+      <td>
       <div id="gender_distribution_table"
       data-sgvizler-query="SELECT (?prop AS ?Gender) (count(distinct ?part) AS ?no_of_Participants)
                           WHERE{ 
@@ -36,7 +39,7 @@ Sample Speaker Statistics
                             }
                           GROUP BY ?prop
                           ORDER BY ?prop"
-      data-sgvizler-chart="gTable"
+      data-sgvizler-chart="google.visualization.Table"
       data-sgvizler-loglevel="0"
       style="width:350px; height:100px;"></div>      
       		</td>
@@ -45,10 +48,13 @@ Sample Speaker Statistics
         
 
 <h2>Gender Distribution At Each Recording Site</h2>
-<table border="0" cellpadding="10";>   <tr>   		<td>
+<table border="0" cellpadding="10";>
+   <tr>
+   		<td>
 <div id="gender_distribution_per_site"
       data-sgvizler-query="SELECT (?inst as ?Recording_site) (count(?fema) as ?FemaleParticipants)
-      						(count(?males) as ?MaleParticipants)							WHERE {
+      						(count(?males) as ?MaleParticipants)
+							WHERE {
 								?site rdf:type austalk:RecordingSite .
 								?site rdfs:label ?inst .
 								?part rdf:type foaf:Person .
@@ -64,7 +70,7 @@ Sample Speaker Statistics
 										}
 										}
 										GROUP BY ?inst"
-      data-sgvizler-chart="gColumnChart"
+      data-sgvizler-chart="google.visualization.ColumnChart"
       data-sgvizler-loglevel="0"
       style="width:600px; height:400px;"></div>      
       
@@ -72,7 +78,8 @@ Sample Speaker Statistics
             <td>
 <div id="gender_distribution_per_site_table"
       data-sgvizler-query="SELECT (?inst as ?Recording_Site) (count(?fema) as ?FemaleParticipants)
-      						(count(?males) as ?MaleParticipants)							WHERE {
+      						(count(?males) as ?MaleParticipants)
+							WHERE {
 								?site rdf:type austalk:RecordingSite .
 								?site austalk:institution ?inst .
 								?part rdf:type foaf:Person .
@@ -88,7 +95,7 @@ Sample Speaker Statistics
 										}
 										}
 										GROUP BY ?inst"
-      data-sgvizler-chart="gTable"
+      data-sgvizler-chart="google.visualization.Table"
       data-sgvizler-loglevel="0"
       style="width:500px; height:400px;"></div>      
       
@@ -97,7 +104,8 @@ Sample Speaker Statistics
       </tr>
 </table>
 <table border="0" cellpadding="10";>
-      <tr>      <td>
+      <tr>
+      <td>
       Univerity of Tasmania
       <div id="gender_distribution_per_site_UTAS"
       data-sgvizler-query='SELECT ?gender (count(?part) AS ?noOfParticipants)
@@ -113,7 +121,7 @@ Sample Speaker Statistics
                             }
                           GROUP BY ?gender ?inst
                           ORDER BY ?gender'
-                          data-sgvizler-chart="gPieChart"
+                          data-sgvizler-chart="google.visualization.PieChart"
       data-sgvizler-loglevel="2"
       style="width:300px; height:200px;"></div>      
       		</td>
@@ -133,7 +141,7 @@ Sample Speaker Statistics
                             }
                           GROUP BY ?gender ?inst
                           ORDER BY ?gender'
-                          data-sgvizler-chart="gPieChart"
+                          data-sgvizler-chart="google.visualization.PieChart"
       data-sgvizler-loglevel="2"
       style="width:300px; height:200px;"></div>      
       		</td>
@@ -153,10 +161,11 @@ Sample Speaker Statistics
                             }
                           GROUP BY ?gender ?inst
                           ORDER BY ?gender'
-                          data-sgvizler-chart="gPieChart"
+                          data-sgvizler-chart="google.visualization.PieChart"
       data-sgvizler-loglevel="2"
       style="width:300px; height:200px;"></div>      
-      		</td>      <td>
+      		</td>
+      <td>
       Charles Sturt University
       <div id="gender_distribution_per_site_CSUB"
       data-sgvizler-query='SELECT ?gender (count(?part) AS ?noOfParticipants)
@@ -172,7 +181,7 @@ Sample Speaker Statistics
                             }
                           GROUP BY ?gender ?inst
                           ORDER BY ?gender'
-                          data-sgvizler-chart="gPieChart"
+                          data-sgvizler-chart="google.visualization.PieChart"
       data-sgvizler-loglevel="2"
       style="width:300px; height:200px;"></div>      
       		</td>
@@ -194,7 +203,7 @@ Sample Speaker Statistics
                             }
                           GROUP BY ?gender ?inst
                           ORDER BY ?gender'
-                          data-sgvizler-chart="gPieChart"
+                          data-sgvizler-chart="google.visualization.PieChart"
       data-sgvizler-loglevel="2"
       style="width:300px; height:200px;"></div>      
       		</td>
@@ -214,11 +223,12 @@ Sample Speaker Statistics
                             }
                           GROUP BY ?gender ?inst
                           ORDER BY ?gender'
-                          data-sgvizler-chart="gPieChart"
+                          data-sgvizler-chart="google.visualization.PieChart"
       data-sgvizler-loglevel="2"
       style="width:300px; height:200px;"></div>      
       		</td>
-            <td>
+      
+      <td>
       University of Melbourne (Melbourne)
       <div id="gender_distribution_per_site_UMELBM"
       data-sgvizler-query='SELECT ?gender (count(?part) AS ?noOfParticipants)
@@ -234,7 +244,7 @@ Sample Speaker Statistics
                             }
                           GROUP BY ?gender ?inst
                           ORDER BY ?gender'
-                          data-sgvizler-chart="gPieChart"
+                          data-sgvizler-chart="google.visualization.PieChart"
       data-sgvizler-loglevel="2"
       style="width:300px; height:200px;"></div>      
       		</td>
@@ -254,7 +264,7 @@ Sample Speaker Statistics
                             }
                           GROUP BY ?gender ?inst
                           ORDER BY ?gender'
-                          data-sgvizler-chart="gPieChart"
+                          data-sgvizler-chart="google.visualization.PieChart"
       data-sgvizler-loglevel="2"
       style="width:300px; height:200px;"></div>      
       		</td>
@@ -275,10 +285,11 @@ Sample Speaker Statistics
                             }
                           GROUP BY ?gender ?inst
                           ORDER BY ?gender'
-                          data-sgvizler-chart="gPieChart"
+                          data-sgvizler-chart="google.visualization.PieChart"
       data-sgvizler-loglevel="2"
       style="width:300px; height:200px;"></div>      
-      		</td>      <td>
+      		</td>
+      <td>
       Univerity of Western Australia
       <div id="gender_distribution_per_site_UWA"
       data-sgvizler-query='SELECT ?gender (count(?part) AS ?noOfParticipants)
@@ -294,7 +305,7 @@ Sample Speaker Statistics
                             }
                           GROUP BY ?gender ?inst
                           ORDER BY ?gender'
-                          data-sgvizler-chart="gPieChart"
+                          data-sgvizler-chart="google.visualization.PieChart"
       data-sgvizler-loglevel="2"
       style="width:300px; height:200px;"></div>      
       		</td>
@@ -314,7 +325,7 @@ Sample Speaker Statistics
                             }
                           GROUP BY ?gender ?inst
                           ORDER BY ?gender'
-                          data-sgvizler-chart="gPieChart"
+                          data-sgvizler-chart="google.visualization.PieChart"
       data-sgvizler-loglevel="2"
       style="width:300px; height:200px;"></div>      
       		</td>
@@ -334,11 +345,12 @@ Sample Speaker Statistics
                             }
                           GROUP BY ?gender ?inst
                           ORDER BY ?gender'
-                          data-sgvizler-chart="gPieChart"
+                          data-sgvizler-chart="google.visualization.PieChart"
       data-sgvizler-loglevel="2"
       style="width:300px; height:200px;"></div>      
       		</td>
-      </tr><tr>      <td>
+      </tr><tr>
+      <td>
       Univerity of New England
       <div id="gender_distribution_per_site_UNE"
       data-sgvizler-query='SELECT ?gender (count(?part) AS ?noOfParticipants)
@@ -354,7 +366,7 @@ Sample Speaker Statistics
                             }
                           GROUP BY ?gender ?inst
                           ORDER BY ?gender'
-                          data-sgvizler-chart="gPieChart"
+                          data-sgvizler-chart="google.visualization.PieChart"
       data-sgvizler-loglevel="2"
       style="width:300px; height:200px;"></div>      
       		</td>
@@ -374,7 +386,7 @@ Sample Speaker Statistics
                             }
                           GROUP BY ?gender ?inst
                           ORDER BY ?gender'
-                          data-sgvizler-chart="gPieChart"
+                          data-sgvizler-chart="google.visualization.PieChart"
       data-sgvizler-loglevel="2"
       style="width:300px; height:200px;"></div>      
       		</td>

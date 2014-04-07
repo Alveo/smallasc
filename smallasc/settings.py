@@ -9,6 +9,7 @@ PAGE_SIZE = 10
 
 ADMINS = (
     ('Steve Cassidy', 'steve.cassidy@mq.edu.au'),
+    ('Suren' , 'shopuz@gmail.com'),
 )
 
 MANAGERS = ADMINS
@@ -18,7 +19,8 @@ ALLOWED_HOSTS = ['bigasc.edu.au']
 EMAIL_SUBJECT_PREFIX = "[austalk] "
 SERVER_EMAIL = "django@austalk.edu.au"
 
-DEFAULT_FROM_EMAIL = "steve.cassidy@mq.edu.au"
+#DEFAULT_FROM_EMAIL = "steve.cassidy@mq.edu.au"
+DEFAULT_FROM_EMAIL = "suren.shopushrestha@mq.edu.au"
 
 EMAIL_FROM = "no-reply@austalk.edu.au"
 EMAIL_HOST = "mail.science.mq.edu.au"
@@ -113,7 +115,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    #'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware'
 )
 
@@ -149,8 +151,8 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
 
     # 3rd party apps
-    'lettuce.django',
-    'bootstrap-pagination',
+   # 'lettuce.django',
+    'bootstrap_pagination',
     'registration',
     'registration.supplements.default',
     'registration.contrib.notification',
@@ -163,7 +165,7 @@ INSTALLED_APPS = (
     'sso',
     'stats',
     
-    'debug_toolbar',
+    #'debug_toolbar',
 )
 
 # A sample logging configuration. The only tangible logging

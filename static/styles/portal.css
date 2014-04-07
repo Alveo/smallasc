@@ -11,7 +11,8 @@ html {
   overflow-y: auto;
 }
 
-body {
+body { 
+  margin-top: 10px; 
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 300;
   padding-top: 60px;
@@ -35,28 +36,66 @@ h1 {
 
 h2 {
   font-size: 1.5em;
-  margin-bottom: 30px;
+  /* margin-bottom: 30px; */
   text-align: left;
   font-weight: 600;
 }
 
-/* Wrapper for page content to push down footer */
-#wrap {
-  min-height: 100%;
-  height: auto !important;
-  height: 100%;
-  /* Negative indent footer by its height */
-  margin-bottom: -60px;
-  /* Pad bottom by footer height */
-  padding-bottom: 60px;
+
+
+/* To align logo image towards the left */
+.logo
+{
+  float:left;
 }
 
-/* Set the fixed height of the footer here */
-#footer { 
-  height: 5%;
-  min-height: 2em;
-  border-top: 1px solid #ccc;
+/* To align the top navigation bar towards the right */
+.navbar
+{
+  float:right;
 }
-#footer p {
-	padding-top: 0.5em;
+/* To allow dropdown menu on hover instead of click (default in bootstrap) */
+ul.nav li.dropdown:hover > ul.dropdown-menu {
+    display: block;    
+}
+
+ul
+{
+  list-style-type: none;
+  text-decoration: none;
+}
+.myLinks
+{
+  float:left;
+}
+
+.images-slider
+{
+  float:right;
+  width:80%;
+}
+
+.main-content{
+  text-align: justify;
+}
+
+
+.sidebar{
+  padding-top:20px;
+}
+
+
+ul.footer_links li {
+  display:inline;
+  font-size:small;
+
+}
+
+ul.footer_links li:before{
+  content: '| ';
+}
+
+ul.footer_links li:last-child :after{
+  content: ' |';
+  
 }
