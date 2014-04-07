@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from stats.views import StatsView
+from django.contrib.auth.decorators import login_required, permission_required
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
@@ -9,6 +10,8 @@ admin.autodiscover()
 urlpatterns = patterns('',
 
     # sample stats pages
+    
+    url(r'^$', StatsView.as_view(template_name='statistics/p_report.html')),
     url(r'^custom.html$', StatsView.as_view(template_name='statistics/sgvizler.html')),
     url(r'^age.html$', StatsView.as_view(template_name='statistics/age.htm')),
     url(r'^birthplaces.html$', StatsView.as_view(template_name='statistics/birthplaces.htm')),
@@ -19,6 +22,11 @@ urlpatterns = patterns('',
     url(r'^professional_category.html$', StatsView.as_view(template_name='statistics/professional_category.htm')),
     url(r'^query.html$', StatsView.as_view(template_name='statistics/query.htm')),
     url(r'^stats.html$', StatsView.as_view(template_name='statistics/stats.htm')),
-    url(r'^$', StatsView.as_view(template_name='statistics/p_report.html')),
+    #url(r'^$', login_required(StatsView.as_view(template_name='statistics/p_report.html'))),
 
+    #url(r'^$', StatsView.as_view(template_name='statistics/p_report.html')), 
+    
+
+    
+    
    )
