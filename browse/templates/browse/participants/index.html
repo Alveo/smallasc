@@ -1,0 +1,40 @@
+{% extends "layout/base.html" %}
+
+{% load bootstrap_pagination %}
+
+<!-- Note the convention of the title, Austalk | View > Object -->
+{% block title %}
+    Austalk | Browse > Participants
+{% endblock %}
+
+{% block breadcrumbs %}
+    <ul class="breadcrumb">
+        <li><span class="divider">/</span></li>
+        <li><a href="/browse/" class="admin">All Sites</a></li>
+    </ul>
+{% endblock %}
+
+{% block subtitle %}
+    {{ site.name }} Participants
+{% endblock %}
+
+{% block content %}
+
+{% for part in participants %}
+<section class="statsection">
+
+  <header>
+    <h4>
+      <a href="/browse/{{ part.site }}/{{ part.friendly_id }}">{{ part }}</a>
+    </h4>
+  </header>
+
+  <p>Gender:        {{ part.properties.gender.0 }}</p>
+  <p>Birth Year:    {{ part.properties.birthYear.0 }}</p>
+
+</section>
+{% endfor %}
+
+{% bootstrap_paginate participants %}
+
+{% endblock %}

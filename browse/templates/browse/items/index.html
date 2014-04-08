@@ -1,0 +1,59 @@
+{% extends "layout/base.html" %}
+
+{% block head %}
+<script src="{{ STATIC_URL }}audiojs/audiojs/audio.min.js"></script>
+<script>
+  audiojs.events.ready(function() {
+   /* use custom useFlash function to stop triggering flash on Firefox when
+      it's not needed */
+   var as = audiojs.createAll({
+             useFlash: (function() {
+                            var a = document.createElement('audio');
+                               return !(a.canPlayType && a.canPlayType('audio/x-wav;').replace(/no/, ''));
+     })(),
+   })
+   });
+</script>
+{% endblock %}
+
+<!-- Note the convention of the title, Austalk | View > Object -->
+{% block title %}
+    Austalk | Browse > Items
+{% endblock %}
+
+{% block subtitle %}
+  {{ component_id }} item list
+{% endblock %}
+
+{% block breadcrumbs %}
+  <ul class="breadcrumb">
+    <li><span class="divider">/</span></li>
+    <li><a href="/browse/">All Sites</a></li>
+    <li><span class="divider">/</span></li>
+    <li><a href="/browse/{{ site_id }}/">{{ site.name }}</a></li>
+    <li><span class="divider">/</span></li>
+    <li><a href="/browse/{{ site_id }}/{{ participant_id }}">Speaker {{ participant_id }}</a></li>
+    <li><span class="divider">/</span></li>
+    <li><a href="/browse/{{ site_id }}/{{ participant_id }}/{{ session_id }}">Session {{ session_id }}</a></li>
+  </ul>
+{% endblock %}
+
+{% block content %}
+ {% include "download-form.html" %}
+ <section>
+ 	<p>List contains {{items|length}} items.</p>
+ 	
+    <ul>
+      {% for item in items %}
+      <li>
+        <h4><a href="{{item.get_absolute_url}}">Item {{ item.basename }}</a></h4>
+        <table class="table table-striped">
+          <tr><th>Prompt</th><td>{{ item.prompt }}</td></tr>
+          <tr><th>Audio</th><td><audio src="{{item.ch6media}}" preload="none"></td>
+        </table>
+      </li>
+      {% endfor %}
+  </ul>
+</section>
+{% endblock %}
+

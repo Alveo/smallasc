@@ -1,0 +1,22 @@
+
+{% load getChannels %}
+{% load smallascdataEndpoint %}
+{% load createDataJson %}
+
+<form action="{% smallascdataEndpoint %}" method="post" id="download-form" class='form-inline'>
+
+  <input type="hidden" 
+        name="json" 
+        value='{{ item_ids|createDataJson:user.is_authenticated|safe }}' />
+
+  Download Channel
+  {% getChannels as channels %}
+    <select name="channels">
+      {% for value, label in channels %}
+        <option value="{{ value }}">{{ label }}</option>
+      {% endfor %}
+    </select>
+  as <input type="text" name="name" id="file-name" value='{{participant_id}}-{{component_id}}'/>.zip for all items listed.
+  <button class='btn btn-primary' type='submit'>Download</button>
+  </form>
+

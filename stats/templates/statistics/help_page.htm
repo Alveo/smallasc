@@ -1,0 +1,110 @@
+{% extends "statistics/sgvizler.html" %}
+
+{% block title %}
+ Austalk Meta Search | Reports
+{% endblock %}
+
+{% block subtitle %}
+Sample Speaker Statistics
+{% endblock %}
+
+
+{% block query %}
+
+   
+	
+<!-- chart type otions drop down box -->  
+	  Chart Type: <select name="chart" id="sgvzlr_optChart" onchange="changeDropdowns();"></select>
+	  <br>The 'Chart Type' selection box is used to determine the chart that is output. If you're having difficulty getting a chart to display try the gTable option to test your search results.
+<br><br><br>    
+<!-- Drop down list 1 -->
+<label for="id_var_1">1st Variable:</label> 
+<select name="var_1" id="id_var_1">
+	
+	<option value="">---</option>
+	<option value="name">Name</option>
+	<option value="id">ID</option>
+	<option value="birthYear">Date of Birth</option>
+	<option value="ageGroup">Age Group</option>
+	<option value="pob_town">Town of Birth</option>
+	<option value="pob_state">State of Birth</option>
+	<option value="pob_country">Country of Birth</option>
+	<option value="postcode">Postcode</option>
+	<option value="suburb">Suburb</option>
+	<option value="gender">Gender</option>
+	<option value="education_level">Education Level</option>
+	<option value="ses">Socio-Economic Status</option>
+	<option value="professional_category">Professional Category</option>
+	<option value="professional_occupation">Professional Occupation</option>
+	<option value="cultural_heritage">Cultural Heritage</option>
+	<option value="recording_site">Recording Site</option>
+	<option value="first_language">First Language</option>
+	<option value="other_languages">Other Languages</option>
+	<option value="hobbies_details">Hobbies</option>
+	<option value="student_enrollment">Student Enrollment</option>
+	<option value="student_course">Student Course</option>
+
+</select>
+
+<!-- Drop down list 2 -->
+<label for="id_var_2">2nd Variable:</label> 
+<select name="var_2" id="id_var_2">
+</select>
+<br>The 'variables' are the fields that are to be searched in the database. Select the appropriate option and the graph will generate results based on that heading. 
+<br><br><br>
+
+<!-- checkbox -->
+
+<label for="id_check_box">Check this box for a participant count:</label> <input type="checkbox" name="check_box" id="id_check_box" onClick="checkBox(this.checked,'checkBox_checked')">
+
+<br>The 'participant count' checkbox allows you to count the number of participants in each catagory. For example if you choose gender as the variable, it will return 2 results (male & female) but with the count option selected, it will return the number of males and the number of females in the database.
+<br><br><br>
+<!-- filterbox -->
+	
+<table border="0" cellpadding="10";>
+   <tr>
+
+		<td><label for="id_filter_box">Filter:</label> <input id="id_filter_box" type="text" name="Filter" maxlength="100" size="10" /></td>
+<!-- filterbox radiobuttons -->
+   		<td><label for="id_filter_opt_contains">similar Text:</label> <input type="radio" name="filter_option" id="id_filter_opt_contains"></td>
+		<td><label for="id_filter_opt_exact">Exact matches only:</label> <input type="radio" name="filter_option" id="id_filter_opt_exact"></td>
+		<td><label for="id_filter_opt_arithmatic">Arithmatic Filter:</label> <input type="radio" name="filter_option" id="id_filter_opt_arithmatic"></td>
+	</tr>
+	</table>
+The 'Filter' applies to the first variable selected. It will search for either: 
+<ol><li>'similar text' (non-case/grammar sensitive) NSW, N.S.W, nsW, nsw would all be returned
+<li>'Exact matches only', (where the exact key string must match) NSW != nSW
+<li>or allow an 'Arithmatic filter' (e.g. <60 or >1980) (Only currently applicable to Birth Year)
+<br><br><br>
+	
+<!-- width and height input boxes -->
+
+ Width:  <input name="width" id="sgvzlr_strWidth" type="text" size="3"/>
+	  Height: <input name="height" id="sgvzlr_strHeight" type="text" size="3"/>
+	  	  
+<!-- reset and go buttons -->
+	  <input type="button" value="Reset" onclick="sgvizler.ui.resetPage()"/> 
+	  <input type="button" value="GO!" onclick="generate_graph()"/>
+<br>'Width' and 'height' are the ouptut size for the chart (measured in pixels). 'Reset' reloads the page and 'GO!' begins the query
+<br><br><br>
+	
+	<label for="id_radiobutton_option"></label> <input id="id_radiobutton_option" type="text" name="radiobutton_option" maxlength="100" size="10" style="display:none;"/>
+	
+     	 
+<!-- save query button -->
+	  <input type="button" value="Save Query" onclick="save_query()"/> 
+	  <input type="button" value="Save Graph" onclick="save_graph()"/>
+	  
+<!-- sparql query button-->
+	  <input type="button" value="Use A Custom Text Query" onclick="unhideTextbox()"/>
+<ul><li>'Save query' will open a page with the actual query in SPARQL language,</li>
+<li>'Save graph' will redraw the chart in a new window. You can then print it, take a screenshot or saved it as a PDF file (in you web browser)</li>
+<li>The 'Use a Custom Text Query' Button will unhide the query text box. By clicking this you can write your own query or paste one you saved previously.</li></ul>
+<br><br><br>
+      <br><br>
+      <u><h2>Examples</h2></u>
+      pieChart - Professional Category(c), Education Level(c), Recording Site(c)<br>
+      gTable - Town of Birth & State of Birth, Cultural Heritage, Hobbies<br>
+      gColumnChart - Socio-Economic Status(c), professional Category(c), Recording site(c)<br>
+      <b><i>(c) = count on</b></i>
+{% endblock %}

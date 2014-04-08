@@ -1,0 +1,129 @@
+{% extends "statistics/sgvizler.html" %}
+
+{% block title %}
+ Austalk Meta Search | Reports
+{% endblock %}
+
+{% block subtitle %}
+Sample Speaker Statistics
+{% endblock %}
+
+
+{% block query %}
+
+<h2>Professional Category Distribution</h2>
+
+<table border="0" cellpadding="10";>
+   <tr>
+   		<td>
+<div id="p_category"
+      data-sgvizler-query="
+      				SELECT (?professional_category as ?professional_category)
+      				(count(distinct ?part) as ?Number_of_participants)
+      				WHERE {
+      					?site rdf:type austalk:RecordingSite .
+      					?site rdfs:label ?recording_site .
+      					?part rdf:type foaf:Person .
+      					?part austalk:recording_site ?site .
+      					?part austalk:professional_category ?professional_category .
+      					}
+      					GROUP BY ?professional_category
+      					ORDER BY ?professional_category"
+
+      data-sgvizler-chart="google.visualization.ColumnChart"
+      data-sgvizler-loglevel="0"
+      style="width:800px; height:400px;"></div>     
+      
+      </td>
+      <td>
+<div id="p_category_table"
+      data-sgvizler-query="
+      				SELECT (?professional_category as ?professional_category)
+      				(count(distinct ?part) as ?Number_of_participants)
+      				WHERE {
+      					?site rdf:type austalk:RecordingSite .
+      					?site rdfs:label ?recording_site .
+      					?part rdf:type foaf:Person .
+      					?part austalk:recording_site ?site .
+      					?part austalk:professional_category ?professional_category .
+      					}
+      					GROUP BY ?professional_category
+      					ORDER BY ?professional_category"
+
+      data-sgvizler-chart="google.visualization.Table"
+      data-sgvizler-loglevel="0"
+      style="width:430px; height:400px;"></div>      
+  		</td>
+  	</tr>
+</table>
+  		
+    
+<h2>Professional Occupations of Participants</h2>  
+<table border="0" cellpadding="10";>
+   <tr>
+   		<td>
+<div id="professional_occupation"
+      data-sgvizler-query="SELECT (?professional_occupation as ?professional_occupation)
+      (count(distinct ?part) as ?Number_of_participants)
+      				WHERE {
+      					?site rdf:type austalk:RecordingSite .
+      					?site rdfs:label ?recording_site .
+      					?part rdf:type foaf:Person .
+      					?part austalk:recording_site ?site .
+      					?part austalk:professional_occupation ?professional_occupation .
+      					}
+      					GROUP BY ?professional_occupation
+      					ORDER BY ?professional_occupation"
+
+      data-sgvizler-chart="google.visualization.Table"
+      data-sgvizler-loglevel="0"
+      style="width:600px; height:400px;"></div>      
+      	</td>
+    </tr>
+  </table>  		  
+  
+<h2>Socio-Economic Status of Participants</h2>      	
+<table border="0" cellpadding="10";>
+   <tr>
+   		<td>          
+      <div id="ses"
+      data-sgvizler-query="SELECT (?ses as ?ses) 
+      (count(distinct ?part) as ?Number_of_participants)
+      WHERE {
+      	?site rdf:type austalk:RecordingSite .
+      	?site rdfs:label ?recording_site .
+      	?part rdf:type foaf:Person .
+      	?part austalk:recording_site ?site .
+      	?part austalk:ses ?ses .
+      	}
+      	GROUP BY ?ses
+      	ORDER BY ?ses"
+      data-sgvizler-chart="google.visualization.PieChart"
+      data-sgvizler-loglevel="0"
+      style="width:800px; height:400px;"></div> 
+	</td>
+	
+	<td> 
+	 <div id="ses_table"
+      data-sgvizler-query="SELECT (?ses as ?ses) 
+      (count(distinct ?part) as ?Number_of_participants)
+      WHERE {
+      	?site rdf:type austalk:RecordingSite .
+      	?site rdfs:label ?recording_site .
+      	?part rdf:type foaf:Person .
+      	?part austalk:recording_site ?site .
+      	?part austalk:ses ?ses .
+      	}
+      	GROUP BY ?ses
+      	ORDER BY ?ses"
+      data-sgvizler-chart="google.visualization.Table"
+      data-sgvizler-loglevel="0"
+      style="width:400px; height:400px;"></div> 
+
+	</td>
+	</tr>
+  </table>  	
+      
+
+      
+{% endblock %}

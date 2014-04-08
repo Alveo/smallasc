@@ -1,0 +1,15 @@
+<section>
+  <ul>
+    {% for comp in components %}            
+      <li>
+        <h4><a href="{{comp.get_absolute_url}}">{{ comp.name }} component</a></h4>
+        <table class="table table-striped">
+          <tr><th>Short Name</th><td>{{ comp.componentId }}</td></tr>
+          <tr><th>ID</th><td>{{ comp.identifier }}</td></tr>
+          <tr><th>Ratings</th><td>Audio {{comp.audiorating}}, Video: {{comp.videorating}}</td></tr>
+          <tr><th>Comment</th><td>{{comp.comment}}</td></tr>
+        </table>
+      </li>
+    {% endfor %}
+  </ul>
+</section>

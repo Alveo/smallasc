@@ -1,0 +1,80 @@
+<div class="right" style="float:right; margin-top:-70px;">
+  <img src = "{{ STATIC_URL }}images/austalk-right.png" height="80px" class="responsive"/>
+</div>
+<!--
+	<div class="panel panel-success">
+	    <div class="panel-heading"> AUSTALK</div>
+
+	    {% load flatpages %}
+		{% get_flatpages as flatpages %}
+		
+		    {% for page in flatpages%}
+
+		    	{% if 'Information Sheet' not in page.title %}
+		        	<a href="{{ page.url }}" class="list-group-item">{{  page.title }}</a>
+		        {% endif %}
+		        
+		    {% endfor %}
+		-->
+
+<!--
+	    <a href="#" class="list-group-item">About AusTalk</a>
+	    <a href="#" class="list-group-item">Project Timeline</a>
+	    <a href="#" class="list-group-item">Recording Sites</a>
+	    <a href="#" class="list-group-item">Participating Institutions</a>
+	    <a href="#" class="list-group-item">How can I get involved?</a>
+	    <a href="#" class="list-group-item">Media</a>
+	    <a href="#" class="list-group-item">Contacts</a> 
+
+
+  </div>
+   
+   <div class="panel panel-success">
+	    <div class="panel-heading">RESEARCHERS</div>
+	    <a href="#" class="list-group-item">Current Project Members</a>
+	    <a href="#" class="list-group-item">Project Publications & Presentations</a>
+	    <a href="#" class="list-group-item">How to Join The Project ?</a>
+   </div>
+
+    <div class="panel panel-success">
+	    <div class="panel-heading">SPONSORS</div>
+	    <a href="#" class="list-group-item">Current Sponsors</a>
+	    <a href="#" class="list-group-item">How to become a Sponsor?</a>
+	</div>
+	-->
+
+
+<!--
+    </div>
+
+	<div class="panel panel-success">
+	    <div class="panel-heading">USEFUL LINKS</div>
+	    <a href="#" class="list-group-item">Australian Voices</a>
+	    <a href="#" class="list-group-item">SST 2012</a>
+    </div>
+-->
+
+
+
+<br/>
+<ul class="sidebar_links">
+	    {% load flatpages %}
+		{% get_flatpages as flatpages %}
+		
+		    {% for page in flatpages%}
+
+		    	{% if 'Information Sheet' not in page.title %}
+		        	<li><b><a href="{{ page.url }}" class="">{{  page.title }}</b></a></li>
+		        {% endif %}
+		        
+		    {% endfor %}
+
+</ul>
+<br/>
+
+<h3 style="text-align:left"> Useful Links </h3>
+  		<ul class="sidebar_links">
+  		<li><b><a href="#" class="">Australian Voices</a></b></li>
+
+	   <li><b><a href="#" class="">SST 2012</a></b></li>
+	</ul>
