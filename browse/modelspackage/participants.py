@@ -37,7 +37,7 @@ class ParticipantManager (SparqlManager):
         return results
 
 
-    def with_data (self, site):
+    def with_data (self, site, limit=1000, offset=0):
         
         sparql_results = self.query ("""
             select distinct ?part 
@@ -46,7 +46,7 @@ class ParticipantManager (SparqlManager):
                 ?part austalk:recording_site <%s> . 
                 ?rs olac:speaker ?part .
                 ?rs rdf:type austalk:RecordedSession .
-            }""" % site.identifier)
+            } LIMIT %d OFFSET %d""" % (site.identifier, limit, offset))
 
         results = []
 
@@ -85,11 +85,13 @@ class ParticipantManager (SparqlManager):
                 ?part rdf:type foaf:Person .
             """
         for (key,value) in predicates.items():
-            qq += """ ?part """ + key + " '" + value + "' . "
+            # kludge to handle URIs as values (eg. recording site)
+            if value.startswith('<') and value.endswith('>'):
+                qq += """\t?part """ + key + " " + value + " . \n"
+            else:
+                qq += """\t?part """ + key + " '" + value + "' . \n"
 
         qq += """}"""
-
-        print qq
         
         sparql_results = self.query (qq)
 
@@ -126,7 +128,7 @@ class Participant (SparqlModel):
 
   
     def get_absolute_url(self):
-        return "/browse/%s/%s" % (self.site.label, self.friendly_id ())
+        return "/browse/%s/%s" % (self.site, self.friendly_id ())
 
 
     def friendly_id (self):

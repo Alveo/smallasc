@@ -17,15 +17,13 @@
        <a class="navbar-brand" href="#"></a>  
     </div>
 
-
-
-  <div class="navbar-collapse collapse" id="navbar-collapse-1">
+  	<div class="navbar-collapse collapse" id="navbar-collapse-1">
           <ul class="nav navbar-nav ">
             <li> <a href="/">Home </a></li>
             <li><a href="/stats/">Statistics</a></li>
             <li><a href="/browse">Browse</a></li>
+            <li><a href="/search/" title="Search">Search</a></li>  
             <li><a href="/participantportal/">Participant Portal</a></li>
-
 
             {% if user.is_authenticated %}
               <li class="nav pull-right"><a href="/logout" title="Sign out and end session">Sign out</a></li>
@@ -33,6 +31,10 @@
               <li class="nav pull-right"><a href="/login" title="Sign out and end session">Sign In</a></li>
             {% endif %}
           </ul>
+<<<<<<< local
+     </div>
+	</div>
+=======
         </div><!--/.nav-collapse -->
         
 
@@ -72,6 +74,7 @@
 
 </div> <!-- / CONTAINER-FLUID -->
 
+>>>>>>> other
 </nav>
 <div class="clearfix"></div>
 

@@ -81,13 +81,9 @@ class ItemManager (SparqlManager):
         those that contain the text in prompt"""
 
         if wholeword:
-            pattern = r"\\b%s\\b" % prompt
+            qpart = 'BIND ("%s" as ?prompt)' % (prompt,)
         else:
-            pattern = prompt
-
-        qpart = """
-          FILTER (regex(?prompt, "%s"))
-        """ % (pattern, )
+            qpart = 'FILTER (regex(?prompt, "%s"))' % (pattern, )
 
         items = self.generate_list(qpart)
 
@@ -97,6 +93,39 @@ class ItemManager (SparqlManager):
             items = [i for i in items if i.componentId in components]
 
         return items
+
+    def filter_by_prompts(self, prompts):
+        """Return a list of items with one of the given prompts
+        Faster search optimised for prompt search page."""
+
+        union = ['{?item austalk:prompt "%s"}' % p for p in prompts]
+        union = " UNION ".join(union)
+
+        qq = """
+            select distinct ?item ?prompt ?basename
+            where {
+                
+                ?item austalk:session ?sessid .
+                ?item austalk:componentName ?compid .
+                ?item dc:title ?basename .
+                ?item austalk:prompt ?prompt .
+                
+                %s .
+                
+        } order by ?basename""" % (union,)
+
+        sparql_results = self.query (qq)
+        results = []
+
+        for result in sparql_results["results"]["bindings"]:
+            results.append (Item (
+                                identifier      = result["item"]["value"],
+                                prompt          = result["prompt"]["value"],
+                                basename        = result["basename"]["value"],
+                                ))
+
+        return results
+
 
 
 class Item (SparqlModel):

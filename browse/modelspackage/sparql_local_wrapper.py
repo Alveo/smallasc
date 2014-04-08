@@ -3,6 +3,7 @@ from django.conf import settings
 
 from SPARQLWrapper import SPARQLWrapper, JSON
 import os
+import time
 
 NAMESPACES =   """PREFIX dc:<http://purl.org/dc/terms/>
                 PREFIX austalk:<http://ns.austalk.edu.au/>
@@ -94,10 +95,21 @@ class SparqlManager(models.Manager):
         a Python dictionary that reflects the JSON returned
         from the SPARQL endpoint"""
         
-       # print self.canonicalise_query(query)
+        
+        if settings.PRINT_SPARQL:
+            if settings.PRINT_SPARQL_PREFIXES:
+                print self.canonicalise_query(query)
+            else:
+                print query
                 
+        start = time.time()
         self.sparql.setQuery(self.canonicalise_query(query))
-        return self.sparql.query().convert()
+        result = self.sparql.query().convert()
+        
+        if settings.PRINT_SPARQL:
+            print len(result['results']['bindings']), "results in", time.time()-start, "s"
+        
+        return result
 
 
 
@@ -131,8 +143,21 @@ class SparqlModel(models.Model):
         a Python dictionary that reflects the JSON returned
         from the SPARQL endpoint"""
         
+        
+        if settings.PRINT_SPARQL:
+            if settings.PRINT_SPARQL_PREFIXES:
+                print self.canonicalise_query(query)
+            else:
+                print query
+        
+        start = time.time()
         self.sparql.setQuery(self.canonicalise_query(query))
-        return self.sparql.query().convert()
+        result = self.sparql.query().convert()
+        
+        if settings.PRINT_SPARQL:
+            print len(result['results']['bindings']), "results in", time.time()-start, "s"
+        
+        return result
 
     def clean_property_name(self, prop):
         """Generate a 'nice' version of the property name 
