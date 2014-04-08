@@ -12,7 +12,7 @@
     
 <form method="POST" action="." class="loginbox form-inline form-signin">
   {% csrf_token %}
-  <h2>Sign In</h2>
+  <h2>Participant Sign In</h2>
 
   {% if form.errors %}
     <aside class="alert alert-warning" id="Flash">
@@ -60,7 +60,7 @@
 
   <p id="participant-para">
     A researcher? <a href="/login/" title="Researcher login">Click here</a> to login. <br/>
-    Forgot Password ? <a href="/participantportal/reset/" title="Password Help">Click here</a> for help.
+    Forgot your Colour-Animal Combination ? <a href="/participantportal/reset/" title="Password Help">Click here</a> for help.
   </p>
 
 </form>

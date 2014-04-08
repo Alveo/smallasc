@@ -7,6 +7,7 @@ class UserProfile(models.Model):
   # This field is required.
   user = models.OneToOneField(User)
 
+
   def colour(self):
     colour_id = self.user.username.split('_')[0]
     return Colour.objects.get(id = colour_id).name
@@ -48,3 +49,16 @@ class AgreementStatus(models.Model):
   def accept(self, accepted_on):
     self.has_agreed = True
     self.agreement_date = accepted_on
+
+
+# Custom Registration Fields to gather more information about the user.
+from registration.supplements import RegistrationSupplementBase
+class RegistrationCustomFields(RegistrationSupplementBase):
+
+    institution = models.CharField("Institution Name", max_length=100)
+    full_name = models.CharField("Full Name", max_length=100)
+    
+
+    def __unicode__(self):
+        # a summary of this supplement
+        return "%s (%s)" % (self.institution, self.full_name)

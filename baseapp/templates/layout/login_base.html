@@ -55,7 +55,7 @@
             {% endblock %}
             
           
-          <div class="col-sm-9 offset3"   >
+          <div class="col-sm-9">
             <div class="col-sm-6">
               {% block content %}
               <h1 class="centre">
@@ -67,8 +67,28 @@
 
 
             </div>
+            <div class="clearfix"></div>
+            <br/>
 
+            <div>
+
+               {% block extracontent %}{% endblock %}
+            </div>
           </div>
+
+            
+
+            
+
+            <div class="sidebar col-sm-3">
+
+            {% block sidebar %}
+              {% include "layout/sidebar.html" %}
+              
+            {% endblock %} <!-- end sidebar -->
+            </div>
+
+          
 
 
 

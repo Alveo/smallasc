@@ -152,7 +152,7 @@ INSTALLED_APPS = (
     'lettuce.django',
     'bootstrap_pagination',
     'registration',
-    'registration.supplements.default',
+    #'registration.supplements.default',
     'registration.contrib.notification',
 
     # Smallasc applications listed
@@ -212,8 +212,7 @@ JWT_SECRET = "austalk_secret"
 ## django-registration related settings
 ACCOUNT_ACTIVATION_DAYS = 7
 
-
-
+REGISTRATION_SUPPLEMENT_CLASS = "participantportal.models.RegistrationCustomFields"
 # load local settings
 # put customized stuff here
 try:

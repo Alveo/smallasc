@@ -16,9 +16,10 @@ class StatsView(TemplateView):
 	def dispatch(self, *args, **kwargs):
 		return super(StatsView, self).dispatch(*args, **kwargs)
 
-    
 	def get_context_data(self, **kwargs):
 	    context = super(StatsView, self).get_context_data(**kwargs)
 	    context['endpoint'] = '/sparql/'
+	    print ('context -------- ', context)
 	    return context 
+
 
