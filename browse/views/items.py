@@ -23,7 +23,8 @@ def index (request, site_id, participant_id, session_id, component_id, template 
          'session_id' : session_id,
          'component_id': component_id,
          'items': items,
-         'item_ids' : item_ids })
+         'item_ids' : item_ids,
+         'zipname' : participant_id + "-" + component_id })
  
 @login_required
 @permission_required('auth.can_view_item')

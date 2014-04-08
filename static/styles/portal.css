@@ -3,14 +3,19 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400);
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:600);
 
+html, body {
+  height: 95%;
+}
+
 html {
   overflow-y: auto;
 }
 
-body {
-  margin-top: 10px;
+body { 
+  margin-top: 10px; 
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 300;
+  padding-top: 60px;
 }
 
 input {
@@ -95,8 +100,6 @@ ul.footer_links li:last-child :after{
   content: ' |';
   
 }
-
-
 
 .sidebar{
   background-color:#BBDC81;

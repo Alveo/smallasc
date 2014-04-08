@@ -2,20 +2,21 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render, render_to_response
 from django.template import RequestContext
 from browse.modelspackage import Item, Participant
-from search.forms import PromptSearchForm, ParticipantSearchForm
+from search.forms import PromptSearchForm, ComponentSearchForm
 
 
 @login_required
 @permission_required('auth.can_view_prompt_search')
 def search (request):
     
-    form = PromptSearchForm (request.GET)
-    if form.is_valid ():
-        prompt = form.cleaned_data['prompt']
-        components = form.cleaned_data['components']
-        wholeword = form.cleaned_data['wholeword']
+    pform = PromptSearchForm(request.GET) 
+    
+    if pform.is_valid ():
+        prompt = pform.cleaned_data['prompt'] 
         
-        result = Item.objects.filter_by_prompt(prompt, components, wholeword)
+        prompts = [p.strip() for p in prompt.split(',')]
+        
+        result = Item.objects.filter_by_prompts(prompts)
         item_ids = [ item.identifier for item in result ]
     
         return render (request, 'search/results.html', {
@@ -24,6 +25,8 @@ def search (request):
             'session_id' : None,
             'component_id': None,
             'items': result,
-            'item_ids' : item_ids })
+            'item_ids' : item_ids,
+            'zipname' : '-'.join(prompts)})
     else:
-        return render(request, 'search/index.html', {'prompt_form': form})
+        pform = PromptSearchForm()
+        return render(request, 'search/prompt.html', {'prompt_form': pform})

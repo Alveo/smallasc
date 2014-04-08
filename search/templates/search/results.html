@@ -22,21 +22,17 @@
 {% include "download-form.html" %}
 
 <section>
-    <ul>
-      {% for item in items %}
-      <li>
-        <h2><a href="{{item.get_absolute_url}}">Item {{ item.basename }}</a></h2>
-        <table class="table table-striped">
-          <tr>
-            <th>Prompt</th>
-            <td>{{ item.prompt|truncatewords:20 }}</td>
-          </tr>
-        </table>
-      </li>
-      {% endfor %}
-    </ul>
-</section>  
 
-{% bootstrap_paginate items %}
+	<p>Query matched {{items|length}} items.</p>
+      <table class="table table-striped">
+      	<tr><th>Item</th><th>Prompt</th></tr>
+      {% for item in items %}
+		<tr>
+		 <td><a href="{{item.get_absolute_url}}">Item {{ item.basename }}</a></td>
+         <td>{{ item.prompt|truncatewords:20 }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+</section>  
 
 {% endblock %}

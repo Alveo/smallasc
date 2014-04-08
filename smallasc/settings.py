@@ -2,7 +2,7 @@ import os
 
 # Django settings for smallasc project.
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 PAGE_SIZE = 10
@@ -13,6 +13,8 @@ ADMINS = (
 )
 
 MANAGERS = ADMINS
+
+ALLOWED_HOSTS = ['bigasc.edu.au']
 
 EMAIL_SUBJECT_PREFIX = "[austalk] "
 SERVER_EMAIL = "django@austalk.edu.au"
@@ -149,7 +151,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
 
     # 3rd party apps
-    'lettuce.django',
+   # 'lettuce.django',
     'bootstrap_pagination',
     'registration',
     #'registration.supplements.default',
@@ -205,6 +207,11 @@ SPARQL_ENDPOINT = "http://115.146.93.47/openrdf-sesame/repositories/bigasc_nativ
 
 # SMALLASCDATA_ENDPOINT
 SMALLASCDATA_ENDPOINT = "http://data.austalk.edu.au/download/"
+
+# should we print Sparql queries to the log for debugging?
+PRINT_SPARQL = False
+# when printing queries, do we want to see all the prefix lines?
+PRINT_SPARQL_PREFIXES = False
 
 JWT_SECRET = "austalk_secret"
 
