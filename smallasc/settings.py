@@ -2,19 +2,20 @@ import os
 
 # Django settings for smallasc project.
 
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 PAGE_SIZE = 10
 
 ADMINS = (
-    ('Steve Cassidy', 'steve.cassidy@mq.edu.au'),
+    #('Steve Cassidy', 'steve.cassidy@mq.edu.au'),
     ('Suren' , 'shopuz@gmail.com'),
 )
 
 MANAGERS = ADMINS
 
-ALLOWED_HOSTS = ['bigasc.edu.au']
+ALLOWED_HOSTS = ['bigasc.edu.au', 'localhost']
+
 
 EMAIL_SUBJECT_PREFIX = "[austalk] "
 SERVER_EMAIL = "django@austalk.edu.au"
@@ -164,6 +165,7 @@ INSTALLED_APPS = (
     'participantportal',
     'sso',
     'stats',
+    'custom_registration',
     
     #'debug_toolbar',
 )
@@ -219,7 +221,7 @@ JWT_SECRET = "austalk_secret"
 ## django-registration related settings
 ACCOUNT_ACTIVATION_DAYS = 7
 
-REGISTRATION_SUPPLEMENT_CLASS = "participantportal.models.RegistrationCustomFields"
+REGISTRATION_SUPPLEMENT_CLASS = "custom_registration.models.RegistrationCustomFields"
 # load local settings
 # put customized stuff here
 try:

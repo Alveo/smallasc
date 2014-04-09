@@ -7,7 +7,7 @@ from django.http import HttpResponseRedirect
 @login_required(login_url = PP_LOGIN_URL)
 def index (request, template = 'data.html'):
 	
-		if request.user.is_staff == True or request.user.is_superuser == True:
+		if request.user.groups.filter(name='research') :
 			print ('inside true')
 			return HttpResponseRedirect("/participantportal/login")
 
