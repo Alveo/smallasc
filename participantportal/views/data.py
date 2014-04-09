@@ -6,10 +6,13 @@ from django.http import HttpResponseRedirect
 
 @login_required(login_url = PP_LOGIN_URL)
 def index (request, template = 'data.html'):
-	
-		if request.user.groups.filter(name='research') :
+		# if the requesting user is not a member of group 'participants' then ask for login
+		# this is required when the user in research tries to access participantportal
+		
+		if not request.user.groups.filter(name='participants') :
 			print ('inside true')
 			return HttpResponseRedirect("/participantportal/login")
+
 
 		participant_info = get_participant_info(request.user)
 		return render (request, template, {
