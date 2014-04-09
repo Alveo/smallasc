@@ -5,7 +5,7 @@ from django.forms.forms import NON_FIELD_ERRORS
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response, render
 from django.template import RequestContext
-from participantportal.forms.session import LoginForm, Password_Reset_Form
+from participantportal.forms.session import LoginForm, ColourAnimalHelperForm
 
   
 from browse.modelspackage.sparql_local_wrapper  import SparqlModel, SparqlManager
@@ -41,7 +41,7 @@ def login_page(request):
 def password_reset(request):
   
   if request.method == 'POST':
-    form = Password_Reset_Form(request.POST)
+    form = ColourAnimalHelperForm(request.POST)
     
     
 
@@ -122,15 +122,15 @@ def password_reset(request):
         if len(results) != 0 :
           variables = RequestContext(request, {'results': results } )
           # return the results to the template for displaying to the user
-          return render_to_response ('password_reset_done.html', variables)
+          return render_to_response ('colour_animal_helper_done.html', variables)
         else:
           form._errors.setdefault(NON_FIELD_ERRORS, ErrorList())
 
   else:
-    form = Password_Reset_Form()
+    form = ColourAnimalHelperForm()
   
   variables = RequestContext(request, {'form': form})
 
-  return render_to_response('password_reset_form.html', variables) 
+  return render_to_response('colour_animal_helper_form.html', variables) 
 
 
