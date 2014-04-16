@@ -12,10 +12,19 @@ html {
 }
 
 body { 
-  margin-top: 10px; 
+  /*margin-top: 10px; */
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 300;
-  padding-top: 60px;
+  /*padding-top: 60px;*/
+  background-color:#B9C99D;
+}
+
+.container{
+  background-color:white;
+}
+
+.header{
+  padding-top: 10px;
 }
 
 input {
@@ -101,7 +110,7 @@ ul.footer_links li:last-child :after{
   
 }
 
-.sidebar{
+.sidebar_links{
   background-color:#BBDC81;
 
 }

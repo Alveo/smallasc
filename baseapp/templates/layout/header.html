@@ -1,3 +1,4 @@
+<div class="header">
 <div class="logo">
 
     <img src="{{ STATIC_URL }}images/logo.jpg/" height="135px"/>  
@@ -19,13 +20,21 @@
 
   	<div class="navbar-collapse collapse" id="navbar-collapse-1">
           <ul class="nav navbar-nav ">
-            <li> <a href="/">Home </a></li>
-            <li><a href="/stats/">Statistics</a></li>
-            <li><a href="/browse">Browse</a></li>
-            <li><a href="/search/" title="Search">Search</a></li>  
-            <li><a href="/participantportal/">Participant Portal</a></li>
+            {% if  user.is_staff or  user.is_superuser or not user.is_authenticated %}
+                <li> <a href="/">Home </a></li>
+                <li><a href="/stats/">Statistics</a></li>
+                <li><a href="/browse">Browse</a></li>
+                <li><a href="/search/" title="Search">Search</a></li>  
+                <li><a href="/participantportal/">Participant Portal</a></li>
+            {% else %}
+                <li><a href="/" alt="Home">Home</a></li>
+                <li><a href="/participantportal/">Participant Portal</a></li>
+                <li><a href="/participantportal/data/" alt="Data">Data</a></li>
+                <li><a href="/participantportal/termsandconditions/" alt="Terms and conditions">Terms &amp; Conditions</a></li>
 
-            {% if user.is_authenticated %}
+            {% endif %}
+            
+              {% if user.is_authenticated %}
               <li class="nav pull-right"><a href="/logout" title="Sign out and end session">Sign out</a></li>
             {% else %}
               <li class="nav pull-right"><a href="/login" title="Sign out and end session">Sign In</a></li>
@@ -73,5 +82,4 @@
 
 </nav>
 <div class="clearfix"></div>
-
-<div class="clearfix"></div>
+</div> <!-- / .header -->
