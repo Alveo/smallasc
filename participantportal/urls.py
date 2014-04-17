@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
 from browse.views import components
-from django.views.generic.simple import direct_to_template
+#from django.views.generic.simple import direct_to_template
 
 urlpatterns = patterns('',
   url(regex = r'^$', 
