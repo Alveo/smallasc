@@ -8,8 +8,8 @@ TEMPLATE_DEBUG = DEBUG
 PAGE_SIZE = 10
 
 ADMINS = (
-    #('Steve Cassidy', 'steve.cassidy@mq.edu.au'),
-    ('Suren' , 'shopuz@gmail.com'),
+    ('Steve Cassidy', 'steve.cassidy@mq.edu.au'),
+    #('Suren' , 'shopuz@gmail.com'),
 )
 
 MANAGERS = ADMINS
@@ -20,8 +20,8 @@ ALLOWED_HOSTS = ['bigasc.edu.au', 'localhost']
 EMAIL_SUBJECT_PREFIX = "[austalk] "
 SERVER_EMAIL = "django@austalk.edu.au"
 
-#DEFAULT_FROM_EMAIL = "steve.cassidy@mq.edu.au"
-DEFAULT_FROM_EMAIL = "suren.shopushrestha@mq.edu.au"
+DEFAULT_FROM_EMAIL = "steve.cassidy@mq.edu.au"
+#DEFAULT_FROM_EMAIL = "suren.shopushrestha@mq.edu.au"
 
 EMAIL_FROM = "no-reply@austalk.edu.au"
 EMAIL_HOST = "mail.science.mq.edu.au"
@@ -153,7 +153,7 @@ INSTALLED_APPS = (
 
     # 3rd party apps
    # 'lettuce.django',
-    'bootstrap_pagination',
+   'bootstrap_pagination',
     'registration',
     #'registration.supplements.default',
     'registration.contrib.notification',
