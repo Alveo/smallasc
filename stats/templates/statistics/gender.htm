@@ -103,7 +103,9 @@ Sample Speaker Statistics
 
       </tr>
 </table>
-<table border="0" cellpadding="10";>
+<br/>
+<br/>
+<table border="0" cellpadding="10" class="col-sm-12">
       <tr>
       <td>
       Univerity of Tasmania
@@ -165,13 +167,19 @@ Sample Speaker Statistics
       data-sgvizler-loglevel="2"
       style="width:300px; height:200px;"></div>      
       		</td>
-      <td>
+     
+
+
+
+      		</tr>
+      <tr>
+         <td>
       Charles Sturt University
       <div id="gender_distribution_per_site_CSUB"
       data-sgvizler-query='SELECT ?gender (count(?part) AS ?noOfParticipants)
                           WHERE{ 
-                          	?site rdf:type austalk:RecordingSite .
-                          	?part a foaf:Person . 
+                            ?site rdf:type austalk:RecordingSite .
+                            ?part a foaf:Person . 
                             ?part austalk:recording_site ?site.
                             ?site rdfs:label ?inst .
                             FILTER (?inst = "CSUB")
@@ -184,9 +192,8 @@ Sample Speaker Statistics
                           data-sgvizler-chart="google.visualization.PieChart"
       data-sgvizler-loglevel="2"
       style="width:300px; height:200px;"></div>      
-      		</td>
-      		</tr>
-      <tr>
+          </td>
+
       <td>
       University of Queensland (Brisbane)
       <div id="gender_distribution_per_site_UQB"
@@ -228,13 +235,20 @@ Sample Speaker Statistics
       style="width:300px; height:200px;"></div>      
       		</td>
       
-      <td>
+      
+
+
+
+
+      		</tr><tr>
+
+          <td>
       University of Melbourne (Melbourne)
       <div id="gender_distribution_per_site_UMELBM"
       data-sgvizler-query='SELECT ?gender (count(?part) AS ?noOfParticipants)
                           WHERE{ 
-                          	?site rdf:type austalk:RecordingSite .
-                          	?part a foaf:Person . 
+                            ?site rdf:type austalk:RecordingSite .
+                            ?part a foaf:Person . 
                             ?part austalk:recording_site ?site.
                             ?site rdfs:label ?inst .
                             FILTER (?inst = "UMELBM")
@@ -247,14 +261,14 @@ Sample Speaker Statistics
                           data-sgvizler-chart="google.visualization.PieChart"
       data-sgvizler-loglevel="2"
       style="width:300px; height:200px;"></div>      
-      		</td>
+          </td>
       <td>
       University of Melbourne (Castlemaine)
       <div id="gender_distribution_per_site_UMELBC"
       data-sgvizler-query='SELECT ?gender (count(?part) AS ?noOfParticipants)
                           WHERE{ 
-                          	?site rdf:type austalk:RecordingSite .
-                          	?part a foaf:Person . 
+                            ?site rdf:type austalk:RecordingSite .
+                            ?part a foaf:Person . 
                             ?part austalk:recording_site ?site.
                             ?site rdfs:label ?inst .
                             FILTER (?inst = "UMELBC")
@@ -267,8 +281,11 @@ Sample Speaker Statistics
                           data-sgvizler-chart="google.visualization.PieChart"
       data-sgvizler-loglevel="2"
       style="width:300px; height:200px;"></div>      
-      		</td>
-      		</tr><tr>
+          </td>
+
+
+
+
       		<td>
       University of Sydney
       <div id="gender_distribution_per_site_USYD"
@@ -289,7 +306,9 @@ Sample Speaker Statistics
       data-sgvizler-loglevel="2"
       style="width:300px; height:200px;"></div>      
       		</td>
-      <td>
+      
+        </tr><tr>
+        <td>
       Univerity of Western Australia
       <div id="gender_distribution_per_site_UWA"
       data-sgvizler-query='SELECT ?gender (count(?part) AS ?noOfParticipants)
