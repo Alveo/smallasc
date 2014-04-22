@@ -134,7 +134,8 @@ WSGI_APPLICATION = 'smallasc.wsgi.application'
 
 TEMPLATE_DIRS = (
     # TODO: This needs to change to an absolute path prior to deployment
-    # "./templates"
+     "./templates"
+
 )
 
 INSTALLED_APPS = (
@@ -145,6 +146,9 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.flatpages',
+
+    'tinymce',
+    'flatpages_tinymce',
     
     # Admin site has been enabled for all smallasc apps
     'django.contrib.admin',
@@ -166,6 +170,7 @@ INSTALLED_APPS = (
     'sso',
     'stats',
     'custom_registration',
+
     
     #'debug_toolbar',
 )
@@ -222,6 +227,19 @@ JWT_SECRET = "austalk_secret"
 ACCOUNT_ACTIVATION_DAYS = 7
 
 REGISTRATION_SUPPLEMENT_CLASS = "custom_registration.models.RegistrationCustomFields"
+
+
+TINYMCE_DEFAULT_CONFIG = {
+    # custom plugins
+    'plugins': "table,spellchecker,paste,searchreplace,media,autosave,example,insertdatetime, preview,template",
+    # editor theme
+    'theme': "advanced",
+    
+    
+    # use absolute urls when inserting links/images
+    'relative_urls': False,
+}
+
 # load local settings
 # put customized stuff here
 try:

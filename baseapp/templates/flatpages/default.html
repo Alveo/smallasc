@@ -1,5 +1,11 @@
 {% extends "layout/base_with_sidebar.html" %}
 
+{% block extrahead %}
+
+{% endblock %}
+
+{% load flatpage_admin %}
+
 {% block title %}
 	Austalk Meta Search | Home
 {% endblock %}
@@ -16,15 +22,8 @@
 {% endblock %}
 
 {% block content %}
- {{flatpage.content}}
+ {% flatpage_admin flatpage %}
  
-
-{% load flatpages %}
- {% get_flatpages as flatpages %}
-<ul class="footer_links">
-    {% for page in flatpages %}
-        <li><a href="{{ page.url }}">{{ page.title }}</a></li>
-    {% endfor %}
-</ul>
+ 
  
 {% endblock %}	
