@@ -17,7 +17,8 @@
 	
 	{% else %}
 	<!-- Login form -->
-	<form method="POST" action="." class="loginbox">
+<div class=" col-md-6  col-md-offset-3">
+	<form method="POST" action="." class="loginbox ">
 		{% csrf_token %}
 	  <h2>Sign In</h2>
 		
@@ -54,7 +55,12 @@
 	    <p>Register <a href="/registration/register/">here</a>.</p>
 	</form>
 
+	<div class="clearfix"></div>
+<br/><br/>
+
 	<p>This site provides access to data collected by the Austalk project for researchers.
 		Austalk is collecting speech data from nearly 1000 Australian participants.</p> 
+
+</div>
 {% endif %}
 {% endblock %}
