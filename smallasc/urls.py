@@ -45,4 +45,7 @@ urlpatterns = patterns('',
     
     # SPARQL endpoint
     url(r'^sparql/', 'baseapp.views.sparql.sparql_endpoint'),
+
+    # on-site editing of flat pages
+    (r'^tinymce/', include('tinymce.urls')),
 )
