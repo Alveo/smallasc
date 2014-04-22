@@ -10,7 +10,7 @@
 
 {% block content %}
     
-<form method="POST" action="." class="loginbox form-inline form-signin">
+<form method="POST" action="." class="loginbox form-inline form-signin col-md-6  col-md-offset-3">
   {% csrf_token %}
   <h2>Participant Sign In</h2>
 
@@ -59,8 +59,9 @@
   <input class="btn btn-primary buttonextend" type="submit" value="Sign in"/>
 
   <p id="participant-para">
-    A researcher? <a href="/login/" title="Researcher login">Click here</a> to login. <br/>
-    Forgot your Colour-Animal Combination ? <a href="/participantportal/reset/" title="Password Help">Click here</a> for help.
+    
+    Forgot your Colour-Animal Combination ? <br/>
+    <a href="/participantportal/reset/" title="Password Help">Click here</a> for help.
   </p>
 
 </form>
