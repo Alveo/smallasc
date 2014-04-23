@@ -19,3 +19,7 @@ def index (request):
 
   agreement_status_set = request.user.userprofile.agreementstatus_set.all() 
   return render (request, 'termsandconditions.html', { 'agreement_status_set': agreement_status_set })
+
+
+  def information_sheet (request):
+    return render (request, 'information_sheet.html')

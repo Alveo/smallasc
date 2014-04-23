@@ -6,10 +6,11 @@
 
 {% block breadcrumbs %}
   <ul class="breadcrumb">
-    <li><span class="divider">/</span></li>
+    
     <li><a href="/browse/">All Sites</a></li>
-    <li><span class="divider">/</span></li>
+    
     <li><a href="/browse/{{ site_id }}/">{{ site.name }}</a></li>
+    <li><a href="/browse/{{ participant.properties.id.0 }}/"> Speaker {{ participant.properties.id.0 }}</a></li>
   </ul>
 {% endblock %}
 

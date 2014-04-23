@@ -12,6 +12,11 @@ urlpatterns = patterns('',
   
   url(r'^termsandconditions/$', 'participantportal.views.termsandconditions.index'),
 
+  url(regex = r'^information_sheet/$',
+      view = 'participantportal.views.data.index', 
+      name = 'information sheet', 
+      kwargs = { 'template': 'information_sheet.html' }, ),
+    
 
   
   url(regex = r'^(\w+)/(\w+)/(\w+)/$', 
