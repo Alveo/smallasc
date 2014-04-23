@@ -10,10 +10,12 @@
 {% endblock %}
 
 {% block breadcrumbs %}
-   <ul class="breadcrumb">
-    <li><span class="divider">/</span></li>
-    <li><a href="/">Home</a></li>
-  </ul>
+   
+   {% autoescape off %}
+  
+    {{ breadcrumbs }}
+
+  {% endautoescape %}
 {% endblock %}
 
 {% block content %}

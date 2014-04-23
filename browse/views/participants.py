@@ -7,6 +7,7 @@ from baseapp.helpers                        import generate_paginated_object
 from browse.modelspackage                   import Site, Participant, Session, ResidenceHistory, LanguageUsage
 from search.forms                           import SearchForm
 
+from baseapp.helpers import generate_breadcrumbs
 
 @login_required
 @permission_required('auth.can_view_participants')
@@ -20,9 +21,13 @@ def index(request, site_id):
     else:
         participants = Participant.objects.with_data(site)
     
+    breadcrumbs = generate_breadcrumbs(request,site)
+
     return render(request, 'browse/participants/index.html', {
         'request'       : request,
-        'participants'  : generate_paginated_object(request, participants)
+        'site'          : site,
+        'participants'  : generate_paginated_object(request, participants),
+        'breadcrumbs' : breadcrumbs
     })
 
 
@@ -45,6 +50,7 @@ def show(request, site_id, participant_id):
     rhist    = ResidenceHistory.objects.filter_by_participant(participant)
     lang     = LanguageUsage.objects.filter_by_participant(participant)
 
+    breadcrumbs = generate_breadcrumbs(request,site)
     return render (request, 'browse/participants/show.html', {
         'participant':          participant,
         'site':                 site,
@@ -53,6 +59,7 @@ def show(request, site_id, participant_id):
         'residential_history':  rhist,
         'language_usage':       lang,
         'item_ids' :            [ participant.identifier ],
+        'breadcrumbs' : breadcrumbs,
     })
 
 
