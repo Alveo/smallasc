@@ -101,7 +101,7 @@ class Component (SparqlModel):
 
     def get_absolute_url(self):
         """Return a canonical URL for this item"""                
-        return "/browse/%s/%s/%s/%s/" % (self.site, self.participantId, self.sessionId, self.componentId)    
+        return "/participantportal/%s/%s/%s/%s/" % (self.site, self.participantId, self.sessionId, self.componentId)    
 
     def session_and_comp_name(self):
         return "%s-%s" % (self.sessionId, self.name)
