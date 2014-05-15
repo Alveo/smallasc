@@ -26,12 +26,15 @@ def generate_breadcrumbs(request, site):
 
 	
 	label = ''
-	for i in range(2,len(url_parts)):
+	i = 2
+	while i < len(url_parts):
+		#for i in range(2,len(url_parts)):
 		combined_url= ('/').join(url_parts[0:i])
 		if url_parts[1]== 'browse' and  i == 2:
 			label = 'All Sites'
 		elif url_parts[1] == 'participantportal' and i == 2:
 			label = 'Participant Portal'
+			i = 4
 		elif i==3:
 			label = site.name
 		elif i== 4:
@@ -40,7 +43,8 @@ def generate_breadcrumbs(request, site):
 			label = "Session " + url_parts[4]
 		else:
 			label = url_parts[i-1]
-			
+		
+		i = i + 1	
 		breadcrumbs += '''<li><a href="'''+ combined_url + '''">''' + label + ''' </a></li>
 					
 
