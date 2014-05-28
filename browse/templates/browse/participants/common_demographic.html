@@ -1,8 +1,143 @@
+<div class="row">
+  <div class="col-md-8">
+    
+    <div class="col-md-2">
+      <table class="table table-striped table-bordered">
+        <tr class="success">
+          <th>Gender</th>
+        </tr>
+        <tr>
+           <td> {{ participant.properties.gender.0 }}</td> 
+        </tr>
+      </table>
+    </div>
 
- <tr>
-    <th>Gender</th>
-    <td> {{ participant.properties.gender.0 }}</td>
-  </tr>
+
+    <div class="col-md-2">
+    <table class="table table-striped table-bordered">
+      <tr class="success">
+        <th>Age</th>
+        
+      </tr>
+      <tr>
+         <td> {{ participant.properties.age.0 }}</td> 
+      </tr>
+    </table>
+  </div>
+
+  <div class="col-md-3">
+
+    <table class="table table-striped table-bordered">
+      <tr class="success">
+        <th>Birth Location</th>
+        
+      </tr>
+      <tr>
+         <td> <a href="{{ participant.properties.birthPlace.0 }}" target="_blank">{{ participant.properties.pob_town.0 }}, {{participant.properties.pob_state.0}} {{participant.properties.pob_country.0}}</a></td> 
+      </tr>
+    </table>
+
+  </div>
+<div class="col-md-2">
+    <table class="table table-striped table-bordered">
+      <tr class="success">
+        <th>Suburb</th>
+        
+      </tr>
+      <tr>
+         <td> {{ participant.properties.suburb.0 }}</td> 
+      </tr>
+    </table>
+  </div>
+
+  <div class="col-md-3">
+    <table class="table table-striped table-bordered">
+      <tr class="success">
+        <th>Cultural Heritage</th>
+        
+      </tr>
+      <tr>
+         <td> {{ participant.properties.cultural_heritage.0 }}</td> 
+      </tr>
+    </table>
+  </div>
+
+  <div class="clearfix"></div>
+
+
+   
+    <table class="table table-striped table-bordered">
+      <tr class="success">
+        <th>Socio Economic Status</th>
+         <th>Highest Qualification</th>
+         <th>Professional Qualification</th>
+         <th>Professional Category</th>
+        
+      </tr>
+      <tr>
+         <td> {{ participant.properties.ses.0 }}</td> 
+         <td> {{ participant.properties.education_level.0 }}</td> 
+          <td> {{ participant.properties.professional_qualification.0 }}</td> 
+          <td> {{ participant.properties.professional_category.0 }}</td> 
+      </tr>
+    </table>
+  
+
+  <div class="clearfix">
+    <table class="table table-striped table-bordered">
+      <tr class="success">
+        <th>First Language</th>
+         <th>Other Languages Spoken / Understood</th>
+         <th>Language Usage</th>
+         
+        
+      </tr>
+      <tr>
+         <td> {{ participant.properties.first_language.0 }}</td> 
+         <td> {{ participant.properties.other_languages.0 }}</td> 
+          <td>  
+            <ul>
+              {% for use in language_usage %} 
+                 <li>{{use.name}}: {{use.situation}}, {{use.frequency}}%</li>
+              {% endfor %}
+            </ul>
+          </td> 
+         
+      </tr>
+    </table>
+  </div>
+  
+
+
+
+
+
+
+
+
+  </div> <!-- end col-md-8 -->
+
+  <div class="col-md-4">
+    <table class="table table-striped table-bordered">
+      <tr class="success"> 
+        <th>Residential History</th>
+        
+      </tr>
+      <tr>
+         <td>  
+          <ul>
+            {% for place in residential_history %} 
+               <li>{{place.town}}, {{place.state}}, {{place.country}}</li>
+            {% endfor %}
+          </ul>
+        </td> 
+      </tr>
+    </table>
+  </div> <!-- end residential history div -->
+
+</div> <!-- end row -->
+
+<!--
   <tr>
     <th>Age</th>
     <td> {{ participant.properties.age.0 }}</td>
@@ -78,3 +213,5 @@
     <td>{{participant.properties.student_aspiration.0}}</td>
   </tr>
   {% endifequal %}
+
+  -->

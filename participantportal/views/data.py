@@ -15,9 +15,11 @@ def index (request, template = 'data.html'):
 
 
 		participant_info = get_participant_info(request.user)
+		webvideo_name = request.user.username + '_1_3_001-camera-0-right.mp4'
 		return render (request, template, {
 		'user_profile': request.user.userprofile,
 		'participant': participant_info.participant,
 		'sessions': participant_info.sessions,
 		'residential_history': participant_info.residential_history,
-		'language_usage': participant_info.languages_spoken})
+		'language_usage': participant_info.languages_spoken,
+		'webvideo_name': webvideo_name	})
