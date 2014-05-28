@@ -1,4 +1,7 @@
-.pyc
+syntax: glob
+*.pyc
 .DS_Store
 smallascdb
 smallascdatadb
+webvideo
+smallascdb--new

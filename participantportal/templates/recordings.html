@@ -1,10 +1,10 @@
 <section class="pagination">
-  <h3>Recordings</h3>
+  <h2>Recordings</h2>
   {% if sessions %}
     
      {% for session in sessions %}
         <a href="/participantportal/{{ session.site }}/{{ session.participantId }}/{{ session.number }}/">
-          <button type="button" class="btn btn-primary" >{{ session.name }}</button>
+          <button type="button" class="btn btn-success" >{{ session.name }}</button>
         </a>
       &nbsp;&nbsp;
      {% endfor %}
