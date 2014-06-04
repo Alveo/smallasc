@@ -93,12 +93,14 @@
         
       </tr>
       <tr>
-         <td> {{ participant.properties.first_language.0 }}</td> 
+         <td> {{ first_language }}</td> 
          <td> {{ participant.properties.other_languages.0 }}</td> 
           <td>  
             <ul>
-              {% for use in language_usage %} 
-                 <li>{{use.name}}: {{use.situation}}, {{use.frequency}}%</li>
+              {% for lang, value in language_usage.items %} 
+                 <li>
+                  {{ value.name}}: {{ value.situation }}, {{ value.frequency }}%
+                 </li>
               {% endfor %}
             </ul>
           </td> 
