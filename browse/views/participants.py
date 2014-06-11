@@ -54,15 +54,23 @@ def show(request, site_id, participant_id):
     language_usage = get_language_usage(lang)
 
     breadcrumbs = generate_breadcrumbs(request,site)
-    
-    language_url = '<' + participant.properties()['first_language'][0] + '>'
-    first_language = get_language_name(language_url)
+    if 'first_language' in participant.properties().keys():
+        language_url = '<' + participant.properties()['first_language'][0] + '>'
+        first_language = get_language_name(language_url)
+    else:
+        first_language  = 'N/A'
 
-    language_url = '<' + participant.properties()['father_first_language'][0] + '>'
-    father_first_language = get_language_name(language_url)
+    if 'father_first_language' in participant.properties().keys():
+        language_url = '<' + participant.properties()['father_first_language'][0] + '>'
+        father_first_language = get_language_name(language_url)
+    else:
+        father_first_language  = 'N/A'
 
-    language_url = '<' + participant.properties()['mother_first_language'][0] + '>'
-    mother_first_language = get_language_name(language_url)
+    if 'mother_first_language' in participant.properties().keys():
+        language_url = '<' + participant.properties()['mother_first_language'][0] + '>'
+        mother_first_language = get_language_name(language_url)
+    else:
+        mother_first_language  = 'N/A'
 
 
 
