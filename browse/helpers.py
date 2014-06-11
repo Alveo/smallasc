@@ -31,6 +31,14 @@ def get_language_name(language_url=''):
 	<http://downlode.org/rdf/iso-639/languages#en> => 'English'
 	"""
 	#language_url = '<http://downlode.org/rdf/iso-639/languages#en>'
+	
+	# Some urls may be invalid
+	# For eg: participant 3_377 has "Elglish" already in mother_first_language. 
+	# So dont make a SPARQL query and just return the same
+	
+	if "http" not in language_url:
+		return language_url.replace("<", "").replace(">", "")
+
 	sparql = SPARQLWrapper (settings.SPARQL_ENDPOINT)
 		
 	sparql.setQuery ("""
