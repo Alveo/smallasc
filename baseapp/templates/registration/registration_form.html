@@ -1,0 +1,47 @@
+{% extends "layout/login_base.html" %}
+
+{% block title %}
+	Austalk Corpus | Registration
+{% endblock %}
+
+{% block formheading %}
+	Austalk Corpus
+{% endblock %}
+
+{% block content %}
+
+
+<!-- Login form -->
+<form method="POST" action="." class="loginbox">
+	{% csrf_token %}
+	{{form}}
+	<input type="submit" value="Register" class="btn btn-primary" />
+</form>
+
+{% endblock %}
+
+{% block extracontent %}
+
+<p>Registration for the use of Austalk data is currently only open
+	to members of the project.  By filling out the form below and
+	submitting a request, you are agreeing to the following terms of 
+	use for the Austalk data.</p>
+	
+
+<h2>Terms of Use</h2>
+<p>
+	The AusTalk corpus has been collected by a consortium of Universities and will be made broadly available for research on Australian speech and language. Unfortunately we are still negotiating the terms under which we can release different parts of the data with our legal advisors. The main issue is protecting the privacy of the participants. As a consequence, we cannot yet make the data widely available.
+</p>
+
+<p>However, members of the University partner Institutions that collected the data are free to use the data; this was part of the original agreement between the partners.  There are no restrictions on what you can do with the data as long as you are doing research and do not use the data for commercial purposes, nor in any way that would be malicious to the participants. Commercial activities with the data may need to be negotiated between the parties (we’re not 100% certain of this).</p>
+
+<p>However, as a consequence of the uncertainty around broader distribution of the data you must not share or further distribute any data from the AusTalk corpus outside of the partner Universities or with other researchers.  This includes the demographic descriptions of participants (meta-data) as well as the audio and video recordings themselves.</p>
+
+<p>Any annotation or transcription that you do on corpus data should be contributed back to the project for use by others.  We will store any data you contribute on the server in a way that identifies you as the creator.
+</p>
+<p>Additionally, you must acknowledge the project as the source of data on every publication, as follows:
+</p>
+<p>The AusTalk corpus was collected as part of the Big ASC project (Burnham et al. 2011), funded by the Australian Research Council (LE100100211). See: https://austalk.edu.au/ for details.
+</p>
+
+{% endblock %}

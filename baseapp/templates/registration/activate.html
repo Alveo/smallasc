@@ -1,0 +1,16 @@
+{% extends "layout/login_base.html" %}
+
+{% block title %}
+	Austalk | Activation Successful
+{% endblock %}
+
+
+{% block content %}
+  <p>Activation was successful. You may now <a href="{% url 'auth_login' %}">login</a>
+  using your username and password.</p>
+  
+<p>Your username:   {{ account.username }} </p>
+
+{% endblock %}							
+
+

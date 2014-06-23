@@ -1,0 +1,30 @@
+{% extends "layout/base.html" %}
+
+{% block title %}Austalk Meta Search | Home{% endblock %}
+
+{% block subtitle %}Participant Search{% endblock %}
+
+{% block breadcrumbs %}
+    {%include "search/crumbs.html" %}
+{% endblock %}
+
+{% block content %}
+
+<form method="GET" class="forms">
+	<fieldset>    
+    	
+    	{% include "search/core_fields.html" %}
+
+    	<input type="submit" value="Find Speakers" class="btn btn-primary"/>
+    </fieldset>
+</form>
+
+<p>Found {{participants|length}} matching participants:</p>
+<ul>
+	{% for p in participants %}
+	  <li><a href="{{p.get_absolute_url}}">{{p}}</a></li>
+	{% endfor %}
+</ul>
+
+
+{% endblock %}

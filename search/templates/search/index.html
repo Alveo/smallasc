@@ -1,0 +1,19 @@
+{% extends "layout/base.html" %}
+
+{% block title %}Austalk Meta Search | Home{% endblock %}
+
+{% block subtitle %}Corpus Search{% endblock %}
+
+{% block breadcrumbs %}
+    {%include "search/crumbs.html" %}
+{% endblock %}
+
+{% block content %}
+
+<ul>
+	<li><a href="{% url search.views.participants.search %}">Search by Participant</a></li>
+	<li><a href="{% url search.views.prompt.search %}">Search by Prompt</a></li>
+</ul>
+
+
+{% endblock %}

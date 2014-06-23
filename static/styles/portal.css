@@ -1,0 +1,101 @@
+@charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:600);
+
+html, body {
+  height: 95%;
+}
+
+html {
+  overflow-y: auto;
+}
+
+body { 
+  margin-top: 10px; 
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  padding-top: 60px;
+}
+
+input {
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 300;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1;
+  font-weight: 400;
+}
+
+h1 {
+  font-size: 2em;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+h2 {
+  font-size: 1.5em;
+  /* margin-bottom: 30px; */
+  text-align: left;
+  font-weight: 600;
+}
+
+
+
+/* To align logo image towards the left */
+.logo
+{
+  float:left;
+}
+
+/* To align the top navigation bar towards the right */
+.navbar
+{
+  float:right;
+}
+/* To allow dropdown menu on hover instead of click (default in bootstrap) */
+ul.nav li.dropdown:hover > ul.dropdown-menu {
+    display: block;    
+}
+
+ul
+{
+  list-style-type: none;
+  text-decoration: none;
+}
+.myLinks
+{
+  float:left;
+}
+
+.images-slider
+{
+  float:right;
+  width:80%;
+}
+
+.main-content{
+  text-align: justify;
+}
+
+
+.sidebar{
+  padding-top:20px;
+}
+
+
+ul.footer_links li {
+  display:inline;
+  font-size:small;
+
+}
+
+ul.footer_links li:before{
+  content: '| ';
+}
+
+ul.footer_links li:last-child :after{
+  content: ' |';
+  
+}

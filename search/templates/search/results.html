@@ -1,0 +1,38 @@
+{% extends "layout/base.html" %}
+
+{% load bootstrap_pagination %}
+
+{% block title %}
+  Austalk Meta Search | Results
+{% endblock %}
+
+{% block subtitle %}
+    Search Results
+{% endblock %}
+
+{% block breadcrumbs %}
+  <ul class="breadcrumb">
+    <li><span class="divider">/</span></li>
+    <li><a href="/search/">Search</a></li>
+  </ul>
+{% endblock %}
+
+{% block content %}
+
+{% include "download-form.html" %}
+
+<section>
+
+	<p>Query matched {{items|length}} items.</p>
+      <table class="table table-striped">
+      	<tr><th>Item</th><th>Prompt</th></tr>
+      {% for item in items %}
+		<tr>
+		 <td><a href="{{item.get_absolute_url}}">Item {{ item.basename }}</a></td>
+         <td>{{ item.prompt|truncatewords:20 }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+</section>  
+
+{% endblock %}

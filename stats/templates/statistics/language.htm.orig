@@ -1,0 +1,109 @@
+{% extends "statistics/sgvizler.html" %}
+
+{% block title %}
+ Austalk Meta Search | Reports
+{% endblock %}
+
+{% block subtitle %}
+Sample Speaker Statistics
+{% endblock %}
+
+
+{% block query %}
+
+   
+
+<h2>First Language</h2>
+
+<table border="0" cellpadding="10";>
+   <tr>
+   		<td>
+<div id="first_language"
+      data-sgvizler-query="
+      				SELECT (?fln as ?First_Language) (count(distinct ?part) as ?participants)
+      				WHERE {
+      					?site rdf:type austalk:RecordingSite .
+      					?part rdf:type foaf:Person .
+      					?part austalk:recording_site ?site .
+      					?part austalk:first_language ?first_language .
+      					?first_language iso639schema:name ?fln
+      					}
+      					GROUP BY ?fln
+      					ORDER BY DESC(count(?part))"
+      data-sgvizler-chart="google.visualization.PieChart"
+      data-sgvizler-loglevel="2"
+      style="width:800px; height:400px;"></div>     
+      
+      </td>
+      <td>
+<div id="first_language_table"
+      data-sgvizler-query="
+      				SELECT (?fln as ?First_Language) (count(distinct ?part) as ?participants)
+      				WHERE {
+      					?site rdf:type austalk:RecordingSite .
+      					?part rdf:type foaf:Person .
+      					?part austalk:recording_site ?site .
+      					?part austalk:first_language ?first_language .
+      					?first_language iso639schema:name ?fln
+      					}
+      					GROUP BY ?fln
+      					ORDER BY DESC(count(?part))"
+
+      data-sgvizler-chart="google.visualization.Table"
+      data-sgvizler-loglevel="0"
+      style="width:430px; height:400px;"></div>      
+  		</td>
+  	</tr>
+</table>
+
+<h2>Second Language</h2>
+
+<table border="0" cellpadding="10";>
+   <tr>
+   		<td>
+<div id="second_language"
+      data-sgvizler-query="
+      				SELECT (?sln as ?SecondLanguage) (count(distinct ?part) as ?participants)
+
+
+                  WHERE {
+                  ?site rdf:type austalk:RecordingSite .
+                  ?part rdf:type foaf:Person .
+                  ?part austalk:recording_site ?site .
+                  OPTIONAL { ?part austalk:other_languages ?sln}
+                  }
+                  GROUP BY ?sln
+                  ORDER BY DESC(count(?part))
+                  "
+      data-sgvizler-chart="google.visualization.PieChart"
+      data-sgvizler-loglevel="0"
+      style="width:800px; height:400px;"></div>     
+      
+      </td>
+      <td>
+<div id="second_language_table"
+      data-sgvizler-query="
+      				SELECT (?sln as ?Second_Language) (count(distinct ?part) as ?participants)
+
+WHERE {
+?site rdf:type austalk:RecordingSite .
+?part rdf:type foaf:Person .
+?part austalk:recording_site ?site .
+OPTIONAL { ?part austalk:other_languages ?sln}
+}
+GROUP BY ?sln
+ORDER BY DESC(count(?part))
+"
+
+      data-sgvizler-chart="google.visualization.Table"
+      data-sgvizler-loglevel="0"
+      style="width:430px; height:400px;"></div>      
+  		</td>
+  	</tr>
+</table>
+
+      
+            
+      
+      
+{% endblock %}
