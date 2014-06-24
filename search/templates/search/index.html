@@ -11,9 +11,10 @@
 {% block content %}
 
 <ul>
-	<li><a href="{% url search.views.participants.search %}">Search by Participant</a></li>
-	<li><a href="{% url search.views.prompt.search %}">Search by Prompt</a></li>
+	<li><a href="{% url "search.views.participants.search" %}">Search by Participant</a></li>
+	<li><a href="{% url "search.views.prompt.search" %}">Search by Prompt</a></li>
 </ul>
 
 
 {% endblock %}
+

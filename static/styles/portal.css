@@ -12,10 +12,19 @@ html {
 }
 
 body { 
-  margin-top: 10px; 
+  /*margin-top: 10px; */
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 300;
-  padding-top: 60px;
+  /*padding-top: 60px;*/
+  background-color:#B9C99D;
+}
+
+.container{
+  background-color:white;
+}
+
+.header{
+  padding-top: 10px;
 }
 
 input {
@@ -81,7 +90,8 @@ ul
 
 
 .sidebar{
-  padding-top:20px;
+  /*padding-top:20px;*/
+  padding-right:0;
 }
 
 
@@ -98,4 +108,51 @@ ul.footer_links li:before{
 ul.footer_links li:last-child :after{
   content: ' |';
   
+}
+
+.sidebar_links{
+  background-color:#BBDC81;
+
+}
+
+.sidebar_links{
+  border-top:1px solid black;
+}
+.sidebar_links li
+{
+  line-height: 24px;
+
+}
+
+.sidebar_links li a
+{
+  color:#8B0316;
+  text-decoration: none;
+}
+
+.sidebar_links li a:hover
+{
+  color:white;
+  text-decoration: none;
+}
+/* Overriding Bootstrap List Effects */
+
+a.list-group-item, a.list-group-item:focus {
+text-decoration: none;
+background-color: #BBDC81;
+color:#8B0316;
+}
+
+
+a.list-group-item:hover, a.list-group-item:focus {
+text-decoration: none;
+background-color: white;
+color:black;
+}
+
+.list-group-item{
+border:0;
+  border-bottom: 1px solid #ddd; 
+
+
 }

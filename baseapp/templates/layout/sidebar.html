@@ -1,3 +1,9 @@
+<div class="right" style="float:right; margin-top:0px;">
+  <img src = "{{ STATIC_URL }}images/austalk-right.png" height="80px" class="img-responsive"/>
+	
+</div>
+
+<!--
 	<div class="panel panel-success">
 	    <div class="panel-heading"> AUSTALK</div>
 
@@ -7,11 +13,11 @@
 		    {% for page in flatpages%}
 
 		    	{% if 'Information Sheet' not in page.title %}
-		        	<a href="{{ page.url }}" class="list-group-item">{{ page.title }}</a>
+		        	<a href="{{ page.url }}" class="list-group-item">{{  page.title }}</a>
 		        {% endif %}
 		        
 		    {% endfor %}
-		
+		-->
 
 <!--
 	    <a href="#" class="list-group-item">About AusTalk</a>
@@ -38,6 +44,9 @@
 	    <a href="#" class="list-group-item">How to become a Sponsor?</a>
 	</div>
 	-->
+
+
+<!--
     </div>
 
 	<div class="panel panel-success">
@@ -45,3 +54,32 @@
 	    <a href="#" class="list-group-item">Australian Voices</a>
 	    <a href="#" class="list-group-item">SST 2012</a>
     </div>
+-->
+
+
+
+<div class="clearfix"></div>
+<div class="sidebar_links">
+	
+	<ul class="sidebar_links">
+		    {% load flatpages %}
+			{% get_flatpages as flatpages %}
+			
+			    {% for page in flatpages%}
+
+			    	{% if 'Information Sheet' not in page.title %}
+			        	<li><b><a href="{{ page.url }}" class="">{{  page.title }}</b></a></li>
+			        {% endif %}
+			        
+			    {% endfor %}
+
+	</ul>
+	<br/>
+
+	<h3 style="text-align:center"> Useful Links </h3>
+	  		<ul class="sidebar_links">
+	  		<li><b><a href="#" class="">Australian Voices</a></b></li>
+
+		   <li><b><a href="#" class="">SST 2012</a></b></li>
+		</ul>
+</div>

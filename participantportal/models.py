@@ -7,6 +7,7 @@ class UserProfile(models.Model):
   # This field is required.
   user = models.OneToOneField(User)
 
+
   def colour(self):
     colour_id = self.user.username.split('_')[0]
     return Colour.objects.get(id = colour_id).name

@@ -5,9 +5,9 @@ from django.forms.forms import NON_FIELD_ERRORS
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response, render
 from django.template import RequestContext
-from participantportal.forms.session import LoginForm, Password_Reset_Form
+from participantportal.forms.session import LoginForm, ColourAnimalHelperForm
 
-
+  
 from browse.modelspackage.sparql_local_wrapper  import SparqlModel, SparqlManager
 from browse.modelspackage.sites import Site
 from browse.modelspackage.participants import *
@@ -37,19 +37,19 @@ def login_page(request):
   variables = RequestContext(request, {'form': form})
   return render_to_response('login.html', variables) 
 
-
+# view to display the possible Colour-Animal Combination after the user answers a couple of questions
 def password_reset(request):
   
   if request.method == 'POST':
-    form = Password_Reset_Form(request.POST)
+    form = ColourAnimalHelperForm(request.POST)
     
     
 
     #if form.is_valid():
     
     if form.is_valid():
-        # Our request should be routed to our custom authenticator
-        # as configured in our AUTHENTICATION_BACKENDS field of settings.py
+        # Create a SPARQL Query to retrieve possible results based on the answers
+
         '''
         custom_auth = CustomAuthBackend()
         #user = custom_auth.authenticate_password_reset(
@@ -72,7 +72,12 @@ def password_reset(request):
           form._errors.setdefault(NON_FIELD_ERRORS, ErrorList())
         '''
 
-        site_label = form.data['pwd_site']
+        # Get the site object from site_label (get function needs a label parameter)
+        site_label = form.data['pwd_site'] 
+        site = Site.objects.get(label=site_label)
+
+        # Grab all the form data and convert them to lower case
+        # in order to compare the result of SPARQL Query
 
         highest_qual = form.data['pwd_highest_qual']
         highest_qual = highest_qual.lower()
@@ -81,14 +86,10 @@ def password_reset(request):
         mother_highest_qual = form.data['pwd_mother_highest_qual']
         mother_highest_qual = mother_highest_qual.lower()
 
-        #print ('highest_qual : -------- ', highest_qual)
-        #print ('father highest_qual : -------- ', father_highest_qual)
-
-        #birth_year = int(form.data['pwd_birth_year'])
-        #gender = form.data['pwd_gender']
-
-        site = Site.objects.get(label=site_label)
-
+       
+        # lcase in SPARQL Query converts the retrieved field into lower case
+        # Father's education level is made optional because not all participants have Father's education level
+        
         sparql = SparqlManager()
 
         sparql_results = sparql.query("""
@@ -105,38 +106,31 @@ def password_reset(request):
                 }""" % (site.identifier, highest_qual, mother_highest_qual, father_highest_qual))
 
         results = []
-            
+        
+        # Bind the result from SPARQL query into a list - results            
         for result in sparql_results["results"]["bindings"]:
             
             part = Participant (
                 identifier          = result["part"]["value"]
-                #gender              = result["gender"]["value"],
-                #birth_year          = result["dob"]["value"]
+                
             )
 
             results.append (part)
 
-        #print "results --------------- ", results
-        
+        print ('results of password recovery ---- ', results)
+        # Check if there is any result based on the answers to the questions in the form
         if len(results) != 0 :
-          
-          #variables = RequestContext(request, {'name': results[0].name, 'id' : results[0].id } )
-          
           variables = RequestContext(request, {'results': results } )
-          #return HttpResponseRedirect(reverse('/participantportal/reset/done', args=[results]))
-          #return render_to_response ('/participantportal/reset/done', variables)
-          return render_to_response ('password_reset_done.html', variables)
+          # return the results to the template for displaying to the user
+          return render_to_response ('colour_animal_helper_done.html', variables)
         else:
           form._errors.setdefault(NON_FIELD_ERRORS, ErrorList())
 
-
-
-
   else:
-    form = Password_Reset_Form()
+    form = ColourAnimalHelperForm()
   
   variables = RequestContext(request, {'form': form})
 
-  return render_to_response('password_reset_form.html', variables) 
+  return render_to_response('colour_animal_helper_form.html', variables) 
 
 

@@ -2,6 +2,10 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from django.views.generic.base import TemplateView
 
+
+#from registration.backends.default.views import RegistrationView
+
+#from registration.backends.default.views import RegistrationView
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
 admin.autodiscover()
@@ -27,6 +31,9 @@ urlpatterns = patterns('',
 	url(r'^pages/', include('django.contrib.flatpages.urls')),
 
 	# django-registration
+
+    
+ 
 	url(r'^registration/', include('registration.urls')),
 
     # Uncomment the next line to enable the admin:
@@ -38,4 +45,7 @@ urlpatterns = patterns('',
     
     # SPARQL endpoint
     url(r'^sparql/', 'baseapp.views.sparql.sparql_endpoint'),
+
+    # on-site editing of flat pages
+    (r'^tinymce/', include('tinymce.urls')),
 )

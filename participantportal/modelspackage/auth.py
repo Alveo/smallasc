@@ -4,10 +4,15 @@ from browse.modelspackage.participants import *
 from participantportal.helpers import read_model_property
 from participantportal.models import UserProfile
 from browse.modelspackage.sites import Site
-
+  
 class CustomAuthBackend(object):
   """ This custom authenticator is plugged into authentication pipeline
   and is configured in settings.py."""
+  
+  
+  #supports_inactive_user = True
+
+
   def authenticate(self, colour, animal, birth_year = None, gender = None):
     #print "Custom Authenticator Invoked with params %s-%s-%s-%s" % (colour, animal, birth_year, gender)
     username = "%s_%s" % (colour, animal)

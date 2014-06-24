@@ -1,4 +1,3 @@
-<<<<<<< mine
   <!DOCTYPE html>
   <html lang="en"> 
   <head>
@@ -38,7 +37,7 @@
     <div class="container">
       {% include "layout/header.html" %}
 
-      <hr/>
+      
       
           
             <header>
@@ -93,60 +92,6 @@
   <!-- Placed at end to help improve page load times -->
   <!-- Latest version is v3.1.1   -->
   <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
-=======
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>{% block title %}{% endblock %}</title>
-
-  <!-- Stylesheet includes -->
-  <link rel="stylesheet" href="{{ STATIC_URL }}styles/bootstrap.css" media="screen" />
-  <link rel="stylesheet" href="{{ STATIC_URL }}styles/bootstrap-responsive.css" media="screen" />
-
-  <!-- Primary stylesheet with specialisation below -->
-  <link rel="stylesheet" href="{{ STATIC_URL }}styles/portal.css" media="screen" />
-  <link rel="stylesheet" href="{{ STATIC_URL }}styles/searchportal.css" media="screen" />
-
-  {# loading jquery here so that sgvizler can use it #}
-  <!--  using version 1.8 of jquery because of sgvizler -->
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
-
-
-  {% block head %}<!-- extra header elements -->{% endblock %}
-</head>
-<body>
-
-	  {% include "layout/header.html" %}
-	
-  <div id='wrap'>
-	  <div class="container-fluid">
-	    <div class="row-fluid">
-	      <!-- Use bootstrap to create a simple 3 column layout -->
-	      <div class="span10 offset1">
-	        <header>
-	          {% block breadcrumbs %}
-	          {% endblock %}
-	        </header>
-	        <h1>
-	          {% block subtitle %}
-	          {% endblock %}
-	        </h1>
-	        {% block content %}
-	        {% endblock %}
-	      </div>
-	    </div>
-	  </div>
-  </div>
-  
-    <div id='footer'>
-       <div class="container">
-            <p>
-            	Copyright &copy; 2013 Macquarie University, University of Western Sydney and partners | 
-            	<a href="http://www.mq.edu.au/privacy/privacy.html">Privacy Statement</a>
-            </p>
-       </div>
-  </div>
->>>>>>> theirs
 
   {% block extrajs %}<!--  extra javascript goes here -->{% endblock %}
 

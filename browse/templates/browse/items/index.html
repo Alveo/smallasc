@@ -26,16 +26,13 @@
 {% endblock %}
 
 {% block breadcrumbs %}
-  <ul class="breadcrumb">
-    <li><span class="divider">/</span></li>
-    <li><a href="/browse/">All Sites</a></li>
-    <li><span class="divider">/</span></li>
-    <li><a href="/browse/{{ site_id }}/">{{ site.name }}</a></li>
-    <li><span class="divider">/</span></li>
-    <li><a href="/browse/{{ site_id }}/{{ participant_id }}">Speaker {{ participant_id }}</a></li>
-    <li><span class="divider">/</span></li>
-    <li><a href="/browse/{{ site_id }}/{{ participant_id }}/{{ session_id }}">Session {{ session_id }}</a></li>
-  </ul>
+  
+   {% autoescape off %}
+  
+    {{ breadcrumbs }}
+
+  {% endautoescape %}
+
 {% endblock %}
 
 {% block content %}

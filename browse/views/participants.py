@@ -6,7 +6,9 @@ from django.template                        import RequestContext
 from baseapp.helpers                        import generate_paginated_object
 from browse.modelspackage                   import Site, Participant, Session, ResidenceHistory, LanguageUsage
 from search.forms                           import SearchForm
+from browse.helpers                         import *
 
+from baseapp.helpers import generate_breadcrumbs
 
 @login_required
 @permission_required('auth.can_view_participants')
@@ -20,9 +22,13 @@ def index(request, site_id):
     else:
         participants = Participant.objects.with_data(site)
     
+    breadcrumbs = generate_breadcrumbs(request,site)
+
     return render(request, 'browse/participants/index.html', {
         'request'       : request,
-        'participants'  : generate_paginated_object(request, participants)
+        'site'          : site,
+        'participants'  : generate_paginated_object(request, participants),
+        'breadcrumbs' : breadcrumbs
     })
 
 
@@ -45,14 +51,36 @@ def show(request, site_id, participant_id):
     rhist    = ResidenceHistory.objects.filter_by_participant(participant)
     lang     = LanguageUsage.objects.filter_by_participant(participant)
 
+    language_usage = get_language_usage(lang)
+
+    breadcrumbs = generate_breadcrumbs(request,site)
+    
+    language_url = '<' + participant.properties()['first_language'][0] + '>'
+    first_language = get_language_name(language_url)
+
+    language_url = '<' + participant.properties()['father_first_language'][0] + '>'
+    father_first_language = get_language_name(language_url)
+
+    language_url = '<' + participant.properties()['mother_first_language'][0] + '>'
+    mother_first_language = get_language_name(language_url)
+
+
+
+    
     return render (request, 'browse/participants/show.html', {
         'participant':          participant,
         'site':                 site,
         'site_id':              site_id, 
         'sessions':             sessions,
         'residential_history':  rhist,
-        'language_usage':       lang,
+        'language_usage':       language_usage,
         'item_ids' :            [ participant.identifier ],
+        'breadcrumbs' : breadcrumbs,
+        'first_language': first_language,
+        'father_first_language': father_first_language,
+        'mother_first_language': mother_first_language,
+        'scope' : 'browse'
+
     })
 
 

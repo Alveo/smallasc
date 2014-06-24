@@ -2,6 +2,7 @@
   <html lang="en"> 
   <head>
     <title>{% block title %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Stylesheet includes -->
     <!--  We are including the minified version of bootstrap. So we dont need this bootstrap.css
@@ -37,7 +38,7 @@
     <div class="container">
       {% include "layout/header.html" %}
 
-      <hr/>
+      
       
           
             <header>
@@ -56,23 +57,19 @@
                 
 
 
-            <div class="col-sm-9">
+            <div class="col-sm-12">
               {% block content %}
               {% endblock %}
             </div>
 
 
-
-            <div class="sidebar col-sm-3">
-              {% block sidebar %}
-              {% endblock %}
-            </div>
-
+            
+            
             <div class="clearfix"></div>
 
 
             <div class="footer">
-               <div class="container">
+               
                     <hr/>
                   <img src="{{ STATIC_URL }}images/assta_logo_color.gif"/>
                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -83,7 +80,7 @@
                   &copy;AusTalk 2012  
                   <br/><br/>
                   
-                </div>
+                
 
             </div>
         
@@ -92,7 +89,11 @@
   <!-- Placed at end to help improve page load times -->
   <!-- Latest version is v3.1.1   -->
   <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
-
+  <script>
+    $(document).ready(function(){
+      $('.google-visualization-table-table').addClass('table-responsive');
+    });
+  </script>
   {% block extrajs %}<!--  extra javascript goes here -->{% endblock %}
 
   </body>

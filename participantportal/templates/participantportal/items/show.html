@@ -1,9 +1,13 @@
-{% extends "participantportal/layout/base.html" %}
+{# extends "participantportal/layout/base.html" #}
+
+
+{% extends "layout/base.html" %}
 {% block content %}
+
 <ul class="breadcrumb">
-  <li><span class="divider">/</span></li>
+  
   <li><a href="/participantportal/">Home</a><span class="divider">/</span></li>
-  <li><a href="/participantportal/{{ item.site }}/{{ item.participantId }}/{{ item.sessionId }}/">Session</a><span class="divider">/</span></li>
+  <li><a href="/participantportal/{{ item.site }}/{{ item.participantId }}/{{ item.sessionId }}/">Session</a></li>
   <li><a href="/participantportal/{{ item.site }}/{{ item.participantId }}/{{ item.sessionId }}/{{ item.componentId }}">Component</a></li>
 </ul>
 

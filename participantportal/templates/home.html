@@ -1,22 +1,52 @@
-{% extends "participantportal/layout/base.html" %}
+{# extends "participantportal/layout/base.html" #}
+{% extends "layout/base.html" %}
 
 {% block subtitle %}
   Data Summary
 {% endblock %}
 
 {% block content %}
-  <table class="table table-striped">
-    {% include "browse/participants/common_demographic.html" %}
-  </table>
+  
+  
+  <h2>Austalk data for {{ participant.properties.name.0 }}</h2>
+  
+  <div class="row">
+    <div class="col-md-8">
+      <p>
+        Welcome to the AusTalk's Participant Portal. This page is dedicated to provide details of the participant in the aspects of personal information, education status, language, residential history, profession etc. You even have access to your recordings. If in case you find some wrong information, please contact <a href="mailto:info@austalk.edu.au">info@austalk.edu.au</a> and it will be rectified in no time.
 
-  {% include "recordings.html" %}
+      </p>
 
-  {% if not user_profile.has_accepted_agreements %}
-    <section>
-      <h1>Terms &amp; Conditions</h1>
-      <a href="/participantportal/termsandconditions/" title="terms and conditions">
-        Click to view and accept the data sharing agreement.
-      </a>
-    </section>
-  {% endif %}
+      {% if not user_profile.has_accepted_agreements %}
+        <section>
+          <h2>Additional Consent</h2>
+          <p>
+            It is important for us to make you aware that these data may be accessed by a number of researchers and thus your consent is required. Please read through our Additional Consent and accpet the data sharing agreement.
+
+          </p>
+          <a href="/participantportal/termsandconditions/" title="terms and conditions">
+            <button type="button" class="btn btn-success" >Click to view and accept the data sharing agreement.</button>
+          </a>
+        </section>
+      {% endif %}
+
+      {% include "participantportal/recordings.html" %}
+
+    </div> <!-- end col-md-8 -->
+
+    <div class="col-md-4">
+
+      <video width="320" height="240" controls>
+        <source src="{{ participant.get_web_video }}" type="video/mp4">
+      
+      </video>
+    </div> <!-- end col-md-4 -->
+  </div> <!-- end row -->
+  
+  
+  <h2> Personal Information </h2>
+
+  {% include "browse/participants/common_demographic.html" %}
+  
+  
 {% endblock %}

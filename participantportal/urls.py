@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
 from browse.views import components
-from django.views.generic.simple import direct_to_template
+#from django.views.generic.simple import direct_to_template
 
 urlpatterns = patterns('',
   url(regex = r'^$', 
@@ -12,6 +12,11 @@ urlpatterns = patterns('',
   
   url(r'^termsandconditions/$', 'participantportal.views.termsandconditions.index'),
 
+  url(regex = r'^information_sheet/$',
+      view = 'participantportal.views.data.index', 
+      name = 'information sheet', 
+      kwargs = { 'template': 'information_sheet.html' }, ),
+    
 
   
   url(regex = r'^(\w+)/(\w+)/(\w+)/$', 

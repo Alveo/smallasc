@@ -1,9 +1,12 @@
-{% extends "participantportal/layout/base.html" %}
+{# extends "participantportal/layout/base.html" #}
+{% extends "layout/base.html" %}
+
 
 {% block breadcrumbs %}
 <ul class="breadcrumb">
-  <li><span class="divider">/</span></li>
-  <li><a href="/participantportal/">Home</a></li>
+  
+  <li><a href="/participantportal/">Participant Portal</a></li>
+   <li><a href="/participantportal/{{ site_id }}/{{ participant_id }}/{{ session_id }}/">Session {{ session_id }}</a> </li>
 </ul>
 {% endblock %}
 
@@ -12,5 +15,6 @@
 {% endblock %}
 
 {% block content %}
+
   {% include "browse/components/component_list.html" %}
 {% endblock %}

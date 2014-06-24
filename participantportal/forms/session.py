@@ -41,13 +41,10 @@ class LoginForm(forms.Form):
   gender = forms.ChoiceField(choices = GENDER_CHOICES, widget = RadioSelect, initial = 'male')
 
 
-class Password_Reset_Form(forms.Form):
-	#animal      = forms.ModelChoiceField(queryset = Animal.objects.order_by('name'), initial = 1)
-	#colour      = forms.ModelChoiceField(queryset = Colour.objects.all(), initial = 1, widget = Select(attrs={'class':'form-control'}))
-	#pwd_birth_year  = forms.ChoiceField(choices = get_years(), widget = Select(attrs={'class':'form-control'}))
-	#pwd_gender = forms.ChoiceField(choices = GENDER_CHOICES, widget = RadioSelect, initial = 'male')
-	#pwd_mother_qual = forms.CharField()
+#class Password_Reset_Form(forms.Form):
+class ColourAnimalHelperForm(forms.Form):
 	pwd_site = forms.ModelChoiceField(queryset = Site.objects, to_field_name='label', widget= Select(attrs={'class':'form-control'}))
 	pwd_highest_qual = forms.ChoiceField(choices = sorted(EDUCATION_LEVEL_CHOICES), widget=Select(attrs={'class':'form-control'}))
 	pwd_father_highest_qual = forms.ChoiceField(choices = sorted(EDUCATION_LEVEL_CHOICES), widget=Select(attrs={'class':'form-control'}))
 	pwd_mother_highest_qual = forms.ChoiceField(choices = sorted(EDUCATION_LEVEL_CHOICES), widget=Select(attrs={'class':'form-control'}))
+	

@@ -1,34 +1,56 @@
-{% extends "participantportal/layout/base.html" %}
-{% block content %}
-  {% for item in items %}
-    <!-- Is this a Hack?, should the controller create specific properties here, or
-        should we leave the view to work out how to get what it needs? -->
-    {% if forloop.first %}
-       <ul class="breadcrumb">
-        <li><span class="divider">/</span></li>
-        <li><a href="/participantportal/">Home</a><span class="divider">/</span></li>
-        <li><a href="/participantportal/{{ item.site }}/{{ item.participantId }}/{{ item.sessionId }}/">Session</a></li>
-      </ul>
-      <h2>Session {{ item.sessionId }} Component {{ item.componentId }} Items</h2>
-    {% endif %}
-    <h3>
-      Item
-      &nbsp;
-      <a href="/participantportal/{{ item.site }}/{{ item.participantId }}/{{ item.sessionId }}/{{ item.componentId }}/{{ item.basename }}/">{{ item.basename }}</a>
-    </h3>
-    <table class="table table-striped">
-      <tr>
-        <th>Prompt</th>
-        <td>{{ item.prompt }}</td>
-      </tr>
-      <tr>
-        <th>ID</th>
-        <td>{{ item.identifier }}</td>
-      </tr>
-      <tr>
-        <th>Audio</th>
-        <td><a href="{{item.ch6media}}">Play {{item.basename}}</a></td>
-      </tr>
-    </table>
-  {% endfor %}
+{% extends "layout/base.html" %}
+
+{% block head %}
+<script src="{{ STATIC_URL }}audiojs/audiojs/audio.min.js"></script>
+<script>
+  audiojs.events.ready(function() {
+   /* use custom useFlash function to stop triggering flash on Firefox when
+      it's not needed */
+   var as = audiojs.createAll({
+             useFlash: (function() {
+                            var a = document.createElement('audio');
+                               return !(a.canPlayType && a.canPlayType('audio/x-wav;').replace(/no/, ''));
+     })(),
+   })
+   });
+</script>
 {% endblock %}
+
+<!-- Note the convention of the title, Austalk | View > Object -->
+{% block title %}
+    Austalk | Browse > Items
+{% endblock %}
+
+{% block subtitle %}
+  {{ component_id }} item list
+{% endblock %}
+
+{% block breadcrumbs %}
+  
+   {% autoescape off %}
+  
+    {{ breadcrumbs }}
+
+  {% endautoescape %}
+
+{% endblock %}
+
+{% block content %}
+ {# include "download-form.html" #}
+ <section>
+  <p>List contains {{items|length}} items.</p>
+  
+    <ul>
+      {% for item in items %}
+      <li>
+        <h4><a href="{{item.get_absolute_url}}">Item {{ item.basename }}</a></h4>
+        <table class="table table-striped">
+          <tr><th>Prompt</th><td>{{ item.prompt }}</td></tr>
+          <tr><th>Audio</th><td><audio src="{{item.ch6media}}" preload="none"></td>
+        </table>
+      </li>
+      {% endfor %}
+  </ul>
+</section>
+{% endblock %}
+
