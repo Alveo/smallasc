@@ -7,3 +7,5 @@ rdflib
 lettuce
 lxml
 nose
+django-flatpages-tinymce
+django-tinymce

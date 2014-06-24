@@ -49,15 +49,12 @@ class ComponentManager (SparqlManager):
             select distinct * where {
 
                 BIND ("%s" AS ?pid)
-                BIND (%s as ?sessionid)
+                BIND ("%s" as ?sessionid)
                 
                 ?participant austalk:id ?pid .
-                ?rs rdf:type austalk:RecordedSession .
-                ?rs olac:speaker ?participant .
-                ?rc dc:isPartOf ?rs .
-                
-                ?rs austalk:prototype ?ps .
-                ?ps austalk:id ?sessionid .
+                ?rc rdf:type austalk:RecordedComponent .
+                ?rc olac:speaker ?participant .
+                ?rc austalk:session ?sessionid .
                 
             }
         """ % (participant_id, session_id)

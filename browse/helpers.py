@@ -12,8 +12,8 @@ ParticipantInfo = namedtuple('ParticipantInfo', 'participant sessions residentia
 
 
 def get_participant_info(participant_id):
-	participant = Participant.objects.get(participant_id)
-	if not participant is None:
+    participant = Participant.objects.get(participant_id)
+    if not participant is None:
 		sessions = Session.objects.filter_by_participant(participant) 
 		rhist = ResidenceHistory.objects.filter_by_participant(participant)
 		lang = LanguageUsage.objects.filter_by_participant(participant)
@@ -22,6 +22,8 @@ def get_participant_info(participant_id):
                         	sessions = sessions, 
                         	residential_history = rhist, 
                         	languages_spoken = lang)
+    else:
+        raise("no participant found")
 
 
 

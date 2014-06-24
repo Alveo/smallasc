@@ -122,6 +122,24 @@ class Participant (SparqlModel):
         return path_components[len(path_components) - 1]
 
 
+    def get_web_video(self):
+        """Return the URL of the sample video for this participant"""
+        
+        qq = """select ?video where {
+   ?item austalk:componentName "story" .
+   ?item olac:speaker <%s> .
+   ?item ausnc:document ?video .
+   ?video dc:type "video" .
+}""" % self.identifier
+
+        sparql_results = self.query (qq)
+
+        for result in sparql_results["results"]["bindings"]:
+            return result["video"]["value"]
+                    
+        return None
+
+
     # Fields
     name = property(get_name)
     site = property(get_site)
