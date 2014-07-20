@@ -53,6 +53,6 @@ def generate_breadcrumbs(request, site):
 
 	breadcrumbs += '</ul>'
 		
-	print ('printing request url')
-	print (breadcrumbs)
+	#print ('printing request url')
+	#print (breadcrumbs)
 	return breadcrumbs
