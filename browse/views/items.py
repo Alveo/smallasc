@@ -18,6 +18,11 @@ def index (request, site_id, participant_id, session_id, component_id, template 
     item_ids = [ item.identifier for item in items ]
     
     breadcrumbs = generate_breadcrumbs(request,site)
+    print site_id
+    
+    print participant_id
+    print session_id
+    print component_id
 
     return render (request, template, 
         {'site_id' : site_id,
@@ -38,7 +43,7 @@ def show (request, site_id, participant_id, session_id, component_id, basename, 
     item = Item.objects.get (participant_id, basename)
     
     breadcrumbs = generate_breadcrumbs(request,site)
-
+    print 'sites : ' + site
     if item is None:
         return Http404("Item not found %s" % basename)
     

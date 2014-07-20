@@ -1,6 +1,6 @@
 from django.utils import unittest
 from browse.modelspackage import *
-
+from browse.helpers import *
 # Import SPARQL modules and related information
 from SPARQLWrapper import SPARQLWrapper, JSON
 
@@ -185,3 +185,20 @@ class ParticipantTests (unittest.TestCase):
 
         self.assertTrue (len(male_parts) > 0)
         self.assertTrue (len(set(male_qual_parts).intersection (set(male_parts))) == len(male_qual_parts))
+
+    def test_getlanguagefromurl(self):
+        sites = Site.objects.all ()
+        parts = Participant.objects.all (sites[0])
+        url = '<' + parts[0].properties()['first_language'][0] + '>'
+        self.assertTrue(len(get_language_name(url)) > 0)
+        url = '<' + parts[0].properties()['father_first_language'][0] + '>'
+        self.assertTrue(len(get_language_name(url)) > 0)
+        url = '<' + parts[0].properties()['mother_first_language'][0] + '>'
+        self.assertTrue(len(get_language_name(url)) > 0)
+
+    def test_getlanguageusage(self):
+        sites = Site.objects.all ()
+        participant = Participant.objects.all(sites[0])[0]
+        lang = LanguageUsage.objects.filter_by_participant(participant)
+        language_usage = get_language_usage(lang)
+        self.assertTrue(isinstance(language_usage, dict))
