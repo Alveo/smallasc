@@ -8,11 +8,9 @@
 {% endblock %}
 
 {% block breadcrumbs %}
-    <ul class="breadcrumb">
-        
-        <li><a href="/browse/" class="admin">All Sites</a></li>
-        <li><a href="/browse/{{ site_id }}/">{{ site.name }}</a></li>
-    </ul>
+    {% autoescape off %}
+      {{ breadcrumbs }}
+    {% endautoescape %}
 {% endblock %}
 
 {% block subtitle %}
