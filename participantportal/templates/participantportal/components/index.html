@@ -3,11 +3,9 @@
 
 
 {% block breadcrumbs %}
-<ul class="breadcrumb">
-  
-  <li><a href="/participantportal/">Participant Portal</a></li>
-   <li><a href="/participantportal/{{ site_id }}/{{ participant_id }}/{{ session_id }}/">Session {{ session_id }}</a> </li>
-</ul>
+	{% autoescape off %}
+		{{ breadcrumbs }}
+	{% endautoescape %}
 {% endblock %}
 
 {% block subtitle %}
