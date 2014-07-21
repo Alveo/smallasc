@@ -36,8 +36,9 @@
 
     <div class="col-md-4">
 
-      <video id="participant_video" class="video-js vjs-default-skin" controls preload="auto">
-        <source src="{{ participant.get_web_video }}" type="video/mp4">
+      <video id='participant_video' class='video-js vjs-default-skin' 
+            poster='{{posterurl}}' controls autoplay preload='auto' width="300" height="200">
+        <source src="{{ participant.get_web_video }}" type="video/mp4" codecs='avc1.42E01E, mp4a.40.2'> </source>
       </video>
       
       <!--
