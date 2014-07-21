@@ -1,5 +1,5 @@
-{# extends "participantportal/layout/base.html" #}
-{% extends "layout/base.html" %}
+{% extends "participantportal/layout/base.html" %}
+{# extends "layout/base.html" #}
 
 {% block subtitle %}
   Data Summary
@@ -36,10 +36,16 @@
 
     <div class="col-md-4">
 
+      <video id="participant_video" class="video-js vjs-default-skin" controls preload="auto">
+        <source src="{{ participant.get_web_video }}" type="video/mp4">
+      </video>
+      
+      <!--
       <video width="320" height="240" controls>
         <source src="{{ participant.get_web_video }}" type="video/mp4">
       
       </video>
+      -->
     </div> <!-- end col-md-4 -->
   </div> <!-- end row -->
   
