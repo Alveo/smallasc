@@ -146,10 +146,10 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.flatpages',
-
+    
     'tinymce',
     'flatpages_tinymce',
-    
+    'django.contrib.webdesign',
     # Admin site has been enabled for all smallasc apps
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
