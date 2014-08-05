@@ -2,6 +2,7 @@ from baseapp.modelspackage.animals import Animal
 from baseapp.modelspackage.colours import Colour
 from django.db import models
 from django.contrib.auth.models import User
+from tinymce.models import HTMLField
 
 class UserProfile(models.Model):
   # This field is required.
@@ -33,7 +34,8 @@ class UserProfile(models.Model):
 
 class Agreement(models.Model):
   
-  legalise = models.TextField()
+  #legalise = models.TextField()
+  legalise = HTMLField()
 
   def __unicode__(self):
     return u'%s' % (self.legalise)

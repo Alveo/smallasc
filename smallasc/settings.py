@@ -234,7 +234,10 @@ TINYMCE_DEFAULT_CONFIG = {
     'plugins': "table,spellchecker,paste,searchreplace,media,autosave,example,insertdatetime, preview,template",
     # editor theme
     'theme': "advanced",
-    
+    "theme_advanced_buttons3_add" : "cite,abbr",
+    'cleanup_on_startup': True,
+    'custom_undo_redo_levels': 10,
+    'height': "450px",
     
     # use absolute urls when inserting links/images
     'relative_urls': False,
