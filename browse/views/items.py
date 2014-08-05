@@ -43,7 +43,7 @@ def show (request, site_id, participant_id, session_id, component_id, basename, 
     item = Item.objects.get (participant_id, basename)
     
     breadcrumbs = generate_breadcrumbs(request,site)
-    print 'sites : ' + site
+    
     if item is None:
         return Http404("Item not found %s" % basename)
     
