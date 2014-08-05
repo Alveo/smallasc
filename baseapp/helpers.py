@@ -19,36 +19,36 @@ def generate_paginated_object(request, collection):
     return paged_obj
 
 
-def generate_breadcrumbs(request, site):
+def generate_breadcrumbs(request, site=None):
 	url = request.path
 	url_parts = url.split('/')
+	url_parts = filter(None, url_parts)
 	breadcrumbs = '<ul class="breadcrumb">'
 
-	
 	label = ''
-	i = 2
+	i = 0
 	while i < len(url_parts):
 		#for i in range(2,len(url_parts)):
-		combined_url= ('/').join(url_parts[0:i])
-		if url_parts[1]== 'browse' and  i == 2:
+		combined_url= ('/').join(url_parts[0:i+1])
+		if url_parts[0]== 'browse' and i == 0:
 			label = 'All Sites'
-		elif url_parts[1] == 'participantportal' and i == 2:
+		elif url_parts[0] == 'participantportal' and i == 0:
 			label = 'Participant Portal'
-			i = 4
-		elif i==3:
-			label = site.name
-		elif i== 4:
-			label = "Speaker " + url_parts[3]
-		elif i== 5:
-			label = "Session " + url_parts[4]
+			i = 2
+		elif i==1:
+			if site:
+				label = site.name
+			else:
+				label = url_parts[i].capitalize()
+		elif i== 2:
+			label = "Speaker " + url_parts[2]
+		elif i== 3:
+			label = "Session " + url_parts[3]
 		else:
 			label = url_parts[i-1]
 		
 		i = i + 1	
-		breadcrumbs += '''<li><a href="'''+ combined_url + '''">''' + label + ''' </a></li>
-					
-
-		'''
+		breadcrumbs += '''<li><a href="/'''+ combined_url + '''">''' + label + ''' </a></li>'''
 
 
 	breadcrumbs += '</ul>'
