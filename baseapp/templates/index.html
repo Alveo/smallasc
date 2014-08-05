@@ -18,14 +18,16 @@
 
 {% block content %}
 
+    {% load flatpage_admin %}
     <h2>{{page.title}}</h2>
-    
     {% if page.content %}
-    {{ page.content|safe }}
+        {% flatpage_admin page %}
     {% else %}
-    <p>Create a flatpage with url '/' to see content here</p>
-    {% lorem 2 p %}
+        <p>Create a flatpage with url '/' to see content here</p>
+        {% lorem 2 p %}
     {% endif %}
+
+
              
 {% endblock %} <!-- end Content -->
 
