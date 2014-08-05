@@ -67,8 +67,11 @@
 			
 			    {% for page in flatpages%}
 
-			    	{% if 'Information Sheet' not in page.title %}
-			        	<li><b><a href="{{ page.url }}" class="">{{  page.title }}</b></a></li>
+			    	{% if 'Information Sheet' in page.title or page.url == "/" %}
+			    		<!-- do nothing -->
+			    	{% else %}
+			        		<li><b><a href="{{ page.url }}" class="">{{  page.title }}</b></a></li>
+			    		
 			        {% endif %}
 			        
 			    {% endfor %}
