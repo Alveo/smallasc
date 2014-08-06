@@ -17,8 +17,11 @@ urlpatterns = patterns('',
       name = 'information sheet', 
       kwargs = { 'template': 'information_sheet.html' }, ),
     
-
-  
+  url(regex = r'^original_consent/$',
+      view = 'participantportal.views.data.index', 
+      name = 'original consent', 
+      kwargs = { 'template': 'original_consent.html' }, ),
+    
   url(regex = r'^(\w+)/(\w+)/(\w+)/$', 
       view = 'browse.views.components.index', 
       name = 'components', 
