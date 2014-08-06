@@ -8,50 +8,73 @@
 {% block content %}
   
   
-  <h2>Austalk data for {{ participant.properties.name.0 }}</h2>
+  <h2>{{ participant.properties.name.0 }}</h2>
   
   <div class="row">
     <div class="col-md-8">
       <p>
-        Welcome to the AusTalk's Participant Portal. This page is dedicated to provide details of the participant in the aspects of personal information, education status, language, residential history, profession etc. You even have access to your recordings. If in case you find some wrong information, please contact <a href="mailto:info@austalk.edu.au">info@austalk.edu.au</a> and it will be rectified in no time.
-
-      </p>
+        Welcome to the AusTalk's Participant Portal.  We have set up this page so that
+		you can review the recordings that you generously provided to us as part of 
+		the Austalk project.  You are now one of almost 1000 participants around the county
+		who's data will be part of ongoing research into Australian speech and language use.</p>
 
       {% if not user_profile.has_accepted_agreements %}
         <section>
           <h2>Additional Consent</h2>
-          <p>
-            It is important for us to make you aware that these data may be accessed by a number of researchers and thus your consent is required. Please read through our Additional Consent and accpet the data sharing agreement.
-
+		  
+          <p>We would like to clarify the consent that you gave for
+			  your recordings to be used for research purposes.  We felt that the original
+			  consent that you signed did not make it clear enough that researchers around
+			  the world might have access to your video image, or that it might be distributed 
+			  via the web.  To allow us to make all of your data available for research, please
+			  review and consent to the revised agreement via this link.
           </p>
-          <a href="/participantportal/termsandconditions/" title="terms and conditions">
-            <button type="button" class="btn btn-success" >Click to view and accept the data sharing agreement.</button>
+          
+		  <a href="/participantportal/termsandconditions/" title="terms and conditions">
+            <button type="button" class="btn btn-success" >Click to view the revised agreement.</button>
           </a>
         </section>
       {% endif %}
 
-      {% include "participantportal/recordings.html" %}
-
+	  <h2>Your Recording Sessions</h2>
+	  {% if sessions %}
+    
+	     {% for session in sessions %}
+	        <a href="/{{ scope }}/{{ session.site }}/{{ session.participantId }}/{{ session.number }}/">
+	          <button type="button" class="btn btn-success" >{{ session.name }}</button>
+	        </a>
+	      &nbsp;&nbsp;
+	     {% endfor %}
+    
+	  {% else %}
+	    <p>We don't have any recordings of yours at present. This is probably due to delays in uploading
+			data to the central server. Please check back later or contact <a href="mailto:austalkenquiries@uws.edu.au">austalkenquiries@uws.edu.au</a> for more information.</p>
+	  {% endif %}
+  
     </div> <!-- end col-md-8 -->
 
     <div class="col-md-4">
 
       <video id='participant_video' class='video-js vjs-default-skin' 
-            controls autoplay preload='auto' width="300" height="200" data-setup='{"example_option":true}'>
+            controls autoplay preload='auto' width="300" height="200" data-setup='{"autoplay":false}'>
         <source src="{{ participant.get_web_video }}" type="video/mp4" codecs='avc1.42E01E, mp4a.40.2'> </source>
       </video>
       
-      <!--
-      <video width="320" height="240" controls>
-        <source src="{{ participant.get_web_video }}" type="video/mp4">
-      
-      </video>
-      -->
+	  <p>This is a preview of one of your video recordings.  These are not
+		  generally made available on the web. Instead, reserchers will
+		  download them for use in research. <em>(Note that the audio may
+		  be out of sync in this web preview.)</em></p>
+   
     </div> <!-- end col-md-4 -->
   </div> <!-- end row -->
   
   
   <h2> Personal Information </h2>
+  
+  <p>This is part of the personal information that we collected from you. There is more detail, eg. 
+	  your educational history, but we are keeping that secure and not making it widely available.
+	  If you notice any errors below, please inform us via <a href="mailto:austalkenquiries@uws.edu.au">austalkenquiries@uws.edu.au</a>.
+  </p>
 
   {% include "browse/participants/common_demographic.html" %}
   
