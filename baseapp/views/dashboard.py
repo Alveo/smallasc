@@ -6,9 +6,9 @@ from django.contrib.flatpages.models import FlatPage
 #@login_required
 #@permission_required('auth.can_view_dashboard')
 def index (request):
-	page = FlatPage.objects.filter(url='/')[0]
-	print 'printng page'
-	print page
+    
+	page = FlatPage.objects.filter(url='/')
+
 	return render (request, 'index.html', {
 		'page' : page
 		})

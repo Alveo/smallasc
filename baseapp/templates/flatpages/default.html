@@ -11,17 +11,10 @@
 {% endblock %}
 
 {% block subtitle %}
-	{{flatpage.title}}
+	{{flatpage.title}} 
 {% endblock %}
 
-{% block menubar %}
-	<li><a href="/" class="current" title="Your dashboard">Dashboard</a></li>
-    <li><a href="/stats/" title="Statistics">Statistics</a></li>  
-    <li><a href="/browse/" title="Browse">Browse</a></li>  
-	<li><a href="/search/" title="Search">Search</a></li>   
-{% endblock %}
 
 {% block content %}
  {% flatpage_admin flatpage %}
- 
 {% endblock %}	

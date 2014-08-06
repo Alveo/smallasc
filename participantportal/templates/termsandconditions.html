@@ -4,17 +4,12 @@
     
     <li><a href="/participantportal/">Participant Portal</a></li>
   </ul>
-
-  <h1>Terms &amp; Conditions</h1>
-  
+    
   {% for status in agreement_status_set %}  
 
-    <h2>Agreement</h2>
-    <p>
       {% autoescape off %}
         {{ status.agreement.legalise }}
       {% endautoescape %}
-    </p>
 
     {% if status.has_agreed %}
       <p>
@@ -32,8 +27,6 @@
         <input class="btn btn-primary buttonextend" type="submit" value="Accept"/>
       </form>
     {% endif %}
-
-    ---------
 
   {% endfor %}
 

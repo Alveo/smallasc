@@ -13,8 +13,6 @@ from baseapp.helpers import generate_breadcrumbs
 def index (request, site_id, participant_id, session_id, template = 'browse/components/index.html'):
 
     site = Site.objects.get (site_id)
-    print ('participant_id: ', participant_id)
-    print ('session_id: ', session_id)
     components = Component.objects.filter_by_session (site_id, participant_id, session_id)
     component_ids = [ component.identifier for component in components ]
 
