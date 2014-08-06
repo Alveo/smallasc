@@ -7,8 +7,13 @@ from django.contrib.flatpages.models import FlatPage
 #@permission_required('auth.can_view_dashboard')
 def index (request):
     
-	page = FlatPage.objects.filter(url='/')
-
-	return render (request, 'index.html', {
+    pages = FlatPage.objects.filter(url='/')
+    
+    if pages:
+        page = pages[0]
+    else:
+        page = None
+    
+    return render (request, 'index.html', {
 		'page' : page
 		})
