@@ -16,5 +16,13 @@
 {% block content %}
   <h2>Participant: {% participant participant_id %}</h2>
 
-  {% include "browse/components/component_list.html" %}
+<section>
+  <table class='table'>
+    {% for comp in components %}            
+      <tr>
+        <td><a href="{{comp.get_participant_url}}">{{ comp.name }} component</a></td>
+      </tr>
+    {% endfor %}
+  </table>
+</section>
 {% endblock %}

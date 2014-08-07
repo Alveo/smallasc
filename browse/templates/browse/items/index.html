@@ -1,4 +1,5 @@
 {% extends "layout/base.html" %}
+{% load demographic %}
 
 {% block head %}
 <script src="{{ STATIC_URL }}audiojs/audiojs/audio.min.js"></script>
@@ -36,6 +37,9 @@
 {% endblock %}
 
 {% block content %}
+
+  <h2>Participant: {% participant participant_id %}</h2>
+
  {% include "download-form.html" %}
  <section>
  	<p>List contains {{items|length}} items.</p>
