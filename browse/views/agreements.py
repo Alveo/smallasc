@@ -9,12 +9,14 @@ from baseapp.helpers import generate_breadcrumbs
 @permission_required('auth.can_view_agreements')
 def index (request):
     
-    participants = UserProfile.objects.all()
+    participants = UserProfile.objects.all().order_by('-agreementstatus__has_agreed')
     breadcrumbs = generate_breadcrumbs(request)
+    
+    agreed = UserProfile.objects.filter(agreementstatus__has_agreed__exact=True)
     
     return render (request, 'browse/agreements/index.html', {
         'participants' : participants,
         'breadcrumbs' : breadcrumbs,
-        #'breadcrumbs' : 'hello',
+        'agreed' : agreed,
     })
 
