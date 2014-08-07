@@ -19,12 +19,14 @@
 {% endblock %}
 
 {% block content %}
+
+  <p>
+
   <table class="table table-striped">
     <thead>
       <th>Identifier</th>
       <th>Colour</th>
       <th>Animal</th>
-      <th>Agreement</th>
       <th>Agreed?</th>
       <th>Date</th>
     </thead>
@@ -41,12 +43,11 @@
               <td rowspan="{{ up.agreementstatus_set.all.count }}">{{ up.colour }}</td>
               <td rowspan="{{ up.agreementstatus_set.all.count }}">{{ up.animal }}</td>
             {% endif %}
-            <td id="agreementcell">{{ agreement_stat.agreement|truncatewords:20 }}</td>
             <td>
               {% if agreement_stat.has_agreed %}
-                <i class="icon-ok" />
+                <i class="icon-ok">yes</i>
               {% else %}
-                <i class="icon-remove" />
+                <i class="icon-remove">no</i>
               {% endif %}
             </td>
             <td>
