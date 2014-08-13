@@ -4,16 +4,75 @@
 	Austalk Meta Search | Home
 {% endblock %}
 
-{% block subtitle %}
+{% block head %}
+<script type='application/javascript'>
+
+var jsonresult;
+	function sparqlResult(json, textStatus, jqXHR) {
+		
+		var $op = $('#results');
+		$op.empty();
+		var $th = $op.appendTo('<thead>').appendTo("<tr>");
+		for(var i=0; i< json["head"]["vars"].length; i++) {
+			$th.appendTo("<th>").text(json["head"]["vars"][i]);
+		} 
+		
+		var $tb = $op.appendTo("<tbody>");
+	     for(var i = 0; i < json["results"]["bindings"].length; i++) {
+			 var $tr = $tb.appendTo("<tr>");
+			 for(var j=0; j < json["head"]["vars"].length; j++) {
+				 var field = json["head"]["vars"][j];
+				 $tr.appendTo("<td>").text(json["results"]["bindings"][i][field].value);
+			 };
+	     };
+	};
+
+	$(document).ready(function() {
+	    $("#sparql").submit(function(e) {
+				var postData = $(this).serializeArray();
+			    var formURL = $(this).attr("action");
+			    $.ajax(
+			    {
+			        url : formURL,
+			        type: "GET",
+			        data : postData,
+			        success: sparqlResult
+			    });
+	            e.preventDefault();
+	            return false;
+	    });
+	});
+ 
+   </script>
    
 {% endblock %}
 
 {% block content %}
 
-<form method='GET'>
-	{{form}}
+<form method='GET' id="sparql">
+	<textarea name='query' cols=80 rows=20>
+		
+PREFIX dc:<http://purl.org/dc/terms/>
+PREFIX austalk:<http://ns.austalk.edu.au/>
+PREFIX olac:<http://www.language-archives.org/OLAC/1.1/>
+PREFIX ausnc:<http://ns.ausnc.org.au/schemas/ausnc_md_model/>
+PREFIX foaf:<http://xmlns.com/foaf/0.1/>
+PREFIX dbpedia:<http://dbpedia.org/ontology/>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX geo:<http://www.w3.org/2003/01/geo/wgs84_pos#>
+PREFIX iso639schema:<http://downlode.org/rdf/iso-639/schema#>
+
+select * where {
+   ?s ?p ?o .
+} LIMIT 10
+	</textarea>
+	<input type='hidden' name='output' value='json'>
 	<br>
 	<input type='submit' value='Submit Query'>
 </form>
+
+<table id='results'></table>
+
 
 {% endblock %}
