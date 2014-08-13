@@ -11,6 +11,7 @@ from SPARQLWrapper import SPARQLWrapper, JSON, XML
 
 SPARQL_OUTPUT_CHOICES = ((JSON, 'JSON'),
                          (XML, 'XML'),
+                         
                          )
 
 
@@ -35,7 +36,7 @@ def sparql_endpoint(request):
 
             queryString = form.cleaned_data['query']
             outputFormat = form.cleaned_data['output']
-    
+     
             # run the query
             try:
                 sparql = SPARQLWrapper (settings.SPARQL_ENDPOINT, returnFormat=outputFormat)
@@ -54,6 +55,8 @@ def sparql_endpoint(request):
     else:
         form = SparqlForm()
         
+    print form
+    
     return render(request, 'sparql.html', {
         'form': form,
     })
