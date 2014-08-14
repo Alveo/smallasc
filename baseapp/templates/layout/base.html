@@ -4,21 +4,7 @@
     <title>{% block title %}{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Stylesheet includes -->
-    <!--  We are including the minified version of bootstrap. So we dont need this bootstrap.css
-
-     <link rel="stylesheet" href="{{ STATIC_URL }}styles/bootstrap.css" media="screen" />
-    -->
-  
-    <!--  Bootstrap 3 includes the responsive features as well. So we dont need bootstrap-responsive.css 
-
-        <link rel="stylesheet" href="{{ STATIC_URL }}styles/bootstrap-responsive.css" media="screen" /> 
-    -->
-    
-      <!-- Bootstrap core CSS -->
     <link href="{{ STATIC_URL }}styles/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Bootstrap theme -->
     <link href="{{ STATIC_URL }}styles/bootstrap-theme.min.css" rel="stylesheet"> 
     <!-- Primary stylesheet with specialisation below -->
     <link rel="stylesheet" href="{{ STATIC_URL }}styles/portal.css" media="screen" />
@@ -38,9 +24,6 @@
     <div class="container">
       {% include "layout/header.html" %}
 
-      
-      
-          
             <header>
               {% block breadcrumbs %}
               {% endblock %}
@@ -49,39 +32,30 @@
             <div class="clearfix"></div>
             <!-- @ todo - need to create a rule to show the slider only on homepage -->
 
-            
             {% block image_slider %}
              
             {% endblock %}
             
-                
-
 
             <div class="col-sm-12">
               {% block content %}
               {% endblock %}
             </div>
 
-
-            
-            
             <div class="clearfix"></div>
-
 
             <div class="footer">
                
-                    <hr/>
-                  <img src="{{ STATIC_URL }}images/assta_logo_color.gif"/>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <img src="{{ STATIC_URL }}images/arc_logo.gif"/>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <img src="{{ STATIC_URL }}images/uws_cymk.gif"/>
-                  <hr/> 
-                  &copy;AusTalk 2012  
-                  <br/><br/>
-                  
-                
-
+            <hr/>
+          <img src="{{ STATIC_URL }}images/assta_logo_color.gif"/>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <img src="{{ STATIC_URL }}images/arc_logo.gif"/>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <img src="{{ STATIC_URL }}images/uws_cymk.gif"/>
+          <hr/> 
+          &copy;AusTalk 2012  
+          <br/><br/>
+          
             </div>
         
     </div> <!--/container -->
