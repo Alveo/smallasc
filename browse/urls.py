@@ -4,6 +4,7 @@ from django.views.generic import DetailView, ListView
 urlpatterns = patterns('browse.views',
     url (r'^$', 'sites.index'),
     url (r'^agreements/$', 'agreements.index'),
+    url (r'^participant/(\w+)/$', 'participants.show_by_id'),
     url (r'^(\w+)/$', 'participants.index'),
     url (r'^(\w+)/(\w+)/$', 'participants.show'),
     url (r'^(\w+)/(\w+)/(\w+)/$', 'components.index'),

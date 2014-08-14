@@ -1,7 +1,8 @@
-from django.http                            import Http404
+from django.http                            import Http404, HttpResponseRedirect
 from django.contrib.auth.decorators         import login_required, permission_required
 from django.shortcuts                       import render
 from django.template                        import RequestContext
+from django.core.urlresolvers               import reverse
 
 from baseapp.helpers                        import generate_paginated_object
 from browse.modelspackage                   import Site, Participant, Session, ResidenceHistory, LanguageUsage
@@ -31,6 +32,19 @@ def index(request, site_id):
         'breadcrumbs' : breadcrumbs
     })
 
+
+
+@login_required
+@permission_required('auth.can_view_participant')
+def show_by_id(request, participant_id):
+    """View of participant given just the identifier - so we can resolve 
+    redirects from id.austalk.edu.au"""
+        
+    participant = Participant.objects.get (participant_id)
+    
+    site = participant.get_site()
+    
+    return HttpResponseRedirect(reverse('browse.views.participants.show', args=(site, participant_id)))
 
 @login_required
 @permission_required('auth.can_view_participant')
