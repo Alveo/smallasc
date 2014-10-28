@@ -71,12 +71,6 @@ def password_reset(request):
             value = form.data['pwd_mother_highest_qual']
             query += "?part austalk:mother_education_level '%s' .\n" % value 
         
-
-
-       
-        # lcase in SPARQL Query converts the retrieved field into lower case
-        # Father's education level is made optional because not all participants have Father's education level
-        
         sparql = SparqlManager()
 
         sparql_results = sparql.query("""
@@ -98,13 +92,9 @@ def password_reset(request):
 
             results.append (part)
 
-        # Check if there is any result based on the answers to the questions in the form
-        if len(results) != 0 :
-          variables = RequestContext(request, {'results': results } )
-          # return the results to the template for displaying to the user
-          return render_to_response ('colour_animal_helper_done.html', variables)
-        else:
-          form._errors.setdefault(NON_FIELD_ERRORS, ErrorList())
+        variables = RequestContext(request, {'results': results } )
+        # return the results to the template for displaying to the user
+        return render_to_response ('colour_animal_helper_done.html', variables) 
 
   else:
     form = ColourAnimalHelperForm()
