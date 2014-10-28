@@ -11,7 +11,7 @@ from browse.modelspackage.sites import Site
 # otherwise we have too strong a coupling between the applications
 GENDER_CHOICES = (('male', 'Male'), ('female', 'Female'))
 
-EDUCATION_LEVEL_CHOICES = (('----------', '---------'),
+EDUCATION_LEVEL_CHOICES = ((None, 'Unknown'),
 							('primary to junior high', 'Primary to Junior High'),
 							('school certificate', 'School Certificate'),
 							('Bachelor Degree','Bachelor Degree' ),
@@ -44,7 +44,7 @@ class LoginForm(forms.Form):
 #class Password_Reset_Form(forms.Form):
 class ColourAnimalHelperForm(forms.Form):
 	pwd_site = forms.ModelChoiceField(queryset = Site.objects, to_field_name='label', widget= Select(attrs={'class':'form-control'}))
-	pwd_highest_qual = forms.ChoiceField(choices = sorted(EDUCATION_LEVEL_CHOICES), widget=Select(attrs={'class':'form-control'}))
-	pwd_father_highest_qual = forms.ChoiceField(choices = sorted(EDUCATION_LEVEL_CHOICES), widget=Select(attrs={'class':'form-control'}))
-	pwd_mother_highest_qual = forms.ChoiceField(choices = sorted(EDUCATION_LEVEL_CHOICES), widget=Select(attrs={'class':'form-control'}))
+	pwd_highest_qual = forms.ChoiceField(choices = sorted(EDUCATION_LEVEL_CHOICES), widget=Select(attrs={'class':'form-control'}), required=False)
+	pwd_father_highest_qual = forms.ChoiceField(choices = sorted(EDUCATION_LEVEL_CHOICES), widget=Select(attrs={'class':'form-control'}), required=False)
+	pwd_mother_highest_qual = forms.ChoiceField(choices = sorted(EDUCATION_LEVEL_CHOICES), widget=Select(attrs={'class':'form-control'}), required=False)
 	
