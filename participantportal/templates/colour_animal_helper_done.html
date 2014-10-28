@@ -3,6 +3,9 @@
 {% block title %}Reset Password{% endblock %}
 
 {% block content %}
+
+{%if results %}
+ 
 <div class="panel panel-success">
       <div class="panel-heading">
         <h3 class="panel-title">Possible Colour-Animal Combinations:</h3>
@@ -27,5 +30,19 @@ and tell them where you did your recordings, your postcode and your date of birt
 we may be able to tell you your identifier.</p>
 </div>
 </div>
+
+{% else %}
+<div class="panel panel-success">
+      <div class="panel-heading">
+        <h3 class="panel-title">No Match</h3>
+      </div>
+      <div class="panel-body">
+          The answers you gave did not match anything in our database. Please 
+          <a href="javascript:history.back()">go back</a> and try again. If you don't 
+          remember the answer to a question, just enter "Unknown".</p>
+
+      </div>
+    </div>
+{% endif %}
 
  {% endblock %}
