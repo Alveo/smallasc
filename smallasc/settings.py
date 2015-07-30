@@ -146,7 +146,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.flatpages',
-    
+
     'tinymce',
     'flatpages_tinymce',
     'django.contrib.webdesign',
@@ -171,7 +171,7 @@ INSTALLED_APPS = (
     'stats',
     'custom_registration',
 
-    
+
     #'debug_toolbar',
 )
 
@@ -208,7 +208,7 @@ LOGGING = {
 LOGIN_URL = "/login/"
 LOGIN_REDIRECT_URL = "/"
 
-# SPARQL_ENDPOINT 
+# SPARQL_ENDPOINT
 # SPARQL_ENDPOINT = "http://115.146.93.47/openrdf-sesame/repositories/bigasc_prod"
 SPARQL_ENDPOINT = "http://115.146.93.47/openrdf-sesame/repositories/bigasc_native"
 
@@ -238,10 +238,12 @@ TINYMCE_DEFAULT_CONFIG = {
     'cleanup_on_startup': True,
     'custom_undo_redo_levels': 10,
     'height': "450px",
-    
+
     # use absolute urls when inserting links/images
     'relative_urls': False,
 }
+
+FLATPAGES_MEDIA_URL = os.path.join(STATIC_URL, 'flatpages_tinymce')
 
 # load local settings
 # put customized stuff here
