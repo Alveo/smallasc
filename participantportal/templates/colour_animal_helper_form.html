@@ -8,12 +8,12 @@
 
 <form method="POST" action="." class="loginbox">
   {% csrf_token %}
-  <h3>View Colour-Animal</h3>
-  Please Fill up the form to view your Colour-Animal Combination 
+  <h3>Find my Colour-Animal</h3>
+  Please Fill out the form to view possible Colour-Animal Combinations
    <br/><br/>
 {% if form.errors %}
     <aside class="alert alert-warning" id="Flash">
-      Sorry, No Match Found
+        Please specify the recording site and any other fields that you can.
     </aside>
   {% endif %}
 
@@ -56,11 +56,18 @@
   <br/>
   <input class="btn btn-primary buttonextend" type="submit" value="Get My Colour-Animal Combination"/>
 
-  <p id="participant-para">
-    A researcher? <a href="/login/" title="Researcher login">Click here</a> to login.
-  </p>
-
 </form>
 
-
+<div class='panel panel-success'>
+    <div class='panel-body'>
+<p>This form will give you a list of possible Colour-Animal identifiers that match
+    the criteria you provide.  Hopefully you can then recognise your identifier
+    in the list and login to see your data.</p>
+    
+    <p>
+      If you are researcher, <a href="/login/" title="Researcher login">click here</a> to login.
+    </p>
+</div>
+</div>
+    
 {% endblock %}

@@ -3,6 +3,9 @@
 {% block title %}Reset Password{% endblock %}
 
 {% block content %}
+
+{%if results %}
+ 
 <div class="panel panel-success">
       <div class="panel-heading">
         <h3 class="panel-title">Possible Colour-Animal Combinations:</h3>
@@ -16,9 +19,30 @@
       </div>
     </div>
 
+<div class='panel panel-success'>
+    <div class='panel-body'>
+<p>You can now try to <a href="/participantportal/login/">Log In</a> using your identifier if you
+    recognise it in the list above.</p>
 
+<p>If you still don't recognise your identifier in this list, please get in 
+touch with the project team (<a href='mailto:austalkenquiries@uws.edu.au'>austalkenquiries@uws.edu.au</a>)
+and tell them where you did your recordings, your postcode and your date of birth. From this
+we may be able to tell you your identifier.</p>
+</div>
+</div>
 
+{% else %}
+<div class="panel panel-success">
+      <div class="panel-heading">
+        <h3 class="panel-title">No Match</h3>
+      </div>
+      <div class="panel-body">
+          The answers you gave did not match anything in our database. Please 
+          <a href="javascript:history.back()">go back</a> and try again. If you don't 
+          remember the answer to a question, just enter "Unknown".</p>
 
-<h5>You can now try to <a href="/participantportal/login/">Log In</a></h5>
+      </div>
+    </div>
+{% endif %}
 
  {% endblock %}
