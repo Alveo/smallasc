@@ -1,0 +1,25 @@
+{% extends "layout/base.html" %}
+{% load demographic %}
+
+{% block title %}
+    Austalk | Browse > Components
+{% endblock %}
+
+{% block subtitle %}
+    Session {{ session_id }} component list
+{% endblock %}
+
+{% block breadcrumbs %}
+  
+  {% autoescape off %}
+  
+		{{ breadcrumbs }}
+
+	{% endautoescape %}
+
+{% endblock %}
+{% block content %}
+  <h2>Participant: {% participant participant_id %}</h2>
+  {% include "browse/components/component_list.html" %}
+
+{% endblock %}

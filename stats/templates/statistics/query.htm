@@ -1,0 +1,113 @@
+{% extends "statistics/sgvizler.html" %}
+	
+{% block title %}
+ Austalk Meta Search | Reports
+{% endblock %}
+
+{% block subtitle %}
+Sample Speaker Statistics
+{% endblock %}
+
+
+<script type="text/javascript" id="Austalk_functions" src="{{ STATIC_URL }}Austalk_functions.js"></script>
+        
+
+{% block query %}
+
+<p><a href="help.html">Help Page</a></p>
+
+
+<!-- query box (that is hidden) where the query selected is stored -->
+ 		 <div id="queryarea">
+      <pre id="sgvzlr_cPrefix" style="display:none;"></pre>
+      <textarea id="sgvzlr_cQuery" rows="10" cols="80" style="display:none;"></textarea>
+      <form method="get" id="sgvzlr_formQuery">
+	<p>
+   <input type="hidden" value="" name="query" id="sgvzlr_strQuery"/>
+	
+<!-- chart type otions drop down box -->  
+	  Chart Type: <select name="chart" id="sgvzlr_optChart" onchange="changeDropdowns();"></select>
+	  
+	      
+<!-- Drop down list 1 -->
+<label for="id_var_1">1st Variable:</label> 
+<select name="var_1" id="id_var_1">
+	
+	<option value="">---</option>
+	<option value="name">Name</option>
+	<option value="id">ID</option>
+	<option value="birthYear">Date of Birth</option>
+	<option value="ageGroup">Age Group</option>
+	<option value="pob_town">Town of Birth</option>
+	<option value="pob_state">State of Birth</option>
+	<option value="pob_country">Country of Birth</option>
+	<option value="postcode">Postcode</option>
+	<option value="suburb">Suburb</option>
+	<option value="gender">Gender</option>
+	<option value="education_level">Education Level</option>
+	<option value="ses">Socio-Economic Status</option>
+	<option value="professional_category">Professional Category</option>
+	<option value="professional_occupation">Professional Occupation</option>
+	<option value="cultural_heritage">Cultural Heritage</option>
+	<option value="recording_site">Recording Site</option>
+	<option value="first_language">First Language</option>
+	<option value="other_languages">Other Languages</option>
+	<option value="hobbies_details">Hobbies</option>
+	<option value="student_enrollment">Student Enrollment</option>
+	<option value="student_course">Student Course</option>
+
+</select>
+
+<!-- Drop down list 2 -->
+<label for="id_var_2">2nd Variable:</label> 
+<select name="var_2" id="id_var_2">
+</select>
+
+<!-- checkbox -->
+<p>
+<label for="id_check_box">Check this box for a participant count:</label> <input type="checkbox" name="check_box" id="id_check_box" onClick="checkBox(this.checked,'checkBox_checked')">
+</p>
+<!-- filterbox -->
+<p>	
+<table border="0" cellpadding="10";>
+   <tr>
+
+		<td><label for="id_filter_box">Filter:</label> <input id="id_filter_box" type="text" name="Filter" maxlength="100" size="10" /></td>
+<!-- filterbox radiobuttons -->
+   		<td><label for="id_filter_opt_contains">Contains Text:</label> <input type="radio" name="filter_option" id="id_filter_opt_contains"></td>
+		<td><label for="id_filter_opt_exact">Exact matches only:</label> <input type="radio" name="filter_option" id="id_filter_opt_exact"></td>
+		<td><label for="id_filter_opt_arithmatic">Arithmatic Filter:</label> <input type="radio" name="filter_option" id="id_filter_opt_arithmatic"></td>
+	</tr>
+	</table>
+</p>
+	
+<!-- width and height input boxes -->
+	<p>
+ Width:  <input name="width" id="sgvzlr_strWidth" type="text" size="3"/>
+	  Height: <input name="height" id="sgvzlr_strHeight" type="text" size="3"/>
+	  	  
+<!-- reset and go buttons -->
+	  <input type="button" value="Reset" onclick="window.location.href= 'query.htm'"/> 
+	  <input type="button" value="GO!" onclick="generate_graph()"/>
+	</p>
+	
+	
+	<label for="id_radiobutton_option"></label> <input id="id_radiobutton_option" type="text" name="radiobutton_option" maxlength="100" size="10" style="display:none;"/>
+	<p class="padding">
+<!--chart-->
+	<div class="chart" id="sgvzlr_gchart" style="width:800px; height:400px;"></div>
+      </form>
+    </p>
+     	 
+<!-- save query button -->
+	  <input type="button" value="Save Query" onclick="save_query()"/> 
+	  <input type="button" value="Save Graph" onclick="save_graph()"/>
+	  
+<!-- sparql query button-->
+	  <input type="button" value="Use A Custom Text Query" onclick="unhideTextbox()"/>
+      	 
+  <!--SAVE AS PDF.... DOSENT WORK WITHOUT HTTP-REFERER header>    	 <a href="http://pdf-ace.com/pdfme" target="_blank"><img src="http://pdf-ace.com/images/buttons/save-as-pdf-3.gif" width="120" height="27" alt="Save as PDF" /></a>
+   -->   	 
+	 
+
+{% endblock %}

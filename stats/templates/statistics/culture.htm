@@ -1,0 +1,368 @@
+{% extends "statistics/sgvizler.html" %}
+
+{% block title %}
+ Austalk Meta Search | Reports | Culture
+{% endblock %}
+
+{% block subtitle %}
+Sample Speaker Statistics
+{% endblock %}
+
+
+{% block query %}
+
+
+<h2>Cultural Heritage</h2>
+
+<table border="0" cellpadding="10" class="col-sm-12">
+   <tr>
+   		<td>
+<div id="cultural_heritage"
+      data-sgvizler-query="
+      				SELECT (?cult as ?Cultural_Heritage) (count(?part) as ?Participants)
+      				WHERE {
+      					?site rdf:type austalk:RecordingSite .
+      					?part rdf:type foaf:Person .
+      					?part austalk:recording_site ?site .
+      					OPTIONAL { ?part austalk:cultural_heritage ?cult} 
+      					}
+      					GROUP BY ?cult"
+
+      data-sgvizler-chart="google.visualization.ColumnChart"
+      data-sgvizler-loglevel="0"
+      style="width:700px; height:400px;"></div>     
+      
+      </td>
+      <td>
+<div id="cultural_heritage_table"
+      data-sgvizler-query="
+      				SELECT (?cult as ?CulturalHeritage) (count(?part) as ?participants)
+      				WHERE {
+      					?site rdf:type austalk:RecordingSite .
+      					?part rdf:type foaf:Person .
+      					?part austalk:recording_site ?site .
+      					OPTIONAL { ?part austalk:cultural_heritage ?cult} 
+      					}
+      					GROUP BY ?cult"
+
+      data-sgvizler-chart="google.visualization.Table"
+      data-sgvizler-loglevel="0"
+      style="width:430px; height:400px;"></div>      
+  		</td>
+  	</tr>
+</table>
+
+<div class="clearfix"></div>
+<br/><br/>
+
+<h2>Cultural Heritage Across Recording Sites</h2>
+<table border="0" cellpadding="10";>
+   <tr>
+      <td>
+<div id="cultural_heritage_across_sites_table"
+      data-sgvizler-query="
+      				SELECT (?inst as ?Recording_site) (?cult as ?Culture)(count(?cult) as ?Participants)
+
+WHERE {
+?site rdf:type austalk:RecordingSite .
+?site rdfs:label ?inst .
+?part rdf:type foaf:Person .
+?part austalk:recording_site ?site .
+OPTIONAL { ?part austalk:cultural_heritage ?cult} 
+}
+GROUP BY ?inst ?cult"
+
+
+      data-sgvizler-chart="google.visualization.Table"
+      data-sgvizler-loglevel="0"
+      style="width:600px; height:400px;"></div>      
+  		</td>
+  	</tr>
+</table>
+
+      
+          
+          
+          
+<!--
+          
+<table border="0" cellpadding="10";>
+      <tr>
+      <td>
+      Univerity of Tasmania
+      <div id="cultural_heritage_per_site_UTAS"
+      data-sgvizler-query="SELECT (?cultural_heritage as ?cultural_heritage) 
+      				(count(distinct ?part) as ?Number_of_participants)
+      				WHERE {
+      					?site rdf:type austalk:RecordingSite .
+      					?site rdfs:label ?recording_site .
+      					?part rdf:type foaf:Person .
+      					?part austalk:recording_site ?site .
+      					?part austalk:cultural_heritage ?cultural_heritage
+      					FILTER(?recording_site = 'UTAS')
+      					}
+      					GROUP BY ?cultural_heritage ?recording_site
+      					ORDER BY DESC(count (?cultural_heritage))"
+                          data-sgvizler-chart="gPieChart"
+      data-sgvizler-loglevel="2"
+      style="width:300px; height:200px;"></div>      
+      		</td>
+      <td>
+      Australian National University
+      <div id="cultural_heritage_per_site_ANU"
+      data-sgvizler-query="SELECT (?cultural_heritage as ?cultural_heritage) 
+      				(count(distinct ?part) as ?Number_of_participants)
+      				WHERE {
+      					?site rdf:type austalk:RecordingSite .
+      					?site rdfs:label ?recording_site .
+      					?part rdf:type foaf:Person .
+      					?part austalk:recording_site ?site .
+      					?part austalk:cultural_heritage ?cultural_heritage
+      					FILTER(?recording_site = 'ANU')
+      					}
+      					GROUP BY ?cultural_heritage ?recording_site
+      					ORDER BY DESC(count (?cultural_heritage))"                          
+      					data-sgvizler-chart="gPieChart"
+      data-sgvizler-loglevel="2"
+      style="width:300px; height:200px;"></div>      
+      		</td>
+      		<td>
+      University of Canberra
+      <div id="cultural_heritage_per_site_UC"
+      data-sgvizler-query="SELECT (?cultural_heritage as ?cultural_heritage) 
+      				(count(distinct ?part) as ?Number_of_participants)
+      				WHERE {
+      					?site rdf:type austalk:RecordingSite .
+      					?site rdfs:label ?recording_site .
+      					?part rdf:type foaf:Person .
+      					?part austalk:recording_site ?site .
+      					?part austalk:cultural_heritage ?cultural_heritage
+      					FILTER(?recording_site = 'UC')
+      					}
+      					GROUP BY ?cultural_heritage ?recording_site
+      					ORDER BY DESC(count (?cultural_heritage))"                          
+      					data-sgvizler-chart="gPieChart"
+      data-sgvizler-loglevel="2"
+      style="width:300px; height:200px;"></div>      
+      		</td>
+      <td>
+      Charles Sturt University
+      <div id="cultural_heritage_per_site_CSUB"
+      data-sgvizler-query="SELECT (?cultural_heritage as ?cultural_heritage) 
+      				(count(distinct ?part) as ?Number_of_participants)
+      				WHERE {
+      					?site rdf:type austalk:RecordingSite .
+      					?site rdfs:label ?recording_site .
+      					?part rdf:type foaf:Person .
+      					?part austalk:recording_site ?site .
+      					?part austalk:cultural_heritage ?cultural_heritage
+      					FILTER(?recording_site = 'CSUB')
+      					}
+      					GROUP BY ?cultural_heritage ?recording_site
+      					ORDER BY DESC(count (?cultural_heritage))"
+                          data-sgvizler-chart="gPieChart"
+      data-sgvizler-loglevel="2"
+      style="width:300px; height:200px;"></div>      
+      		</td>
+      		</tr>
+      <tr>
+      <td>
+      University of Queensland (Brisbane)
+      <div id="cultural_heritage_per_site_UQB"
+      data-sgvizler-query="SELECT (?cultural_heritage as ?cultural_heritage) 
+      				(count(distinct ?part) as ?Number_of_participants)
+      				WHERE {
+      					?site rdf:type austalk:RecordingSite .
+      					?site rdfs:label ?recording_site .
+      					?part rdf:type foaf:Person .
+      					?part austalk:recording_site ?site .
+      					?part austalk:cultural_heritage ?cultural_heritage
+      					FILTER(?recording_site = 'UQB')
+      					}
+      					GROUP BY ?cultural_heritage ?recording_site
+      					ORDER BY DESC(count (?cultural_heritage))"                          
+      					data-sgvizler-chart="gPieChart"
+      data-sgvizler-loglevel="2"
+      style="width:300px; height:200px;"></div>      
+      		</td>
+      		<td>
+      University of Queensland (Townsville)
+      <div id="cultural_heritage_per_site_UQT"
+      data-sgvizler-query="SELECT (?cultural_heritage as ?cultural_heritage) 
+      				(count(distinct ?part) as ?Number_of_participants)
+      				WHERE {
+      					?site rdf:type austalk:RecordingSite .
+      					?site rdfs:label ?recording_site .
+      					?part rdf:type foaf:Person .
+      					?part austalk:recording_site ?site .
+      					?part austalk:cultural_heritage ?cultural_heritage
+      					FILTER(?recording_site = 'UQT')
+      					}
+      					GROUP BY ?cultural_heritage ?recording_site
+      					ORDER BY DESC(count (?cultural_heritage))"
+                          data-sgvizler-chart="gPieChart"
+      data-sgvizler-loglevel="2"
+      style="width:300px; height:200px;"></div>      
+      		</td>
+      
+      <td>
+      University of Melbourne (Melbourne)
+      <div id="cultural_heritage_per_site_UMELBM"
+      data-sgvizler-query="SELECT (?cultural_heritage as ?cultural_heritage) 
+      				(count(distinct ?part) as ?Number_of_participants)
+      				WHERE {
+      					?site rdf:type austalk:RecordingSite .
+      					?site rdfs:label ?recording_site .
+      					?part rdf:type foaf:Person .
+      					?part austalk:recording_site ?site .
+      					?part austalk:cultural_heritage ?cultural_heritage
+      					FILTER(?recording_site = 'UMELBM')
+      					}
+      					GROUP BY ?cultural_heritage ?recording_site
+      					ORDER BY DESC(count (?cultural_heritage))"
+                          data-sgvizler-chart="gPieChart"
+      data-sgvizler-loglevel="2"
+      style="width:300px; height:200px;"></div>      
+      		</td>
+      <td>
+      University of Melbourne (Castlemaine)
+      <div id="cultural_heritage_per_site_UMELBC"
+      data-sgvizler-query="SELECT (?cultural_heritage as ?cultural_heritage) 
+      				(count(distinct ?part) as ?Number_of_participants)
+      				WHERE {
+      					?site rdf:type austalk:RecordingSite .
+      					?site rdfs:label ?recording_site .
+      					?part rdf:type foaf:Person .
+      					?part austalk:recording_site ?site .
+      					?part austalk:cultural_heritage ?cultural_heritage
+      					FILTER(?recording_site = 'UMELBC')
+      					}
+      					GROUP BY ?cultural_heritage ?recording_site
+      					ORDER BY DESC(count (?cultural_heritage))"
+      					data-sgvizler-chart="gPieChart"
+      data-sgvizler-loglevel="2"
+      style="width:300px; height:200px;"></div>      
+      		</td>
+      		</tr><tr>
+      		<td>
+      University of Sydney
+      <div id="cultural_heritage_per_site_USYD"
+      data-sgvizler-query="SELECT (?cultural_heritage as ?cultural_heritage) 
+      				(count(distinct ?part) as ?Number_of_participants)
+      				WHERE {
+      					?site rdf:type austalk:RecordingSite .
+      					?site rdfs:label ?recording_site .
+      					?part rdf:type foaf:Person .
+      					?part austalk:recording_site ?site .
+      					?part austalk:cultural_heritage ?cultural_heritage
+      					FILTER(?recording_site = 'USYD')
+      					}
+      					GROUP BY ?cultural_heritage ?recording_sit
+      					ORDER BY DESC(count (?cultural_heritage))"
+                          data-sgvizler-chart="gPieChart"
+      data-sgvizler-loglevel="2"
+      style="width:300px; height:200px;"></div>      
+      		</td>
+      <td>
+      Univerity of Western Australia
+      <div id="cultural_heritage_per_site_UWA"
+      data-sgvizler-query="SELECT (?cultural_heritage as ?cultural_heritage) 
+      				(count(distinct ?part) as ?Number_of_participants)
+      				WHERE {
+      					?site rdf:type austalk:RecordingSite .
+      					?site rdfs:label ?recording_site .
+      					?part rdf:type foaf:Person .
+      					?part austalk:recording_site ?site .
+      					?part austalk:cultural_heritage ?cultural_heritage
+      					FILTER(?recording_site = 'UWA')
+      					}
+      					GROUP BY ?cultural_heritage ?recording_site
+      					ORDER BY DESC(count (?cultural_heritage))"
+                          data-sgvizler-chart="gPieChart"
+      data-sgvizler-loglevel="2"
+      style="width:300px; height:200px;"></div>      
+      		</td>
+      <td>
+      Flinders University
+      <div id="cultural_heritage_per_site_FLIN"
+      data-sgvizler-query="SELECT (?cultural_heritage as ?cultural_heritage) 
+      				(count(distinct ?part) as ?Number_of_participants)
+      				WHERE {
+      					?site rdf:type austalk:RecordingSite .
+      					?site rdfs:label ?recording_site .
+      					?part rdf:type foaf:Person .
+      					?part austalk:recording_site ?site .
+      					?part austalk:cultural_heritage ?cultural_heritage
+      					FILTER(?recording_site = 'FLIN')
+      					}
+      					GROUP BY ?cultural_heritage ?recording_site
+      					ORDER BY DESC(count (?cultural_heritage))"                          
+      					data-sgvizler-chart="gPieChart"
+      data-sgvizler-loglevel="2"
+      style="width:300px; height:200px;"></div>      
+      		</td>
+      		<td>
+      University of the Sunshine Coast
+      <div id="cultural_heritage_per_site_USCM"
+      data-sgvizler-query="SELECT (?cultural_heritage as ?cultural_heritage) 
+      				(count(distinct ?part) as ?Number_of_participants)
+      				WHERE {
+      					?site rdf:type austalk:RecordingSite .
+      					?site rdfs:label ?recording_site .
+      					?part rdf:type foaf:Person .
+      					?part austalk:recording_site ?site .
+      					?part austalk:cultural_heritage ?cultural_heritage
+      					FILTER(?recording_site = 'USCM')
+      					}
+      					GROUP BY ?cultural_heritage ?recording_site
+      					ORDER BY DESC(count (?cultural_heritage))"
+                          data-sgvizler-chart="gPieChart"
+      data-sgvizler-loglevel="2"
+      style="width:300px; height:200px;"></div>      
+      		</td>
+      </tr><tr>
+      <td>
+      Univerity of New England
+      <div id="cultural_heritage_per_site_UNE"
+      data-sgvizler-query="SELECT (?cultural_heritage as ?cultural_heritage) 
+      				(count(distinct ?part) as ?Number_of_participants)
+      				WHERE {
+      					?site rdf:type austalk:RecordingSite .
+      					?site rdfs:label ?recording_site .
+      					?part rdf:type foaf:Person .
+      					?part austalk:recording_site ?site .
+      					?part austalk:cultural_heritage ?cultural_heritage
+      					FILTER(?recording_site = 'UNE')
+      					}
+      					GROUP BY ?cultural_heritage ?recording_site
+      					ORDER BY DESC(count (?cultural_heritage))"
+                          data-sgvizler-chart="gPieChart"
+      data-sgvizler-loglevel="2"
+      style="width:300px; height:200px;"></div>      
+      		</td>
+      <td>
+      University of New South Wales
+      <div id="cultural_heritage_per_site_UNSW"
+      data-sgvizler-query="SELECT (?cultural_heritage as ?cultural_heritage) 
+      				(count(distinct ?part) as ?Number_of_participants)
+      				WHERE {
+      					?site rdf:type austalk:RecordingSite .
+      					?site rdfs:label ?recording_site .
+      					?part rdf:type foaf:Person .
+      					?part austalk:recording_site ?site .
+      					?part austalk:cultural_heritage ?cultural_heritage
+      					FILTER(?recording_site = 'UNSW')
+      					}
+      					GROUP BY ?cultural_heritage ?recording_site
+      					ORDER BY DESC(count (?cultural_heritage))"                          
+      					data-sgvizler-chart="gPieChart"
+      data-sgvizler-loglevel="2"
+      style="width:300px; height:200px;"></div>      
+      		</td>
+      </tr>
+</table>
+          
+-->
+            
+      
+{% endblock %}

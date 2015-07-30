@@ -1,0 +1,11 @@
+django==1.4
+django-bootstrap-pagination
+django-inspectional-registration
+django-debug-toolbar
+south
+rdflib
+lettuce
+lxml
+nose
+django-flatpages-tinymce
+django-tinymce

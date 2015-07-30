@@ -1,0 +1,14 @@
+<section class="pagination">
+  <h3>Recordings</h3>
+  {% if sessions %}
+    <ul>
+     {% for session in sessions %}
+      <li>
+        <a href="/participantportal/{{ session.site }}/{{ session.participantId }}/{{ session.number }}/">{{ session.name }} >></a>
+      </li>
+     {% endfor %}
+    </ul>
+  {% else %}
+    <p>No recordings at present.</p>
+  {% endif %}
+</section>

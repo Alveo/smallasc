@@ -1,0 +1,15 @@
+<section class="pagination">
+  <h2>Recordings</h2>
+  {% if sessions %}
+    
+     {% for session in sessions %}
+        <a href="/{{ scope }}/{{ session.site }}/{{ session.participantId }}/{{ session.number }}/">
+          <button type="button" class="btn btn-success" >{{ session.name }}</button>
+        </a>
+      &nbsp;&nbsp;
+     {% endfor %}
+    
+  {% else %}
+    <p>No recordings at present.</p>
+  {% endif %}
+</section>

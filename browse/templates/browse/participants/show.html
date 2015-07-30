@@ -1,0 +1,40 @@
+{% extends "layout/base.html" %}
+
+{% block title %}
+    Austalk | Browse > Participants
+{% endblock %}
+
+{% block breadcrumbs %}
+
+  {% autoescape off %}
+    {{ breadcrumbs }}
+  {% endautoescape %}
+
+{% endblock %}
+
+{% block subtitle %}
+    Speaker {{ participant }}
+{% endblock %}
+
+{% block content %}
+  <h1>Participant: {{participant.name}}</h1>
+
+
+      {% include "participantportal/recordings.html" %}         
+    
+  <section>
+    <h2>Demographic Data</h2>
+    
+      {% include "browse/participants/common_demographic.html" %}
+    
+  </section>
+
+<!--
+<ul>
+{% for prop in participant.properties.keys %}
+ <li>{{prop}}</li>
+
+{% endfor %}
+</ul>
+-->
+{% endblock %}

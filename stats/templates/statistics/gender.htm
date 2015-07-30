@@ -1,0 +1,416 @@
+{% extends "statistics/sgvizler.html" %}
+
+{% block title %}
+ Austalk Meta Search | Reports | Gender
+{% endblock %}
+
+{% block subtitle %}
+Sample Speaker Statistics
+{% endblock %}
+
+
+{% block query %}
+
+   
+     
+<h2>Gender Distribution</h2>
+<table border="0" cellpadding="10";>
+   <tr>
+   		<td>
+<div id="gender_distribution"
+      data-sgvizler-query="SELECT (?prop AS ?Gender) (count(distinct ?part) AS ?no_ff_Participants)
+                          WHERE{ 
+                            ?part a foaf:Person .  
+                            ?part foaf:gender ?prop . 
+                            }
+                          GROUP BY ?prop
+                          ORDER BY ?prop"
+      data-sgvizler-chart="google.visualization.PieChart"
+      data-sgvizler-loglevel="0"
+      style="width:600px; height:400px;"></div>      
+      
+            </td>
+      <td>
+      <div id="gender_distribution_table"
+      data-sgvizler-query="SELECT (?prop AS ?Gender) (count(distinct ?part) AS ?no_of_Participants)
+                          WHERE{ 
+                            ?part a foaf:Person .  
+                            ?part foaf:gender ?prop . 
+                            }
+                          GROUP BY ?prop
+                          ORDER BY ?prop"
+      data-sgvizler-chart="google.visualization.Table"
+      data-sgvizler-loglevel="0"
+      style="width:350px; height:100px;"></div>      
+      		</td>
+      </tr>
+</table>
+        
+
+<h2>Gender Distribution At Each Recording Site</h2>
+<table border="0" cellpadding="10";>
+   <tr>
+   		<td>
+<div id="gender_distribution_per_site"
+      data-sgvizler-query="SELECT (?inst as ?Recording_site) (count(?fema) as ?FemaleParticipants)
+      						(count(?males) as ?MaleParticipants)
+							WHERE {
+								?site rdf:type austalk:RecordingSite .
+								?site rdfs:label ?inst .
+								?part rdf:type foaf:Person .
+								?part austalk:recording_site ?site .
+								{
+									?part foaf:gender ?males .
+									FILTER (?males ='male')
+									}
+									UNION
+									{
+										?part foaf:gender ?fema .
+										FILTER (?fema = 'female')
+										}
+										}
+										GROUP BY ?inst"
+      data-sgvizler-chart="google.visualization.ColumnChart"
+      data-sgvizler-loglevel="0"
+      style="width:600px; height:400px;"></div>      
+      
+            </td>
+            <td>
+<div id="gender_distribution_per_site_table"
+      data-sgvizler-query="SELECT (?inst as ?Recording_Site) (count(?fema) as ?FemaleParticipants)
+      						(count(?males) as ?MaleParticipants)
+							WHERE {
+								?site rdf:type austalk:RecordingSite .
+								?site austalk:institution ?inst .
+								?part rdf:type foaf:Person .
+								?part austalk:recording_site ?site .
+								{
+									?part foaf:gender ?males .
+									FILTER (?males ='male')
+									}
+									UNION
+									{
+										?part foaf:gender ?fema .
+										FILTER (?fema = 'female')
+										}
+										}
+										GROUP BY ?inst"
+      data-sgvizler-chart="google.visualization.Table"
+      data-sgvizler-loglevel="0"
+      style="width:500px; height:400px;"></div>      
+      
+            </td>
+
+      </tr>
+</table>
+<br/>
+<br/>
+<table border="0" cellpadding="10" class="col-sm-12">
+      <tr>
+      <td>
+      Univerity of Tasmania
+      <div id="gender_distribution_per_site_UTAS"
+      data-sgvizler-query='SELECT ?gender (count(?part) AS ?noOfParticipants)
+                          WHERE{ 
+                          	?site rdf:type austalk:RecordingSite .
+                          	?part a foaf:Person . 
+                            ?part austalk:recording_site ?site.
+                            ?site rdfs:label ?inst .
+                            FILTER (?inst = "UTAS")
+                            ?part foaf:gender ?gender .
+                                                                                  
+                            
+                            }
+                          GROUP BY ?gender ?inst
+                          ORDER BY ?gender'
+                          data-sgvizler-chart="google.visualization.PieChart"
+      data-sgvizler-loglevel="2"
+      style="width:300px; height:200px;"></div>      
+      		</td>
+      <td>
+      Australian National University
+      <div id="gender_distribution_per_site_ANU"
+      data-sgvizler-query='SELECT ?gender (count(?part) AS ?noOfParticipants)
+                          WHERE{ 
+                          	?site rdf:type austalk:RecordingSite .
+                          	?part a foaf:Person . 
+                            ?part austalk:recording_site ?site.
+                            ?site rdfs:label ?inst .
+                            FILTER (?inst = "ANU")
+                            ?part foaf:gender ?gender .
+                                                                                  
+                            
+                            }
+                          GROUP BY ?gender ?inst
+                          ORDER BY ?gender'
+                          data-sgvizler-chart="google.visualization.PieChart"
+      data-sgvizler-loglevel="2"
+      style="width:300px; height:200px;"></div>      
+      		</td>
+      		<td>
+      University of Canberra
+      <div id="gender_distribution_per_site_UC"
+      data-sgvizler-query='SELECT ?gender (count(?part) AS ?noOfParticipants)
+                          WHERE{ 
+                          	?site rdf:type austalk:RecordingSite .
+                          	?part a foaf:Person . 
+                            ?part austalk:recording_site ?site.
+                            ?site rdfs:label ?inst .
+                            FILTER (?inst = "UC")
+                            ?part foaf:gender ?gender .
+                                                                                  
+                            
+                            }
+                          GROUP BY ?gender ?inst
+                          ORDER BY ?gender'
+                          data-sgvizler-chart="google.visualization.PieChart"
+      data-sgvizler-loglevel="2"
+      style="width:300px; height:200px;"></div>      
+      		</td>
+     
+
+
+
+      		</tr>
+      <tr>
+         <td>
+      Charles Sturt University
+      <div id="gender_distribution_per_site_CSUB"
+      data-sgvizler-query='SELECT ?gender (count(?part) AS ?noOfParticipants)
+                          WHERE{ 
+                            ?site rdf:type austalk:RecordingSite .
+                            ?part a foaf:Person . 
+                            ?part austalk:recording_site ?site.
+                            ?site rdfs:label ?inst .
+                            FILTER (?inst = "CSUB")
+                            ?part foaf:gender ?gender .
+                                                                                  
+                            
+                            }
+                          GROUP BY ?gender ?inst
+                          ORDER BY ?gender'
+                          data-sgvizler-chart="google.visualization.PieChart"
+      data-sgvizler-loglevel="2"
+      style="width:300px; height:200px;"></div>      
+          </td>
+
+      <td>
+      University of Queensland (Brisbane)
+      <div id="gender_distribution_per_site_UQB"
+      data-sgvizler-query='SELECT ?gender (count(?part) AS ?noOfParticipants)
+                          WHERE{ 
+                          	?site rdf:type austalk:RecordingSite .
+                          	?part a foaf:Person . 
+                            ?part austalk:recording_site ?site.
+                            ?site rdfs:label ?inst .
+                            FILTER (?inst = "UQB")
+                            ?part foaf:gender ?gender .
+                                                                                  
+                            
+                            }
+                          GROUP BY ?gender ?inst
+                          ORDER BY ?gender'
+                          data-sgvizler-chart="google.visualization.PieChart"
+      data-sgvizler-loglevel="2"
+      style="width:300px; height:200px;"></div>      
+      		</td>
+      		<td>
+      University of Queensland (Townsville)
+      <div id="gender_distribution_per_site_UQT"
+      data-sgvizler-query='SELECT ?gender (count(?part) AS ?noOfParticipants)
+                          WHERE{ 
+                          	?site rdf:type austalk:RecordingSite .
+                          	?part a foaf:Person . 
+                            ?part austalk:recording_site ?site.
+                            ?site rdfs:label ?inst .
+                            FILTER (?inst = "UQT")
+                            ?part foaf:gender ?gender .
+                                                                                  
+                            
+                            }
+                          GROUP BY ?gender ?inst
+                          ORDER BY ?gender'
+                          data-sgvizler-chart="google.visualization.PieChart"
+      data-sgvizler-loglevel="2"
+      style="width:300px; height:200px;"></div>      
+      		</td>
+      
+      
+
+
+
+
+      		</tr><tr>
+
+          <td>
+      University of Melbourne (Melbourne)
+      <div id="gender_distribution_per_site_UMELBM"
+      data-sgvizler-query='SELECT ?gender (count(?part) AS ?noOfParticipants)
+                          WHERE{ 
+                            ?site rdf:type austalk:RecordingSite .
+                            ?part a foaf:Person . 
+                            ?part austalk:recording_site ?site.
+                            ?site rdfs:label ?inst .
+                            FILTER (?inst = "UMELBM")
+                            ?part foaf:gender ?gender .
+                                                                                  
+                            
+                            }
+                          GROUP BY ?gender ?inst
+                          ORDER BY ?gender'
+                          data-sgvizler-chart="google.visualization.PieChart"
+      data-sgvizler-loglevel="2"
+      style="width:300px; height:200px;"></div>      
+          </td>
+      <td>
+      University of Melbourne (Castlemaine)
+      <div id="gender_distribution_per_site_UMELBC"
+      data-sgvizler-query='SELECT ?gender (count(?part) AS ?noOfParticipants)
+                          WHERE{ 
+                            ?site rdf:type austalk:RecordingSite .
+                            ?part a foaf:Person . 
+                            ?part austalk:recording_site ?site.
+                            ?site rdfs:label ?inst .
+                            FILTER (?inst = "UMELBC")
+                            ?part foaf:gender ?gender .
+                                                                                  
+                            
+                            }
+                          GROUP BY ?gender ?inst
+                          ORDER BY ?gender'
+                          data-sgvizler-chart="google.visualization.PieChart"
+      data-sgvizler-loglevel="2"
+      style="width:300px; height:200px;"></div>      
+          </td>
+
+
+
+
+      		<td>
+      University of Sydney
+      <div id="gender_distribution_per_site_USYD"
+      data-sgvizler-query='SELECT ?gender (count(?part) AS ?noOfParticipants)
+                          WHERE{ 
+                          	?site rdf:type austalk:RecordingSite .
+                          	?part a foaf:Person . 
+                            ?part austalk:recording_site ?site.
+                            ?site rdfs:label ?inst .
+                            FILTER (?inst = "USYD")
+                            ?part foaf:gender ?gender .
+                                                                                  
+                            
+                            }
+                          GROUP BY ?gender ?inst
+                          ORDER BY ?gender'
+                          data-sgvizler-chart="google.visualization.PieChart"
+      data-sgvizler-loglevel="2"
+      style="width:300px; height:200px;"></div>      
+      		</td>
+      
+        </tr><tr>
+        <td>
+      Univerity of Western Australia
+      <div id="gender_distribution_per_site_UWA"
+      data-sgvizler-query='SELECT ?gender (count(?part) AS ?noOfParticipants)
+                          WHERE{ 
+                          	?site rdf:type austalk:RecordingSite .
+                          	?part a foaf:Person . 
+                            ?part austalk:recording_site ?site.
+                            ?site rdfs:label ?inst .
+                            FILTER (?inst = "UWA")
+                            ?part foaf:gender ?gender .
+                                                                                  
+                            
+                            }
+                          GROUP BY ?gender ?inst
+                          ORDER BY ?gender'
+                          data-sgvizler-chart="google.visualization.PieChart"
+      data-sgvizler-loglevel="2"
+      style="width:300px; height:200px;"></div>      
+      		</td>
+      <td>
+      Flinders University
+      <div id="gender_distribution_per_site_FLIN"
+      data-sgvizler-query='SELECT ?gender (count(?part) AS ?noOfParticipants)
+                          WHERE{ 
+                          	?site rdf:type austalk:RecordingSite .
+                          	?part a foaf:Person . 
+                            ?part austalk:recording_site ?site.
+                            ?site rdfs:label ?inst .
+                            FILTER (?inst = "FLIN")
+                            ?part foaf:gender ?gender .
+                                                                                  
+                            
+                            }
+                          GROUP BY ?gender ?inst
+                          ORDER BY ?gender'
+                          data-sgvizler-chart="google.visualization.PieChart"
+      data-sgvizler-loglevel="2"
+      style="width:300px; height:200px;"></div>      
+      		</td>
+      		<td>
+      University of the Sunshine Coast
+      <div id="gender_distribution_per_site_USCM"
+      data-sgvizler-query='SELECT ?gender (count(?part) AS ?noOfParticipants)
+                          WHERE{ 
+                          	?site rdf:type austalk:RecordingSite .
+                          	?part a foaf:Person . 
+                            ?part austalk:recording_site ?site.
+                            ?site rdfs:label ?inst .
+                            FILTER (?inst = "USCM")
+                            ?part foaf:gender ?gender .
+                                                                                  
+                            
+                            }
+                          GROUP BY ?gender ?inst
+                          ORDER BY ?gender'
+                          data-sgvizler-chart="google.visualization.PieChart"
+      data-sgvizler-loglevel="2"
+      style="width:300px; height:200px;"></div>      
+      		</td>
+      </tr><tr>
+      <td>
+      Univerity of New England
+      <div id="gender_distribution_per_site_UNE"
+      data-sgvizler-query='SELECT ?gender (count(?part) AS ?noOfParticipants)
+                          WHERE{ 
+                          	?site rdf:type austalk:RecordingSite .
+                          	?part a foaf:Person . 
+                            ?part austalk:recording_site ?site.
+                            ?site rdfs:label ?inst .
+                            FILTER (?inst = "UNE")
+                            ?part foaf:gender ?gender .
+                                                                                  
+                            
+                            }
+                          GROUP BY ?gender ?inst
+                          ORDER BY ?gender'
+                          data-sgvizler-chart="google.visualization.PieChart"
+      data-sgvizler-loglevel="2"
+      style="width:300px; height:200px;"></div>      
+      		</td>
+      <td>
+      University of New South Wales
+      <div id="gender_distribution_per_site_UNSW"
+      data-sgvizler-query='SELECT ?gender (count(?part) AS ?noOfParticipants)
+                          WHERE{ 
+                          	?site rdf:type austalk:RecordingSite .
+                          	?part a foaf:Person . 
+                            ?part austalk:recording_site ?site.
+                            ?site rdfs:label ?inst .
+                            FILTER (?inst = "UNSW")
+                            ?part foaf:gender ?gender .
+                                                                                  
+                            
+                            }
+                          GROUP BY ?gender ?inst
+                          ORDER BY ?gender'
+                          data-sgvizler-chart="google.visualization.PieChart"
+      data-sgvizler-loglevel="2"
+      style="width:300px; height:200px;"></div>      
+      		</td>
+      </tr>
+</table>
+            
+      
+{% endblock %}

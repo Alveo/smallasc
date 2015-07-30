@@ -1,0 +1,99 @@
+  <!DOCTYPE html>
+  <html lang="en"> 
+  <head>
+    <title>{% block title %}{% endblock %}</title>
+
+    <!-- Stylesheet includes -->
+    <!--  We are including the minified version of bootstrap. So we dont need this bootstrap.css
+
+     <link rel="stylesheet" href="{{ STATIC_URL }}styles/bootstrap.css" media="screen" />
+    -->
+  
+    <!--  Bootstrap 3 includes the responsive features as well. So we dont need bootstrap-responsive.css 
+
+        <link rel="stylesheet" href="{{ STATIC_URL }}styles/bootstrap-responsive.css" media="screen" /> 
+    -->
+    
+      <!-- Bootstrap core CSS -->
+    <link href="{{ STATIC_URL }}styles/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap theme -->
+    <link href="{{ STATIC_URL }}styles/bootstrap-theme.min.css" rel="stylesheet"> 
+    <!-- Primary stylesheet with specialisation below -->
+    <link rel="stylesheet" href="{{ STATIC_URL }}styles/portal.css" media="screen" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}styles/searchportal.css" media="screen" />
+    
+    {# loading jquery here so that sgvizler can use it #}
+
+    <!--  using version 1.8 of jquery because of sgvizler -->
+    <!--
+     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script> 
+  -->
+     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.0/jquery.js"></script>
+
+    {% block head %}<!-- extra header elements -->{% endblock %}
+  </head>
+  <body>
+    <div class="container">
+      {% include "layout/header.html" %}
+
+      
+      
+          
+            <header>
+              {% block breadcrumbs %}
+              {% endblock %}
+            </header>
+
+            <div class="clearfix"></div>
+            <!-- @ todo - need to create a rule to show the slider only on homepage -->
+
+            
+            {% block image_slider %}
+             
+            {% endblock %}
+            
+                
+
+
+            <div class="col-sm-9">
+              {% block content %}
+              {% endblock %}
+            </div>
+
+
+
+            <div class="sidebar col-sm-3">
+              {% block sidebar %}
+              {% endblock %}
+            </div>
+
+            <div class="clearfix"></div>
+
+
+            <div class="footer">
+               <div class="container">
+                    <hr/>
+                  <img src="{{ STATIC_URL }}images/assta_logo_color.gif"/>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <img src="{{ STATIC_URL }}images/arc_logo.gif"/>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <img src="{{ STATIC_URL }}images/uws_cymk.gif"/>
+                  <hr/> 
+                  &copy;AusTalk 2012  
+                  <br/><br/>
+                  
+                </div>
+
+            </div>
+        
+    </div> <!--/container -->
+
+  <!-- Placed at end to help improve page load times -->
+  <!-- Latest version is v3.1.1   -->
+  <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+
+  {% block extrajs %}<!--  extra javascript goes here -->{% endblock %}
+
+  </body>
+  </html>

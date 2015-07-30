@@ -1,0 +1,67 @@
+{% extends "layout/base.html" %}
+
+{% block head %}
+  <title>Glueing YASQE and YASR</title>
+  <link href="{{ STATIC_URL }}yasr/yasqe.min.css" rel="stylesheet" type="text/css" />
+  <link href="{{ STATIC_URL }}yasr/yasr.min.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block content %}
+  <h1>SPARQL Query</h1>
+  <p>This form allows you to run a <a href="http://thefigtrees.net/lee/sw/sparql-faq">SPARQL query</a> against the Austalk metadata. The sample query finds the names and recording sites for every participant.  Run the query with the button in the top right of the textbox below. You can view the results as a table or as raw JSON, or download them in a CSV file.</p>
+  
+  <div id="yasqe"></div>
+  <div id="yasr"></div>
+  
+  <hr>
+  <p>This page makes use of the <a href="http://yasqe.yasgui.org/">YASQE SPARQL editor</a> and <a href="http://yasr.yasgui.org/">YASR SPARQL result visualisation library</a>.</p>
+  
+  <script src="{{ STATIC_URL }}yasr/yasqe.min.js"></script>
+  <script src="{{ STATIC_URL }}yasr/yasr.min.js"></script>
+  <script>
+  YASQE.defaults.value = "PREFIX dc:<http://purl.org/dc/terms/>\n\
+PREFIX austalk:<http://ns.austalk.edu.au/>\n\
+PREFIX olac:<http://www.language-archives.org/OLAC/1.1/>\n\
+PREFIX ausnc:<http://ns.ausnc.org.au/schemas/ausnc_md_model/>\n\
+PREFIX foaf:<http://xmlns.com/foaf/0.1/>\n\
+PREFIX dbpedia:<http://dbpedia.org/ontology/>\n\
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n\
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>\n\
+PREFIX geo:<http://www.w3.org/2003/01/geo/wgs84_pos#>\n\
+PREFIX iso639schema:<http://downlode.org/rdf/iso-639/schema#>\n\
+PREFIX austalkid:<http://id.austalk.edu.au/>\n\
+\n\
+SELECT ?participant ?name ?inst ?city WHERE {\n\
+   ?participant a foaf:Person .\n\
+   ?participant austalk:name ?name .\n\
+   ?participant austalk:recording_site ?site .\n\
+   ?site austalk:institution ?inst .\n\
+   ?site austalk:city ?city .\n\
+}\n";
+  
+  
+  var yasqe = YASQE(document.getElementById("yasqe"), {
+  	sparql: {
+  		showQueryButton: true
+  	},
+  });
+  var yasr = YASR(document.getElementById("yasr"), {
+  	//this way, the URLs in the results are prettified using the defined prefixes in the query
+  	getUsedPrefixes: yasqe.getPrefixesFromQuery
+  });
+ 
+  /**
+  * Set some of the hooks to link YASR and YASQE
+  */
+  yasqe.options.sparql.endpoint = "/sparql";
+  yasqe.options.sparql.handlers.success =  function(data, textStatus, xhr) {
+  	yasr.setResponse({response: data, contentType: xhr.getResponseHeader("Content-Type")});
+  };
+  yasqe.options.sparql.handlers.error = function(xhr, textStatus, errorThrown) {
+  	var exceptionMsg = textStatus + " (response status code " + xhr.status + ")";
+  	if (errorThrown && errorThrown.length) exceptionMsg += ": " + errorThrown;
+  	yasr.setResponse({exception: exceptionMsg});
+  };
+  
+  </script>
+{% endblock %}

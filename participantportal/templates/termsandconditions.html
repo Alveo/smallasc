@@ -1,0 +1,35 @@
+{% extends "layout/base_with_sidebar.html" %}
+{% block content %}
+  <ul class="breadcrumb">
+    
+    <li><a href="/participantportal/">Participant Portal</a></li>
+  </ul>
+    
+  {% for status in agreement_status_set %}  
+
+      {% autoescape off %}
+        {{ status.agreement.legalise }}
+      {% endautoescape %}
+
+    {% if status.has_agreed %}
+      <p>
+        <em>
+          You accepted this agreement on {{ status.agreement_date }}
+        </em>
+      </p>
+    {% else %}
+      <p>
+        To accept this agreement click the accept button.
+      </p>
+      <form method="POST" action="." class="form agreement-form">
+        {% csrf_token %}
+        <input type="hidden" name="agreementstatus_id" value="{{ status.id }}" />
+        <input class="btn btn-primary buttonextend" type="submit" value="Accept"/>
+      </form>
+    {% endif %}
+
+  {% endfor %}
+
+
+
+{% endblock %}

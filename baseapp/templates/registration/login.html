@@ -1,0 +1,66 @@
+{% extends "layout/login_base.html" %}
+
+{% block title %}
+	Austalk | Sign In
+{% endblock %}
+
+{% block formheading %}
+	Austalk
+{% endblock %}
+
+{% block content %}
+<!-- If user is already logged in, hide the form -->
+
+
+	{% if user.is_staff or user.is_superuser and user.is_authenticated %}
+		<p> You are already logged in. Please <a href="/logout"> Sign Out </a> if you want to log in using different credentials. </p>
+	
+	{% else %}
+	<!-- Login form -->
+<div class=" col-md-6  col-md-offset-3">
+	<form method="POST" action="." class="loginbox ">
+		{% csrf_token %}
+	  <h2>Sign In</h2>
+		
+		<!-- Check firstly to see if there was a login failure attempt prior to continuing -->
+		{% if form.errors %}
+			<aside class="alert" id="Flash">
+				Sorry, your username or password wasn't recognized
+			</aside>
+		{% endif %}
+
+		<div class="control-group">
+	    	<div class="controls">
+				<label for="id_username">Username</label>
+				{{ form.username }}
+			</div>
+		</div>
+
+		<div class="control-group">
+	    	<div class="controls">
+				<label for="id_password">Password</label>
+				{{ form.password }}
+			</div>
+		</div>
+		
+		<br/>
+		<!-- This hidden field is used to tell the application where to proceed to on a successful login -->
+	    <input type="hidden" name="next" value="{{ next }}" />
+		<input type="submit" value="Sign in" class="btn btn-primary" />
+
+		<p id="participant-para">
+			Are you a participant? <a href="/participantportal/login/" title="Participant login">Click here</a> to login.
+		</p>
+
+	    <p>Register <a href="/registration/register/">here</a>.</p>
+	</form>
+
+	<div class="clearfix"></div>
+<br/><br/>
+
+	<p>This site provides access to data collected by the Austalk project for researchers.
+		Austalk is collecting speech data from nearly 1000 Australian participants.</p> 
+
+</div>
+{% endif %}
+{% endblock %}

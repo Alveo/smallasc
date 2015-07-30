@@ -1,0 +1,285 @@
+{% extends "layout/base.html" %}
+
+{% block title %}
+  Austalk Meta Search | Reports
+{% endblock %}
+
+{% block subtitle %}
+  Visualisation
+{% endblock %}
+
+{% block head %}
+  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+  
+  <!-- <script type="text/javascript" id="sgvzlr_script" src="http://sgvizler.googlecode.com/svn/release/0.5/sgvizler.js"></script>
+
+-->
+<script type="text/javascript" src="http://beta.data2000.no/sgvizler/release/0.6/sgvizler.js"></script>
+
+  <script type="text/javascript">
+  /*
+    // CONFIGURATION Sgvizler 0.5: Set variables to fit your setup.
+    // NB! Do not let the last item in a list end with a comma.
+
+     //// Query settings. The defaults settings are listed.
+     sgvizler.option.query = {
+         // Default query.
+         'query':                "SELECT  ?inst (count(?part) as ?partcount)\nWHERE {\n ?site rdf:type austalk:RecordingSite .\n ?site rdfs:label ?inst .\n ?part rdf:type foaf:Person .\n ?part austalk:recording_site ?site .\n}\ngroup by ?inst",
+         'endpoint':             "{{ endpoint }}",
+         'endpoint_output':      'json',
+         // Default chart type.
+         'chart':                'gPieChart',
+         // Default log level. Must be either 0, 1, or 2.
+         'loglevel':             1
+     };
+
+     //// Prefixes
+     // Add convenient prefixes for your dataset. rdf, rdfs, xsd, owl
+     // are already set.  Examples:
+     sgvizler.option.namespace['dc'] = 'http://purl.org/dc/terms/';
+     sgvizler.option.namespace['ausnc'] = 'http://ns.ausnc.org.au/schemas/ausnc_md_model/';
+     sgvizler.option.namespace['olac'] = 'http://www.language-archives.org/OLAC/1.1/';
+     sgvizler.option.namespace['ice'] = 'http://ns.ausnc.org.au/schemas/ice/';
+     sgvizler.option.namespace['foaf'] = 'http://xmlns.com/foaf/0.1/';
+     sgvizler.option.namespace['graf'] = 'http://www.xces.org/ns/GrAF/1.0/';
+     sgvizler.option.namespace['austalk'] = 'http://ns.austalk.edu.au/';
+     sgvizler.option.namespace['protocol'] = "http://id.austalk.edu.au/protocol/";
+     sgvizler.option.namespace['austalkd'] = "http://data.austalk.edu.au/";
+     sgvizler.option.namespace['dbpedia'] = "http://dbpedia.org/ontology/";
+     sgvizler.option.namespace['geo'] = "http://www.w3.org/2003/01/geo/wgs84_pos#";
+     sgvizler.option.namespace['iso639schema'] = "http://downlode.org/rdf/iso-639/schema#";
+
+     //// Leave this as is. Ready, steady, GO!
+     $(document).ready(sgvizler.go());
+
+     */
+  </script>
+
+  <script>
+
+  
+
+    /*  Setup of Sgvizler trunk version on Trac 0.11.  */
+
+      // Wait until page is ready to configure Sgvizler:
+      $(document).ready(
+          function (){
+              sgvizler
+                  .defaultEndpointOutputFormat('json')
+                  .defaultEndpointURL('{{ endpoint }}')
+                  // Add prefixes used in examples:
+                  .prefix('w',     "http://sws.ifi.uio.no/ont/world.owl#")
+                  .prefix('dbpedia',  "http://dbpedia.org/ontology/")
+                  .prefix('geo',   "http://www.w3.org/2003/01/geo/wgs84_pos#")
+                  .prefix('dc',   "http://purl.org/dc/terms/")
+                  .prefix('fn',    "http://www.w3.org/2005/xpath-functions#")
+                  .prefix('afn',   "http://jena.hpl.hp.com/ARQ/function#")
+                  .prefix('npdv',  "http://sws.ifi.uio.no/vocab/npd#")
+                  .prefix('npdv2', "http://sws.ifi.uio.no/vocab/npd-v2#")
+                  .prefix('geos',  "http://www.opengis.net/ont/geosparql#")
+                  .prefix('austalkd',  "http://data.austalk.edu.au/")
+                  .prefix('ausnc',  "http://ns.ausnc.org.au/schemas/ausnc_md_model/")
+                  .prefix('olac',  "http://www.language-archives.org/OLAC/1.1/")
+                  .prefix('ice',  "http://ns.ausnc.org.au/schemas/ice/")
+                  .prefix('foaf',  "http://xmlns.com/foaf/0.1/")
+                  .prefix('protocol',  "http://id.austalk.edu.au/protocol/")
+
+                  .prefix('austalk',  "http://ns.austalk.edu.au/")
+                  .prefix('graf',  "http://www.xces.org/ns/GrAF/1.0/")
+                  .prefix('iso639schema',  "http://downlode.org/rdf/iso-639/schema#")
+
+
+                  // Draw all sgvizler containers on page:
+                  .containerDrawAll();
+          }
+      );
+
+      /* Trac 0.11 uses an old version of jQuery. Sgvizler requires a newer
+         version. We re-introduce some old jQuery functions used by Trac but
+         not in the new version: 
+         - loadStylesheet 
+      */
+      jQuery.extend(
+          {
+              loadStyleSheet: function(file, type) {
+                  $('<link>').attr('rel', 'stylesheet')
+                      .attr('type', type)
+                      .attr('href', file)
+                      .appendTo('head');
+              }
+          }
+      );
+
+  </script>
+
+
+{% endblock %}
+
+{% block content %}
+
+  <div class="btn-group">
+  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+    Choose Parameter <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu">
+    <li><a href="gender.html">Gender</a><li>
+    <li><a href="age.html">Age</a><li>
+    <li><a href="culture.html">Cultural Heritage</a><li>
+    <li><a href="language.html">Language</a><li>
+    <li><a href="birthplaces.html">Birthplaces</a><li>
+      <!--
+        <li><a href="professional_category.html">Professional Category</a></li>
+        <li><a href="query.html">Custom Query</a></li>
+        -->
+  </ul>
+
+
+</div>
+<br/><br/>
+   
+       
+        
+   
+
+  {% block query %}
+    
+    <div class="clearfix"> <br/> </div>
+
+    This section contains a input form where users can write and
+    execute their own SPARQL queries. The query is sent to Sgvizler
+    via the URL in GET parameters.
+   
+   <!--
+ 
+    <div id="queryForm" >
+      <div id="sgvzlr_formCon">
+        <pre id="sgvzlr_cPrefix">
+            PREFIX rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;
+            PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;
+            PREFIX owl: &lt;http://www.w3.org/2002/07/owl#&gt;
+            PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
+            PREFIX w: &lt;http://sws.ifi.uio.no/ont/world.owl#&gt;
+            PREFIX dbpo: &lt;http://dbpedia.org/ontology/&gt;
+            PREFIX geo: &lt;http://www.w3.org/2003/01/geo/wgs84_pos#&gt;
+            PREFIX dct: &lt;http://purl.org/dc/terms/&gt;
+            PREFIX fn: &lt;http://www.w3.org/2005/xpath-functions#&gt;
+            PREFIX afn: &lt;http://jena.hpl.hp.com/ARQ/function#&gt;
+            PREFIX npdv: &lt;http://sws.ifi.uio.no/vocab/npd#&gt;
+            PREFIX npdv2: &lt;http://sws.ifi.uio.no/vocab/npd-v2#&gt;
+            PREFIX geos: &lt;http://www.opengis.net/ont/geosparql#&gt;
+      </pre>
+
+      
+      <textarea id="sgvzlr_cQuery" rows="10" cols="80"></textarea>
+      
+      <form id="sgvzlr_formQuery" method="get">
+        <p>
+        <input id="sgvzlr_strQuery" type="hidden" name="query" value="">
+        
+        <span id="sgvzlr_strEndpointGrp">
+          <input id="sgvzlr_strEndpoint" type="text" name="endpoint" size="30" value="{{ endpoint }}" >
+        </span>
+        
+        <span id="sgvzlr_btnFormatGrp">
+          <label for="sgvzlr_btnFormat">Output format: </label>
+          <input id="sgvzlr_btnFormat" type="radio" name="endpoint_output" value="xml">xml 
+          <input id="sgvzlr_btnFormat" type="radio" name="endpoint_output" value="json">json 
+          <input id="sgvzlr_btnFormat" type="radio" name="endpoint_output" value="jsonp" checked="checked">jsonp
+        </span>
+
+        <br/>
+
+        <span id="sgvzlr_optChartGrp">
+          <label for="sgvzlr_optChart">Chart type: </label>
+          <select id="sgvzlr_optChart" name="chart">
+            <optgroup label="google.visualization.*">
+              <option value="google.visualization.AnnotatedTimeLine">AnnotatedTimeLine</option>
+              <option value="google.visualization.AreaChart">AreaChart</option>
+              <option value="google.visualization.BarChart">BarChart</option>
+              <option value="google.visualization.BubbleChart">BubbleChart</option>
+              <option value="google.visualization.CandlestickChart">CandlestickChart</option>
+              <option value="google.visualization.ColumnChart">ColumnChart</option>
+              <option value="google.visualization.Gauge">Gauge</option>
+              <option value="google.visualization.GeoChart">GeoChart</option>
+              <option value="google.visualization.GeoMap">GeoMap</option>
+              <option value="google.visualization.ImageSparkLine">ImageSparkLine</option>
+              <option value="google.visualization.LineChart">LineChart</option>
+              <option value="google.visualization.Map">Map</option>
+              <option value="google.visualization.MotionChart">MotionChart</option>
+              <option value="google.visualization.OrgChart">OrgChart</option>
+              <option value="google.visualization.PieChart">PieChart</option>
+              <option value="google.visualization.ScatterChart">ScatterChart</option>
+              <option value="google.visualization.SteppedAreaChart">SteppedAreaChart</option>
+              <option value="google.visualization.Table">Table</option>
+              <option value="google.visualization.TreeMap">TreeMap</option>
+            </optgroup>
+
+            <optgroup label="sgvizler.visualization.*">
+              <option value="sgvizler.visualization.D3ForceGraph">D3ForceGraph</option>
+              <option value="sgvizler.visualization.DefList">DefList</option>
+              <option value="sgvizler.visualization.DraculaGraph">DraculaGraph</option>
+              <option value="sgvizler.visualization.List">List</option>
+              <option value="sgvizler.visualization.Map">Map</option>
+              <option value="sgvizler.visualization.MapWKT">MapWKT</option>
+              <option value="sgvizler.visualization.Table">Table</option>
+              <option value="sgvizler.visualization.Text">Text</option>
+            </optgroup>
+          </select>
+        </span>
+        
+        <br/>
+
+        <span id="sgvzlr_strSizeGrp">
+          <label for="sgvzlr_strWidth">Width: </label>
+          <input id="sgvzlr_strWidth" name="width" type="text" size="3">
+          <label for="sgvzlr_strHeight">Height: </label>
+          <input id="sgvzlr_strHeight" name="height" type="text" size="3">
+        </span>
+        
+        <br/>
+
+        <span id="sgvzlr_btnSendGrp">
+          <input type="button" value="Reset" onclick="sgvizler.formReset()">
+          <input type="button" value="Go" onclick="sgvizler.formSubmit()" >
+        </span>
+      </p>
+    </form>
+
+    <div id="sgvzlr_cMessage"></div>
+  </div>
+
+  <div id="sgvzlr_gchart" style="width:800px; height:400px;"></div>
+
+</div>
+
+-->
+
+    
+
+
+<div id="queryForm"> </div>
+
+
+  {% endblock %}
+
+
+    <div id="footer">
+      <!-- Please leave a link to the Sgvizler homepage -->
+      <p>
+	Graphs generated by Sgvizler which visualizes the result of SPARQL SELECT queries using
+	javascript and the Google Visualization API. For more
+	information, see
+	the <a href="http://code.google.com/p/sgvizler/">Sgvizler</a>
+	homepage. (c) 2011 Martin G. Skj&#230;veland.
+      </p>
+    </div>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        
+          sgvizler.formDraw("queryForm"); 
+        
+      });
+    </script>
+
+
+{% endblock %}

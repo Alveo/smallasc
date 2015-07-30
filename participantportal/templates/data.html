@@ -1,0 +1,26 @@
+{# extends "participantportal/layout/base.html" #}
+{% extends "layout/base.html" %}
+
+
+{% block breadcrumbs %}
+  <ul class="breadcrumb">
+    
+    <li><a href="/participantportal/">Participant Portal</a></li>
+  </ul>
+{% endblock %}
+
+{% block subtitle %}
+  Personal Data
+{% endblock %}
+
+{% block content %}
+  {% include "participantportal/recordings.html" %}
+    
+  <h3>Demographic Information</h3>
+  <table class="table table-striped">
+    {% include "browse/participants/common_demographic.html" %}
+    {% include "browse/participants/mothers_info.html" %}
+    {% include "browse/participants/fathers_info.html" %}
+    {% include "browse/participants/other_info.html" %}         
+  </table>
+{% endblock %}

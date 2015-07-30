@@ -1,0 +1,63 @@
+{% extends "layout/base.html" %}
+
+<!-- Note the convention of the title, Austalk | View > Object -->
+{% block title %}
+    Austalk | Browse > Agreements
+{% endblock %}
+
+{% block subtitle %}
+    Registered Participants
+{% endblock %}
+
+{% block breadcrumbs %}
+   
+   {% autoescape off %}
+  
+    {{ breadcrumbs }}
+
+  {% endautoescape %}
+{% endblock %}
+
+{% block content %}
+
+  <p>{{participants|length}} participants have accessed the site.  {{agreed|length}} have agreed to the new consent.</p>
+
+  <table class="table table-striped">
+    <thead>
+      <th>Identifier</th>
+      <th>Colour</th>
+      <th>Animal</th>
+      <th>Agreed?</th>
+      <th>Date</th>
+    </thead>
+    <tbody>
+      {% for up in participants %}
+        {% for agreement_stat in up.agreementstatus_set.all %}
+          {% if agreement_stat.has_agreed %}
+            <tr class="success">
+          {% else %}
+            <tr class="error">
+          {% endif %}
+            {% if forloop.first %}
+              <td rowspan="{{ up.agreementstatus_set.all.count }}">{{ up.user.username }}</td>
+              <td rowspan="{{ up.agreementstatus_set.all.count }}">{{ up.colour }}</td>
+              <td rowspan="{{ up.agreementstatus_set.all.count }}">{{ up.animal }}</td>
+            {% endif %}
+            <td>
+              {% if agreement_stat.has_agreed %}
+                <i class="icon-ok">yes</i>
+              {% else %}
+                <i class="icon-remove">no</i>
+              {% endif %}
+            </td>
+            <td>
+              {% if agreement_stat.agreement_date %}
+                {{ agreement_stat.agreement_date }}
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
