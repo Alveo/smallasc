@@ -1,5 +1,6 @@
 syntax: glob
 *.pyc
+local_settings.py
 .DS_Store
 smallascdb
 smallascdatadb
