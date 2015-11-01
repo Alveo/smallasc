@@ -12,8 +12,6 @@ def index(request):
 
     sites = Site.objects.all()
 
-
-
     return render (request, 'browse/sites/index.html', {
         'request': request,
         'sites'  : generate_paginated_object(request, sites)

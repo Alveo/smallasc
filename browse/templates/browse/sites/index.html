@@ -13,24 +13,33 @@
 
 {% block content %}
 
-{% for site in sites %}
-    <section class="statsection">
-      <header>
-        <h2>
-          <a href="{{ site.get_absolute_url }}">{{ site.name }}, {{site.location}}</a>
-        </h2>
-      </header>
-    
-      <p><em>{{site.stats.male}}</em> male participants</p>
-      <p><em>{{site.stats.female}}</em> female participants</p>
-      <p><em>{{ site.participant_count }}</em> total participants</p>
-      <p><em>{{ site.session_stats.1 }}</em> 1</p>
-      <p><em>{{ site.session_stats.2 }}</em> 2</p>
-      <p><em>{{ site.session_stats.3 }}</em> 3a</p>
-      <p><em>{{ site.session_stats.4 }}</em> 3b</p>
-
-    </section>
-{% endfor %}
+<table class="table table-bordered">
+  <tr>
+    <th> Site </th>
+    <th> Male </th>
+    <th> Female </th>
+    <th title="Total Participants"> Total </th>
+    <th> Ses. 1 </th>
+    <th> Ses. 2 </th>
+    <th> Ses. 3a </th>
+    <th> Ses. 3b </th>
+  </tr>
+  {% for site in sites %}
+    <tr>
+      <td>
+        <a href="{{ site.get_absolute_url }}">{{ site.name }}, {{site.location}}</a>
+      </td>
+      
+      <td>{{ site.stats.male }}</td>
+      <td>{{ site.stats.female }}</td>
+      <td>{{ site.participant_count }}</td>
+      <td>{{ site.session_stats.1 }}</td>
+      <td>{{ site.session_stats.2 }}</td>
+      <td>{{ site.session_stats.3 }}</td>
+      <td>{{ site.session_stats.4 }}</td>
+    </tr>
+  {% endfor %}
+</table>
 
 {% bootstrap_paginate sites %}
 
