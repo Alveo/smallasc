@@ -1,5 +1,7 @@
 from django.db import models
 from browse.modelspackage.sparql_local_wrapper import SparqlModel, SparqlManager
+from browse.modelspackage           import Session
+from collections import defaultdict
 
 
 class SiteManager (SparqlManager):
@@ -91,6 +93,21 @@ class Site (SparqlModel):
 
         return s
     
+    def session_stats(self):
+        """Return session statistics (no. of recordings in each session) for this site
+            {
+                '1': 49,
+                '2': 24,
+                '3': 20,
+                '4': 15
+            }
+        """
+        data = defaultdict(int)
+        sessions = Session.objects.filter_by_site(self.label)
+        for session in sessions:
+            data[session.number] += 1
+
+        return data
 
     def get_absolute_url(self):
         """Return a canonical URL for this item"""    
