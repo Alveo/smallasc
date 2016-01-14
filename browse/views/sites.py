@@ -14,8 +14,5 @@ def index(request):
 
     return render (request, 'browse/sites/index.html', {
         'request': request,
-        'sites'  : generate_paginated_object(request, sites)
+        'sites'  : sites,
     })
-
-
-    

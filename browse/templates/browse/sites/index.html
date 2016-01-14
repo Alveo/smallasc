@@ -13,23 +13,26 @@
 
 {% block content %}
 
-<table class="table table-bordered">
+<table class="table">
   <tr>
-    <th> Site </th>
-    <th> Male </th>
-    <th> Female </th>
-    <th title="Total Participants"> Total </th>
-    <th> Ses. 1 </th>
-    <th> Ses. 2 </th>
-    <th> Ses. 3a </th>
-    <th> Ses. 3b </th>
+    <th rowspan=2> Site </th>
+    <th rowspan=2> Male </th>
+    <th rowspan=2> Female </th>
+    <th rowspan=2 title="Total Participants"> Total </th>
+    <th colspan=4>Sessions</th>
+  </tr>
+  <tr>
+    <th>  1 </th>
+    <th>  2 </th>
+    <th>  3a </th>
+    <th>  3b </th>
   </tr>
   {% for site in sites %}
     <tr>
       <td>
         <a href="{{ site.get_absolute_url }}">{{ site.name }}, {{site.location}}</a>
       </td>
-      
+
       <td>{{ site.stats.male }}</td>
       <td>{{ site.stats.female }}</td>
       <td>{{ site.participant_count }}</td>
@@ -41,6 +44,5 @@
   {% endfor %}
 </table>
 
-{% bootstrap_paginate sites %}
 
 {% endblock %}

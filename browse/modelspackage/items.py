@@ -1,5 +1,5 @@
 from django.db import models
-from browse.modelspackage.sparql_local_wrapper import SparqlLocalWrapper, SparqlModel, SparqlManager
+from browse.modelspackage.sparql_local_wrapper import SparqlModel, SparqlManager
 
 class ItemManager (SparqlManager):
     """Manager for items implements operations returning lists of Item instances"""
@@ -12,13 +12,13 @@ class ItemManager (SparqlManager):
 
                 %s
 
-                ?item olac:speaker ?spkrid .                
+                ?item olac:speaker ?spkrid .
                 ?spkrid austalk:recording_site ?site .
                 ?spkrid austalk:id ?spkrname .
                 ?site rdfs:label ?sitelabel .
-                
+
                 ?item austalk:session ?sessid .
-                ?item austalk:componentName ?compid .   
+                ?item austalk:componentName ?compid .
                 ?item dc:title ?basename .
                 ?item austalk:prompt ?prompt .
                 ?item ausnc:document ?media .
@@ -104,14 +104,14 @@ class ItemManager (SparqlManager):
         qq = """
             select distinct ?item ?prompt ?basename
             where {
-                
+
                 ?item austalk:session ?sessid .
                 ?item austalk:componentName ?compid .
                 ?item dc:title ?basename .
                 ?item austalk:prompt ?prompt .
-                
+
                 %s .
-                
+
         } order by ?basename""" % (union,)
 
         sparql_results = self.query (qq)
