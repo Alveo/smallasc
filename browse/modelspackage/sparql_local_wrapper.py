@@ -54,7 +54,7 @@ class SparqlManager(models.Manager):
         from the SPARQL endpoint"""
 
 
-        if not settings.PRINT_SPARQL:
+        if settings.PRINT_SPARQL:
             if settings.PRINT_SPARQL_PREFIXES:
                 print self.canonicalise_query(query)
             else:
