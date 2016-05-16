@@ -22,9 +22,9 @@ class ParticipantManager (SparqlManager):
             }""" % site.identifier)
 
         results = []
-        
+
         for result in sparql_results["results"]["bindings"]:
-            
+
             part = Participant (
                 identifier          = result["part"]["value"]
                 #gender              = result["gender"]["value"],
@@ -33,17 +33,17 @@ class ParticipantManager (SparqlManager):
 
             results.append (part)
 
-        
+
         return results
 
 
     def with_data (self, site, limit=1000, offset=0):
-        
+
         sparql_results = self.query ("""
-            select distinct ?part 
+            select distinct ?part
             where {
                 ?part rdf:type foaf:Person .
-                ?part austalk:recording_site <%s> . 
+                ?part austalk:recording_site <%s> .
                 ?rs olac:speaker ?part .
                 ?rs rdf:type austalk:RecordedSession .
             } LIMIT %d OFFSET %d""" % (site.identifier, limit, offset))
@@ -67,22 +67,25 @@ class ParticipantManager (SparqlManager):
                 ?part ?prop ?value .
 
                 FILTER (?part = <http://id.austalk.edu.au/participant/%s>)
-            }""" % participant_id        
+            }""" % participant_id
 
         sparql_results = self.query (qq)
 
         for result in sparql_results["results"]["bindings"]:
             return Participant(identifier = result["part"]["value"])
-                        
+
         return None
 
 
     def filter (self, predicates = {}):
 
+        # include olac:recorder here to make sure this is a
+        # participant and not an RA
         qq = """
             select  distinct ?part
             where {
                 ?part rdf:type foaf:Person .
+                ?part olac:recorder ?someone .
             """
         for (key,value) in predicates.items():
             # kludge to handle URIs as values (eg. recording site)
@@ -92,14 +95,14 @@ class ParticipantManager (SparqlManager):
                 qq += """\t?part """ + key + " '" + value + "' . \n"
 
         qq += """}"""
-        
+
         sparql_results = self.query (qq)
 
         results = []
-        
+
         for result in sparql_results["results"]["bindings"]:
             results.append (Participant(identifier = result["part"]["value"]))
-                        
+
         return results
 
 
@@ -115,7 +118,10 @@ class Participant (SparqlModel):
 
     def get_site(self):
 
-        site_url        = self.properties()['recording_site'][0]
+        if 'recording_site' in self.properties():
+            site_url        = self.properties()['recording_site'][0]
+        else:
+            return "/unknown_participant"
         site_path       = urlsplit(site_url).path
         path_components = site_path.split('/')
 
@@ -124,7 +130,7 @@ class Participant (SparqlModel):
 
     def get_web_video(self):
         """Return the URL of the sample video for this participant"""
-        
+
         qq = """select ?video where {
    ?item austalk:componentName "story" .
    ?item olac:speaker <%s> .
@@ -136,7 +142,7 @@ class Participant (SparqlModel):
 
         for result in sparql_results["results"]["bindings"]:
             return result["video"]["value"]
-                    
+
         return None
 
 
@@ -144,8 +150,9 @@ class Participant (SparqlModel):
     name = property(get_name)
     site = property(get_site)
 
-  
+
     def get_absolute_url(self):
+        return "/blah"
         return "/browse/%s/%s" % (self.site, self.friendly_id ())
 
 
@@ -155,7 +162,7 @@ class Participant (SparqlModel):
 
     def __unicode__ (self):
         return self.properties()['id'][0] + " (" + self.properties()['name'][0] + ")"
-    
+
 
     def __eq__ (self, other):
         return self.friendly_id () == other.friendly_id ()
