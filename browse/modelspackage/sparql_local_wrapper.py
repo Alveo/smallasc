@@ -88,7 +88,7 @@ class SparqlModel(models.Model):
         super(SparqlModel, self).__init__(*args, **kwargs)
 
         self.props = None
-
+        self.identifier = kwargs['identifier']
 
     def query(self, query):
         """Run a SPARQL query, first add the required PREFIX
