@@ -47,7 +47,7 @@ class SparqlManager(models.Manager):
         self.sparql = SPARQLWrapper (settings.SPARQL_ENDPOINT)
         self.sparql.setReturnFormat (JSON)
 
-    def query(self, query):
+    def query(self, query,skipcaononicalise=False):
         """Run a SPARQL query, first add the required PREFIX
         definitions to the start of the query. Return
         a Python dictionary that reflects the JSON returned
@@ -68,9 +68,15 @@ class SparqlManager(models.Manager):
             result = cache.get(qhash)
         else:
             cached = "not cached"
-            self.sparql.setQuery(self.canonicalise_query(query))
-            result = self.sparql.query().convert()
-            cache.set(qhash, result)
+            
+            #Placing pyalveo support here
+            if not skipcaononicalise:
+                query = self.canonicalise_query(query)
+            result = settings.PYALVEO_CLIENT.sparql_query(settings.COLLECTION, query)
+            
+            #self.sparql.setQuery(self.canonicalise_query(query))
+            #result = self.sparql.query().convert()
+            #cache.set(qhash, result)
 
         if settings.PRINT_SPARQL:
             print len(result['results']['bindings']), "results in", time.time()-start, "s (", cached, ")"
