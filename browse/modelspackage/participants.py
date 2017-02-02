@@ -152,7 +152,6 @@ class Participant (SparqlModel):
 
 
     def get_absolute_url(self):
-        return "/blah"
         return "/browse/%s/%s" % (self.site, self.friendly_id ())
 
 
