@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User, Group
 
 
-from registration.supplements import RegistrationSupplementBase
+from registration.supplements.base import RegistrationSupplementBase
 
 
 from registration.backends import get_backend
