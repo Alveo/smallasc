@@ -134,7 +134,7 @@ WSGI_APPLICATION = 'smallasc.wsgi.application'
 
 TEMPLATE_DIRS = (
     # TODO: This needs to change to an absolute path prior to deployment
-     "./templates"
+     "./templates",
 
 )
 
@@ -248,6 +248,7 @@ FLATPAGES_MEDIA_URL = os.path.join(STATIC_URL, 'flatpages_tinymce')
 # load local settings
 # put customized stuff here
 try:
-    from local_settings import *
+    from smallasc.local_settings import *
 except ImportError as e:
     pass
+

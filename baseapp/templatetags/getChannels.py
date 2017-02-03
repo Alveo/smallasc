@@ -6,7 +6,7 @@ from baseapp import choices
 
 register = template.Library()
 
-@register.assignment_tag
+@register.simple_tag
 def getChannels():
         return choices.CHANNELS
 
