@@ -2,13 +2,12 @@ from django.conf.urls import patterns, include, url
 from browse.views import components
 #from django.views.generic.simple import direct_to_template
 
-import participantportal.views.data.index
-import browse.views.items.index
-import browse.views.items.show
-import browse.views.components.index
-import participantportal.views.session.login_page
-import participantportal.views.session.password_reset
-import baseapp.views.security.logout_page
+import participantportal.views.data
+import browse.views.items
+import browse.views.components
+import participantportal.views.session
+import participantportal.views.termsandconditions
+import baseapp.views.security
 
 urlpatterns = [
   url(regex = r'^$', 
