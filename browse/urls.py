@@ -1,14 +1,11 @@
 from django.conf.urls import patterns, include, url
 from django.views.generic import DetailView, ListView
 
-import browse.views.sites.index
-import browse.views.agreements.index
-import browse.views.participants.show_by_id
-import browse.views.participants.index
-import browse.views.participants.show
-import browse.views.components.index
-import browse.views.items.index
-import browse.views.items.show
+import browse.views.sites
+import browse.views.agreements
+import browse.views.participants
+import browse.views.components
+import browse.views.items
 
 urlpatterns = [
     url (r'^$', browse.views.sites.index),

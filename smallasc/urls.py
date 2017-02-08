@@ -3,11 +3,10 @@ from django.contrib import admin
 from django.views.generic.base import TemplateView
 
 #URL Imports
-import baseapp.views.dashboard.index
-import baseapp.views.security.logout_page
-import baseapp.views.security.oauth_callback
-import baseapp.views.sparql.sparql_endpoint
-import django.contrib.auth.views.login
+import baseapp.views.dashboard
+import baseapp.views.security
+import baseapp.views.sparql
+import django.contrib.auth.views
 
 
 
@@ -56,5 +55,5 @@ urlpatterns = [
     url(r'^sparql/', baseapp.views.sparql.sparql_endpoint),
 
     # on-site editing of flat pages
-    (r'^tinymce/', include('tinymce.urls'))
+    url(r'^tinymce/', include('tinymce.urls'))
 ]
