@@ -1,8 +1,8 @@
 {% extends "layout/login_base.html" %}
 
-{% block title %}
+{% block title %} 
   Participant Portal | Sign In
-{% endblock %}
+{% endblock %} 
 
 {% block formheading %}
   Participant Portal
@@ -10,12 +10,12 @@
 
 {% block content %}
     
-<form method="POST" action="." class="loginbox form-inline">
+<form method="POST" action="." class="loginbox form-inline form-signin col-md-6  col-md-offset-3">
   {% csrf_token %}
-  <h2>Sign In</h2>
+  <h2>Participant Sign In</h2>
 
   {% if form.errors %}
-    <aside class="alert" id="Flash">
+    <aside class="alert alert-warning" id="Flash">
       Authentication Failure.
     </aside>
   {% endif %}
@@ -27,19 +27,25 @@
     </div>
   </div>
 
+  <br/>
+  
   <div class="control-group">
     <label for="id_animal" class="control-label">Animal</label>
     <div class="controls">
       {{ form.animal }}
     </div>
   </div>
-
+  
+  <br/>
+  
   <div class="control-group">
     <label for="id_birth_year" class="control-label">Birth Year</label>
     <div class="controls">
       {{ form.birth_year }}
     </div>
   </div>
+
+  <br/>
 
   <div class="control-group">
     <label class="control-label">Gender</label>
@@ -48,10 +54,14 @@
     </div>
   </div>
 
+  <br/>
+  
   <input class="btn btn-primary buttonextend" type="submit" value="Sign in"/>
 
   <p id="participant-para">
-    A researcher? <a href="/login/" title="Researcher login">Click here</a> to login.
+    
+    Forgot your Colour-Animal Combination ? <br/>
+    <a href="/participantportal/reset/" title="Password Help">Click here</a> for help.
   </p>
 
 </form>

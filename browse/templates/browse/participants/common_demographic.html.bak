@@ -1,0 +1,80 @@
+
+ <tr>
+    <th>Gender</th>
+    <td> {{ participant.properties.gender.0 }}</td>
+  </tr>
+  <tr>
+    <th>Age</th>
+    <td> {{ participant.properties.age.0 }}</td>
+  </tr>
+  <tr>
+    <th>Location of birth</th>
+    <td><a href="{{ participant.properties.birthPlace.0 }}" target="_blank">{{ participant.properties.pob_town.0 }}, {{participant.properties.pob_state.0}} {{participant.properties.pob_country.0}}</a></td>
+  </tr>
+   <tr>
+    <th>Suburb</th>
+    <td> {{ participant.properties.suburb.0 }}</td>
+  </tr>
+  <tr>
+    <th>Cultural heritage</th>
+    <td> {{ participant.properties.cultural_heritage.0 }}</td>
+  </tr>
+  <tr>
+    <th>Socio-Economic Status</th>
+    <td>{{ participant.properties.ses.0 }}</td>
+  </tr>
+  <tr>
+    <th>Highest Qualification</th>
+    <td> {{ participant.properties.education_level.0 }}</td>
+  </tr>
+  <tr>
+    <th>Professional Qualification</th>
+    <td> {{ participant.properties.professional_qualification.0 }}</td>
+  </tr>
+  <tr>
+    <th>Professional Category</th>
+    <td> {{ participant.properties.professional_category.0 }}</td>
+  </tr>
+  <tr>
+    <th>First language</th>
+    <td> {{ participant.properties.first_language.0 }}</td>
+  </tr>
+  <tr>
+    <th>Other languages spoken/understood</th>
+    <td>{{ participant.properties.other_languages.0 }}</td>
+  </tr>    
+  <tr>
+    <th>Language Usage</th>
+    <td>
+      <ul>
+      {% for use in language_usage %} 
+         <li>{{use.name}}: {{use.situation}}, {{use.frequency}}%</li>
+      {% endfor %}
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <th>Residential History</th>
+    <td>
+      <ul>
+      {% for place in residential_history %} 
+         <li>{{place.town}}, {{place.state}}, {{place.country}}</li>
+      {% endfor %}
+      </ul>
+    </td>
+  </tr>    
+      
+  {% ifequal participant.properties.is_student.0 "true" %}
+  <tr>
+    <th>Student Course</th>
+    <td>{{participant.properties.student_course.0}}</td>
+  </tr>
+  <tr>
+    <th>Student Enrollment</th>
+    <td>{{participant.properties.student_enrollment.0}}</td>
+  </tr>
+  <tr>
+    <th>Student Aspiration</th>
+    <td>{{participant.properties.student_aspiration.0}}</td>
+  </tr>
+  {% endifequal %}

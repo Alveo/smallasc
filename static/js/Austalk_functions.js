@@ -3,10 +3,13 @@
      function generate_graph()
 	{
 		if (custom == 1)
-		{}
+		{
+		
+		}
 		else
 		{
 		var query = generate_query();
+		
 		}
         //<!--submits the query to the sqvizler server-->
         sgvizler.ui.submitQuery();

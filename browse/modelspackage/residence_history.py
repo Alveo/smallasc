@@ -29,6 +29,7 @@ class ResidenceHistoryManager (SparqlManager):
 
         for result in sparql_results["results"]["bindings"]:
             results.append (ResidenceHistory (
+                                identifier    = result["rh"]["value"],
                                 age_from      = result["age_from"]["value"], 
                                 age_to        = result["age_to"]["value"],
                                 town          = result["town"]["value"],

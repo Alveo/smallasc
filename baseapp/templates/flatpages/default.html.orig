@@ -1,0 +1,20 @@
+{% extends "layout/base_with_sidebar.html" %}
+
+{% block extrahead %}
+
+{% endblock %}
+
+{% load flatpage_admin %}
+
+{% block title %}
+	Austalk Meta Search | Home
+{% endblock %}
+
+{% block subtitle %}
+	{{flatpage.title}} 
+{% endblock %}
+
+
+{% block content %}
+ {% flatpage_admin flatpage %}
+{% endblock %}	

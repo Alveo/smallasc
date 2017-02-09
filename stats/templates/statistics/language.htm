@@ -30,9 +30,9 @@ Sample Speaker Statistics
       					}
       					GROUP BY ?fln
       					ORDER BY DESC(count(?part))"
-      data-sgvizler-chart="gPieChart"
+      data-sgvizler-chart="google.visualization.PieChart"
       data-sgvizler-loglevel="2"
-      style="width:800px; height:400px;"></div>     
+      style="width:600px; height:400px;"></div>     
       
       </td>
       <td>
@@ -49,7 +49,7 @@ Sample Speaker Statistics
       					GROUP BY ?fln
       					ORDER BY DESC(count(?part))"
 
-      data-sgvizler-chart="gTable"
+      data-sgvizler-chart="google.visualization.Table"
       data-sgvizler-loglevel="0"
       style="width:430px; height:400px;"></div>      
   		</td>
@@ -63,19 +63,38 @@ Sample Speaker Statistics
    		<td>
 <div id="second_language"
       data-sgvizler-query="
-      				SELECT (?sln as ?SecondLanguage) (count(distinct ?part) as ?participants)WHERE {?site rdf:type austalk:RecordingSite .?part rdf:type foaf:Person .?part austalk:recording_site ?site .OPTIONAL { ?part austalk:other_languages ?sln}}GROUP BY ?slnORDER BY DESC(count(?part))"
-      data-sgvizler-chart="gPieChart"
+      				SELECT (?sln as ?SecondLanguage) (count(distinct ?part) as ?participants)
+                  WHERE {
+                  ?site rdf:type austalk:RecordingSite .
+                  ?part rdf:type foaf:Person .
+                  ?part austalk:recording_site ?site .
+                  OPTIONAL { ?part austalk:other_languages ?sln}
+                  }
+                  GROUP BY ?sln
+                  ORDER BY DESC(count(?part))
+                  "
+
+      data-sgvizler-chart="google.visualization.PieChart"
       data-sgvizler-loglevel="0"
-      style="width:800px; height:400px;"></div>     
+      style="width:600px; height:400px;"></div>     
       
       </td>
       <td>
 <div id="second_language_table"
       data-sgvizler-query="
-      				SELECT (?sln as ?Second_Language) (count(distinct ?part) as ?participants)WHERE {?site rdf:type austalk:RecordingSite .
-?part rdf:type foaf:Person .?part austalk:recording_site ?site .OPTIONAL { ?part austalk:other_languages ?sln}}GROUP BY ?slnORDER BY DESC(count(?part))"
+      				SELECT (?sln as ?Second_Language) (count(distinct ?part) as ?participants)
 
-      data-sgvizler-chart="gTable"
+WHERE {
+?site rdf:type austalk:RecordingSite .
+?part rdf:type foaf:Person .
+?part austalk:recording_site ?site .
+OPTIONAL { ?part austalk:other_languages ?sln}
+}
+GROUP BY ?sln
+ORDER BY DESC(count(?part))
+"
+
+      data-sgvizler-chart="google.visualization.Table"
       data-sgvizler-loglevel="0"
       style="width:430px; height:400px;"></div>      
   		</td>

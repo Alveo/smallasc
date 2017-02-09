@@ -1,4 +1,4 @@
-{% extends "layout/base.html" %}
+{% extends "layout/base_with_sidebar.html" %}
 
 {% load bootstrap_pagination %}
 
@@ -8,10 +8,9 @@
 {% endblock %}
 
 {% block breadcrumbs %}
-    <ul class="breadcrumb">
-        <li><span class="divider">/</span></li>
-        <li><a href="/browse/" class="admin">All Sites</a></li>
-    </ul>
+    {% autoescape off %}
+      {{ breadcrumbs }}
+    {% endautoescape %}
 {% endblock %}
 
 {% block subtitle %}
@@ -20,21 +19,26 @@
 
 {% block content %}
 
+
+<table class=table>
+    <thead>
+        <tr>
+            <th>Speaker</th>
+            <th>Gender</th>
+            <th>Age</th>
+        </tr>
+    </thead>
+
+    <tbody>
 {% for part in participants %}
-<section class="statsection">
-
-  <header>
-    <h4>
-      <a href="/browse/{{ part.site }}/{{ part.friendly_id }}">{{ part }}</a>
-    </h4>
-  </header>
-
-  <p>Gender:        {{ part.properties.gender.0 }}</p>
-  <p>Birth Year:    {{ part.properties.birthYear.0 }}</p>
-
-</section>
+    <tr>
+      <td><a href="/browse/{{ part.site }}/{{ part.friendly_id }}">{{ part }}</a></td>
+      <td>{{ part.properties.gender.0 }}</td>
+      <td>{{ part.properties.age.0 }}</td>
+  </tr>
 {% endfor %}
 
-{% bootstrap_paginate participants %}
+</tbody>
+</table>
 
 {% endblock %}
