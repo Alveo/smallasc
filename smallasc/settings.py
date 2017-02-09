@@ -115,8 +115,7 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
-                # Insert your TEMPLATE_CONTEXT_PROCESSORS here or use this
-                # list if you haven't customized them:
+                # Insert your TEMPLATE_CONTEXT_PROCESSORS here
                 'django.contrib.auth.context_processors.auth',
                 'django.template.context_processors.debug',
                 'django.template.context_processors.i18n',
@@ -124,6 +123,7 @@ TEMPLATES = [
                 'django.template.context_processors.static',
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.request',
             ],
             'debug': DEBUG,
         },
@@ -145,6 +145,7 @@ MIDDLEWARE_CLASSES = (
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'participantportal.modelspackage.auth.CustomAuthBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
 )
 
 AUTH_PROFILE_MODULE = 'participantportal.UserProfile'
@@ -185,9 +186,11 @@ INSTALLED_APPS = (
     'sso',
     'stats',
     'custom_registration',
-
-
-    #'debug_toolbar',
+    
+    #Allauth
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -259,6 +262,8 @@ TINYMCE_DEFAULT_CONFIG = {
 }
 
 FLATPAGES_MEDIA_URL = os.path.join(STATIC_URL, 'flatpages_tinymce')
+
+SITE_ID = 1
 
 # load local settings
 # put customized stuff here
