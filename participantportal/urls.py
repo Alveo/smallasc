@@ -1,4 +1,4 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include, url
 from browse.views import components
 #from django.views.generic.simple import direct_to_template
 
@@ -15,9 +15,13 @@ urlpatterns = [
       name = 'home', 
       kwargs = { 'template': 'home.html' }, ),
   
-  url(r'^data/$', participantportal.views.data.index),
+  url(r'^data/$', 
+      participantportal.views.data.index, 
+      name="participantportal.views.data.index"),
   
-  url(r'^termsandconditions/$', participantportal.views.termsandconditions.index),
+  url(r'^termsandconditions/$', 
+      participantportal.views.termsandconditions.index, 
+      name="participantportal.views.termsandconditions.index"),
 
   url(regex = r'^information_sheet/$',
       view = participantportal.views.data.index, 
@@ -44,7 +48,9 @@ urlpatterns = [
       name = 'items show',
       kwargs = { 'template': 'participantportal/items/show.html'}, ),
   
-  url(r'^login/$', participantportal.views.session.login_page),
+  url(r'^login/$', 
+      participantportal.views.session.login_page, 
+      name="participantportal.views.session.login_page"),
 
   # Trying to implement Forgot Password
   url(regex = r'^reset/$', 
