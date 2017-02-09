@@ -9,12 +9,13 @@
 {% endblock %}
 
 {% block content %}
-<form method="GET" class="forms">
-	<fieldset>    
-    	
-    	{% include "search/core_fields.html" %}
 
-    	<input type="submit" value="Find Speakers" class="btn btn-primary"/>
-    </fieldset>
-</form>
+<ul>
+	<li><a href="{% url "search.views.participants.search" %}">Search by Participant</a></li>
+	<li><a href="{% url "search.views.prompt.search" %}">Search by Prompt</a></li>
+    <li><a href="/sparql">Use SPARQL to query the AusTalk metadata</a></li>
+</ul>
+
+
 {% endblock %}
+

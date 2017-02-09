@@ -2,11 +2,15 @@ from baseapp.modelspackage.animals import Animal
 from baseapp.modelspackage.colours import Colour
 from django.db import models
 from django.contrib.auth.models import User
+from tinymce.models import HTMLField
 
 class UserProfile(models.Model):
   # This field is required.
   user = models.OneToOneField(User)
 
+  def __unicode__(self):
+      return self.colour() + " " + self.animal()
+      
   def colour(self):
     colour_id = self.user.username.split('_')[0]
     return Colour.objects.get(id = colour_id).name
@@ -32,10 +36,11 @@ class UserProfile(models.Model):
 
 class Agreement(models.Model):
   
-  legalise = models.TextField()
+  #legalise = models.TextField()
+  legalise = HTMLField()
 
   def __unicode__(self):
-    return u'%s' % (self.legalise)
+    return u'%s' % (self.legalise[:20])
 
 
 class AgreementStatus(models.Model):
@@ -48,3 +53,11 @@ class AgreementStatus(models.Model):
   def accept(self, accepted_on):
     self.has_agreed = True
     self.agreement_date = accepted_on
+    
+    
+  def __unicode__(self):
+      if self.has_agreed: 
+          what = " - yes"
+      else:
+          what = " - no"
+      return str(self.user) + " - " + str(self.agreement) + what

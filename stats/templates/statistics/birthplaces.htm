@@ -12,8 +12,9 @@ Sample Speaker Statistics
 {% block query %}
 
 <h2>Number of Participants Per Recording Site</h2>
+<div class="table-responsive">
+<table border="0" cellpadding="10" class="table col-sm-12">
 
-<table border="0" cellpadding="10";>
    <tr>
    		<td>
 <div id="recording_site"
@@ -25,9 +26,9 @@ Sample Speaker Statistics
                             ?site rdfs:label ?prop .
                             }
                           GROUP BY ?prop"
-      data-sgvizler-chart="gColumnChart"
+      data-sgvizler-chart="google.visualization.ColumnChart"
       data-sgvizler-loglevel="0"
-      style="width:800px; height:400px;"></div>     
+      style="width:750px; height:400px;"></div>     
       
       </td>
       <td>
@@ -41,14 +42,19 @@ Sample Speaker Statistics
                             }
                           GROUP BY ?inst"
 
-      data-sgvizler-chart="gTable"
+      data-sgvizler-chart="google.visualization.Table"
       data-sgvizler-loglevel="0"
       style="width:350px; height:400px;"></div>      
   		</td>
   	</tr>
 </table>
+</div> <!-- / .table-responsive -->
 
 <h2>Participant Birthplaces</h2>
+
+<table border="0" cellpadding="10" class="table col-sm-12 table-responsive">
+  <tr>
+    <td>
 <div id="birthplace_table"
       data-sgvizler-query="SELECT (?pob_town as ?Town)
       (?pob_state as ?State)
@@ -66,9 +72,14 @@ Sample Speaker Statistics
       	GROUP BY ?pob_town ?pob_state ?pob_country
       	ORDER BY ?pob_town"
 
-      data-sgvizler-chart="gTable"
+      data-sgvizler-chart="google.visualization.Table"
       data-sgvizler-loglevel="0"
       style="width:600px; height:400px;"></div>   
+
+    </td>
+  </tr>
+</table>
+
 
 <!--
 

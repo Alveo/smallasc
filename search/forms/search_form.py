@@ -4,10 +4,10 @@ from search.forms.choice_options    import *
 
 class SearchForm(forms.Form):
 
+    speakerid       = forms.CharField(required = False, label = 'Speaker ID (eg. 1_123)')
     gender          = forms.ChoiceField(required = False, label = "Gender", choices = GENDER_CHOICES)
     agegroup        = forms.ChoiceField(required = False, label = 'Age', choices = AGEGROUP_CHOICES)
     recording_site  = forms.ChoiceField(required = False, label = 'Recording Site', choices = RECORDING_SITES)
-    first_language  = forms.ChoiceField(required = False, label = 'First Language', choices = LANGUAGE_CHOICES)
 
 
     def generate_predicates(self):
@@ -24,8 +24,8 @@ class SearchForm(forms.Form):
             if not self.cleaned_data['recording_site'] == 'any': 
                 predicates["austalk:recording_site"] = self.cleaned_data['recording_site']
 
-            if not self.cleaned_data['first_language'] == 'any': 
-                predicates["austalk:first_language"] = self.cleaned_data['first_language']
+            if self.cleaned_data.has_key('speakerid') and self.cleaned_data['speakerid'] != '':
+                predicates["austalk:id"] = self.cleaned_data['speakerid']
 
         return predicates
 
