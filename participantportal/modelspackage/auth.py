@@ -32,7 +32,7 @@ class CustomAuthBackend(object):
 
     return None
  
-  @transaction.commit_on_success  
+  @transaction.atomic  
   def create_user(self, username):
     user = User(username = username, is_staff = False, is_active = True, is_superuser = False)
     user.set_unusable_password()

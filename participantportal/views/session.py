@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login
 from django.forms.utils import ErrorList
 from django.forms.forms import NON_FIELD_ERRORS
 from django.http import HttpResponseRedirect
-from django.shortcuts import render_to_response, render
+from django.shortcuts import render
 from django.template import RequestContext
 from participantportal.forms.session import LoginForm, ColourAnimalHelperForm
 
@@ -34,8 +34,7 @@ def login_page(request):
   else:
     form = LoginForm()
 
-  variables = RequestContext(request, {'form': form})
-  return render_to_response('login.html', variables) 
+  return render(request,'login.html', {'form': form}) 
 
 # view to display the possible Colour-Animal Combination after the user answers a couple of questions
 def password_reset(request):
@@ -92,15 +91,12 @@ def password_reset(request):
 
             results.append (part)
 
-        variables = RequestContext(request, {'results': results } )
         # return the results to the template for displaying to the user
-        return render_to_response ('colour_animal_helper_done.html', variables) 
+        return render(request,'colour_animal_helper_done.html', {'results': results }) 
 
   else:
     form = ColourAnimalHelperForm()
   
-  variables = RequestContext(request, {'form': form})
-
-  return render_to_response('colour_animal_helper_form.html', variables) 
+  return render(request, 'colour_animal_helper_form.html', {'form': form}) 
 
 

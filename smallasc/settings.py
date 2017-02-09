@@ -3,7 +3,6 @@ import os
 # Django settings for smallasc project.
 
 DEBUG = True
-TEMPLATE_DEBUG = DEBUG
 
 PAGE_SIZE = 10
 
@@ -90,6 +89,7 @@ STATICFILES_DIRS = (
     './static',
 )
 
+
 # List of finder classes that know how to find static files in
 # various locations.
 STATICFILES_FINDERS = (
@@ -102,11 +102,33 @@ STATICFILES_FINDERS = (
 SECRET_KEY = 'fl61!=#2!s!na9ohc2=ko*8m$+z=irhy#r)j!isz0jo@=^w9)_'
 
 # List of callables that know how to import templates from various sources.
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
-)
+
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            # insert your TEMPLATE_DIRS here
+            # TODO: This needs to change to an absolute path prior to deployment
+            "./templates",
+        ],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                # Insert your TEMPLATE_CONTEXT_PROCESSORS here or use this
+                # list if you haven't customized them:
+                'django.contrib.auth.context_processors.auth',
+                'django.template.context_processors.debug',
+                'django.template.context_processors.i18n',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
+                'django.template.context_processors.tz',
+                'django.contrib.messages.context_processors.messages',
+            ],
+            'debug': DEBUG,
+        },
+    },
+]
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
@@ -132,12 +154,6 @@ ROOT_URLCONF = 'smallasc.urls'
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'smallasc.wsgi.application'
 
-TEMPLATE_DIRS = (
-    # TODO: This needs to change to an absolute path prior to deployment
-     "./templates",
-
-)
-
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -149,7 +165,6 @@ INSTALLED_APPS = (
 
     'tinymce',
     'flatpages_tinymce',
-    'django.contrib.webdesign',
     # Admin site has been enabled for all smallasc apps
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
