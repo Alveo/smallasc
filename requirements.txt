@@ -22,3 +22,5 @@ tolerance==0.1.1
 wsgiref==0.1.2
 django-allauth==0.30
 simplejson
+git+https://github.com/mixtah/pyalveo.git
+python-dateutil==2.5.2
