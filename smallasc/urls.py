@@ -37,6 +37,7 @@ urlpatterns = [
 
 	#OAuth 2.0
 	url(r'^oauth/callback', baseapp.views.security.oauth_callback, name="baseapp.views.security.oauth_callback"),
+	url(r'^oauth/login', baseapp.views.security.oauth_login, name="baseapp.views.security.oauth_login"),
 	#url(r'^oauth/validate', 'baseapp.views.security.oauth_validate'),
 
 	# django-registration
