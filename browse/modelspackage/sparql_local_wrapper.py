@@ -28,12 +28,12 @@ from django.db import models
 class SparqlManager(models.Manager):
     """Manager class for sparql models"""
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, client, *args, **kwargs):
 
         super(SparqlManager, self).__init__(*args, **kwargs)
 
 
-        self.create_sparql()
+        self.create_sparql(client)
 
 
     def canonicalise_query (self, query):
@@ -42,10 +42,11 @@ class SparqlManager(models.Manager):
 
         return NAMESPACES % query
 
-    def create_sparql (self):
+    def create_sparql (self,client):
         """ This function creates a wrapper class used to communicate with the SPARQL endpoint """
         self.sparql = SPARQLWrapper (settings.SPARQL_ENDPOINT)
         self.sparql.setReturnFormat (JSON)
+        self.client = client
 
     def query(self, query,skipcaononicalise=False):
         """Run a SPARQL query, first add the required PREFIX
@@ -72,7 +73,7 @@ class SparqlManager(models.Manager):
             #Placing pyalveo support here
             if not skipcaononicalise:
                 query = self.canonicalise_query(query)
-            result = settings.PYALVEO_CLIENT.sparql_query(settings.COLLECTION, query)
+            result = self.client.sparql_query(settings.COLLECTION, query)
             
             #self.sparql.setQuery(self.canonicalise_query(query))
             #result = self.sparql.query().convert()
