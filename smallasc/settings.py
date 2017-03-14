@@ -145,7 +145,6 @@ MIDDLEWARE_CLASSES = (
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'participantportal.modelspackage.auth.CustomAuthBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
 )
 
 AUTH_PROFILE_MODULE = 'participantportal.UserProfile'
@@ -186,12 +185,6 @@ INSTALLED_APPS = (
     'sso',
     'stats',
     'custom_registration',
-    
-    #Allauth
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'alveo_provider',
 )
 
 # A sample logging configuration. The only tangible logging
