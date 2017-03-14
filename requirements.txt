@@ -20,7 +20,6 @@ sqlparse==0.1.11
 sure==1.2.7
 tolerance==0.1.1
 wsgiref==0.1.2
-django-allauth==0.30
 simplejson
 git+https://github.com/mixtah/pyalveo.git@OAuth2
 python-dateutil==2.5.2

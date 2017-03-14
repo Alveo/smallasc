@@ -55,7 +55,5 @@ urlpatterns = [
     url(r'^sparql/', baseapp.views.sparql.sparql_endpoint, name="baseapp.views.sparql.sparql_endpoin"),
 
     # on-site editing of flat pages
-    url(r'^tinymce/', include('tinymce.urls')),
-    
-    url(r'^accounts/', include('allauth.urls'))
+    url(r'^tinymce/', include('tinymce.urls'))
 ]
