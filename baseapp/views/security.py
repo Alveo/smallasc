@@ -2,7 +2,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth import logout
 from django.conf import settings
 from django.contrib.auth import authenticate,login
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 import pyalveo
 
 def logout_page (request, redirect_url = '/'):
@@ -26,28 +26,35 @@ def oauth_callback(request, redirect_url= '/'):
 	#sign in member if exists, else create
 	#Later should check that their status is 'A' or whichever codes are valid.
 	
-	password = "%s.123"%res['last_name']
-	username = "%s %s" % (res['first_name'],res['last_name'])
+	password = "%s123"%res['last_name']
+	username = "%s%s" % (res['first_name'],res['last_name'])
 	
-	user = authenticate(username=username,password=password)
+	try:
+		user = User.objects.get(username=username,password=password)
+	except:
+		user = None
 	
 	#The user logged in at Alveo so they must exist here.
 	if user is not None:
 		#Already exist so just login
-		login(request,user)
+		login(request,user,backend="django.contrib.auth.backends.ModelBackend")
 	else:
 		#Doesn't exist, so create a new account and login.
 		user = User.objects.create(username=username,
 										email=res['email'],
-										password=password)
+										password=password,
+										is_staff = True, 
+										is_active = True, 
+										is_superuser = False)
 		if user is not None:
-			login(request,user)
+			login(request,user,backend="django.contrib.auth.backends.ModelBackend")
 	
 	return HttpResponseRedirect(redirect_url)
 	
 	
 def oauth_login(request, redirect_url= '/'):
 	
+	request.session.flush()
 	client = request.session.get('client',None)
 	
 	#If there a client exists and is valid, don't bother doing anything, redirect home.
@@ -61,3 +68,5 @@ def oauth_login(request, redirect_url= '/'):
 	request.session['client'] = client
 	redirect_url = url
 	return HttpResponseRedirect(redirect_url)
+
+
