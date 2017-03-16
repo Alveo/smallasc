@@ -52,7 +52,7 @@ urlpatterns = [
     url (r'^participantportal/', include('participantportal.urls')),
     
     # SPARQL endpoint
-    url(r'^sparql/', baseapp.views.sparql.sparql_endpoint, name="baseapp.views.sparql.sparql_endpoin"),
+    url(r'^sparql/', baseapp.views.sparql.sparql_endpoint, name="baseapp.views.sparql.sparql_endpoint"),
 
     # on-site editing of flat pages
     url(r'^tinymce/', include('tinymce.urls'))
