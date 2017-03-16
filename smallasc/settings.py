@@ -205,6 +205,13 @@ LOGGING = {
             'level': 'ERROR',
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
+        },
+        'applogfile': {
+            'level':'DEBUG',
+            'class':'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(os.path.dirname(os.path.realpath(__file__)), 'smallasc.log'),
+            'maxBytes': 1024*1024*15, # 15MB
+            'backupCount': 10,
         }
     },
     'loggers': {
@@ -213,8 +220,13 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': True,
         },
+        'smallasc': {
+            'handlers': ['applogfile',],
+            'level': 'DEBUG',
+        },
     }
 }
+
 
 # Custom setting for the login url
 LOGIN_URL = "/login/"
@@ -240,6 +252,7 @@ ACCOUNT_ACTIVATION_DAYS = 7
 
 REGISTRATION_SUPPLEMENT_CLASS = "custom_registration.models.RegistrationCustomFields"
 
+SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 
 TINYMCE_DEFAULT_CONFIG = {
     # custom plugins
