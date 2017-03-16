@@ -28,7 +28,7 @@ from django.db import models
 class SparqlManager(models.Manager):
     """Manager class for sparql models"""
 
-    def __init__(self, client, *args, **kwargs):
+    def __init__(self, client=None, *args, **kwargs):
 
         super(SparqlManager, self).__init__(*args, **kwargs)
 
@@ -63,7 +63,9 @@ class SparqlManager(models.Manager):
 
         start = time.time()
         qhash = hash(query)
-
+        
+        result = None
+        
         if cache.get(qhash):
             cached = "cached"
             result = cache.get(qhash)
@@ -73,7 +75,8 @@ class SparqlManager(models.Manager):
             #Placing pyalveo support here
             if not skipcaononicalise:
                 query = self.canonicalise_query(query)
-            result = self.client.sparql_query(settings.COLLECTION, query)
+            if self.client:
+                result = self.client.sparql_query(settings.COLLECTION, query)
             
             #self.sparql.setQuery(self.canonicalise_query(query))
             #result = self.sparql.query().convert()
