@@ -2,7 +2,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth import logout
 from django.conf import settings
 from django.contrib.auth import authenticate,login
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import User, Group,Permission,ContentType
 import pyalveo
 
 def logout_page (request, redirect_url = '/'):
@@ -10,18 +10,35 @@ def logout_page (request, redirect_url = '/'):
 	return HttpResponseRedirect(redirect_url)
 
 
+
+def create_group_with_perms():
+	
+	g = Group.objects.create(name='research')
+	ct = ContentType.objects.get(app_label='auth', model='user')
+	
+	permissions = ['can_view_dashboard','can_view_agreements','can_view_components',
+					'can_view_items','can_view_item','can_view_participants',
+					'can_view_participant','can_view_sites','can_view_item_search',
+					'can_view_participant_search','can_view_prompt_search']
+	
+	for i in permissions:
+		p,created = Permission.objects.get_or_create(codename=i,name=i.replace('_',' '),content_type=ct)
+		g.permissions.add(p)
+	g.save()
+	return g
+
 def oauth_callback(request, redirect_url= '/'):
-	client = request.session.get('client',None)
+	client = pyalveo.Client.client_from_json(request.session.get('client',None))
 	
 	if client==None:
 		return HttpResponseRedirect(redirect_url)
 	
 	client.oauth.on_callback(request.build_absolute_uri())
 	
-	request.session['client'] = client
-	
 	#Get user details
 	res = client.oauth.get_user_data()
+	
+	request.session['client'] = client.to_json()
 	
 	#sign in member if exists, else create
 	#Later should check that their status is 'A' or whichever codes are valid.
@@ -30,7 +47,7 @@ def oauth_callback(request, redirect_url= '/'):
 	username = "%s%s" % (res['first_name'],res['last_name'])
 	
 	try:
-		user = User.objects.get(username=username,password=password)
+		user = User.objects.get(username=username)
 	except:
 		user = None
 	
@@ -42,10 +59,20 @@ def oauth_callback(request, redirect_url= '/'):
 		#Doesn't exist, so create a new account and login.
 		user = User.objects.create(username=username,
 										email=res['email'],
+										first_name=res['first_name'],
+										last_name=res['last_name'],
 										password=password,
-										is_staff = True, 
+										is_staff = False, 
 										is_active = True, 
 										is_superuser = False)
+		
+		try:
+			g = Group.objects.get(name='research')
+		except:
+			g = create_group_with_perms()
+			
+  		g.user_set.add(user)
+  		user.save()
 		if user is not None:
 			login(request,user,backend="django.contrib.auth.backends.ModelBackend")
 	
@@ -65,7 +92,8 @@ def oauth_login(request, redirect_url= '/'):
 	client = pyalveo.Client(api_url=settings.API_URL,client_id=settings.OAUTH_CLIENT_ID,
 						client_secret=settings.OAUTH_CLIENT_SECRET,redirect_url=settings.OAUTH_REDIRECT_URL,verifySSL=False)
 	url = client.oauth.get_authorisation_url()
-	request.session['client'] = client
+	request.session['client'] = client.to_json()
+	
 	redirect_url = url
 	return HttpResponseRedirect(redirect_url)
 

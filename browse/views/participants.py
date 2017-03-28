@@ -5,9 +5,14 @@ from django.template                        import RequestContext
 from django.core.urlresolvers               import reverse
 
 from baseapp.helpers                        import generate_paginated_object
-from browse.modelspackage                   import Site, Participant, Session, ResidenceHistory, LanguageUsage
 from search.forms                           import SearchForm
 from browse.helpers                         import *
+
+from browse.modelspackage.sites             import SiteManager
+from browse.modelspackage.participants      import ParticipantManager
+from browse.modelspackage.sessions          import SessionManager
+from browse.modelspackage.residence_history import ResidenceHistoryManager
+from browse.modelspackage.language_usage    import LanguageUsageManager
 
 from baseapp.helpers import generate_breadcrumbs
 
@@ -15,13 +20,16 @@ from baseapp.helpers import generate_breadcrumbs
 @permission_required('auth.can_view_participants')
 def index(request, site_id):
 
-    site = Site.objects.get(site_id)
+    siteManager = SiteManager(client_json=request.session.get('client',None))
+    participantManager = ParticipantManager(client_json=request.session.get('client',None))
+
+    site = siteManager.get(site_id)
 
     if site is None:
         search_form  = SearchForm(request.GET)
-        participants = Participant.objects.filter(search_form.generate_predicates())
+        participants = participantManager.filter(search_form.generate_predicates())
     else:
-        participants = Participant.objects.with_data(site)
+        participants = participantManager.with_data(site)
 
     breadcrumbs = generate_breadcrumbs(request,site)
 
@@ -40,7 +48,9 @@ def show_by_id(request, participant_id):
     """View of participant given just the identifier - so we can resolve
     redirects from id.austalk.edu.au"""
 
-    participant = Participant.objects.get (participant_id)
+    participantManager = ParticipantManager(client_json=request.session.get('client',None))
+
+    participant = participantManager.get (participant_id)
 
     site = participant.get_site()
 
@@ -50,20 +60,26 @@ def show_by_id(request, participant_id):
 @permission_required('auth.can_view_participant')
 def show(request, site_id, participant_id):
 
-    site = Site.objects.get (site_id)
+    siteManager = SiteManager(client_json=request.session.get('client',None))
+    participantManager = ParticipantManager(client_json=request.session.get('client',None))
+    sessionManager = SessionManager(client_json=request.session.get('client',None))
+    languageUsageManager = LanguageUsageManager(client_json=request.session.get('client',None))
+    residenceHistoryManager = ResidenceHistoryManager(client_json=request.session.get('client',None))
+
+    site = siteManager.get (site_id)
 
     if site is None:
         raise Http404 ("Requested site not found")
 
 
-    participant = Participant.objects.get (participant_id)
+    participant = participantManager.get (participant_id)
 
     if participant is None:
         raise Http404 ("Requested participant not found")
 
-    sessions = Session.objects.filter_by_participant (participant)
-    rhist    = ResidenceHistory.objects.filter_by_participant(participant)
-    lang     = LanguageUsage.objects.filter_by_participant(participant)
+    sessions = sessionManager.filter_by_participant (participant)
+    rhist    = residenceHistoryManager.filter_by_participant(participant)
+    lang     = languageUsageManager.filter_by_participant(participant)
 
     language_usage = get_language_usage(lang)
 

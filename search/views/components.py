@@ -3,7 +3,9 @@ from django.core.urlresolvers       import reverse
 from django.shortcuts               import render
 
 from baseapp.helpers                import generate_paginated_object
-from browse.modelspackage           import Item, Component, Participant
+from browse.modelspackage.items     import ItemManager
+from browse.modelspackage.components import ComponentManager
+from browse.modelspackage.participants import ParticipantManager
 from search.forms                   import SearchForm, ParticipantSearchForm, ComponentSearchForm
 from search.forms.choice_options    import DEFAULT_SPEAKER_QUANTITY
 from search.helpers                 import append_querystring_to_url
@@ -13,8 +15,10 @@ from search.helpers                 import append_querystring_to_url
 @permission_required('auth.can_view_item_search') 
 def search(request):
 
+    participantManager = ParticipantManager(client_json=request.session.get('client',None))
+    itemManager = ItemManager(client_json=request.session.get('client',None))
     search_form             = SearchForm(request.GET)
-    all_participants        = Participant.objects.filter(search_form.generate_predicates())
+    all_participants        = participantManager.filter(search_form.generate_predicates())
     filtered_participants   = user_filtered_participants(request, all_participants)
 
     component_form          = create_component_search_form(request, filtered_participants)
@@ -22,7 +26,7 @@ def search(request):
     if component_form.is_valid():
         items = []
         for comp in component_form.return_selected_components():
-            items += retrieve_items(filtered_participants, comp, component_form.get_speaker_no()) 
+            items += retrieve_items(itemManager, filtered_participants, comp, component_form.get_speaker_no()) 
 
         return render (request, 'search/results.html', { 
             'request'   : request,
@@ -38,13 +42,13 @@ def search(request):
         }) # TODO: Should use reverse urls instead of hard coded urls
 
 
-def retrieve_items(participants, component, speaker_limit):
+def retrieve_items(itemManager, participants, component, speaker_limit):
     items = []
     count = 0
 
     for participant in participants:
         if count < speaker_limit:
-            items += Item.objects.filter_by_component(
+            items += itemManager.filter_by_component(
                         participant.friendly_id(), 
                         component.sessionId, 
                         component.componentId
@@ -57,9 +61,11 @@ def retrieve_items(participants, component, speaker_limit):
 
 def create_component_search_form(request, participants):
     
+    componentManager = ComponentManager(client_json=request.session.get('client',None))
+    
     components = []
     for participant in participants:
-        components += Component.objects.filter_by_participant(participant.friendly_id())
+        components +=componentManager.filter_by_participant(participant.friendly_id())
 
      # The use of a set ensures items are unique
     components_sorted   = sorted(set(components), key = lambda comp: comp.sessionId)

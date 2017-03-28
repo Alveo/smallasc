@@ -9,7 +9,7 @@ from participantportal.forms.session import LoginForm, ColourAnimalHelperForm
 
   
 from browse.modelspackage.sparql_local_wrapper  import SparqlModel, SparqlManager
-from browse.modelspackage.sites import Site
+from browse.modelspackage.sites import SiteManager
 from browse.modelspackage.participants import *
 
 def login_page(request):
@@ -46,10 +46,11 @@ def password_reset(request):
     if form.is_valid():
         # Create a SPARQL Query to retrieve possible results based on the answers
 
+        siteManager = SiteManager(client_json=request.session.get('client',None))
 
         # Get the site object from site_label (get function needs a label parameter)
         site_label = form.data['pwd_site'] 
-        site = Site.objects.get(label=site_label)
+        site = siteManager.get(label=site_label)
         
         query = '?part austalk:recording_site <%s> .\n' % site.identifier
 
