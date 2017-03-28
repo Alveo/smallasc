@@ -15,7 +15,7 @@ def index (request, template = 'data.html'):
 			return HttpResponseRedirect("/participantportal/login")
 
 
-		participant_info = get_participant_info(request.user)
+		participant_info = get_participant_info(request,request.user)
 
 		language_url = '<' + participant_info.participant.properties()['first_language'][0] + '>'
 		first_language = get_language_name(language_url)

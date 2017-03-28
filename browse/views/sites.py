@@ -10,7 +10,7 @@ from baseapp.helpers import generate_breadcrumbs
 @permission_required('auth.can_view_sites')
 def index(request):
     
-    siteManager = SiteManager(client=request.session.get('client',None))
+    siteManager = SiteManager(client_json=request.session.get('client',None))
 
     sites = siteManager.all()
 

@@ -7,7 +7,7 @@ import time
 # use the Django cache framework to cache query results
 from django.core.cache import cache
 
-
+from pyalveo import Client
 
 NAMESPACES =   """PREFIX dc:<http://purl.org/dc/terms/>
                 PREFIX austalk:<http://ns.austalk.edu.au/>
@@ -28,12 +28,12 @@ from django.db import models
 class SparqlManager(models.Manager):
     """Manager class for sparql models"""
 
-    def __init__(self, client=None, *args, **kwargs):
+    def __init__(self, client_json=None, *args, **kwargs):
 
         super(SparqlManager, self).__init__(*args, **kwargs)
 
-
-        self.create_sparql(client)
+        if client_json:
+            self.create_sparql(client_json)
 
 
     def canonicalise_query (self, query):
@@ -42,11 +42,11 @@ class SparqlManager(models.Manager):
 
         return NAMESPACES % query
 
-    def create_sparql (self,client):
+    def create_sparql (self,client_json):
         """ This function creates a wrapper class used to communicate with the SPARQL endpoint """
         self.sparql = SPARQLWrapper (settings.SPARQL_ENDPOINT)
         self.sparql.setReturnFormat (JSON)
-        self.client = client
+        self.client = Client.client_from_json(client_json)
 
     def query(self, query,skipcaononicalise=False):
         """Run a SPARQL query, first add the required PREFIX

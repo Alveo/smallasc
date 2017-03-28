@@ -1,10 +1,9 @@
 from collections import namedtuple
-from browse.modelspackage.participants import Participant
-from browse.modelspackage.sessions import Session
-from browse.modelspackage.residence_history import ResidenceHistory
-from browse.modelspackage.language_usage import LanguageUsage
 from browse.modelspackage.sparql_local_wrapper import SparqlModel, SparqlManager
-
+from browse.modelspackage.participants      import ParticipantManager
+from browse.modelspackage.sessions          import SessionManager
+from browse.modelspackage.residence_history import ResidenceHistoryManager
+from browse.modelspackage.language_usage    import LanguageUsageManager
 
 # Import SPARQL modules and related information
 from SPARQLWrapper import SPARQLWrapper, JSON
@@ -14,12 +13,18 @@ from browse.modelspackage.sparql_local_wrapper import SparqlManager
 ParticipantInfo = namedtuple('ParticipantInfo', 'participant sessions residential_history languages_spoken')
 
 
-def get_participant_info(participant_id):
-    participant = Participant.objects.get(participant_id)
+def get_participant_info(request, participant_id):
+    
+    participantManager = ParticipantManager(client_json=request.session.get('client',None))
+    sessionManager = SessionManager(client_json=request.session.get('client',None))
+    languageUsageManager = LanguageUsageManager(client_json=request.session.get('client',None))
+    residenceHistoryManager = ResidenceHistoryManager(client_json=request.session.get('client',None))
+    
+    participant = participantManager.get(participant_id)
     if not participant is None:
-        sessions = Session.objects.filter_by_participant(participant) 
-        rhist = ResidenceHistory.objects.filter_by_participant(participant)
-        lang = LanguageUsage.objects.filter_by_participant(participant)
+        sessions = sessionManager.filter_by_participant(participant) 
+        rhist = residenceHistoryManager.filter_by_participant(participant)
+        lang = languageUsageManager.filter_by_participant(participant)
 
         return ParticipantInfo(participant = participant, 
                             sessions = sessions, 

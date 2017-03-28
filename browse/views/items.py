@@ -13,8 +13,8 @@ from baseapp.helpers import generate_breadcrumbs
 @permission_required('auth.can_view_items')
 def index (request, site_id, participant_id, session_id, component_id, template = 'browse/items/index.html'):
 
-    siteManager = SiteManager(client=request.session.get('client',None))
-    itemManager = ItemManager(client=request.session.get('client',None))
+    siteManager = SiteManager(client_json=request.session.get('client',None))
+    itemManager = ItemManager(client_json=request.session.get('client',None))
 
     site = siteManager.get (site_id)
     items = itemManager.filter_by_component (participant_id, session_id, component_id)
@@ -37,8 +37,8 @@ def index (request, site_id, participant_id, session_id, component_id, template 
 @permission_required('auth.can_view_item')
 def show (request, site_id, participant_id, session_id, component_id, basename, template = 'browse/items/show.html'):
 
-    siteManager = SiteManager(client=request.session.get('client',None))
-    itemManager = ItemManager(client=request.session.get('client',None))
+    siteManager = SiteManager(client_json=request.session.get('client',None))
+    itemManager = ItemManager(client_json=request.session.get('client',None))
 
     site = siteManager.get (site_id)
     item = itemManager.get (participant_id, basename)
