@@ -32,6 +32,7 @@ class ComponentManager (SparqlManager):
         bindings = sparql_results["results"]["bindings"]
         if len(bindings) == 1:
             comp = Component (
+                            client            = self.client,
                             identifier      = sparql_results["rc"]["value"], 
                             participantId   = sparql_results["pid"]["value"],
                             sessionId      = sparql_results["sessionid"]["value"],
@@ -64,6 +65,7 @@ class ComponentManager (SparqlManager):
         results = []
         for result in sparql_results["results"]["bindings"]:
                 comp = Component (
+                                client            = self.client,
                                 identifier      = result["rc"]["value"], 
                                 participantId   = result["pid"]["value"],
                                 sessionId      = result["sessionid"]["value"],

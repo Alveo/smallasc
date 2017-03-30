@@ -32,6 +32,7 @@ class ItemManager (SparqlManager):
 
         for result in sparql_results["results"]["bindings"]:
             results.append (Item (
+                                client            = self.client,
                                 identifier      = result["item"]["value"],
                                 prompt          = result["prompt"]["value"],
                                 basename        = result["basename"]["value"],
@@ -83,7 +84,7 @@ class ItemManager (SparqlManager):
         if wholeword:
             qpart = 'BIND ("%s" as ?prompt)' % (prompt,)
         else:
-            qpart = 'FILTER (regex(?prompt, "%s"))' % (pattern, )
+            qpart = 'FILTER (regex(?prompt, "%s"))' % (prompt, )
 
         items = self.generate_list(qpart)
 
@@ -119,6 +120,7 @@ class ItemManager (SparqlManager):
 
         for result in sparql_results["results"]["bindings"]:
             results.append (Item (
+                                client            = self.client,
                                 identifier      = result["item"]["value"],
                                 prompt          = result["prompt"]["value"],
                                 basename        = result["basename"]["value"],
