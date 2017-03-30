@@ -26,6 +26,7 @@ class ParticipantManager (SparqlManager):
         for result in sparql_results["results"]["bindings"]:
 
             part = Participant (
+                client              = self.client,
                 identifier          = result["part"]["value"]
                 #gender              = result["gender"]["value"],
                 #birth_year          = result["dob"]["value"]
@@ -52,7 +53,7 @@ class ParticipantManager (SparqlManager):
 
         for result in sparql_results["results"]["bindings"]:
 
-            part = Participant (identifier = result["part"]["value"])
+            part = Participant (client = self.client,identifier = result["part"]["value"])
             results.append(part)
 
         return results
@@ -72,7 +73,7 @@ class ParticipantManager (SparqlManager):
         sparql_results = self.query (qq)
 
         for result in sparql_results["results"]["bindings"]:
-            return Participant(identifier = result["part"]["value"])
+            return Participant(client = self.client,identifier = result["part"]["value"])
 
         return None
 
@@ -101,7 +102,7 @@ class ParticipantManager (SparqlManager):
         results = []
 
         for result in sparql_results["results"]["bindings"]:
-            results.append (Participant(identifier = result["part"]["value"]))
+            results.append (Participant(client = self.client,identifier = result["part"]["value"]))
 
         return results
 

@@ -26,6 +26,7 @@ class LanguageUsageManager (SparqlManager):
 
         for result in sparql_results["results"]["bindings"]:
             results.append (LanguageUsage (
+                                client               = self.client,
                                 identifier           = result["lu"]["value"],
                                 situation            = result["sit"]["value"], 
                                 frequency            = result["freq"]["value"], 

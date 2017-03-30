@@ -31,6 +31,7 @@ class SessionManager (SparqlManager):
         for result in sparql_results["results"]["bindings"]:
 
             results.append (Session (
+                                client          = self.client,
                                 identifier      = result["rs"]["value"],
                                 prototype       = result["session"]["value"],
                                 name            = result["name"]["value"],
@@ -66,6 +67,7 @@ class SessionManager (SparqlManager):
 
         for result in sparql_results["results"]["bindings"]:
             results.append (Session (
+                                client          = self.client,
                                 identifier      = result["rs"]["value"],
                                 prototype       = result["session"]["value"],
                                 name            = result["name"]["value"],
@@ -99,6 +101,7 @@ class SessionManager (SparqlManager):
 
         for result in sparql_results["results"]["bindings"]:
             results.append (Session (
+                                client          = self.client,
                                 identifier      = result["rs"]["value"],
                                 prototype       = result["session"]["value"],
                                 name            = result["name"]["value"],

@@ -27,6 +27,7 @@ class SiteManager (SparqlManager):
 
         for result in sparql_results["results"]["bindings"]:
             results.append (Site (
+                                client            = self.client,
                                 identifier        = result["site"]["value"],
                                 label             = result["label"]["value"],
                                 name              = result["inst"]["value"],
@@ -52,6 +53,7 @@ class SiteManager (SparqlManager):
 
         for result in sparql_results["results"]["bindings"]:
             return Site (
+                        client            = self.client,
                         identifier        = result["site"]["value"],
                         name              = result["inst"]["value"],
                         location          = result["city"]["value"])

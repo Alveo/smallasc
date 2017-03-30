@@ -48,7 +48,7 @@ class SparqlManager(models.Manager):
         self.sparql.setReturnFormat (JSON)
         self.client = Client.client_from_json(client_json)
 
-    def query(self, query,skipcaononicalise=False):
+    def query(self, query,skipcaononicalise=False,client=None):
         """Run a SPARQL query, first add the required PREFIX
         definitions to the start of the query. Return
         a Python dictionary that reflects the JSON returned
@@ -75,7 +75,9 @@ class SparqlManager(models.Manager):
             #Placing pyalveo support here
             if not skipcaononicalise:
                 query = self.canonicalise_query(query)
-            if self.client:
+            if client:
+                result = client.sparql_query(settings.COLLECTION, query)
+            elif self.client:
                 result = self.client.sparql_query(settings.COLLECTION, query)
             
             #self.sparql.setQuery(self.canonicalise_query(query))
@@ -99,6 +101,7 @@ class SparqlModel(models.Model):
 
         self.props = None
         self.identifier = kwargs['identifier']
+        self.client = kwargs.get('client',None)
 
     def query(self, query):
         """Run a SPARQL query, first add the required PREFIX
@@ -107,7 +110,7 @@ class SparqlModel(models.Model):
         from the SPARQL endpoint"""
 
         # invoke the query method for the manager class
-        return self.__class__.objects.query(query)
+        return self.__class__.objects.query(query,client=self.client)
 
     def clean_property_name(self, prop):
         """Generate a 'nice' version of the property name
