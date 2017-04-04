@@ -25,12 +25,10 @@ NAMESPACES =   """PREFIX dc:<http://purl.org/dc/terms/>
 from django.db import models
 
 
-class SparqlManager(models.Manager):
+class SparqlManager():
     """Manager class for sparql models"""
 
     def __init__(self, client_json=None, *args, **kwargs):
-
-        super(SparqlManager, self).__init__(*args, **kwargs)
 
         if client_json:
             self.create_sparql(client_json)
@@ -90,14 +88,13 @@ class SparqlManager(models.Manager):
         return result
 
 
-class SparqlModel(models.Model):
+class SparqlModel():
 
     # all sparql models have an identifier that is their URI in the triple store
     identifier      = models.URLField ()
+    client          = models.DO_NOTHING
 
     def __init__(self, *args, **kwargs):
-
-        super(SparqlModel, self).__init__(*args, **kwargs)
 
         self.props = None
         self.identifier = kwargs['identifier']
