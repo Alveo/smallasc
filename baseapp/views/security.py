@@ -4,6 +4,7 @@ from django.conf import settings
 from django.contrib.auth import authenticate,login
 from django.contrib.auth.models import User, Group,Permission,ContentType
 import pyalveo
+import urlparse
 
 def logout_page (request, redirect_url = '/'):
 	logout (request)
@@ -76,8 +77,14 @@ def oauth_callback(request, redirect_url= '/'):
 		if user is not None:
 			login(request,user,backend="django.contrib.auth.backends.ModelBackend")
 	
+	redirect_url = request.session.get('next', redirect_url)
+	
 	return HttpResponseRedirect(redirect_url)
 	
+	
+def oauth_logout(request, redirect_url= '/'):
+	request.session.flush()	
+	return HttpResponseRedirect(redirect_url)
 	
 def oauth_login(request, redirect_url= '/'):
 	
@@ -93,6 +100,8 @@ def oauth_login(request, redirect_url= '/'):
 						client_secret=settings.OAUTH_CLIENT_SECRET,redirect_url=settings.OAUTH_REDIRECT_URL,verifySSL=False)
 	url = client.oauth.get_authorisation_url()
 	request.session['client'] = client.to_json()
+	
+	request.session['next'] = request.GET.get('next', redirect_url)
 	
 	redirect_url = url
 	return HttpResponseRedirect(redirect_url)
