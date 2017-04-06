@@ -35,7 +35,7 @@ def get_participant_info(request, participant_id):
 
 
 
-def get_language_name(language_url=''):
+def get_language_name(request, language_url=''):
     """
     Map the language name
     <http://downlode.org/rdf/iso-639/languages#en> => 'English'
@@ -49,7 +49,7 @@ def get_language_name(language_url=''):
     if "http" not in language_url:
         return language_url.replace("<", "").replace(">", "")
         
-    sparql = SparqlManager()
+    sparql = SparqlManager(client_json=request.session.get('client',None))
     
     query = """
            PREFIX iso639schema:<http://downlode.org/rdf/iso-639/schema#> 
@@ -68,7 +68,7 @@ def get_language_name(language_url=''):
         
     
     
-def get_language_usage(languages_spoken):
+def get_language_usage(request, languages_spoken):
     # Construct a language_usage dictionary instead of participant_info.languages_spoken
     # in order to get the actual language names 
     # Eg: <http://downlode.org/rdf/iso-639/languages#en> => 'English'
@@ -78,7 +78,7 @@ def get_language_usage(languages_spoken):
         language_url = '<' + use.name + '>'
         print language_url
         i = i + 1
-        language_usage['lang' + str(i)] = { 'name' : get_language_name(language_url),
+        language_usage['lang' + str(i)] = { 'name' : get_language_name(request, language_url),
                                             'situation' : use.situation,
                                             'frequency' : use.frequency
 
