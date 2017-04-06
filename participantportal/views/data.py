@@ -18,9 +18,9 @@ def index (request, template = 'data.html'):
 		participant_info = get_participant_info(request,request.user)
 
 		language_url = '<' + participant_info.participant.properties()['first_language'][0] + '>'
-		first_language = get_language_name(language_url)
+		first_language = get_language_name(request,language_url)
 		
-		language_usage = get_language_usage(participant_info.languages_spoken)
+		language_usage = get_language_usage(request, participant_info.languages_spoken)
 
 
 		return render (request, template, {

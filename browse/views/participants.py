@@ -81,24 +81,24 @@ def show(request, site_id, participant_id):
     rhist    = residenceHistoryManager.filter_by_participant(participant)
     lang     = languageUsageManager.filter_by_participant(participant)
 
-    language_usage = get_language_usage(lang)
+    language_usage = get_language_usage(request, lang)
 
     breadcrumbs = generate_breadcrumbs(request,site)
     if 'first_language' in participant.properties().keys():
         language_url = '<' + participant.properties()['first_language'][0] + '>'
-        first_language = get_language_name(language_url)
+        first_language = get_language_name(request,language_url)
     else:
         first_language  = 'N/A'
 
     if 'father_first_language' in participant.properties().keys():
         language_url = '<' + participant.properties()['father_first_language'][0] + '>'
-        father_first_language = get_language_name(language_url)
+        father_first_language = get_language_name(request, language_url)
     else:
         father_first_language  = 'N/A'
 
     if 'mother_first_language' in participant.properties().keys():
         language_url = '<' + participant.properties()['mother_first_language'][0] + '>'
-        mother_first_language = get_language_name(language_url)
+        mother_first_language = get_language_name(request, language_url)
     else:
         mother_first_language  = 'N/A'
 

@@ -94,15 +94,16 @@ class SparqlModel(models.Model):
 
     # all sparql models have an identifier that is their URI in the triple store
     identifier      = models.URLField ()
-    #client          = models.DO_NOTHING
-
+    
     def __init__(self, *args, **kwargs):
+        
+        self.client = kwargs.pop('client',None)
 
         super(SparqlModel, self).__init__(*args, **kwargs)
 
         self.props = None
         self.identifier = kwargs['identifier']
-        self.client = kwargs.get('client',None)
+        
 
     def query(self, query):
         """Run a SPARQL query, first add the required PREFIX

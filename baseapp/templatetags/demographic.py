@@ -6,9 +6,10 @@ from browse.modelspackage.participants import ParticipantManager
 
 register = template.Library()
 
-@register.simple_tag
-def language(url):
-    return get_language_name("<"+url+">")
+@register.simple_tag(takes_context=True)
+def language(context,url):
+    request = context['request']
+    return get_language_name(request,"<"+url+">")
 
 
 @register.simple_tag(takes_context=True)
