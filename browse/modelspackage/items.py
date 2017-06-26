@@ -123,7 +123,7 @@ class ItemManager (SparqlManager):
         results = []
 
         for result in sparql_results["results"]["bindings"]:
-            parts = result["item"]["value"].split('_')
+            parts = result["item"]["value"].split('/')[-1].split('_')
             results.append (Item (
                                 client            = self.client,
                                 identifier      = result["item"]["value"],
