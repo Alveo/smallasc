@@ -111,7 +111,7 @@ class ItemManager (SparqlManager):
                 ?item dc:title ?basename .
                 ?item austalk:prompt ?prompt .
                 
-                ?item olac:speaker ?speaker
+                ?item olac:speaker ?speaker .
                 ?speaker austalk:recording_site ?site .
                 ?site rdfs:label ?uni
 
