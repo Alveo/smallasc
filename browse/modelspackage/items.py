@@ -103,13 +103,17 @@ class ItemManager (SparqlManager):
         union = " UNION ".join(union)
 
         qq = """
-            select distinct ?item ?prompt ?basename
+            select distinct ?item ?prompt ?basename ?compid ?uni
             where {
 
                 ?item austalk:session ?sessid .
                 ?item austalk:componentName ?compid .
                 ?item dc:title ?basename .
                 ?item austalk:prompt ?prompt .
+                
+                ?item olac:speaker ?speaker
+                ?speaker austalk:recording_site ?site .
+                ?site rdfs:label ?uni
 
                 %s .
 
@@ -119,11 +123,16 @@ class ItemManager (SparqlManager):
         results = []
 
         for result in sparql_results["results"]["bindings"]:
+            parts = result["item"]["value"].split('_')
             results.append (Item (
                                 client            = self.client,
                                 identifier      = result["item"]["value"],
                                 prompt          = result["prompt"]["value"],
                                 basename        = result["basename"]["value"],
+                                componentId          = result["compid"]["value"],
+                                site          = result["uni"]["value"],
+                                participantId = "%s_%s" % (parts[0],parts[1]),
+                                sessionId = parts[2]
                                 ))
 
         return results
