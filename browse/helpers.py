@@ -15,10 +15,18 @@ ParticipantInfo = namedtuple('ParticipantInfo', 'participant sessions residentia
 
 def get_participant_info(request, participant_id):
     
-    participantManager = ParticipantManager(client_json=request.session.get('client',None))
-    sessionManager = SessionManager(client_json=request.session.get('client',None))
-    languageUsageManager = LanguageUsageManager(client_json=request.session.get('client',None))
-    residenceHistoryManager = ResidenceHistoryManager(client_json=request.session.get('client',None))
+    if request.session.get('client',None):
+        #Researcher logged in, use their client
+        participantManager = ParticipantManager(client_json=request.session.get('client',None))
+        sessionManager = SessionManager(client_json=request.session.get('client',None))
+        languageUsageManager = LanguageUsageManager(client_json=request.session.get('client',None))
+        residenceHistoryManager = ResidenceHistoryManager(client_json=request.session.get('client',None))
+    elif request.user.is_authenticated:
+        #Participant logged in, use general hacky client
+        participantManager = ParticipantManager(client_json=settings.PPCLIENT)
+        sessionManager = SessionManager(client_json=settings.PPCLIENT)
+        languageUsageManager = LanguageUsageManager(client_json=settings.PPCLIENT)
+        residenceHistoryManager = ResidenceHistoryManager(client_json=settings.PPCLIENT)
     
     participant = participantManager.get(participant_id)
     if not participant is None:
@@ -48,8 +56,13 @@ def get_language_name(request, language_url=''):
     
     if "http" not in language_url:
         return language_url.replace("<", "").replace(">", "")
-        
-    sparql = SparqlManager(client_json=request.session.get('client',None))
+    
+    if request.session.get('client',None):
+        #Researcher logged in, use their client
+        sparql = SparqlManager(client_json=request.session.get('client',None))
+    elif request.user.is_authenticated:
+        #Participant logged in, use general hacky client
+        sparql = SparqlManager(client_json=settings.PPCLIENT)
     
     query = """
            PREFIX iso639schema:<http://downlode.org/rdf/iso-639/schema#> 
