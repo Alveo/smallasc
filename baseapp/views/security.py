@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate,login
 from django.contrib.auth.models import User, Group,Permission,ContentType
 import pyalveo
 import urlparse
+from datetime import datetime
 
 def logout_page (request, redirect_url = '/'):
 	logout (request)
@@ -58,11 +59,14 @@ def oauth_callback(request, redirect_url= '/'):
 		login(request,user,backend="django.contrib.auth.backends.ModelBackend")
 	else:
 		#Doesn't exist, so create a new account and login.
+		now = datetime.now()
 		user = User.objects.create(username=username,
 										email=res['email'],
 										first_name=res['first_name'],
 										last_name=res['last_name'],
 										password=password,
+										last_login=now,
+										date_joined=now,
 										is_staff = False, 
 										is_active = True, 
 										is_superuser = False)
