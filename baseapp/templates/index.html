@@ -20,13 +20,6 @@
     {% load flatpage_admin %}
     <h2>{{page.title}}</h2>
     
-	<p>Please Log In with Alveo by clicking the button below. Read about or sign up at the <a href="https://app.alveo.edu.au/" target="_blank">Alveo website</a>.</p>
-	<div class="input-group" style="width:25%;">
-	<span class="input-group-btn">
-		<a type="button" class="btn btn-default" href="/oauth/login">Login With Alveo</a>
-	</span>
-	</div>
-    
     {% if page.content %}
         {% flatpage_admin page %}
     {% else %}
