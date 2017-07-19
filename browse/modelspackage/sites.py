@@ -1,5 +1,7 @@
 from django.db import models
 from browse.modelspackage.sparql_local_wrapper import SparqlModel, SparqlManager
+from browse.modelspackage           import Session
+from collections import defaultdict
 
 
 class SiteManager (SparqlManager):
@@ -25,6 +27,7 @@ class SiteManager (SparqlManager):
 
         for result in sparql_results["results"]["bindings"]:
             results.append (Site (
+                                client            = self.client,
                                 identifier        = result["site"]["value"],
                                 label             = result["label"]["value"],
                                 name              = result["inst"]["value"],
@@ -50,7 +53,8 @@ class SiteManager (SparqlManager):
 
         for result in sparql_results["results"]["bindings"]:
             return Site (
-                        identifier        = result["site"]["value"], 
+                        client            = self.client,
+                        identifier        = result["site"]["value"],
                         name              = result["inst"]["value"],
                         location          = result["city"]["value"])
 
@@ -72,29 +76,44 @@ class Site (SparqlModel):
 
     def stats(self):
         """Return some statistics for this site"""
-        
+
         q = """select ?gender (count(distinct ?part) as ?count) where {
         BIND (<%s> AS ?site)
-        
+
         ?part austalk:recording_site ?site .
         ?part foaf:gender ?gender .
-        
- } group by ?gender
-        """ % (self.identifier,) 
-        
-        results = self.query(q)
-        
-        s = dict()
-        
-        for result in results["results"]["bindings"]:
-            s[result["gender"]["value"]] =  result["count"]["value"]
 
-        return s
-    
+ } group by ?gender
+        """ % (self.identifier,)
+
+        results = self.query(q)
+
+        self.__stats = dict()
+
+        for result in results["results"]["bindings"]:
+            self.__stats[result["gender"]["value"]] =  result["count"]["value"]
+
+        return self.__stats
+
+    def session_stats(self,sessionManager):
+        """Return session statistics (no. of recordings in each session) for this site
+            {
+                '1': 49,
+                '2': 24,
+                '3': 20,
+                '4': 15
+            }
+        """
+        data = defaultdict(int)
+        sessions = sessionManager.filter_by_site(self.label)
+        for session in sessions:
+            data[session.number] += 1
+
+        return data
 
     def get_absolute_url(self):
-        """Return a canonical URL for this item"""    
-        return "/browse/%s/" % (self.label)   
+        """Return a canonical URL for this item"""
+        return "/browse/%s/" % (self.label)
 
 
     def __unicode__ (self):

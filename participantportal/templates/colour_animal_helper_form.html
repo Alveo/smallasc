@@ -1,0 +1,73 @@
+{% extends "layout/login_base.html" %}
+
+{% block title %}Reset Password{% endblock %}
+
+{% block content %}
+
+  
+
+<form method="POST" action="." class="loginbox">
+  {% csrf_token %}
+  <h3>Find my Colour-Animal</h3>
+  Please Fill out the form to view possible Colour-Animal Combinations
+   <br/><br/>
+{% if form.errors %}
+    <aside class="alert alert-warning" id="Flash">
+        Please specify the recording site and any other fields that you can.
+    </aside>
+  {% endif %}
+
+ 
+
+  <div class="control-group" >
+    <label for="id_site" class="control-label">Recording Site</label>
+    <div class="controls" >
+      {{ form.pwd_site }}
+    </div>
+  </div>
+
+  <br/>
+  <div class="control-group">
+    <label for="id_birth_year" class="control-label">Highest Qualification</label>
+    <div class="controls">
+      {{ form.pwd_highest_qual }}
+    </div>
+  </div>
+
+  <br/>
+
+  <div class="control-group">
+    <label class="control-label">Mother's Highest Qualification</label>
+    <div class="controls">
+      {{ form.pwd_mother_highest_qual }}
+    </div>
+  </div>
+
+  <br/>
+
+  <div class="control-group">
+    <label class="control-label">Father's Highest Qualification (Optional)</label>
+    <div class="controls">
+      {{ form.pwd_father_highest_qual }}
+    </div>
+  </div>
+  
+ 
+  <br/>
+  <input class="btn btn-primary buttonextend" type="submit" value="Get My Colour-Animal Combination"/>
+
+</form>
+
+<div class='panel panel-success'>
+    <div class='panel-body'>
+<p>This form will give you a list of possible Colour-Animal identifiers that match
+    the criteria you provide.  Hopefully you can then recognise your identifier
+    in the list and login to see your data.</p>
+    
+    <p>
+      If you are researcher, <a href="/login/" title="Researcher login">click here</a> to login.
+    </p>
+</div>
+</div>
+    
+{% endblock %}

@@ -5,22 +5,16 @@ from django.conf import settings
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
-
-from SPARQLWrapper import SPARQLWrapper, JSON, XML
-
-
-SPARQL_OUTPUT_CHOICES = ((JSON, 'JSON'),
-                         (XML, 'XML'),
-                         )
-
+from browse.modelspackage.sparql_local_wrapper import SparqlManager
+import json
 
 class SparqlForm(forms.Form):
     
     query = forms.CharField(label='SPARQL Query', max_length=5000, widget=forms.Textarea)
-    output = forms.ChoiceField(label='Result Format', choices=SPARQL_OUTPUT_CHOICES)
     # not supporting these fields
-    #default-graph-uri
-    #named-graph-uri
+    # output
+    # default-graph-uri
+    # named-graph-uri
 
 
 @csrf_exempt
@@ -32,20 +26,17 @@ def sparql_endpoint(request):
         form = SparqlForm(request.GET)
 
         if form.is_valid():  
-
             queryString = form.cleaned_data['query']
-            outputFormat = form.cleaned_data['output']
-    
+            outputFormat = "json"
+            
             # run the query
             try:
-                sparql = SPARQLWrapper (settings.SPARQL_ENDPOINT, returnFormat=outputFormat)
-                
-                sparql.setQuery(queryString)
-                result = sparql.query()
+                client = SparqlManager(client_json=request.session.get('client',None))
+                result = client.query(queryString,skipcaononicalise=True)
                 
                 # create a Django response passing the result which will be 
                 # treated as an iterator
-                return HttpResponse(result, content_type=result.info()['content-type'])
+                return HttpResponse(json.dumps(result), content_type='application/json')
                   
             except Exception as e:
                 # 400 Bad Request
@@ -53,7 +44,7 @@ def sparql_endpoint(request):
             
     else:
         form = SparqlForm()
-        
+            
     return render(request, 'sparql.html', {
         'form': form,
     })

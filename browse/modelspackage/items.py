@@ -1,5 +1,5 @@
 from django.db import models
-from browse.modelspackage.sparql_local_wrapper import SparqlLocalWrapper, SparqlModel, SparqlManager
+from browse.modelspackage.sparql_local_wrapper import SparqlModel, SparqlManager
 
 class ItemManager (SparqlManager):
     """Manager for items implements operations returning lists of Item instances"""
@@ -12,13 +12,13 @@ class ItemManager (SparqlManager):
 
                 %s
 
-                ?item olac:speaker ?spkrid .                
+                ?item olac:speaker ?spkrid .
                 ?spkrid austalk:recording_site ?site .
                 ?spkrid austalk:id ?spkrname .
                 ?site rdfs:label ?sitelabel .
-                
+
                 ?item austalk:session ?sessid .
-                ?item austalk:componentName ?compid .   
+                ?item austalk:componentName ?compid .
                 ?item dc:title ?basename .
                 ?item austalk:prompt ?prompt .
                 ?item ausnc:document ?media .
@@ -32,6 +32,7 @@ class ItemManager (SparqlManager):
 
         for result in sparql_results["results"]["bindings"]:
             results.append (Item (
+                                client            = self.client,
                                 identifier      = result["item"]["value"],
                                 prompt          = result["prompt"]["value"],
                                 basename        = result["basename"]["value"],
@@ -81,13 +82,9 @@ class ItemManager (SparqlManager):
         those that contain the text in prompt"""
 
         if wholeword:
-            pattern = r"\\b%s\\b" % prompt
+            qpart = 'BIND ("%s" as ?prompt)' % (prompt,)
         else:
-            pattern = prompt
-
-        qpart = """
-          FILTER (regex(?prompt, "%s"))
-        """ % (pattern, )
+            qpart = 'FILTER (regex(?prompt, "%s"))' % (prompt, )
 
         items = self.generate_list(qpart)
 
@@ -97,6 +94,49 @@ class ItemManager (SparqlManager):
             items = [i for i in items if i.componentId in components]
 
         return items
+
+    def filter_by_prompts(self, prompts):
+        """Return a list of items with one of the given prompts
+        Faster search optimised for prompt search page."""
+
+        union = ['{?item austalk:prompt "%s"}' % p for p in prompts]
+        union = " UNION ".join(union)
+
+        qq = """
+            select distinct ?item ?prompt ?basename ?compid ?uni
+            where {
+
+                ?item austalk:session ?sessid .
+                ?item austalk:componentName ?compid .
+                ?item dc:title ?basename .
+                ?item austalk:prompt ?prompt .
+                
+                ?item olac:speaker ?speaker .
+                ?speaker austalk:recording_site ?site .
+                ?site rdfs:label ?uni
+
+                %s .
+
+        } order by ?basename""" % (union,)
+
+        sparql_results = self.query (qq)
+        results = []
+
+        for result in sparql_results["results"]["bindings"]:
+            parts = result["item"]["value"].split('/')[-1].split('_')
+            results.append (Item (
+                                client            = self.client,
+                                identifier      = result["item"]["value"],
+                                prompt          = result["prompt"]["value"],
+                                basename        = result["basename"]["value"],
+                                componentId          = result["compid"]["value"],
+                                site          = result["uni"]["value"],
+                                participantId = "%s_%s" % (parts[0],parts[1]),
+                                sessionId = parts[2]
+                                ))
+
+        return results
+
 
 
 class Item (SparqlModel):

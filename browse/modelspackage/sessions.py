@@ -31,6 +31,7 @@ class SessionManager (SparqlManager):
         for result in sparql_results["results"]["bindings"]:
 
             results.append (Session (
+                                client          = self.client,
                                 identifier      = result["rs"]["value"],
                                 prototype       = result["session"]["value"],
                                 name            = result["name"]["value"],
@@ -66,11 +67,46 @@ class SessionManager (SparqlManager):
 
         for result in sparql_results["results"]["bindings"]:
             results.append (Session (
+                                client          = self.client,
                                 identifier      = result["rs"]["value"],
                                 prototype       = result["session"]["value"],
                                 name            = result["name"]["value"],
                                 number          = result["number"]["value"],
                                 site            = result["sitename"]["value"],
+                                participantId   = result["pid"]["value"]))
+
+        return results
+
+    def filter_by_site (self, label):
+        """ Returns all the session names for a site identified by site label """
+        
+        sparql_results = self.query ("""
+            select distinct ?rs ?session ?name ?number ?pid
+            WHERE {
+                ?rs rdf:type austalk:RecordedSession .
+                ?rs olac:speaker ?participant .
+                
+                ?participant austalk:id ?pid .
+                ?participant austalk:recording_site ?site .
+                ?site rdfs:label "%s" .
+                
+                ?rs austalk:prototype ?session .
+                ?session austalk:name ?name .
+                ?session austalk:id ?number .
+                
+            }
+            ORDER BY ?name""" % label)
+
+        results = []
+
+        for result in sparql_results["results"]["bindings"]:
+            results.append (Session (
+                                client          = self.client,
+                                identifier      = result["rs"]["value"],
+                                prototype       = result["session"]["value"],
+                                name            = result["name"]["value"],
+                                number          = result["number"]["value"],
+                                # site            = result["sitename"]["value"],
                                 participantId   = result["pid"]["value"]))
 
         return results

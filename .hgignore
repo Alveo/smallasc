@@ -1,4 +1,10 @@
-.pyc
+syntax: glob
+*.pyc
+local_settings.py
 .DS_Store
 smallascdb
 smallascdatadb
+webvideo
+smallascdb--new
+.project
+.pydevproject

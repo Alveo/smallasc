@@ -9,7 +9,7 @@ class LanguageUsageManager (SparqlManager):
     def filter_by_participant (self, participant):
         """ Returns the Language Use of a participant. """
         query = """
-            select distinct ?name ?sit ?freq
+            select distinct ?lu ?name ?sit ?freq
             where {
                 ?part rdf:type foaf:Person .
                 ?part austalk:language_usage ?lu .
@@ -26,6 +26,8 @@ class LanguageUsageManager (SparqlManager):
 
         for result in sparql_results["results"]["bindings"]:
             results.append (LanguageUsage (
+                                client               = self.client,
+                                identifier           = result["lu"]["value"],
                                 situation            = result["sit"]["value"], 
                                 frequency            = result["freq"]["value"], 
                                 name                 = result["name"]["value"]))

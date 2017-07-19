@@ -1,49 +1,74 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>{% block title %}{% endblock %}</title>
+  <!DOCTYPE html>
+  <html lang="en"> 
+  <head>
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Stylesheet includes -->
-  <link rel="stylesheet" href="{{ STATIC_URL }}styles/bootstrap.css" media="screen" />
-  <link rel="stylesheet" href="{{ STATIC_URL }}styles/bootstrap-responsive.css" media="screen" />
+    <link href="{{ STATIC_URL }}styles/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}styles/bootstrap-theme.min.css" rel="stylesheet"> 
+    <!-- Primary stylesheet with specialisation below -->
+    <link rel="stylesheet" href="{{ STATIC_URL }}styles/portal.css" media="screen" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}styles/searchportal.css" media="screen" />
+    
+    {# loading jquery here so that sgvizler can use it #}
 
-  <!-- Primary stylesheet with specialisation below -->
-  <link rel="stylesheet" href="{{ STATIC_URL }}styles/portal.css" media="screen" />
-  <link rel="stylesheet" href="{{ STATIC_URL }}styles/searchportal.css" media="screen" />
+    <!--  using version 1.8 of jquery because of sgvizler -->
+    <!--
+     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script> 
+  -->
+     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.0/jquery.js"></script>
 
-  {# loading jquery here so that sgvizler can use it #}
-  <!--  using version 1.8 of jquery because of sgvizler -->
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+    {% block head %}<!-- extra header elements -->{% endblock %}
+  </head>
+  <body>
+    <div class="container">
+      {% include "layout/header.html" %}
 
+            <header>
+              {% block breadcrumbs %}
+              {% endblock %}
+            </header>
 
-  {% block head %}<!-- extra header elements -->{% endblock %}
-</head>
-<body>
+            <div class="clearfix"></div>
+            <!-- @ todo - need to create a rule to show the slider only on homepage -->
 
-  {% include "layout/header.html" %}
+            {% block image_slider %}
+             
+            {% endblock %}
+            
 
-  <div class="container-fluid">
-    <div class="row-fluid">
-      <!-- Use bootstrap to create a simple 3 column layout -->
-      <div class="span10 offset1">
-        <header>
-          {% block breadcrumbs %}
-          {% endblock %}
-        </header>
-        <h1>
-          {% block subtitle %}
-          {% endblock %}
-        </h1>
-        {% block content %}
-        {% endblock %}
-      </div>
-    </div>
-  </div>
+            <div class="col-sm-12">
+              {% block content %}
+              {% endblock %}
+            </div>
 
-<!-- Placed at end to help improve page load times -->
-<script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap.js"></script>
+            <div class="clearfix"></div>
 
-{% block extrajs %}<!--  extra javascript goes here -->{% endblock %}
+            <div class="footer">
+               
+            <hr/>
+          <img src="{{ STATIC_URL }}images/assta_logo_color.gif"/>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <img src="{{ STATIC_URL }}images/arc_logo.gif"/>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <img src="{{ STATIC_URL }}images/uws_cymk.gif"/>
+          <hr/> 
+          &copy;AusTalk 2012  
+          <br/><br/>
+          
+            </div>
+        
+    </div> <!--/container -->
 
-</body>
-</html>
+  <!-- Placed at end to help improve page load times -->
+  <!-- Latest version is v3.1.1   -->
+  <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+  <script>
+    $(document).ready(function(){
+      $('.google-visualization-table-table').addClass('table-responsive');
+    });
+  </script>
+  {% block extrajs %}<!--  extra javascript goes here -->{% endblock %}
+
+  </body>
+  </html>
