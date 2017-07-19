@@ -46,7 +46,7 @@ class SparqlManager(models.Manager):
         """ This function creates a wrapper class used to communicate with the SPARQL endpoint """
         self.sparql = SPARQLWrapper (settings.SPARQL_ENDPOINT)
         self.sparql.setReturnFormat (JSON)
-        self.client = Client.client_from_json(client_json)
+        self.client = Client.from_json(client_json)
 
     def query(self, query,skipcaononicalise=False,client=None):
         """Run a SPARQL query, first add the required PREFIX
