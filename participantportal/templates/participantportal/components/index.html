@@ -1,10 +1,12 @@
-{% extends "participantportal/layout/base.html" %}
+{# extends "participantportal/layout/base.html" #}
+{% extends "layout/base.html" %}
+{% load demographic %}
+
 
 {% block breadcrumbs %}
-<ul class="breadcrumb">
-  <li><span class="divider">/</span></li>
-  <li><a href="/participantportal/">Home</a></li>
-</ul>
+	{% autoescape off %}
+		{{ breadcrumbs }}
+	{% endautoescape %}
 {% endblock %}
 
 {% block subtitle %}
@@ -12,5 +14,15 @@
 {% endblock %}
 
 {% block content %}
-  {% include "browse/components/component_list.html" %}
+  <h2>Participant: {% participant participant_id %}</h2>
+
+<section>
+  <table class='table'>
+    {% for comp in components %}            
+      <tr>
+        <td><a href="{{comp.get_participant_url}}">{{ comp.name }} component</a></td>
+      </tr>
+    {% endfor %}
+  </table>
+</section>
 {% endblock %}

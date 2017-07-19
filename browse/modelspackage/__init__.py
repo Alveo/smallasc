@@ -5,12 +5,12 @@ from items                  import Item
 from participants           import Participant
 from residence_history      import ResidenceHistory
 from language_usage         import LanguageUsage
-from sparql_local_wrapper   import SparqlMixin, SparqlManager, SparqlModel
+from sparql_local_wrapper   import SparqlManager, SparqlModel
 
 
 #from locations import Location
 #from media import Media
 #from protocol import Protocol
 
-__all__ = ['Component', 'Site', 'Session', 'Item', 
-	'Participant', 'ResidenceHistory', 'LanguageUsage', 'SparqlMixin', 'SparqlManager', 'SparqlModel']
+__all__ = ['Component', 'Site', 'Session', 'Item',
+	'Participant', 'ResidenceHistory', 'LanguageUsage', 'SparqlManager', 'SparqlModel']

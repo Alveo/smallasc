@@ -22,18 +22,13 @@
 {% endblock %}
 
 {% block breadcrumbs %}
-  <ul class="breadcrumb">
-    <li><span class="divider">/</span></li>
-    <li><a href="/browse/">All Sites</a></li>
-    <li><span class="divider">/</span></li>
-    <li><a href="/browse/{{ site_id }}/">{{ site.name }}</a></li>
-    <li><span class="divider">/</span></li>
-    <li><a href="/browse/{{ site_id }}/{{ participant_id }}">Speaker {{ participant_id }}</a></li>
-    <li><span class="divider">/</span></li>
-    <li><a href="/browse/{{ site_id }}/{{ participant_id }}/{{ session_id }}">Session {{ session_id }}</a></li>
-    <li><span class="divider">/</span></li>
-    <li><a href="/browse/{{ site_id }}/{{ participant_id }}/{{ session_id }}/{{ item.componentId }}">{{component_id}}</a></li>
-  </ul>
+  
+   {% autoescape off %}
+    <br/>My breadcrumb <br/>
+    {{ breadcrumbs }}
+
+  {% endautoescape %}
+
 {% endblock %}
 
 {% block subtitle %}
@@ -41,6 +36,7 @@
 {% endblock %}
 
 {% block content %}
+
   <section>
     <h2>Item details</h2>
     <table class="table table-striped">

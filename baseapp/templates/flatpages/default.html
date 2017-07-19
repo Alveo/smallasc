@@ -1,29 +1,20 @@
-{% extends "layout/base.html" %}
+{% extends "layout/base_with_sidebar.html" %}
+
+{% block head %}
+	
+{% endblock %}
+
+{% load flatpage_admin %}
 
 {% block title %}
 	Austalk Meta Search | Home
 {% endblock %}
 
 {% block subtitle %}
-	{{flatpage.title}}
+	{{flatpage.title}} 
 {% endblock %}
 
-{% block menubar %}
-	<li><a href="/" class="current" title="Your dashboard">Dashboard</a></li>
-    <li><a href="/stats/" title="Statistics">Statistics</a></li>  
-    <li><a href="/browse/" title="Browse">Browse</a></li>  
-	<li><a href="/search/" title="Search">Search</a></li>   
-{% endblock %}
 
 {% block content %}
- {{flatpage.content}}
- 
-{% load flatpages %}
- {% get_flatpages as flatpages %}
-<ul>
-    {% for page in flatpages %}
-        <li><a href="{{ page.url }}">{{ page.title }}</a></li>
-    {% endfor %}
-</ul>
- 
-{% endblock %}
+ {% flatpage_admin flatpage %}
+{% endblock %}	

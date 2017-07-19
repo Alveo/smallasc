@@ -1,18 +1,15 @@
-{% extends "participantportal/layout/base.html" %}
+{% extends "layout/base_with_sidebar.html" %}
 {% block content %}
   <ul class="breadcrumb">
-    <li><span class="divider">/</span></li>
-    <li><a href="/participantportal/">Home</a></li>
+    
+    <li><a href="/participantportal/">Participant Portal</a></li>
   </ul>
+    
+  {% for status in agreement_status_set %}  
 
-  <h1>Terms &amp; Conditions</h1>
-  
-  {% for status in agreement_status_set %}
-
-    <h2>Agreement</h2>
-    <p>
-      {{ status.agreement.legalise }}
-    </p>
+      {% autoescape off %}
+        {{ status.agreement.legalise }}
+      {% endautoescape %}
 
     {% if status.has_agreed %}
       <p>
@@ -30,6 +27,9 @@
         <input class="btn btn-primary buttonextend" type="submit" value="Accept"/>
       </form>
     {% endif %}
+
   {% endfor %}
+
+
 
 {% endblock %}

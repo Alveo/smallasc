@@ -1,4 +1,4 @@
-{% extends "layout/base.html" %}
+{% extends "layout/base_with_sidebar.html" %}
 
 {% load bootstrap_pagination %}
 
@@ -13,22 +13,36 @@
 
 {% block content %}
 
-{% for site in sites %}
-  <section class="statsection">
-
-    <header>
-      <h2>
+<table class="table">
+  <tr>
+    <th rowspan=2> Site </th>
+    <th rowspan=2> Male </th>
+    <th rowspan=2> Female </th>
+    <th rowspan=2 title="Total Participants"> Total </th>
+    <th colspan=4>Sessions</th>
+  </tr>
+  <tr>
+    <th>  1 </th>
+    <th>  2 </th>
+    <th>  3a </th>
+    <th>  3b </th>
+  </tr>
+  {% for site in sites %}
+    <tr>
+      <td>
         <a href="{{ site.get_absolute_url }}">{{ site.name }}, {{site.location}}</a>
-      </h2>
-    </header>
+      </td>
 
-    <p><em>{{site.stats.male}}</em> male participants</p>
-    <p><em>{{site.stats.female}}</em> female participants</p>
-    <p><em>{{ site.participant_count }}</em> total participants</p>
+      <td>{{ site.stats.male }}</td>
+      <td>{{ site.stats.female }}</td>
+      <td>{{ site.participant_count }}</td>
+      <td>{{ site.session_stats.1 }}</td>
+      <td>{{ site.session_stats.2 }}</td>
+      <td>{{ site.session_stats.3 }}</td>
+      <td>{{ site.session_stats.4 }}</td>
+    </tr>
+  {% endfor %}
+</table>
 
-  </section>
-{% endfor %}
-
-{% bootstrap_paginate sites %}
 
 {% endblock %}
