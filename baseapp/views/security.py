@@ -100,8 +100,13 @@ def oauth_login(request, redirect_url= '/'):
 		if client.oauth.validate():
 			return HttpResponseRedirect(redirect_url)
 	
-	client = pyalveo.Client(api_url=settings.API_URL,client_id=settings.OAUTH_CLIENT_ID,
-						client_secret=settings.OAUTH_CLIENT_SECRET,redirect_url=settings.OAUTH_REDIRECT_URL,verifySSL=False)
+	OAUTH = {
+         'client_id':settings.OAUTH_CLIENT_ID,
+         'client_secret':settings.OAUTH_CLIENT_SECRET,
+         'redirect_url':settings.OAUTH_REDIRECT_URL
+         }
+	
+	client = pyalveo.Client(api_url=settings.API_URL,oauth=OAUTH,verifySSL=False)
 	url = client.oauth.get_authorisation_url()
 	request.session['client'] = client.to_json()
 	
