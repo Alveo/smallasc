@@ -30,7 +30,7 @@ def create_group_with_perms():
 	return g
 
 def oauth_callback(request, redirect_url= '/'):
-	client = pyalveo.Client.client_from_json(request.session.get('client',None))
+	client = pyalveo.Client.from_json(request.session.get('client',None))
 	
 	if client==None:
 		return HttpResponseRedirect(redirect_url)
