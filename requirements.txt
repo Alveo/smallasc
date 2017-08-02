@@ -24,3 +24,4 @@ simplejson
 git+https://github.com/Alveo/pyalveo.git
 python-dateutil==2.5.2
 MySQL-python==1.2.3
+gunicorn==19.7.0
