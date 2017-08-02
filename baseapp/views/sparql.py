@@ -5,7 +5,8 @@ from django.conf import settings
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
-from SPARQLWrapper import SPARQLWrapper
+from browse.modelspackage.sparql_local_wrapper import SparqlManager
+import json
 
 class SparqlForm(forms.Form):
     
@@ -30,14 +31,12 @@ def sparql_endpoint(request):
             
             # run the query
             try:
-                sparql = SPARQLWrapper (settings.SPARQL_ENDPOINT, returnFormat=outputFormat)
-                
-                sparql.setQuery(queryString)
-                result = sparql.query()
+                client = SparqlManager(client_json=request.session.get('client',None))
+                result = client.query(queryString,skipcaononicalise=True)
                 
                 # create a Django response passing the result which will be 
                 # treated as an iterator
-                return HttpResponse(result, content_type=result.info()['content-type'])
+                return HttpResponse(json.dumps(result), content_type='application/json')
                   
             except Exception as e:
                 # 400 Bad Request

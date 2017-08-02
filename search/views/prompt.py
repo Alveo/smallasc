@@ -1,13 +1,15 @@
 from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render, render_to_response
 from django.template import RequestContext
-from browse.modelspackage import Item, Participant
+from browse.modelspackage.items     import ItemManager
 from search.forms import PromptSearchForm, ComponentSearchForm
 
 
 @login_required
 @permission_required('auth.can_view_prompt_search')
 def search (request):
+    
+    itemManager = ItemManager(client_json=request.session.get('client',None))
     
     pform = PromptSearchForm(request.GET) 
     
@@ -16,7 +18,7 @@ def search (request):
         
         prompts = [p.strip() for p in prompt.split(',')]
         
-        result = Item.objects.filter_by_prompts(prompts)
+        result = itemManager.filter_by_prompts(prompts)
         item_ids = [ item.identifier for item in result ]
     
         return render (request, 'search/results.html', {

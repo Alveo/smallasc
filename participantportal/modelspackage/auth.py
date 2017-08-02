@@ -3,7 +3,8 @@ from django.db import transaction
 from browse.modelspackage.participants import *
 from participantportal.helpers import read_model_property
 from participantportal.models import UserProfile
-from browse.modelspackage.sites import Site
+
+from django.conf import settings
   
 class CustomAuthBackend(object):
   """ This custom authenticator is plugged into authentication pipeline
@@ -17,7 +18,9 @@ class CustomAuthBackend(object):
     #print "Custom Authenticator Invoked with params %s-%s-%s-%s" % (colour, animal, birth_year, gender)
     username = "%s_%s" % (colour, animal)
 
-    participant = Participant.objects.get(username)
+    participantManager = ParticipantManager(client_json=settings.PPCLIENT)
+
+    participant = participantManager.get(username)
 
     if not participant is None:
       # Before creating the user check to make sure the

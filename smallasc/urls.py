@@ -21,8 +21,8 @@ urlpatterns = [
 	# The following urls are not handled as actual applications
 	# Instead each url maps to a function which handles the request
 	url (r'^$', baseapp.views.dashboard.index, name="baseapp.views.dashboard.index"),
-    url (r'^login/$', django.contrib.auth.views.login, name="django.contrib.auth.views.login"),
-    url (r'^logout/$', baseapp.views.security.logout_page, name="baseapp.views.security.logout_page"),
+    url (r'^login/$', baseapp.views.security.oauth_login, name="baseapp.views.security.oauth_login"),
+    url (r'^logout/$', baseapp.views.security.oauth_logout, name="baseapp.views.security.logout_page"),
     #url (r'^register/$', 'baseapp.views.registration.register_page'),
 
     url (r'^browse/', include ('browse.urls')),
@@ -37,6 +37,7 @@ urlpatterns = [
 
 	#OAuth 2.0
 	url(r'^oauth/callback', baseapp.views.security.oauth_callback, name="baseapp.views.security.oauth_callback"),
+	url(r'^oauth/login', baseapp.views.security.oauth_login, name="baseapp.views.security.oauth_login"),
 	#url(r'^oauth/validate', 'baseapp.views.security.oauth_validate'),
 
 	# django-registration
@@ -51,7 +52,7 @@ urlpatterns = [
     url (r'^participantportal/', include('participantportal.urls')),
     
     # SPARQL endpoint
-    url(r'^sparql/', baseapp.views.sparql.sparql_endpoint, name="baseapp.views.sparql.sparql_endpoin"),
+    url(r'^sparql/', baseapp.views.sparql.sparql_endpoint, name="baseapp.views.sparql.sparql_endpoint"),
 
     # on-site editing of flat pages
     url(r'^tinymce/', include('tinymce.urls'))
