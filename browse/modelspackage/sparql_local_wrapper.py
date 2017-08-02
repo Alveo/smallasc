@@ -7,7 +7,7 @@ import time
 # use the Django cache framework to cache query results
 from django.core.cache import cache
 
-
+from pyalveo import Client
 
 NAMESPACES =   """PREFIX dc:<http://purl.org/dc/terms/>
                 PREFIX austalk:<http://ns.austalk.edu.au/>
@@ -28,12 +28,12 @@ from django.db import models
 class SparqlManager(models.Manager):
     """Manager class for sparql models"""
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, client_json=None, *args, **kwargs):
 
         super(SparqlManager, self).__init__(*args, **kwargs)
 
-
-        self.create_sparql()
+        if client_json:
+            self.create_sparql(client_json)
 
 
     def canonicalise_query (self, query):
@@ -42,12 +42,13 @@ class SparqlManager(models.Manager):
 
         return NAMESPACES % query
 
-    def create_sparql (self):
+    def create_sparql (self,client_json):
         """ This function creates a wrapper class used to communicate with the SPARQL endpoint """
         self.sparql = SPARQLWrapper (settings.SPARQL_ENDPOINT)
         self.sparql.setReturnFormat (JSON)
+        self.client = Client.from_json(client_json)
 
-    def query(self, query,skipcaononicalise=False):
+    def query(self, query,skipcaononicalise=False,client=None):
         """Run a SPARQL query, first add the required PREFIX
         definitions to the start of the query. Return
         a Python dictionary that reflects the JSON returned
@@ -62,7 +63,9 @@ class SparqlManager(models.Manager):
 
         start = time.time()
         qhash = hash(query)
-
+        
+        result = None
+        
         if cache.get(qhash):
             cached = "cached"
             result = cache.get(qhash)
@@ -72,7 +75,10 @@ class SparqlManager(models.Manager):
             #Placing pyalveo support here
             if not skipcaononicalise:
                 query = self.canonicalise_query(query)
-            result = settings.PYALVEO_CLIENT.sparql_query(settings.COLLECTION, query)
+            if client:
+                result = client.sparql_query(settings.COLLECTION, query)
+            elif self.client:
+                result = self.client.sparql_query(settings.COLLECTION, query)
             
             #self.sparql.setQuery(self.canonicalise_query(query))
             #result = self.sparql.query().convert()
@@ -88,13 +94,16 @@ class SparqlModel(models.Model):
 
     # all sparql models have an identifier that is their URI in the triple store
     identifier      = models.URLField ()
-
+    
     def __init__(self, *args, **kwargs):
+        
+        self.client = kwargs.pop('client',None)
 
         super(SparqlModel, self).__init__(*args, **kwargs)
 
         self.props = None
         self.identifier = kwargs['identifier']
+        
 
     def query(self, query):
         """Run a SPARQL query, first add the required PREFIX
@@ -103,7 +112,7 @@ class SparqlModel(models.Model):
         from the SPARQL endpoint"""
 
         # invoke the query method for the manager class
-        return self.__class__.objects.query(query)
+        return self.__class__.objects.query(query,client=self.client)
 
     def clean_property_name(self, prop):
         """Generate a 'nice' version of the property name

@@ -27,6 +27,7 @@ class SiteManager (SparqlManager):
 
         for result in sparql_results["results"]["bindings"]:
             results.append (Site (
+                                client            = self.client,
                                 identifier        = result["site"]["value"],
                                 label             = result["label"]["value"],
                                 name              = result["inst"]["value"],
@@ -52,6 +53,7 @@ class SiteManager (SparqlManager):
 
         for result in sparql_results["results"]["bindings"]:
             return Site (
+                        client            = self.client,
                         identifier        = result["site"]["value"],
                         name              = result["inst"]["value"],
                         location          = result["city"]["value"])
@@ -93,7 +95,7 @@ class Site (SparqlModel):
 
         return self.__stats
 
-    def session_stats(self):
+    def session_stats(self,sessionManager):
         """Return session statistics (no. of recordings in each session) for this site
             {
                 '1': 49,
@@ -103,7 +105,7 @@ class Site (SparqlModel):
             }
         """
         data = defaultdict(int)
-        sessions = Session.objects.filter_by_site(self.label)
+        sessions = sessionManager.filter_by_site(self.label)
         for session in sessions:
             data[session.number] += 1
 

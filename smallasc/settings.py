@@ -28,12 +28,13 @@ EMAIL_PORT = 25
 EMAIL_USERNAME = ""
 EMAIL_PASSWORD = ""
 
+#User and Password for staging only
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',             # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': os.path.join (os.getcwd (), 'smallascdb'),  # Or path to database file if using sqlite3.
-        'USER': '',                                         # Not used with sqlite3.
-        'PASSWORD': '',                                     # Not used with sqlite3.
+        'ENGINE': 'django.db.backends.mysql',             # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'bigasc',  # Or path to database file if using sqlite3.
+        'USER': 'bigasc',                                         # Not used with sqlite3.
+        'PASSWORD': 'bigasc',                                     # Not used with sqlite3.
         'HOST': '',                                         # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',                                         # Set to empty string for default. Not used with sqlite3.
     }
@@ -115,8 +116,7 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
-                # Insert your TEMPLATE_CONTEXT_PROCESSORS here or use this
-                # list if you haven't customized them:
+                # Insert your TEMPLATE_CONTEXT_PROCESSORS here
                 'django.contrib.auth.context_processors.auth',
                 'django.template.context_processors.debug',
                 'django.template.context_processors.i18n',
@@ -124,6 +124,7 @@ TEMPLATES = [
                 'django.template.context_processors.static',
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.request',
             ],
             'debug': DEBUG,
         },
@@ -185,9 +186,6 @@ INSTALLED_APPS = (
     'sso',
     'stats',
     'custom_registration',
-
-
-    #'debug_toolbar',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -208,6 +206,13 @@ LOGGING = {
             'level': 'ERROR',
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
+        },
+        'applogfile': {
+            'level':'DEBUG',
+            'class':'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(os.path.dirname(os.path.realpath(__file__)), 'smallasc.log'),
+            'maxBytes': 1024*1024*15, # 15MB
+            'backupCount': 10,
         }
     },
     'loggers': {
@@ -216,8 +221,13 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': True,
         },
+        'smallasc': {
+            'handlers': ['applogfile',],
+            'level': 'DEBUG',
+        },
     }
 }
+
 
 # Custom setting for the login url
 LOGIN_URL = "/login/"
@@ -243,6 +253,7 @@ ACCOUNT_ACTIVATION_DAYS = 7
 
 REGISTRATION_SUPPLEMENT_CLASS = "custom_registration.models.RegistrationCustomFields"
 
+SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 
 TINYMCE_DEFAULT_CONFIG = {
     # custom plugins
@@ -259,6 +270,31 @@ TINYMCE_DEFAULT_CONFIG = {
 }
 
 FLATPAGES_MEDIA_URL = os.path.join(STATIC_URL, 'flatpages_tinymce')
+
+SITE_ID = 1
+
+#Grab OAuth and Config from Env Variables if exists
+try:
+    import pyalveo
+    
+    API_URL = os.environ['APP_URL']
+    OAUTH_CLIENT_ID = os.environ['CLIENT_ID']
+    OAUTH_CLIENT_SECRET = os.environ['CLIENT_SECRET']
+    OAUTH_REDIRECT_URL = os.environ['REDIRECT_URL']
+    
+    #So now we need to init a special client for participants when they login
+    #This is dodgy af and may allow unauthorised data access. This is only meant 
+    #to be temporary until the participant portal has been updated to only display
+    #hidden but publicly available details. As it would be public, this client wouldn't
+    #be needed.
+    
+    #An account has been created in the Alveo app for this purpose.
+    #name: Participant Portal
+    PP_API_KEY = os.environ['PP_API_KEY']
+    
+    PPCLIENT = pyalveo.Client(api_url=API_URL,api_key=PP_API_KEY,verifySSL=False).to_json()
+except:
+    pass
 
 # load local settings
 # put customized stuff here
