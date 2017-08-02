@@ -29,14 +29,22 @@ EMAIL_USERNAME = ""
 EMAIL_PASSWORD = ""
 
 #User and Password for staging only
+DB_NAME = DB_USER = DB_PASSWORD = 'bigasc'
+DB_HOST = DB_PORT = ''
+DB_DETAILS = os.environ.get('DATABASE_URL',None)
+if DB_DETAILS:
+    tmp1, tmp2 = DB_DETAILS.split('/')[2].split('@')
+    DB_NAME = DB_DETAILS.split('/')[-1]
+    DB_USER,DB_PASSWORD = tmp1.split(':')
+    DB_HOST, DB_PORT = tmp2.split(':')
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',             # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'bigasc',  # Or path to database file if using sqlite3.
-        'USER': 'bigasc',                                         # Not used with sqlite3.
-        'PASSWORD': 'bigasc',                                     # Not used with sqlite3.
-        'HOST': os.environ.get('DATABASE_URL',''),                # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                                         # Set to empty string for default. Not used with sqlite3.
+        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': DB_NAME,                # Or path to database file if using sqlite3.
+        'USER': DB_USER,                # Not used with sqlite3.
+        'PASSWORD': DB_PASSWORD,        # Not used with sqlite3.
+        'HOST': DB_HOST,                # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': DB_PORT,                # Set to empty string for default. Not used with sqlite3.
     }
 }
 
