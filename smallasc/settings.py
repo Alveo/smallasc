@@ -35,7 +35,7 @@ DATABASES = {
         'NAME': 'bigasc',  # Or path to database file if using sqlite3.
         'USER': 'bigasc',                                         # Not used with sqlite3.
         'PASSWORD': 'bigasc',                                     # Not used with sqlite3.
-        'HOST': '',                                         # Set to empty string for localhost. Not used with sqlite3.
+        'HOST': os.environ.get('DATABASE_URL',''),                # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',                                         # Set to empty string for default. Not used with sqlite3.
     }
 }
@@ -65,7 +65,7 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = ''
+MEDIA_ROOT = os.environ.get('MEDIA_ROOT',os.path.join(PROJECT_ROOT, 'mediafiles'))
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -76,11 +76,7 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-try:
-    #STATIC_ROOT = os.environ['STATIC_ROOT']
-    STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
-except:
-    STATIC_ROOT = ''
+STATIC_ROOT = os.environ.get('STATIC_ROOT',os.path.join(PROJECT_ROOT, 'staticfiles'))
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
