@@ -95,7 +95,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    './static',
+    os.path.join(PROJECT_ROOT, 'static'),
 )
 
 
@@ -285,6 +285,7 @@ SITE_ID = 1
 try:
     import pyalveo
     
+    COLLECTION = "austalk"
     API_URL = os.environ['APP_URL']
     OAUTH_CLIENT_ID = os.environ['CLIENT_ID']
     OAUTH_CLIENT_SECRET = os.environ['CLIENT_SECRET']
