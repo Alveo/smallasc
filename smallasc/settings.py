@@ -1,7 +1,7 @@
 import os
 
 # Django settings for smallasc project.
-
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 DEBUG = True
 
 PAGE_SIZE = 10
@@ -77,7 +77,8 @@ MEDIA_URL = ''
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
 try:
-    STATIC_ROOT = os.environ['STATIC_ROOT']
+    #STATIC_ROOT = os.environ['STATIC_ROOT']
+    STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 except:
     STATIC_ROOT = ''
 
