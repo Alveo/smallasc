@@ -67,7 +67,7 @@ class ParticipantManager (SparqlManager):
                 ?part rdf:type foaf:Person .
                 ?part ?prop ?value .
 
-                FILTER (?part = <http://id.austalk.edu.au/participant/%s>)
+                FILTER (?part = <https://app.alveo.edu.au/speakers/austalk/%s>)
             }""" % participant_id
 
         sparql_results = self.query (qq)

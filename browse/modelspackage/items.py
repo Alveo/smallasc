@@ -20,7 +20,8 @@ class ItemManager (SparqlManager):
                 ?item austalk:session ?sessid .
                 ?item austalk:componentName ?compid .
                 ?item dc:title ?basename .
-                ?item austalk:prompt ?prompt .
+                ?item  austalk:prototype ?prot .
+                ?prot austalk:prompt ?prompt .
                 ?item ausnc:document ?media .
                 ?media austalk:version 1 .
                 ?media austalk:channel "ch6-speaker16" .
@@ -50,7 +51,7 @@ class ItemManager (SparqlManager):
         """ Method returns all the items filtered by the participant/session/component. """
 
         qq = """
-                BIND (<http://id.austalk.edu.au/participant/%(part)s> as ?spkrid)
+                BIND (<https://app.alveo.edu.au/speakers/austalk/%(part)s> as ?spkrid)
                 BIND ("%(sess)s" as ?sessid)
                 BIND ("%(comp)s" as ?compid)
             """ % {'part': participant_id, 'sess': session_id, 'comp': component_id}
@@ -62,7 +63,7 @@ class ItemManager (SparqlManager):
         """ Return the item for this participant with this basename. """
 
         qq = """BIND ("%s" as ?basename)
-        BIND (<http://id.austalk.edu.au/participant/%s> as ?spkrid)""" % (basename, participant_id)
+        BIND (<https://app.alveo.edu.au/speakers/austalk/%s> as ?spkrid)""" % (basename, participant_id)
 
         result = self.generate_list(qq)
 
@@ -73,7 +74,7 @@ class ItemManager (SparqlManager):
 
 
     def filter_by_participant (self, participant_id):
-        qq = """BIND (<http://id.austalk.edu.au/participant/%s> as ?spkrid)""" % (participant_id)
+        qq = """BIND (<https://app.alveo.edu.au/speakers/austalk/%s> as ?spkrid)""" % (participant_id)
         return self.generate_list (qq)
 
 
@@ -99,7 +100,7 @@ class ItemManager (SparqlManager):
         """Return a list of items with one of the given prompts
         Faster search optimised for prompt search page."""
 
-        union = ['{?item austalk:prompt "%s"}' % p for p in prompts]
+        union = ['{?prot austalk:prompt "%s"}' % p for p in prompts]
         union = " UNION ".join(union)
 
         qq = """
@@ -109,7 +110,8 @@ class ItemManager (SparqlManager):
                 ?item austalk:session ?sessid .
                 ?item austalk:componentName ?compid .
                 ?item dc:title ?basename .
-                ?item austalk:prompt ?prompt .
+                ?item  austalk:prototype ?prot .
+                ?prot austalk:prompt ?prompt .
                 
                 ?item olac:speaker ?speaker .
                 ?speaker austalk:recording_site ?site .
