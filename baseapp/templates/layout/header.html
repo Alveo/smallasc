@@ -22,44 +22,35 @@
           <ul class="nav navbar-nav ">
             {% if user.is_authenticated %}
                 
-                {% for group in user.groups.all|slice:":1" %}
-
-                  {% if group.name == "participants" %}
-                    <li><a href="/" alt="Home">Home</a></li>
-                    <li><a href="/participantportal/">Participant Portal</a></li>
-                    <!--
-                    <li><a href="/participantportal/termsandconditions/" alt="Terms and conditions">Terms &amp; Conditions</a></li>
-                  -->
-                  {% elif group.name == "research" %}
-                     <li> <a href="/">Home </a></li>
+                {% if user.is_staff or user.is_superuser %}
+                	<li> <a href="/">Home </a></li>
                     <li><a href="/stats/">Statistics</a></li>
                     <li><a href="/browse">Browse</a></li>
                     <li><a href="/search/" title="Search">Search</a></li>  
                     <li><a href="/participantportal/">Participant Portal</a></li>
-                  {% endif %}
-
-
-              {% endfor %}
-
-            {% endif %}
-
-            {% if not user.is_authenticated or user.is_staff or user.is_superuser %}
-                <li> <a href="/">Home </a></li>
-                    <li><a href="/stats/">Statistics</a></li>
-                    <li><a href="/browse">Browse</a></li>
-                    <li><a href="/search/" title="Search">Search</a></li>  
-                    <li><a href="/participantportal/">Participant Portal</a></li>
-
-            {% endif %}
-              
-            
-
-
-            
-               
-            
+                {% else %}
                 
-            
+	                {% for group in user.groups.all|slice:":1" %}
+	
+	                  {% if group.name == "participants" %}
+	                    <li><a href="/" alt="Home">Home</a></li>
+	                    <li><a href="/participantportal/">Participant Portal</a></li>
+	                    <!--
+	                    <li><a href="/participantportal/termsandconditions/" alt="Terms and conditions">Terms &amp; Conditions</a></li>
+	                  -->
+	                  {% elif group.name == "research" %}
+	                     <li> <a href="/">Home </a></li>
+	                    <li><a href="/stats/">Statistics</a></li>
+	                    <li><a href="/browse">Browse</a></li>
+	                    <li><a href="/search/" title="Search">Search</a></li>  
+	                    <li><a href="/participantportal/">Participant Portal</a></li>
+	                  {% endif %}
+	
+	
+	              {% endfor %}
+           	  {% endif %}
+
+            {% endif %}       
             
               {% if user.is_authenticated %}
               <li class="nav pull-right"><a href="/logout" title="Sign out and end session">Sign out</a></li>
