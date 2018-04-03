@@ -56,6 +56,12 @@ class ComponentManager (SparqlManager):
                 ?rc rdf:type austalk:RecordedComponent .
                 ?rc olac:speaker ?participant .
                 ?rc austalk:session ?sessionid .
+                ?rc austalk:audiorating ?audiorating .
+                ?rc austalk:videorating ?videorating .
+                ?rc austalk:comment ?comment .
+                ?rc austalk:prototype ?prototype .
+                ?prototype austalk:name ?name .
+                ?prototype austalk:shortname ?shortname .
                 
             }
         """ % (participant_id, session_id)
@@ -65,10 +71,17 @@ class ComponentManager (SparqlManager):
         results = []
         for result in sparql_results["results"]["bindings"]:
                 comp = Component (
-                                client            = self.client,
+                                client          = self.client,
                                 identifier      = result["rc"]["value"], 
                                 participantId   = result["pid"]["value"],
-                                sessionId      = result["sessionid"]["value"],
+                                sessionId       = result["sessionid"]["value"],
+                                prototype       = result["prototype"]["value"],
+                                audiorating     = result["audiorating"]["value"],
+                                videorating     = result["videorating"]["value"],
+                                comment         = result["comment"]["value"],
+                                name            = result["name"]["value"],
+                                componentId         = result["shortname"]["value"],
+                                site            = site_id,
                                 )
                 comp.details()
                 results.append(comp)
