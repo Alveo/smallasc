@@ -13,7 +13,7 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-ALLOWED_HOSTS = ['bigasc.edu.au', 'localhost','127.0.0.1']
+ALLOWED_HOSTS = ['bigasc.apps.alveo.edu.au','bigasc.edu.au', 'localhost','127.0.0.1']
 
 
 EMAIL_SUBJECT_PREFIX = "[austalk] "
