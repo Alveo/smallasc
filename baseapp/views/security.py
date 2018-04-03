@@ -29,16 +29,32 @@ def create_group_with_perms():
 	g.save()
 	return g
 
-def oauth_callback(request, redirect_url= '/'):
-	client = pyalveo.Client.from_json(request.session.get('client',None))
+def apikey_login(request, redirect_url= '/'):
 	
-	if client==None:
-		return HttpResponseRedirect(redirect_url)
+	request.session.flush()
+	client = request.session.get('client',None)
 	
-	client.oauth.on_callback(request.build_absolute_uri())
+	#If there a client exists and is valid, don't bother doing anything, redirect home.
+	if client != None:
+		if client.oauth.validate():
+			return HttpResponseRedirect(redirect_url)
+	
+	OAUTH = {
+         'client_id':settings.OAUTH_CLIENT_ID,
+         'client_secret':settings.OAUTH_CLIENT_SECRET,
+         'redirect_url':settings.OAUTH_REDIRECT_URL
+         }
+	
+	apiKey = request.GET.get("apikey",None)
+	
+	client = pyalveo.Client(api_url=settings.API_URL,api_key=apiKey,oauth=OAUTH,verifySSL=False)
 	
 	#Get user details
 	res = client.oauth.get_user_data()
+	
+	if not res:
+		HttpResponseRedirect(redirect_url)
+	
 	
 	request.session['client'] = client.to_json()
 	
@@ -47,6 +63,7 @@ def oauth_callback(request, redirect_url= '/'):
 	
 	password = "%s123"%res['last_name']
 	username = "%s%s" % (res['first_name'],res['last_name'])
+	admin = res.get('role','')=="admin"
 	
 	try:
 		user = User.objects.get(username=username)
@@ -67,9 +84,65 @@ def oauth_callback(request, redirect_url= '/'):
 										password=password,
 										last_login=now,
 										date_joined=now,
-										is_staff = False, 
+										is_staff = admin, 
 										is_active = True, 
-										is_superuser = False)
+										is_superuser = admin)
+		
+		try:
+			g = Group.objects.get(name='research')
+		except:
+			g = create_group_with_perms()
+			
+  		g.user_set.add(user)
+  		user.save()
+		if user is not None:
+			login(request,user,backend="django.contrib.auth.backends.ModelBackend")
+	
+	return HttpResponseRedirect(redirect_url)
+
+
+def oauth_callback(request, redirect_url= '/'):
+	client = pyalveo.Client.from_json(request.session.get('client',None))
+	
+	if client==None:
+		return HttpResponseRedirect(redirect_url)
+	
+	client.oauth.on_callback(request.build_absolute_uri())
+	
+	#Get user details
+	res = client.oauth.get_user_data()
+	
+	request.session['client'] = client.to_json()
+	
+	#sign in member if exists, else create
+	#Later should check that their status is 'A' or whichever codes are valid.
+	
+	password = "%s123"%res['last_name']
+	username = "%s%s" % (res['first_name'],res['last_name'])
+	admin = res.get('role','')=="admin"
+	
+	try:
+		user = User.objects.get(username=username)
+	except:
+		user = None
+	
+	#The user logged in at Alveo so they must exist here.
+	if user is not None:
+		#Already exist so just login
+		login(request,user,backend="django.contrib.auth.backends.ModelBackend")
+	else:
+		#Doesn't exist, so create a new account and login.
+		now = datetime.now()
+		user = User.objects.create(username=username,
+										email=res['email'],
+										first_name=res['first_name'],
+										last_name=res['last_name'],
+										password=password,
+										last_login=now,
+										date_joined=now,
+										is_staff = admin, 
+										is_active = True, 
+										is_superuser = admin)
 		
 		try:
 			g = Group.objects.get(name='research')
