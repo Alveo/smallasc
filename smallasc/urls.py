@@ -1,7 +1,8 @@
-from django.conf.urls import include, url
+from django.conf.urls import include, url, static
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.views.generic.base import TemplateView
-
+from django.conf import settings
 #URL Imports
 import baseapp.views.dashboard
 import baseapp.views.security
@@ -56,5 +57,10 @@ urlpatterns = [
     url(r'^sparql/', baseapp.views.sparql.sparql_endpoint, name="baseapp.views.sparql.sparql_endpoint"),
 
     # on-site editing of flat pages
-    url(r'^tinymce/', include('tinymce.urls'))
+    url(r'^tinymce/', include('tinymce.urls')),
+    
+    url(r'^summernote/', include('django_summernote.urls')),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

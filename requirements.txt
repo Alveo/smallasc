@@ -7,6 +7,7 @@ django-debug-toolbar==1.9.1
 git+https://github.com/mixtah/django-flatpages-tinymce.git
 django-inspectional-registration==0.6.1
 django-tinymce==2.6.0
+django-summernote==0.8.8.6
 fuzzywuzzy==0.2
 html5lib==1.0.1
 isodate==0.6.0
