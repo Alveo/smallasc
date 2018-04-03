@@ -6,7 +6,7 @@ from tinymce.models import HTMLField
 
 class UserProfile(models.Model):
   # This field is required.
-  user = models.OneToOneField(User)
+  user = models.OneToOneField(User,on_delete=models.CASCADE)
 
   def __unicode__(self):
       return self.colour() + " " + self.animal()
@@ -45,8 +45,8 @@ class Agreement(models.Model):
 
 class AgreementStatus(models.Model):
   
-  agreement       = models.ForeignKey(Agreement)
-  user            = models.ForeignKey(UserProfile)
+  agreement       = models.ForeignKey(Agreement,on_delete=models.CASCADE)
+  user            = models.ForeignKey(UserProfile,on_delete=models.CASCADE)
   has_agreed      = models.BooleanField(default = False)
   agreement_date  = models.DateField(null = True)
 
