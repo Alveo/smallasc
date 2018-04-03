@@ -1,0 +1,9 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+smallasc/local_settings.py
+
+#Eclipse PyDev plugin
+.project
+.pydevproject
