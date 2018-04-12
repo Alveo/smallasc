@@ -28,6 +28,7 @@ urlpatterns = [
 
     url (r'^browse/', include ('browse.urls')),
 	url (r'^search/', include('search.urls')), 
+	url (r'^attachments/', include('attachments.urls')),
 
     # pseudo SSO authentication module
 	url (r'^sso/', include('sso.urls')), 
@@ -59,8 +60,7 @@ urlpatterns = [
     # on-site editing of flat pages
     url(r'^tinymce/', include('tinymce.urls')),
     
-    url(r'^summernote/', include('django_summernote.urls')),
 ]
 
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

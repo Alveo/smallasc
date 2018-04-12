@@ -90,6 +90,8 @@ STATIC_ROOT = os.environ.get('STATIC_ROOT',os.path.join(PROJECT_ROOT, 'staticfil
 # Example: "http://media.lawrence.com/static/"
 STATIC_URL = '/static/'
 
+ATTACHMENT_LOCATION = 'attachments'
+
 # Additional locations of static files
 STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
@@ -170,8 +172,6 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.flatpages',
-
-    'django_summernote',
     
     'tinymce',
     'flatpages_tinymce',
@@ -191,6 +191,7 @@ INSTALLED_APPS = (
     'baseapp',
     'browse',
     'search',
+    'attachments',
     'participantportal',
     'sso',
     'stats',
