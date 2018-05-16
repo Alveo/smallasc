@@ -40,7 +40,7 @@ class CustomAuthBackend(object):
     @transaction.atomic  
     def create_user(self, username):
         user = User(username = username, is_staff = False, is_active = True, 
-                    is_superuser = False, last_login=time.time())
+                    is_superuser = False, last_login=time.strftime("%d-%m-%Y %H:%M:%S", time.localtime()))
         user.set_unusable_password()
         user.save()
         
