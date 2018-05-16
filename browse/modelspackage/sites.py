@@ -36,6 +36,36 @@ class SiteManager (SparqlManager):
 
         return results
 
+    def all_site_and_session_counts(self):
+        """ Returns a list containing a dictionary of the different site and 
+        session combinations along with the participant count for that combo."""
+        sparql_results = self.query ("""
+            SELECT (SAMPLE(?label) as ?LABEL) (SAMPLE(?number) as ?SESSION) (COUNT(?pid) as ?NPID)
+            WHERE {
+                ?rs rdf:type austalk:RecordedSession .
+                ?rs olac:speaker ?participant .
+                
+                ?participant austalk:id ?pid .
+                ?participant austalk:recording_site ?site .
+                ?site rdfs:label ?label .
+                
+                ?rs austalk:prototype ?session .
+                  ?session austalk:id ?number .
+            }
+            GROUP BY ?label ?session""")
+
+        results = {}
+
+        for result in sparql_results["results"]["bindings"]:
+            #The first key is the site
+            site = result["LABEL"]["value"]
+            session = result["SESSION"]["value"]
+            count = result["NPID"]["value"]
+            if not site in results:
+                results[site] = {}
+            results[site][session] = count
+
+        return results
 
     def get (self, label):
         """ This function retrieves a site using it's short identifier (not the full url). We do
