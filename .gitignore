@@ -7,6 +7,7 @@ smallasc/local_settings.py
 #Eclipse PyDev plugin
 .project
 .pydevproject
+.settings
 
 smallasc/staticfiles/*
 smallasc/mediafiles/*
