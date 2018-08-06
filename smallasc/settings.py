@@ -8,19 +8,21 @@ PAGE_SIZE = 10
 
 ADMINS = (
     ('Steve Cassidy', 'steve.cassidy@mq.edu.au'),
-    #('Suren' , 'shopuz@gmail.com'),
 )
 
 MANAGERS = ADMINS
 
-ALLOWED_HOSTS = ['bigasc.apps.alveo.edu.au','bigasc.edu.au', 'localhost','127.0.0.1']
-
+ALLOWED_HOSTS = ['bigasc.apps.alveo.edu.au',
+                 'bigasc.edu.au',
+                 'www.bigasc.edu.au',
+                 'austalk.edu.au',
+                 'www.austalk.edu.au',
+                 'localhost','127.0.0.1']
 
 EMAIL_SUBJECT_PREFIX = "[austalk] "
-SERVER_EMAIL = "django@austalk.edu.au"
+SERVER_EMAIL = "no-reply@austalk.edu.au"
 
 DEFAULT_FROM_EMAIL = "steve.cassidy@mq.edu.au"
-#DEFAULT_FROM_EMAIL = "suren.shopushrestha@mq.edu.au"
 
 EMAIL_FROM = "no-reply@austalk.edu.au"
 EMAIL_HOST = "mail.science.mq.edu.au"
