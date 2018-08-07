@@ -173,7 +173,7 @@ def oauth_login(request, redirect_url= '/'):
 		if client.oauth.validate():
 			return HttpResponseRedirect(redirect_url)
 	
-	redirect_url = '%s/oauth/callback' % request.get_host()
+	redirect_url = 'https://%s/oauth/callback' % request.get_host()
 	
 	OAUTH = {
          'client_id':settings.OAUTH_CLIENT_ID,
