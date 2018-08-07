@@ -173,10 +173,12 @@ def oauth_login(request, redirect_url= '/'):
 		if client.oauth.validate():
 			return HttpResponseRedirect(redirect_url)
 	
+	redirect_url = '%s/oauth/callback' % request.get_host()
+	
 	OAUTH = {
          'client_id':settings.OAUTH_CLIENT_ID,
          'client_secret':settings.OAUTH_CLIENT_SECRET,
-         'redirect_url':settings.OAUTH_REDIRECT_URL
+         'redirect_url':redirect_url,
          }
 	
 	client = pyalveo.Client(api_url=settings.API_URL,oauth=OAUTH,verifySSL=False)
