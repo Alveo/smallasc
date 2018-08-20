@@ -2,7 +2,7 @@ import os
 
 # Django settings for smallasc project.
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
-DEBUG = True
+DEBUG = False
 
 PAGE_SIZE = 10
 
