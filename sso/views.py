@@ -12,7 +12,7 @@ from django.http import Http404
 from sso.models import TSession
 
 import datetime
-import urlparse
+from urllib.parse import  urlparse
 import hashlib
 import logging
 # Get an instance of a logger
