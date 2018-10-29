@@ -1,7 +1,7 @@
 import re
 
 from django.db                                  import models
-from urlparse                                   import urlsplit
+from urllib.parse                                   import urlsplit
 
 from baseapp.modelspackage.colours              import Colour
 from baseapp.modelspackage.animals              import Animal
@@ -11,7 +11,7 @@ from browse.modelspackage.sparql_local_wrapper  import SparqlModel, SparqlManage
 class ParticipantManager (SparqlManager):
 
     def all (self, site):
-        print ('site --------- ', site)
+        print('site --------- ', site)
         sparql_results = self.query("""
             select ?part ?gender ?dob
             where {

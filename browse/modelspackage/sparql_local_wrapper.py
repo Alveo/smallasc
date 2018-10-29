@@ -57,9 +57,9 @@ class SparqlManager(models.Manager):
 
         if settings.PRINT_SPARQL:
             if settings.PRINT_SPARQL_PREFIXES:
-                print self.canonicalise_query(query)
+                print(self.canonicalise_query(query))
             else:
-                print query
+                print(query)
 
         start = time.time()
         qhash = hash(query)
@@ -85,7 +85,7 @@ class SparqlManager(models.Manager):
             #cache.set(qhash, result)
 
         if settings.PRINT_SPARQL:
-            print len(result['results']['bindings']), "results in", time.time()-start, "s (", cached, ")"
+            print(len(result['results']['bindings']), "results in", time.time()-start, "s (", cached, ")")
 
         return result
 

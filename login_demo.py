@@ -24,7 +24,7 @@ def getAuthenticatedOpener(url, username, password):
                 csrfmiddlewaretoken = csrfmiddlewaretokens[0]
         else:
                 # TODO: error, we haven't found a csrfmiddlewaretoken, fail
-                print "Can't find csrfmiddlewaretoken"
+                print("Can't find csrfmiddlewaretoken")
                 return None
 
         # create login POST data
@@ -34,12 +34,12 @@ def getAuthenticatedOpener(url, username, password):
                 r = opener.open(LOGIN_URL, params)
         except urllib2.HTTPError as e:
                 # TODO: error, something went wrong with our login request
-                print e
+                print(e)
                 return None
                 
         if r.geturl() == LOGIN_URL:
                 # we got redirected to the same login page - login must have failed
-                print "login failed"
+                print("login failed")
                 return None
         else:
                 return opener
@@ -59,8 +59,8 @@ if __name__ == "__main__":
     if opener is not None:
             # we have a valid opener, let's visit some protected services :)
             a = opener.open(AUTH_URL)
-            print a.read()[:500]
+            print(a.read()[:500])
 
             a = opener.open(AUTH_URL2)
-            print a.read()[:500]
+            print(a.read()[:500])
 

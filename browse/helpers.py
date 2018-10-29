@@ -89,7 +89,7 @@ def get_language_usage(request, languages_spoken):
     i = 0
     for use in languages_spoken:
         language_url = '<' + use.name + '>'
-        print language_url
+        print(language_url)
         i = i + 1
         language_usage['lang' + str(i)] = { 'name' : get_language_name(request, language_url),
                                             'situation' : use.situation,

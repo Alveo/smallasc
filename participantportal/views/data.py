@@ -11,7 +11,7 @@ def index (request, template = 'data.html'):
 		# this is required when the user in research tries to access participantportal
 		
 		if not request.user.groups.filter(name='participants') :
-			print ('inside true')
+			print('inside true')
 			return HttpResponseRedirect("/participantportal/login")
 
 

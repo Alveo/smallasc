@@ -16,7 +16,7 @@ def search(request):
     
     participantManager = ParticipantManager(client_json=request.session.get('client',None))
     
-    print "We're searching..."
+    print("We're searching...")
     
     if search_form.is_valid():
         

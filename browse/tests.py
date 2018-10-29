@@ -50,8 +50,8 @@ class SessionTests (unittest.TestCase):
 
         """
         for s in sessions:
-            print s.identifier
-            print s.number
+            print(s.identifier)
+            print(s.number)
         """
 
         # how many sessions in the store?
@@ -181,7 +181,7 @@ class ParticipantTests (unittest.TestCase):
         }
         male_parts = Participant.objects.filter (predicates)
 
-        print male_parts[0].site
+        print(male_parts[0].site)
 
         self.assertTrue (len(male_parts) > 0)
         self.assertTrue (len(set(male_qual_parts).intersection (set(male_parts))) == len(male_qual_parts))
