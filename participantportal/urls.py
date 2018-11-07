@@ -51,7 +51,11 @@ urlpatterns = [
   url(r'^login/$', 
       participantportal.views.session.login_page, 
       name="participantportal.views.session.login_page"),
-
+  
+  url(r'^document/$', 
+      participantportal.views.data.get_document, 
+      name="participantportal.views.session.get_document"),
+  
   # Trying to implement Forgot Password
   url(regex = r'^reset/$', 
         #view = 'django.contrib.auth.views.password_reset', 

@@ -2,8 +2,9 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from browse.helpers import *
 from participantportal.settings import *
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse, HttpResponseNotFound
 
+import pyalveo
 
 @login_required(login_url = PP_LOGIN_URL)
 def index (request, template = 'data.html'):
@@ -34,3 +35,21 @@ def index (request, template = 'data.html'):
     		'scope' : 'participantportal'
          })
 
+@login_required(login_url = PP_LOGIN_URL)
+def get_document (request, template = 'data.html'):
+		# if the requesting user is not a member of group 'participants' then ask for login
+		# this is required when the user in research tries to access participantportal
+		
+		client = pyalveo.Client.from_json(request.session.get('client',None))
+		
+		doc_url = request.GET.get("url",None)
+		if doc_url:
+			file_data = client.get_document(doc_url)
+			
+			response = HttpResponse()
+			response['Content-Type'] ='audio/wav'
+			response['Content-Length'] = len(file_data)
+			response.write(file_data)
+			return response
+		else:
+			return HttpResponseNotFound()

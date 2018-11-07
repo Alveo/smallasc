@@ -49,7 +49,7 @@
         <h4>Item {{ item.basename }}</h4>
         <table class="table table-striped">
           <tr><th>Prompt</th><td>{{ item.prompt }}</td></tr>
-          <tr><th>Audio</th><td><audio src="{{item.ch6media}}" preload="none"></td>
+          <tr><th>Audio</th><td><audio src="/participantportal/document/?url={{item.ch6media}}" preload="none"></td>
         </table>
       </li>
       {% endfor %}
