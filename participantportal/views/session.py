@@ -5,6 +5,7 @@ from django.forms.forms import NON_FIELD_ERRORS
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.template import RequestContext
+from django.conf import settings
 from participantportal.forms.session import LoginForm, ColourAnimalHelperForm
 
   
@@ -28,6 +29,7 @@ def login_page(request):
             
             if user is not None:
                 login(request, user)
+                request.session['client'] = settings.PPCLIENT
                 return HttpResponseRedirect ('/participantportal/')
             else:
                 form._errors.setdefault(NON_FIELD_ERRORS, ErrorList())
