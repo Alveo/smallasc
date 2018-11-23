@@ -23,8 +23,25 @@ def upload_file(request):
             attachment = Attachment(file=request.FILES['file'], description=description, uploader=request.user)
             attachment.save()
             return HttpResponseRedirect('/attachments/')
+    if request.method == 'DELETE':
+        aid = request.GET.get('id',None)
+        if aid:
+            attachment = Attachment.objects.get(id=aid)
+            if attachment:
+                attachment.delete()
+        return HttpResponseRedirect('/attachments/')
     return HttpResponseRedirect('/attachments/')
 
+@permission_required('attachments.add_attachment')
+def delete_file(request):
+    if request.method == 'POST':
+        aid = request.POST.get('id',None)
+        if aid:
+            attachment = Attachment.objects.get(id=int(aid))
+            if attachment:
+                attachment.delete()
+        return HttpResponseRedirect('/attachments/')
+    return HttpResponseRedirect('/attachments/')
 
 class AttachmentListView(ListView):
     

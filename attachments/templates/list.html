@@ -16,18 +16,49 @@
          {% csrf_token %}
             <fieldset id="attachmentform">
                 <legend>Upload File</legend>
-            <table>
-                <tr><td></td><td><input type="file" name="file"></td></tr>
-                <tr><td style="padding: 10px">Description:</td><td><input type="text" name="description"></td></tr>
-                <tr><td colspan='2' style="text-align: right"><input type="submit" value="Upload File"></td></tr>
+            <table style="width: 100%;">
+                <tr class="mb-2">
+	                <td></td>
+	                <td><input class="form-control-file" type="file" name="file"></td>
+                </tr>
+                <tr class="mb-2">
+	                <td style="padding: 10px">Description:</td>
+	                <td><input class="form-control" type="text" name="description"></td>
+                </tr>
+                <tr>
+                    <td colspan='2' style="text-align: right"><input class="btn btn-primary mb-2" type="submit" value="Upload File"></td>
+                </tr>
             </table>
             </fieldset>
         </form>
-
-        <ul>
-        {% for o in object_list %}
-          <li><a href="{{o.file.url}}">{{o.description}}</a> URL: {{o.file.url}}</li>
-        {% endfor %}
-        </ul>
+        
+        <table class="table table-striped" width="100%" cellspacing="0">
+            <thead>
+                <tr role="row">
+                    <th>Description</th>
+                    <th>Owner</th>
+                    <th>Created</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for o in object_list %}
+                      <tr>
+                        <td>{{o.description}}</td>
+                        <td>{{o.uploader}}</td>
+                        <td>{{o.date}}</td>
+                        <td>
+                            <form action="/attachments/delete/" id="deleteForm{{o.id}}" method="POST">
+                                <a class="btn btn-primary m-1" href="/media/{{o.file}}" target="_blank">View</a>
+                                <input type="hidden" name="id" value="{{o.id}}">
+                                {% csrf_token %}
+                                <a class="btn btn-danger" href="#" onclick="document.getElementById('deleteForm{{o.id}}').submit();" >Delete</a>
+                            </form>
+                        </td>
+                      </tr>
+		        {% endfor %}
+            </tbody>
+        </table>
+        
         
 {% endblock %}
