@@ -1,8 +1,9 @@
-from django.conf.urls import include, url, static
-from django.conf.urls.static import static
+from django.conf.urls import include, url
+from django.views.static import serve
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.contrib import admin
 from django.views.generic.base import TemplateView
+from django.core.exceptions import ImproperlyConfigured
 from django.conf import settings
 #URL Imports
 import baseapp.views.dashboard
@@ -10,6 +11,27 @@ import baseapp.views.security
 import baseapp.views.sparql
 import django.contrib.auth.views
 
+import re
+
+def static(prefix, view=serve, **kwargs):
+    """
+    Helper function to return a URL pattern for serving files.
+
+    from django.conf import settings
+    from django.conf.urls.static import static
+
+    urlpatterns = [
+        # ... the rest of your URLconf goes here ...
+    ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    """
+    # No-op if not in debug mode or an non-local prefix
+    if (prefix and '://' in prefix):
+        return []
+    elif not prefix:
+        raise ImproperlyConfigured("Empty static prefix not permitted")
+    return [
+        url(r'^%s(?P<path>.*)$' % re.escape(prefix.lstrip('/')), view, kwargs=kwargs),
+    ]
 
 #from registration.backends.default.views import RegistrationView
 
