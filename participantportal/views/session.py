@@ -48,7 +48,7 @@ def password_reset(request):
         if form.is_valid():
             # Create a SPARQL Query to retrieve possible results based on the answers
             
-            siteManager = SiteManager(client_json=request.session.get('client',None))
+            siteManager = SiteManager(client_json=request.session.get('client',settings.PPCLIENT))
             
             # Get the site object from site_label (get function needs a label parameter)
             site_label = form.data['pwd_site'] 
@@ -80,26 +80,25 @@ def password_reset(request):
                     where {
                         ?part rdf:type foaf:Person . 
                         %s
-                    }""" % query)
+                    }""" % query,client=siteManager.client)
             
             results = []
         
-        # Bind the result from SPARQL query into a list - results            
-        for result in sparql_results["results"]["bindings"]:
-            
-            part = Participant (
-                identifier          = result["part"]["value"]
+            # Bind the result from SPARQL query into a list - results            
+            for result in sparql_results["results"]["bindings"]:
                 
-            )
-            
-            results.append (part)
+                part = Participant (
+                    identifier          = result["part"]["value"],
+                    client = siteManager.client
+                )
+                
+                results.append (part)
         
-        # return the results to the template for displaying to the user
-        return render(request,'colour_animal_helper_done.html', {'results': results }) 
+            # return the results to the template for displaying to the user
+            return render(request,'colour_animal_helper_done.html', {'results': results }) 
     
-    else:
-        form = ColourAnimalHelperForm()
     
+    form = ColourAnimalHelperForm()
     return render(request, 'colour_animal_helper_form.html', {'form': form}) 
 
 
