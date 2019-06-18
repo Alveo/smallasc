@@ -26,3 +26,4 @@ python-dateutil==2.7.2
 gunicorn==19.8.1
 whitenoise==3.3.1
 MySQL-python==1.2.3
+requests-toolbelt
