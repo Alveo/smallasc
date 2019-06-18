@@ -56,12 +56,14 @@ class ComponentManager (SparqlManager):
                 ?rc rdf:type austalk:RecordedComponent .
                 ?rc olac:speaker ?participant .
                 ?rc austalk:session ?sessionid .
-                ?rc austalk:audiorating ?audiorating .
-                ?rc austalk:videorating ?videorating .
-                ?rc austalk:comment ?comment .
+
                 ?rc austalk:prototype ?prototype .
                 ?prototype austalk:name ?name .
                 ?prototype austalk:shortname ?shortname .
+                
+                optional { ?rc austalk:audiorating ?audiorating .}
+                optional { ?rc austalk:videorating ?videorating .}
+                optional { ?rc austalk:comment ?comment .}
                 
             }
         """ % (participant_id, session_id)
@@ -70,21 +72,26 @@ class ComponentManager (SparqlManager):
         sparql_results = self.query (query)
         results = []
         for result in sparql_results["results"]["bindings"]:
-                comp = Component (
-                                client          = self.client,
-                                identifier      = result["rc"]["value"], 
-                                participantId   = result["pid"]["value"],
-                                sessionId       = result["sessionid"]["value"],
-                                prototype       = result["prototype"]["value"],
-                                audiorating     = result["audiorating"]["value"],
-                                videorating     = result["videorating"]["value"],
-                                comment         = result["comment"]["value"],
-                                name            = result["name"]["value"],
-                                componentId         = result["shortname"]["value"],
-                                site            = site_id,
-                                )
-                comp.details()
-                results.append(comp)
+
+            for field in ['audiorating', 'videorating', 'comment']:
+                if field not in result:
+                    result[field] = {'value': ''}
+
+            comp = Component (
+                            client          = self.client,
+                            identifier      = result["rc"]["value"],
+                            participantId   = result["pid"]["value"],
+                            sessionId       = result["sessionid"]["value"],
+                            prototype       = result["prototype"]["value"],
+                            audiorating     = result["audiorating"]["value"],
+                            videorating     = result["videorating"]["value"],
+                            comment         = result["comment"]["value"],
+                            name            = result["name"]["value"],
+                            componentId         = result["shortname"]["value"],
+                            site            = site_id,
+                            )
+            comp.details()
+            results.append(comp)
         return results
 
 
@@ -145,11 +152,10 @@ class Component (SparqlModel):
                 ?session austalk:id ?sessionid .
                 
                 ?component austalk:name ?name . 
-                OPTIONAL { 
-                    ?rc austalk:audiorating ?arating .
-                    ?rc austalk:videorating ?vrating .
-                    ?rc austalk:comment ?comment .
-                }
+\
+                optional { ?rc austalk:audiorating ?arating .}
+                optional { ?rc austalk:videorating ?vrating .}
+                optional { ?rc austalk:comment ?comment .}
         }""" % (self.identifier, ))
         
         # we expect one binding
