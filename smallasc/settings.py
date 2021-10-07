@@ -287,28 +287,25 @@ FLATPAGES_MEDIA_URL = os.path.join(STATIC_URL, 'flatpages_tinymce')
 SITE_ID = 1
 
 #Grab OAuth and Config from Env Variables if exists
-try:
-    import pyalveo
-    
-    COLLECTION = "austalk"
-    API_URL = os.environ['APP_URL']
-    OAUTH_CLIENT_ID = os.environ['CLIENT_ID']
-    OAUTH_CLIENT_SECRET = os.environ['CLIENT_SECRET']
-    OAUTH_REDIRECT_URL = os.environ['REDIRECT_URL']
-    
-    #So now we need to init a special client for participants when they login
-    #This is dodgy af and may allow unauthorised data access. This is only meant 
-    #to be temporary until the participant portal has been updated to only display
-    #hidden but publicly available details. As it would be public, this client wouldn't
-    #be needed.
-    
-    #An account has been created in the Alveo app for this purpose.
-    #name: Participant Portal
-    PP_API_KEY = os.environ['PP_API_KEY']
-    
-    PPCLIENT = pyalveo.Client(api_url=API_URL,api_key=PP_API_KEY,verifySSL=False).to_json()
-except:
-    pass
+import pyalveo
+
+COLLECTION = "austalk"
+API_URL = os.environ['APP_URL']
+OAUTH_CLIENT_ID = os.environ['CLIENT_ID']
+OAUTH_CLIENT_SECRET = os.environ['CLIENT_SECRET']
+OAUTH_REDIRECT_URL = os.environ['REDIRECT_URL']
+
+#So now we need to init a special client for participants when they login
+#This is dodgy af and may allow unauthorised data access. This is only meant 
+#to be temporary until the participant portal has been updated to only display
+#hidden but publicly available details. As it would be public, this client wouldn't
+#be needed.
+
+#An account has been created in the Alveo app for this purpose.
+#name: Participant Portal
+PP_API_KEY = os.environ['PP_API_KEY']
+
+PPCLIENT = pyalveo.Client(api_url=API_URL,api_key=PP_API_KEY,verifySSL=False).to_json()
 
 # load local settings
 # put customized stuff here
